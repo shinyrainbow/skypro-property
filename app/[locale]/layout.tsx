@@ -1,0 +1,166 @@
+import type { Metadata, Viewport } from "next";
+import { Kanit } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
+import "../globals.css";
+import AuthSessionProvider from "@/components/providers/session-provider";
+import { OrganizationJsonLd } from "@/components/seo/json-ld";
+import { Toaster } from "@/components/ui/toaster";
+import { ConfirmDialogProvider } from "@/components/ui/confirm-dialog";
+import { locales, type Locale } from "@/i18n/config";
+import MobileNav from "@/components/layout/mobile-nav";
+import FloatingLine from "@/components/layout/floating-line";
+
+const kanit = Kanit({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin", "thai"],
+  variable: "--font-kanit",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#c6af6c",
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://primeestate.co.th"),
+  title: {
+    default: "Budget Wise Property - Premium Real Estate Bangkok",
+    template: "%s | Budget Wise Property",
+  },
+  description:
+    "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok. Professional real estate consulting services.",
+  keywords: [
+    "real estate",
+    "condo",
+    "single house",
+    "townhouse",
+    "condo for rent",
+    "buy condo",
+    "Bangkok condo",
+    "house for rent",
+    "house for sale",
+    "Budget Wise Property",
+    "real estate Bangkok",
+    "Sukhumvit",
+    "Thonglor",
+    "Ekkamai",
+    "Sathorn",
+    "Silom",
+  ],
+  authors: [{ name: "Budget Wise Property" }],
+  creator: "Budget Wise Property",
+  publisher: "Budget Wise Property",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "th_TH",
+    url: "https://primeestate.co.th",
+    siteName: "Budget Wise Property",
+    title: "Budget Wise Property - Premium Real Estate Bangkok",
+    description:
+      "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Budget Wise Property - Premium Real Estate Bangkok",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Budget Wise Property - Premium Real Estate Bangkok",
+    description:
+      "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "google-site-verification-code",
+  },
+  alternates: {
+    canonical: "https://primeestate.co.th",
+    languages: {
+      "th-TH": "https://primeestate.co.th",
+      "en-US": "https://primeestate.co.th/en",
+      "zh-CN": "https://primeestate.co.th/zh",
+      "ja-JP": "https://primeestate.co.th/ja",
+    },
+  },
+  category: "real estate",
+};
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+interface LocaleLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: LocaleLayoutProps) {
+  const { locale } = await params;
+
+  // Validate that the incoming locale is valid
+  if (!locales.includes(locale as Locale)) {
+    notFound();
+  }
+
+  // Enable static rendering
+  setRequestLocale(locale);
+
+  // Get messages for the current locale
+  const messages = await getMessages();
+
+  return (
+    <html lang={locale}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
+      <body className={`${kanit.variable} font-sans antialiased`}>
+        <OrganizationJsonLd />
+        <NextIntlClientProvider messages={messages}>
+          <AuthSessionProvider>
+            <ConfirmDialogProvider>
+              {children}
+              <MobileNav />
+              <FloatingLine />
+            </ConfirmDialogProvider>
+          </AuthSessionProvider>
+        </NextIntlClientProvider>
+        <Toaster />
+      </body>
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
+    </html>
+  );
+}
