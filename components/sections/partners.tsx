@@ -68,7 +68,7 @@ export default function PartnersSection() {
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
             พันธมิตรของเรา
           </h2>
-          <div className="w-16 h-1 bg-[#c6af6c] mx-auto mb-3"></div>
+          <div className="w-16 h-1 bg-[#C9A227] mx-auto mb-3"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
             ร่วมมือกับผู้พัฒนาอสังหาริมทรัพย์ชั้นนำของประเทศไทย
           </p>
@@ -87,7 +87,7 @@ export default function PartnersSection() {
                   key={index}
                   className="flex-shrink-0 mx-8 flex items-center justify-center"
                 >
-                  <div className="bg-gray-50 hover:bg-[#c6af6c]/5 border border-gray-100 hover:border-[#c6af6c]/30 rounded-xl px-8 py-4 transition-all duration-300 min-w-[160px]">
+                  <div className="bg-gray-50 hover:bg-[#C9A227]/5 border border-gray-100 hover:border-[#C9A227]/30 rounded-xl px-8 py-4 transition-all duration-300 min-w-[160px]">
                     <div className="text-lg font-bold text-gray-700">{partner.name}</div>
                     <div className="text-xs text-gray-400">{partner.type}</div>
                   </div>
@@ -107,15 +107,15 @@ export default function PartnersSection() {
             return (
               <div
                 key={feature.title}
-                className={`text-center p-4 md:p-6 rounded-2xl bg-gray-50 hover:bg-[#c6af6c]/5 border border-transparent hover:border-[#c6af6c]/20 transition-all duration-500 ${
+                className={`text-center p-4 md:p-6 rounded-2xl bg-gray-50 hover:bg-[#C9A227]/5 border border-transparent hover:border-[#C9A227]/20 transition-all duration-500 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
                 }`}
                 style={{ transitionDelay: `${300 + index * 100}ms` }}
               >
-                <div className="w-12 h-12 bg-[#c6af6c]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Icon className="w-6 h-6 text-[#c6af6c]" />
+                <div className="w-12 h-12 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Icon className="w-6 h-6 text-[#C9A227]" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-1">{feature.title}</h3>
                 <p className="text-sm text-gray-500">{feature.description}</p>

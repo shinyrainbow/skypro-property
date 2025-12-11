@@ -24,14 +24,14 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#c6af6c",
+  themeColor: "#0D1B2A",
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://primeestate.co.th"),
+  metadataBase: new URL("https://skyproproperties.com"),
   title: {
-    default: "Budget Wise Property - Premium Real Estate Bangkok",
-    template: "%s | Budget Wise Property",
+    default: "Sky Pro Properties - Premium Real Estate Bangkok",
+    template: "%s | Sky Pro Properties",
   },
   description:
     "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok. Professional real estate consulting services.",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     "Bangkok condo",
     "house for rent",
     "house for sale",
-    "Budget Wise Property",
+    "Sky Pro Properties",
     "real estate Bangkok",
     "Sukhumvit",
     "Thonglor",
@@ -53,9 +53,9 @@ export const metadata: Metadata = {
     "Sathorn",
     "Silom",
   ],
-  authors: [{ name: "Budget Wise Property" }],
-  creator: "Budget Wise Property",
-  publisher: "Budget Wise Property",
+  authors: [{ name: "Sky Pro Properties" }],
+  creator: "Sky Pro Properties",
+  publisher: "Sky Pro Properties",
   formatDetection: {
     email: false,
     address: false,
@@ -64,9 +64,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "th_TH",
-    url: "https://primeestate.co.th",
-    siteName: "Budget Wise Property",
-    title: "Budget Wise Property - Premium Real Estate Bangkok",
+    url: "https://skyproproperties.com",
+    siteName: "Sky Pro Properties",
+    title: "Sky Pro Properties - Premium Real Estate Bangkok",
     description:
       "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok.",
     images: [
@@ -74,13 +74,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Budget Wise Property - Premium Real Estate Bangkok",
+        alt: "Sky Pro Properties - Premium Real Estate Bangkok",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Budget Wise Property - Premium Real Estate Bangkok",
+    title: "Sky Pro Properties - Premium Real Estate Bangkok",
     description:
       "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok.",
     images: ["/og-image.jpg"],
@@ -100,12 +100,12 @@ export const metadata: Metadata = {
     google: "google-site-verification-code",
   },
   alternates: {
-    canonical: "https://primeestate.co.th",
+    canonical: "https://skyproproperties.com",
     languages: {
-      "th-TH": "https://primeestate.co.th",
-      "en-US": "https://primeestate.co.th/en",
-      "zh-CN": "https://primeestate.co.th/zh",
-      "ja-JP": "https://primeestate.co.th/ja",
+      "th-TH": "https://skyproproperties.com",
+      "en-US": "https://skyproproperties.com/en",
+      "zh-CN": "https://skyproproperties.com/zh",
+      "ja-JP": "https://skyproproperties.com/ja",
     },
   },
   category: "real estate",

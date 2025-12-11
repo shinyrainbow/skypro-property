@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { FileText, Calendar, ArrowRight, Home } from "lucide-react";
+import { FileText, Calendar, ArrowRight, Home, Eye, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import Header from "@/components/layout/header";
@@ -96,124 +96,242 @@ export default function BlogPage() {
     const date = new Date(dateString);
     return date.toLocaleDateString(locale === "th" ? "th-TH" : locale === "zh" ? "zh-CN" : locale === "ja" ? "ja-JP" : "en-US", {
       year: "numeric",
-      month: "long",
+      month: "short",
       day: "numeric",
     });
   };
 
+  // Get featured blog (first one) and rest
+  const featuredBlog = blogs[0];
+  const restBlogs = blogs.slice(1);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Header />
       <div className="h-16" />
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          />
-        </div>
-
+      {/* Hero Section - Dark */}
+      <section className="relative py-16 bg-[#0d1117]">
         <div
-          className={`container mx-auto px-4 text-center relative z-10 transition-all duration-700 ${
+          className={`container mx-auto px-4 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
           }`}
         >
-          <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#c6af6c] to-[#a38444] rounded-2xl flex items-center justify-center shadow-xl">
-              <FileText className="w-10 h-10 text-white" />
-            </div>
+          <div className="max-w-3xl">
+            <p className="text-[#C9A227] text-xs uppercase tracking-widest mb-3">BLOG & NEWS</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              {t("title")}
+            </h1>
+            <p className="text-gray-400">
+              {t("subtitle")}
+            </p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-            {t("title")}
-          </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            {t("subtitle")}
-          </p>
         </div>
       </section>
 
-      {/* Blog Grid */}
-      <section className="py-16">
+      {/* Blog Content */}
+      <section className="py-12 bg-[#111928]">
         <div className="container mx-auto px-4">
           {loading ? (
             <div className="flex justify-center items-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c6af6c]"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C9A227]"></div>
             </div>
           ) : blogs.length === 0 ? (
             <div className="text-center py-20">
-              <FileText className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-              <p className="text-gray-500 text-lg">{t("noBlogs")}</p>
+              <FileText className="w-16 h-16 mx-auto text-gray-600 mb-4" />
+              <p className="text-gray-400 text-lg mb-2">{t("noBlogs")}</p>
+              <p className="text-gray-500 text-sm mb-6">Check back later for updates</p>
               <Link href="/">
-                <Button className="mt-6 bg-gradient-to-r from-[#c6af6c] to-[#a38444] hover:from-[#b39d5b] hover:to-[#8f7339] text-white">
+                <Button variant="gold">
                   <Home className="w-4 h-4 mr-2" />
                   {t("backHome")}
                 </Button>
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogs.map((blog, index) => (
-                <Link
-                  key={blog.id}
-                  href={`/blog/${blog.slug}`}
-                  className={`group block transition-all duration-500 ${
-                    isVisible
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-5"
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 bg-white border-0 h-full flex flex-col">
-                    {/* Image */}
-                    <div className="relative h-56 bg-gray-100 overflow-hidden">
-                      {blog.coverImage ? (
-                        <Image
-                          src={blog.coverImage}
-                          alt={getLocalizedTitle(blog)}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
-                          <FileText className="w-16 h-16 text-gray-300" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Featured Article */}
+                {featuredBlog && (
+                  <Link
+                    href={`/blog/${featuredBlog.slug}`}
+                    className={`group block transition-all duration-500 ${
+                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+                    }`}
+                  >
+                    <div className="relative rounded-xl overflow-hidden bg-[#1F2937] border border-white/10 hover:border-[#C9A227]/50 transition-all">
+                      {/* Featured Image */}
+                      <div className="relative h-72 md:h-96 overflow-hidden">
+                        {featuredBlog.coverImage ? (
+                          <Image
+                            src={featuredBlog.coverImage}
+                            alt={getLocalizedTitle(featuredBlog)}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center bg-[#1a2332]">
+                            <FileText className="w-20 h-20 text-gray-600" />
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
+                        {/* Featured Badge */}
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3 py-1 bg-[#C9A227] text-[#111928] text-xs font-semibold rounded-full flex items-center gap-1">
+                            <TrendingUp className="w-3 h-3" />
+                            FEATURED
+                          </span>
                         </div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    </div>
+                      </div>
 
-                    {/* Content */}
-                    <div className="p-6 flex flex-col flex-grow">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#c6af6c] transition-colors line-clamp-2">
-                        {getLocalizedTitle(blog)}
-                      </h3>
+                      {/* Content */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h2 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-[#C9A227] transition-colors line-clamp-2">
+                          {getLocalizedTitle(featuredBlog)}
+                        </h2>
 
-                      {blog.publishedAt && (
-                        <div className="flex items-center gap-1.5 text-gray-500 text-sm mb-3">
-                          <Calendar className="w-4 h-4 text-[#c6af6c]" />
-                          {t("publishedOn")} {formatDate(blog.publishedAt)}
+                        {getLocalizedExcerpt(featuredBlog) && (
+                          <p className="text-gray-300 text-sm mb-3 line-clamp-2">
+                            {getLocalizedExcerpt(featuredBlog)}
+                          </p>
+                        )}
+
+                        <div className="flex items-center gap-4 text-gray-400 text-xs">
+                          {featuredBlog.publishedAt && (
+                            <span className="flex items-center gap-1">
+                              <Calendar className="w-3 h-3" />
+                              {formatDate(featuredBlog.publishedAt)}
+                            </span>
+                          )}
+                          <span className="flex items-center gap-1 text-[#C9A227]">
+                            {t("readMore")}
+                            <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                          </span>
                         </div>
-                      )}
-
-                      {getLocalizedExcerpt(blog) && (
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">
-                          {getLocalizedExcerpt(blog)}
-                        </p>
-                      )}
-
-                      <div className="mt-auto pt-4 border-t border-gray-100">
-                        <span className="inline-flex items-center text-[#c6af6c] font-medium text-sm group-hover:text-[#a38444] transition-colors">
-                          {t("readMore")}
-                          <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                        </span>
                       </div>
                     </div>
-                  </Card>
-                </Link>
-              ))}
+                  </Link>
+                )}
+
+                {/* Rest of Articles */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {restBlogs.map((blog, index) => (
+                    <Link
+                      key={blog.id}
+                      href={`/blog/${blog.slug}`}
+                      className={`group block transition-all duration-500 ${
+                        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+                      }`}
+                      style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+                    >
+                      <div className="bg-[#1F2937] rounded-xl border border-white/10 overflow-hidden hover:border-[#C9A227]/50 transition-all h-full">
+                        {/* Image */}
+                        <div className="relative h-44 overflow-hidden">
+                          {blog.coverImage ? (
+                            <Image
+                              src={blog.coverImage}
+                              alt={getLocalizedTitle(blog)}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 flex items-center justify-center bg-[#1a2332]">
+                              <FileText className="w-12 h-12 text-gray-600" />
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-4">
+                          <h3 className="font-semibold text-white mb-2 group-hover:text-[#C9A227] transition-colors line-clamp-2 text-sm">
+                            {getLocalizedTitle(blog)}
+                          </h3>
+
+                          {blog.publishedAt && (
+                            <div className="flex items-center gap-1 text-gray-500 text-xs">
+                              <Calendar className="w-3 h-3" />
+                              {formatDate(blog.publishedAt)}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sidebar */}
+              <div className="lg:col-span-1">
+                <div className="sticky top-24 space-y-6">
+                  {/* Popular Articles */}
+                  <div className="bg-[#1F2937] rounded-xl border border-white/10 p-5">
+                    <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                      <TrendingUp className="w-4 h-4 text-[#C9A227]" />
+                      Popular Articles
+                    </h3>
+                    <div className="space-y-4">
+                      {blogs.slice(0, 5).map((blog, index) => (
+                        <Link
+                          key={blog.id}
+                          href={`/blog/${blog.slug}`}
+                          className="group flex gap-3"
+                        >
+                          <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                            {blog.coverImage ? (
+                              <Image
+                                src={blog.coverImage}
+                                alt={getLocalizedTitle(blog)}
+                                fill
+                                className="object-cover"
+                              />
+                            ) : (
+                              <div className="absolute inset-0 bg-[#1a2332] flex items-center justify-center">
+                                <FileText className="w-6 h-6 text-gray-600" />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-white text-xs font-medium line-clamp-2 group-hover:text-[#C9A227] transition-colors">
+                              {getLocalizedTitle(blog)}
+                            </h4>
+                            {blog.publishedAt && (
+                              <p className="text-gray-500 text-[10px] mt-1">
+                                {formatDate(blog.publishedAt)}
+                              </p>
+                            )}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Categories / Tags */}
+                  <div className="bg-[#1F2937] rounded-xl border border-white/10 p-5">
+                    <h3 className="text-white font-semibold mb-4">Categories</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {["Real Estate", "Market Trends", "Tips", "Investment", "News"].map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1 bg-[#111928] text-gray-400 text-xs rounded-full border border-white/10 hover:border-[#C9A227]/50 hover:text-[#C9A227] transition-colors cursor-pointer"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Newsletter CTA */}
+                  <div className="bg-gradient-to-br from-[#C9A227]/20 to-[#C9A227]/5 rounded-xl border border-[#C9A227]/30 p-5">
+                    <h3 className="text-white font-semibold mb-2">Stay Updated</h3>
+                    <p className="text-gray-400 text-xs mb-4">Get the latest real estate news and updates.</p>
+                    <Button variant="gold" size="sm" className="w-full text-xs">
+                      Subscribe Now
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>

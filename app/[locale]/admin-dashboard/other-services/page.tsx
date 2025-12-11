@@ -249,7 +249,7 @@ export default function AdminOtherServicesPage() {
         </div>
         <Button
           onClick={() => handleOpenModal()}
-          className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+          className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
         >
           <Plus className="w-4 h-4 mr-2" />
           เพิ่มบริการ
@@ -304,7 +304,7 @@ export default function AdminOtherServicesPage() {
           <p className="text-gray-500 mb-4">ยังไม่มีบริการ</p>
           <Button
             onClick={() => handleOpenModal()}
-            className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+            className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
           >
             <Plus className="w-4 h-4 mr-2" />
             เพิ่มบริการแรก
@@ -360,7 +360,7 @@ export default function AdminOtherServicesPage() {
                     href={service.linkUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-[#c6af6c] hover:text-[#b39d5b] flex items-center gap-1 mb-3"
+                    className="text-sm text-[#C9A227] hover:text-[#A88B1F] flex items-center gap-1 mb-3"
                   >
                     <ExternalLink className="w-3 h-3" />
                     ดูลิงก์
@@ -467,7 +467,7 @@ export default function AdminOtherServicesPage() {
                     setFormData({ ...formData, description: e.target.value })
                   }
                   placeholder="รายละเอียดเกี่ยวกับบริการ..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[100px] focus:outline-none focus:ring-2 focus:ring-[#c6af6c] focus:border-transparent text-gray-900"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[100px] focus:outline-none focus:ring-2 focus:ring-[#C9A227] focus:border-transparent text-gray-900"
                 />
               </div>
 
@@ -499,11 +499,11 @@ export default function AdminOtherServicesPage() {
                 ) : (
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-[#c6af6c] hover:bg-[#c6af6c]/5 transition-colors mb-2"
+                    className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-[#C9A227] hover:bg-[#C9A227]/5 transition-colors mb-2"
                   >
                     {uploading ? (
                       <div className="flex flex-col items-center">
-                        <Loader2 className="w-8 h-8 text-[#c6af6c] animate-spin mb-2" />
+                        <Loader2 className="w-8 h-8 text-[#C9A227] animate-spin mb-2" />
                         <p className="text-sm text-gray-700">กำลังอัปโหลด...</p>
                       </div>
                     ) : (
@@ -578,7 +578,7 @@ export default function AdminOtherServicesPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, isActive: e.target.checked })
                   }
-                  className="w-4 h-4 text-[#c6af6c] border-gray-300 rounded focus:ring-[#c6af6c]"
+                  className="w-4 h-4 text-[#C9A227] border-gray-300 rounded focus:ring-[#C9A227]"
                 />
                 <label htmlFor="isActive" className="text-sm text-gray-700">
                   แสดงบนหน้าเว็บ
@@ -595,7 +595,7 @@ export default function AdminOtherServicesPage() {
                 ยกเลิก
               </Button>
               <Button
-                className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                 onClick={handleSubmit}
                 disabled={updating === "form" || !formData.title}
               >

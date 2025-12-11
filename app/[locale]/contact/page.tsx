@@ -93,7 +93,7 @@ export default function ContactPage() {
       <div className="h-16" />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#c6af6c] to-[#b39d5b] py-16">
+      <section className="bg-gradient-to-r from-[#C9A227] to-[#A88B1F] py-16">
         <div
           className={`container mx-auto px-4 text-center text-white transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
@@ -136,7 +136,7 @@ export default function ContactPage() {
                     <a
                       key={i}
                       href={info.links[i]}
-                      className="block text-gray-600 text-sm hover:text-[#c6af6c] transition-colors"
+                      className="block text-gray-600 text-sm hover:text-[#C9A227] transition-colors"
                     >
                       {detail}
                     </a>
@@ -211,7 +211,7 @@ export default function ContactPage() {
                   </p>
                   <Button
                     onClick={() => setSubmitted(false)}
-                    className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                    className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                   >
                     ส่งข้อความอีกครั้ง
                   </Button>
@@ -229,7 +229,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         placeholder="กรอกชื่อ-นามสกุล"
-                        className="border-gray-300 focus:border-[#c6af6c] focus:ring-[#c6af6c]"
+                        className="border-gray-300 focus:border-[#C9A227] focus:ring-[#C9A227]"
                       />
                     </div>
                     <div>
@@ -243,7 +243,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         placeholder="08X-XXX-XXXX"
-                        className="border-gray-300 focus:border-[#c6af6c] focus:ring-[#c6af6c]"
+                        className="border-gray-300 focus:border-[#C9A227] focus:ring-[#C9A227]"
                       />
                     </div>
                   </div>
@@ -258,7 +258,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       placeholder="your@email.com"
-                      className="border-gray-300 focus:border-[#c6af6c] focus:ring-[#c6af6c]"
+                      className="border-gray-300 focus:border-[#C9A227] focus:ring-[#C9A227]"
                     />
                   </div>
                   <div>
@@ -270,7 +270,7 @@ export default function ContactPage() {
                       value={formData.subject}
                       onChange={handleChange}
                       placeholder="เรื่องที่ต้องการติดต่อ"
-                      className="border-gray-300 focus:border-[#c6af6c] focus:ring-[#c6af6c]"
+                      className="border-gray-300 focus:border-[#C9A227] focus:ring-[#C9A227]"
                     />
                   </div>
                   <div>
@@ -284,13 +284,13 @@ export default function ContactPage() {
                       required
                       rows={5}
                       placeholder="รายละเอียดที่ต้องการสอบถาม..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#c6af6c] focus:ring-1 focus:ring-[#c6af6c]"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227]"
                     />
                   </div>
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-[#c6af6c] hover:bg-[#b39d5b] text-white py-6 text-lg"
+                    className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white py-6 text-lg"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center gap-2">
@@ -325,8 +325,8 @@ export default function ContactPage() {
               <Card className="overflow-hidden border-0 shadow-lg mb-6">
                 <div className="h-64 bg-gray-200 flex items-center justify-center">
                   <div className="text-center text-gray-500">
-                    <MapPin className="w-12 h-12 mx-auto mb-2 text-[#c6af6c]" />
-                    <p className="font-medium">Budget Wise Property</p>
+                    <MapPin className="w-12 h-12 mx-auto mb-2 text-[#C9A227]" />
+                    <p className="font-medium">Sky Pro Properties</p>
                     <p className="text-sm">ฉะเชิงเทรา, ประเทศไทย</p>
                   </div>
                 </div>
@@ -434,7 +434,7 @@ export default function ContactPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-[#c6af6c] to-[#b39d5b]">
+      <section className="py-16 bg-gradient-to-r from-[#C9A227] to-[#A88B1F]">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             พร้อมเริ่มต้นหาทรัพย์สินในฝัน?
@@ -446,7 +446,7 @@ export default function ContactPage() {
             <Link href="/search">
               <Button
                 size="lg"
-                className="bg-white text-[#c6af6c] hover:bg-gray-100 px-8"
+                className="bg-white text-[#C9A227] hover:bg-gray-100 px-8"
               >
                 ค้นหาทรัพย์สิน
               </Button>
@@ -455,7 +455,7 @@ export default function ContactPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-[#c6af6c] px-8"
+                className="border-white text-white hover:bg-white hover:text-[#C9A227] px-8"
               >
                 กลับหน้าหลัก
               </Button>
@@ -468,9 +468,9 @@ export default function ContactPage() {
       <footer className="bg-gray-900 text-gray-400 py-8">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <Building2 className="w-8 h-8 text-[#c6af6c]" />
+            <Building2 className="w-8 h-8 text-[#C9A227]" />
             <span className="text-xl font-bold text-white">
-              Budget Wise Property
+              Sky Pro Properties
             </span>
           </div>
           <p className="mb-2 text-sm">

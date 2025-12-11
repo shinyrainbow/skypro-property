@@ -79,8 +79,8 @@ export function ConfirmDialogProvider({ children }: ConfirmDialogProviderProps) 
         };
       default:
         return {
-          icon: "bg-[#c6af6c]/20 text-[#c6af6c]",
-          button: "bg-[#c6af6c] hover:bg-[#b39d5b]",
+          icon: "bg-[#C9A227]/20 text-[#C9A227]",
+          button: "bg-[#C9A227] hover:bg-[#A88B1F]",
         };
     }
   };

@@ -329,12 +329,12 @@ export default function PropertyDetailsPage() {
               <p className="text-sm text-gray-500">ราคา</p>
               <div className="flex gap-4 mt-1">
                 {property.rentalRateNum > 0 && (
-                  <span className="text-lg font-bold text-[#c6af6c]">
+                  <span className="text-lg font-bold text-[#C9A227]">
                     ฿{formatPrice(property.rentalRateNum)}/เดือน
                   </span>
                 )}
                 {property.sellPriceNum > 0 && (
-                  <span className="text-lg font-bold text-[#c6af6c]">
+                  <span className="text-lg font-bold text-[#C9A227]">
                     ฿{formatPrice(property.sellPriceNum)}
                   </span>
                 )}
@@ -500,7 +500,7 @@ export default function PropertyDetailsPage() {
             </div>
 
             <Button
-              className="w-full bg-[#c6af6c] hover:bg-[#b39d5b] text-white mt-4"
+              className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white mt-4"
               onClick={handleSaveExtension}
               disabled={saving}
             >

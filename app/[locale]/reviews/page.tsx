@@ -51,7 +51,7 @@ const mockReviews: Review[] = [
     id: "rev-003",
     name: "คุณวิชัย ธนกิจ",
     rating: 5,
-    comment: "ซื้อบ้านผ่าน Budget Wise Property ทุกอย่างราบรื่น เอกสารครบถ้วน แนะนำครับ",
+    comment: "ซื้อบ้านผ่าน Sky Pro Properties ทุกอย่างราบรื่น เอกสารครบถ้วน แนะนำครับ",
     transactionType: "ซื้อ",
     location: "บางนา",
     helpful: 15,
@@ -92,7 +92,7 @@ const mockReviews: Review[] = [
 // Generate avatar background color based on name
 function getAvatarBg(name: string): string {
   const colors = [
-    "bg-[#c6af6c]",
+    "bg-[#C9A227]",
     "bg-blue-500",
     "bg-purple-500",
     "bg-emerald-500",
@@ -148,7 +148,7 @@ export default function ReviewsPage() {
       <div className="h-16" />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#c6af6c] to-[#b39d5b] py-16">
+      <section className="bg-gradient-to-r from-[#C9A227] to-[#A88B1F] py-16">
         <div
           className={`container mx-auto px-4 text-center text-white transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
@@ -159,7 +159,7 @@ export default function ReviewsPage() {
             <h1 className="text-3xl md:text-4xl font-bold">รีวิวจากลูกค้า</h1>
           </div>
           <p className="text-lg text-white/90 max-w-2xl mx-auto mb-6">
-            ความคิดเห็นจากลูกค้าที่ไว้วางใจใช้บริการ Budget Wise Property
+            ความคิดเห็นจากลูกค้าที่ไว้วางใจใช้บริการ Sky Pro Properties
           </p>
 
           {/* Rating Summary */}
@@ -189,7 +189,7 @@ export default function ReviewsPage() {
             <Link href="/reviews/new">
               <Button
                 size="lg"
-                className="bg-white text-[#c6af6c] hover:bg-white/90 font-bold"
+                className="bg-white text-[#C9A227] hover:bg-white/90 font-bold"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 เพิ่มรีวิว
@@ -215,10 +215,10 @@ export default function ReviewsPage() {
                 ยังไม่มีรีวิว
               </h3>
               <p className="text-gray-600 mb-6">
-                เป็นคนแรกที่แบ่งปันประสบการณ์การใช้บริการ Budget Wise Property
+                เป็นคนแรกที่แบ่งปันประสบการณ์การใช้บริการ Sky Pro Properties
               </p>
               {/* <Link href="/reviews/new">
-                <Button className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white">
+                <Button className="bg-[#C9A227] hover:bg-[#A88B1F] text-white">
                   <Plus className="w-4 h-4 mr-2" />
                   เพิ่มรีวิว
                 </Button>
@@ -256,7 +256,7 @@ export default function ReviewsPage() {
                   </div>
 
                   {/* Quote */}
-                  <Quote className="w-8 h-8 text-[#c6af6c] mb-3" />
+                  <Quote className="w-8 h-8 text-[#C9A227] mb-3" />
 
                   {/* Comment */}
                   <p className="text-gray-600 mb-4 leading-relaxed">
@@ -264,8 +264,8 @@ export default function ReviewsPage() {
                   </p>
 
                   {/* Transaction Info */}
-                  <div className="flex items-center gap-2 text-xs text-[#c6af6c] mb-4">
-                    <span className="bg-[#c6af6c]/10 px-2 py-1 rounded-full">
+                  <div className="flex items-center gap-2 text-xs text-[#C9A227] mb-4">
+                    <span className="bg-[#C9A227]/10 px-2 py-1 rounded-full">
                       {review.transactionType}
                     </span>
                     <span className="bg-gray-100 px-2 py-1 rounded-full text-gray-600">
@@ -288,7 +288,7 @@ export default function ReviewsPage() {
                           {review.name}
                         </p>
                         <p className="text-xs text-gray-500">
-                          ลูกค้า Budget Wise Property
+                          ลูกค้า Sky Pro Properties
                         </p>
                       </div>
                     </div>
@@ -317,7 +317,7 @@ export default function ReviewsPage() {
             <Link href="/#contact">
               <Button
                 size="lg"
-                className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white px-8"
+                className="bg-[#C9A227] hover:bg-[#A88B1F] text-white px-8"
               >
                 ติดต่อเรา
               </Button>
@@ -326,7 +326,7 @@ export default function ReviewsPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white px-8"
+                className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white px-8"
               >
                 กลับหน้าหลัก
               </Button>

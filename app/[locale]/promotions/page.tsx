@@ -108,7 +108,7 @@ export default function PromotionsPage() {
       <div className="h-16" />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#c6af6c] to-[#b39d5b] py-16">
+      <section className="bg-gradient-to-r from-[#C9A227] to-[#A88B1F] py-16">
         <div
           className={`container mx-auto px-4 text-center text-white transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
@@ -119,7 +119,7 @@ export default function PromotionsPage() {
             <h1 className="text-3xl md:text-4xl font-bold">ทรัพย์โปรโมชันพิเศษ</h1>
           </div>
           <p className="text-lg text-white/90 max-w-2xl mx-auto">
-            รวมข้อเสนอสุดพิเศษจาก Budget Wise Property เพื่อคุณโดยเฉพาะ
+            รวมข้อเสนอสุดพิเศษจาก Sky Pro Properties เพื่อคุณโดยเฉพาะ
           </p>
         </div>
       </section>
@@ -129,7 +129,7 @@ export default function PromotionsPage() {
           <div className="container mx-auto px-4">
             {/* <div className="text-center mb-10">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <Home className="w-8 h-8 text-[#c6af6c]" />
+                <Home className="w-8 h-8 text-[#C9A227]" />
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
                   ทรัพย์โปรโมชันพิเศษ
                 </h2>
@@ -181,7 +181,7 @@ export default function PromotionsPage() {
 
                         {/* Property Type Badge */}
                         <div className="absolute top-3 left-3">
-                          <span className="bg-[#c6af6c] text-white px-2 py-1 rounded-full text-xs font-semibold">
+                          <span className="bg-[#C9A227] text-white px-2 py-1 rounded-full text-xs font-semibold">
                             {getPropertyTypeLabel(property.propertyType)}
                           </span>
                         </div>
@@ -233,7 +233,7 @@ export default function PromotionsPage() {
                           {property.rentalRateNum > 0 && (
                             <p className="text-sm">
                               <span className="text-gray-500">เช่า:</span>{" "}
-                              <span className="font-bold text-[#c6af6c]">
+                              <span className="font-bold text-[#C9A227]">
                                 ฿{formatPrice(property.rentalRateNum)}
                               </span>
                               <span className="text-gray-400">/เดือน</span>
@@ -242,7 +242,7 @@ export default function PromotionsPage() {
                           {property.sellPriceNum > 0 && (
                             <p className="text-sm">
                               <span className="text-gray-500">ขาย:</span>{" "}
-                              <span className="font-bold text-[#c6af6c]">
+                              <span className="font-bold text-[#C9A227]">
                                 ฿{formatPrice(property.sellPriceNum)}
                               </span>
                             </p>
@@ -277,7 +277,7 @@ export default function PromotionsPage() {
             <Link href="/#contact">
               <Button
                 size="lg"
-                className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white px-8"
+                className="bg-[#C9A227] hover:bg-[#A88B1F] text-white px-8"
               >
                 ติดต่อเรา
               </Button>
@@ -286,7 +286,7 @@ export default function PromotionsPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white px-8"
+                className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white px-8"
               >
                 กลับหน้าหลัก
               </Button>
@@ -299,9 +299,9 @@ export default function PromotionsPage() {
       <footer className="bg-gray-900 text-gray-400 py-8">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <Building2 className="w-8 h-8 text-[#c6af6c]" />
+            <Building2 className="w-8 h-8 text-[#C9A227]" />
             <span className="text-xl font-bold text-white">
-              Budget Wise Property
+              Sky Pro Properties
             </span>
           </div>
           <p className="mb-2 text-sm">

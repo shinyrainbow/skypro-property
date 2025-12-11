@@ -181,7 +181,7 @@ export default function PropertiesPage() {
       <Header />
 
       {/* Page Header */}
-      <div className="pt-20 bg-gradient-to-b from-[#c6af6c]/10 to-transparent">
+      <div className="pt-20 bg-gradient-to-b from-[#C9A227]/10 to-transparent">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             ค้นหาอสังหาริมทรัพย์
@@ -203,7 +203,7 @@ export default function PropertiesPage() {
                 {activeFiltersCount > 0 && (
                   <button
                     onClick={handleResetFilters}
-                    className="text-sm text-[#c6af6c] hover:underline"
+                    className="text-sm text-[#C9A227] hover:underline"
                   >
                     รีเซ็ตทั้งหมด
                   </button>
@@ -288,7 +288,7 @@ export default function PropertiesPage() {
 
                 <Button
                   onClick={() => setPage(1)}
-                  className="w-full bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                  className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                 >
                   <Search className="w-4 h-4 mr-2" />
                   ค้นหา
@@ -308,7 +308,7 @@ export default function PropertiesPage() {
                 <SlidersHorizontal className="w-4 h-4" />
                 <span>ตัวกรอง</span>
                 {activeFiltersCount > 0 && (
-                  <span className="bg-[#c6af6c] text-white text-xs px-2 py-0.5 rounded-full">
+                  <span className="bg-[#C9A227] text-white text-xs px-2 py-0.5 rounded-full">
                     {activeFiltersCount}
                   </span>
                 )}
@@ -323,7 +323,7 @@ export default function PropertiesPage() {
                     onClick={() => setViewMode("grid")}
                     className={`p-2 ${
                       viewMode === "grid"
-                        ? "bg-[#c6af6c] text-white"
+                        ? "bg-[#C9A227] text-white"
                         : "text-gray-600 hover:bg-gray-50"
                     }`}
                   >
@@ -333,7 +333,7 @@ export default function PropertiesPage() {
                     onClick={() => setViewMode("list")}
                     className={`p-2 ${
                       viewMode === "list"
-                        ? "bg-[#c6af6c] text-white"
+                        ? "bg-[#C9A227] text-white"
                         : "text-gray-600 hover:bg-gray-50"
                     }`}
                   >
@@ -372,7 +372,7 @@ export default function PropertiesPage() {
                 <Button
                   variant="outline"
                   onClick={handleResetFilters}
-                  className="border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white"
+                  className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
                 >
                   รีเซ็ตตัวกรอง
                 </Button>
@@ -409,7 +409,7 @@ export default function PropertiesPage() {
                             {/* Badges */}
                             <div className="absolute top-3 left-3 flex gap-2">
                               {property.featured && (
-                                <span className="bg-[#c6af6c] text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                                <span className="bg-[#C9A227] text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                                   <Star className="w-3 h-3 fill-white" />
                                   แนะนำ
                                 </span>
@@ -457,22 +457,22 @@ export default function PropertiesPage() {
                               </div>
                             )}
 
-                            <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#c6af6c] transition-colors">
+                            <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#C9A227] transition-colors">
                               {property.propertyTitleTh ||
                                 property.propertyTitleEn}
                             </h3>
 
                             <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
                               <div className="flex items-center gap-1">
-                                <Bed className="w-4 h-4 text-[#c6af6c]" />
+                                <Bed className="w-4 h-4 text-[#C9A227]" />
                                 <span>{property.bedRoomNum}</span>
                               </div>
                               <div className="flex items-center gap-1">
-                                <Bath className="w-4 h-4 text-[#c6af6c]" />
+                                <Bath className="w-4 h-4 text-[#C9A227]" />
                                 <span>{property.bathRoomNum}</span>
                               </div>
                               <div className="flex items-center gap-1">
-                                <Maximize className="w-4 h-4 text-[#c6af6c]" />
+                                <Maximize className="w-4 h-4 text-[#C9A227]" />
                                 <span>{getSize(property)} ตร.ม.</span>
                               </div>
                             </div>
@@ -480,7 +480,7 @@ export default function PropertiesPage() {
                             <div className="pt-3 border-t border-gray-100">
                               {property.rentalRateNum &&
                                 property.rentalRateNum > 0 && (
-                                  <div className="text-lg font-bold text-[#c6af6c]">
+                                  <div className="text-lg font-bold text-[#C9A227]">
                                     ฿ {formatPrice(property.rentalRateNum)}
                                     <span className="text-xs font-normal text-gray-500">
                                       /เดือน
@@ -490,7 +490,7 @@ export default function PropertiesPage() {
                               {property.sellPriceNum &&
                                 property.sellPriceNum > 0 &&
                                 !property.rentalRateNum && (
-                                  <div className="text-lg font-bold text-[#c6af6c]">
+                                  <div className="text-lg font-bold text-[#C9A227]">
                                     ฿ {formatPrice(property.sellPriceNum)}
                                   </div>
                                 )}
@@ -535,7 +535,7 @@ export default function PropertiesPage() {
                               {/* Badges */}
                               <div className="absolute top-3 left-3 flex gap-2">
                                 {property.featured && (
-                                  <span className="bg-[#c6af6c] text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                                  <span className="bg-[#C9A227] text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                                     <Star className="w-3 h-3 fill-white" />
                                     แนะนำ
                                   </span>
@@ -575,7 +575,7 @@ export default function PropertiesPage() {
                                 </span>
                               </div>
 
-                              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#c6af6c] transition-colors">
+                              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#C9A227] transition-colors">
                                 {property.propertyTitleTh ||
                                   property.propertyTitleEn}
                               </h3>
@@ -590,15 +590,15 @@ export default function PropertiesPage() {
 
                               <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
                                 <div className="flex items-center gap-1">
-                                  <Bed className="w-4 h-4 text-[#c6af6c]" />
+                                  <Bed className="w-4 h-4 text-[#C9A227]" />
                                   <span>{property.bedRoomNum} ห้องนอน</span>
                                 </div>
                                 <div className="flex items-center gap-1">
-                                  <Bath className="w-4 h-4 text-[#c6af6c]" />
+                                  <Bath className="w-4 h-4 text-[#C9A227]" />
                                   <span>{property.bathRoomNum} ห้องน้ำ</span>
                                 </div>
                                 <div className="flex items-center gap-1">
-                                  <Maximize className="w-4 h-4 text-[#c6af6c]" />
+                                  <Maximize className="w-4 h-4 text-[#C9A227]" />
                                   <span>{getSize(property)} ตร.ม.</span>
                                 </div>
                               </div>
@@ -607,7 +607,7 @@ export default function PropertiesPage() {
                                 <div>
                                   {property.rentalRateNum &&
                                     property.rentalRateNum > 0 && (
-                                      <div className="text-xl font-bold text-[#c6af6c]">
+                                      <div className="text-xl font-bold text-[#C9A227]">
                                         ฿ {formatPrice(property.rentalRateNum)}
                                         <span className="text-sm font-normal text-gray-500">
                                           /เดือน
@@ -617,14 +617,14 @@ export default function PropertiesPage() {
                                   {property.sellPriceNum &&
                                     property.sellPriceNum > 0 &&
                                     !property.rentalRateNum && (
-                                      <div className="text-xl font-bold text-[#c6af6c]">
+                                      <div className="text-xl font-bold text-[#C9A227]">
                                         ฿ {formatPrice(property.sellPriceNum)}
                                       </div>
                                     )}
                                 </div>
                                 <Button
                                   size="sm"
-                                  className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                                  className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                                 >
                                   ดูรายละเอียด
                                 </Button>
@@ -662,7 +662,7 @@ export default function PropertiesPage() {
                               onClick={() => setPage(pageNum)}
                               className={
                                 page === pageNum
-                                  ? "bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                                  ? "bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                                   : "border-gray-200"
                               }
                             >
@@ -795,7 +795,7 @@ export default function PropertiesPage() {
                     setPage(1);
                     setShowFilters(false);
                   }}
-                  className="flex-1 bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                  className="flex-1 bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                 >
                   ค้นหา
                 </Button>
@@ -809,16 +809,16 @@ export default function PropertiesPage() {
       <footer className="bg-gray-900 text-gray-400 py-8">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <Building2 className="w-8 h-8 text-[#c6af6c]" />
+            <Building2 className="w-8 h-8 text-[#C9A227]" />
             <span className="text-xl font-bold text-white">
-              Budget Wise Property
+              Sky Pro Properties
             </span>
           </div>
           <p className="mb-2 text-sm">
             Premium Real Estate Solutions | Chachoengsao, Thailand
           </p>
           <p className="text-xs">
-            © 2025 Budget Wise Property. All rights reserved.
+            © 2025 Sky Pro Properties. All rights reserved.
           </p>
         </div>
       </footer>

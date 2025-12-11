@@ -33,7 +33,7 @@ function SignInForm() {
     return (
       <Card className="p-8 shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
         <div className="flex flex-col items-center justify-center py-8">
-          <div className="w-8 h-8 border-4 border-[#c6af6c] border-t-transparent rounded-full animate-spin mb-4" />
+          <div className="w-8 h-8 border-4 border-[#C9A227] border-t-transparent rounded-full animate-spin mb-4" />
           <p className="text-gray-600 text-sm">กำลังตรวจสอบ...</p>
         </div>
       </Card>
@@ -120,7 +120,7 @@ function SignInForm() {
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
-                className="w-4 h-4 text-[#c6af6c] border-gray-300 rounded focus:ring-[#c6af6c]"
+                className="w-4 h-4 text-[#C9A227] border-gray-300 rounded focus:ring-[#C9A227]"
               />
               <span className="text-gray-700">จดจำฉัน</span>
             </label>
@@ -129,7 +129,7 @@ function SignInForm() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full h-12 bg-[#c6af6c] hover:bg-[#b39d5b] text-white font-semibold text-base transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full h-12 bg-[#C9A227] hover:bg-[#A88B1F] text-white font-semibold text-base transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
           </Button>
@@ -173,9 +173,9 @@ export default function AdminSignInPage() {
         {/* Logo and Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3 mb-4">
-            <Building2 className="w-12 h-12 text-[#c6af6c]" />
+            <Building2 className="w-12 h-12 text-[#C9A227]" />
             <span className="text-3xl font-bold text-gray-900">
-              Budget Wise Property
+              Sky Pro Properties
             </span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -194,7 +194,7 @@ export default function AdminSignInPage() {
         <div className="mt-6 text-center">
           <Link
             href="/"
-            className="text-sm text-gray-600 hover:text-[#c6af6c] transition-colors duration-300"
+            className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors duration-300"
           >
             ← กลับสู่หน้าหลัก
           </Link>

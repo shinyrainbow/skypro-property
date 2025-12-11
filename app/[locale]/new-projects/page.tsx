@@ -169,7 +169,7 @@ export default function NewProjectsPage() {
           }`}
         >
           <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#c6af6c] to-[#a38444] rounded-2xl flex items-center justify-center shadow-xl">
+            <div className="w-20 h-20 bg-gradient-to-br from-[#C9A227] to-[#A88B1F] rounded-2xl flex items-center justify-center shadow-xl">
               <Building2 className="w-10 h-10 text-white" />
             </div>
           </div>
@@ -211,7 +211,7 @@ export default function NewProjectsPage() {
 
                   {/* New Badge */}
                   {project.isNew && (
-                    <div className="absolute top-4 left-4 bg-gradient-to-r from-[#c6af6c] to-[#a38444] text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                    <div className="absolute top-4 left-4 bg-gradient-to-r from-[#C9A227] to-[#A88B1F] text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg">
                       <Sparkles className="w-3.5 h-3.5" />
                       NEW
                     </div>
@@ -220,7 +220,7 @@ export default function NewProjectsPage() {
                   {/* Price Badge */}
                   <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-lg">
                     <p className="text-xs text-gray-500">{t("startingFrom")}</p>
-                    <p className="text-lg font-bold text-[#a38444]">{formatPrice(project.startingPrice)}</p>
+                    <p className="text-lg font-bold text-[#A88B1F]">{formatPrice(project.startingPrice)}</p>
                   </div>
 
                   {/* Property Types */}
@@ -236,12 +236,12 @@ export default function NewProjectsPage() {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-[#c6af6c] transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-[#C9A227] transition-colors">
                     {project.name}
                   </h3>
 
                   <div className="flex items-center gap-1.5 text-gray-500 text-sm mb-4">
-                    <MapPin className="w-4 h-4 text-[#c6af6c]" />
+                    <MapPin className="w-4 h-4 text-[#C9A227]" />
                     {project.location}
                   </div>
 
@@ -272,7 +272,7 @@ export default function NewProjectsPage() {
                   </div>
 
                   {/* Action Button */}
-                  <Button className="w-full bg-gradient-to-r from-[#c6af6c] to-[#a38444] hover:from-[#b39d5b] hover:to-[#8f7339] text-white group/btn">
+                  <Button className="w-full bg-gradient-to-r from-[#C9A227] to-[#A88B1F] hover:from-[#A88B1F] hover:to-[#8f7339] text-white group/btn">
                     {t("viewDetails")}
                     <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
@@ -287,8 +287,8 @@ export default function NewProjectsPage() {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
         {/* Background decoration */}
-        <div className="absolute top-0 left-0 w-72 h-72 bg-[#c6af6c]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#c6af6c]/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-0 w-72 h-72 bg-[#C9A227]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A227]/5 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
@@ -300,7 +300,7 @@ export default function NewProjectsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/#contact">
-                <Button className="bg-gradient-to-r from-[#c6af6c] to-[#a38444] hover:from-[#b39d5b] hover:to-[#8f7339] text-white px-8 py-6 text-lg shadow-xl">
+                <Button className="bg-gradient-to-r from-[#C9A227] to-[#A88B1F] hover:from-[#A88B1F] hover:to-[#8f7339] text-white px-8 py-6 text-lg shadow-xl">
                   {t("contactUs")}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>

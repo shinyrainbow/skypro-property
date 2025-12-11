@@ -60,7 +60,7 @@ export default function FloatingLine() {
               สแกน QR Code เพื่อเพิ่มเพื่อนทาง Line
             </p>
             <p className="text-center text-xs text-gray-400 mt-2">
-              หรือค้นหา ID: @budgetwiseproperty
+              หรือค้นหา ID: @skyproproperties
             </p>
           </div>
         </div>

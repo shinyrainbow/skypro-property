@@ -157,13 +157,13 @@ function SignInForm() {
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
-                className="w-4 h-4 text-[#c6af6c] border-gray-300 rounded focus:ring-[#c6af6c]"
+                className="w-4 h-4 text-[#C9A227] border-gray-300 rounded focus:ring-[#C9A227]"
               />
               <span className="text-gray-700">จดจำฉัน</span>
             </label>
             <Link
               href="/auth/forgot-password"
-              className="text-[#c6af6c] hover:text-[#b39d5b] font-medium"
+              className="text-[#C9A227] hover:text-[#A88B1F] font-medium"
             >
               ลืมรหัสผ่าน?
             </Link>
@@ -172,7 +172,7 @@ function SignInForm() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full h-12 bg-[#c6af6c] hover:bg-[#b39d5b] text-white font-semibold text-base transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full h-12 bg-[#C9A227] hover:bg-[#A88B1F] text-white font-semibold text-base transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
           </Button>
@@ -195,7 +195,7 @@ function SignInForm() {
           ยังไม่มีบัญชี?{" "}
           <Link
             href="/auth/signup"
-            className="text-[#c6af6c] hover:text-[#b39d5b] font-semibold"
+            className="text-[#C9A227] hover:text-[#A88B1F] font-semibold"
           >
             สมัครสมาชิก
           </Link>
@@ -231,9 +231,9 @@ export default function SignInPage() {
         {/* Logo and Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3 mb-4">
-            <Building2 className="w-12 h-12 text-[#c6af6c]" />
+            <Building2 className="w-12 h-12 text-[#C9A227]" />
             <span className="text-3xl font-bold text-gray-900">
-              Budget Wise Property
+              Sky Pro Properties
             </span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -252,7 +252,7 @@ export default function SignInPage() {
         <div className="mt-6 text-center">
           <Link
             href="/"
-            className="text-sm text-gray-600 hover:text-[#c6af6c] transition-colors duration-300"
+            className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors duration-300"
           >
             ← กลับสู่หน้าหลัก
           </Link>

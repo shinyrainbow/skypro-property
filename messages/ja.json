@@ -101,7 +101,7 @@
   },
   "footer": {
     "tagline": "プレミアム不動産ソリューション | タイ・チャチュンサオ",
-    "copyright": "© 2025 Budget Wise Property Co., Ltd. All rights reserved."
+    "copyright": "© 2025 Sky Pro Properties Co., Ltd. All rights reserved."
   },
   "review": {
     "rentedAt": "賃借地",
@@ -141,7 +141,7 @@
   },
   "listProperty": {
     "title": "物件を掲載する",
-    "subtitle": "Budget Wise Propertyに物件をお任せください。買い手や借り手をお探しします。",
+    "subtitle": "Sky Pro Propertiesに物件をお任せください。買い手や借り手をお探しします。",
     "formTitle": "物件情報を入力してください",
     "contactInfo": "連絡先情報",
     "fullName": "氏名",
@@ -172,12 +172,12 @@
     "submitButton": "物件情報を送信",
     "requiredFields": "必須項目を入力してください",
     "successTitle": "送信完了！",
-    "successMessage": "Budget Wise Propertyをご利用いただきありがとうございます",
+    "successMessage": "Sky Pro Propertiesをご利用いただきありがとうございます",
     "successSubMessage": "できるだけ早くご連絡いたします",
     "toastSuccess": "送信完了！折り返しご連絡いたします。",
     "submitNew": "新規送信",
     "backHome": "ホームに戻る",
-    "whyTitle": "Budget Wise Propertyが選ばれる理由",
+    "whyTitle": "Sky Pro Propertiesが選ばれる理由",
     "benefit1Title": "プロフェッショナルチーム",
     "benefit1Desc": "経験豊富なチームがサポートいたします",
     "benefit2Title": "幅広いカバレッジ",

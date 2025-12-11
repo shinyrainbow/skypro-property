@@ -34,7 +34,7 @@ function AuthErrorContent() {
 
       <div className="space-y-3">
         <Link href="/admin">
-          <Button className="w-full bg-[#c6af6c] hover:bg-[#b39d5b] text-white">
+          <Button className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white">
             กลับไปหน้าเข้าสู่ระบบ
           </Button>
         </Link>
@@ -59,9 +59,9 @@ export default function AuthErrorPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3 mb-4">
-            <Building2 className="w-12 h-12 text-[#c6af6c]" />
+            <Building2 className="w-12 h-12 text-[#C9A227]" />
             <span className="text-3xl font-bold text-gray-900">
-              Budget Wise Property
+              Sky Pro Properties
             </span>
           </Link>
         </div>

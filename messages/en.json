@@ -102,7 +102,7 @@
   },
   "footer": {
     "tagline": "Premium Real Estate Solutions | Chachoengsao, Thailand",
-    "copyright": "© 2025 Budget Wise Property Co., Ltd. All rights reserved."
+    "copyright": "© 2025 Sky Pro Properties Co., Ltd. All rights reserved."
   },
   "review": {
     "rentedAt": "Rented at",
@@ -142,7 +142,7 @@
   },
   "listProperty": {
     "title": "List Your Property",
-    "subtitle": "List your property with Budget Wise Property. We'll help you find buyers or tenants.",
+    "subtitle": "List your property with Sky Pro Properties. We'll help you find buyers or tenants.",
     "formTitle": "Fill in your property details",
     "contactInfo": "Contact Information",
     "fullName": "Full Name",
@@ -173,12 +173,12 @@
     "submitButton": "Submit Listing",
     "requiredFields": "Please fill in required fields",
     "successTitle": "Submitted Successfully!",
-    "successMessage": "Thank you for using Budget Wise Property",
+    "successMessage": "Thank you for using Sky Pro Properties",
     "successSubMessage": "Our team will contact you as soon as possible",
     "toastSuccess": "Submitted successfully! We will contact you soon.",
     "submitNew": "Submit New",
     "backHome": "Back to Home",
-    "whyTitle": "Why List with Budget Wise Property?",
+    "whyTitle": "Why List with Sky Pro Properties?",
     "benefit1Title": "Professional Team",
     "benefit1Desc": "We have an experienced team ready to help you",
     "benefit2Title": "Full Coverage",

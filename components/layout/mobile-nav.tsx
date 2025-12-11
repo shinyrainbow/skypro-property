@@ -41,7 +41,7 @@ export default function MobileNav() {
                 <button
                   key={item.label}
                   onClick={handleContactClick}
-                  className="flex flex-col items-center justify-center flex-1 h-full transition-colors text-gray-500 hover:text-[#c6af6c]"
+                  className="flex flex-col items-center justify-center flex-1 h-full transition-colors text-gray-500 hover:text-[#C9A227]"
                 >
                   <Icon className="w-5 h-5 mb-1" />
                   <span className="text-[10px] font-medium">{item.label}</span>
@@ -55,8 +55,8 @@ export default function MobileNav() {
                 href={item.href}
                 className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
                   active
-                    ? "text-[#c6af6c]"
-                    : "text-gray-500 hover:text-[#c6af6c]"
+                    ? "text-[#C9A227]"
+                    : "text-gray-500 hover:text-[#C9A227]"
                 }`}
               >
                 <Icon className={`w-5 h-5 mb-1 ${active ? "fill-current" : ""}`} />
@@ -97,7 +97,7 @@ export default function MobileNav() {
             <div className="mt-4 text-center">
               <a
                 href="tel:0655558989"
-                className="inline-flex items-center gap-2 text-[#c6af6c] font-medium"
+                className="inline-flex items-center gap-2 text-[#C9A227] font-medium"
               >
                 <Phone className="w-4 h-4" />
            065-555-9999

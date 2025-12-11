@@ -63,9 +63,9 @@ export default function RegisterPage() {
         {/* Logo and Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3 mb-4">
-            <Building2 className="w-12 h-12 text-[#c6af6c]" />
+            <Building2 className="w-12 h-12 text-[#C9A227]" />
             <span className="text-3xl font-bold text-gray-900">
-              Budget Wise Property
+              Sky Pro Properties
             </span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -173,7 +173,7 @@ export default function RegisterPage() {
             <Button
               type="submit"
               disabled={loading || success}
-              className="w-full h-12 bg-[#c6af6c] hover:bg-[#b39d5b] text-white font-semibold text-base transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-12 bg-[#C9A227] hover:bg-[#A88B1F] text-white font-semibold text-base transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "กำลังลงทะเบียน..." : "ลงทะเบียน"}
             </Button>
@@ -184,7 +184,7 @@ export default function RegisterPage() {
             มีบัญชีอยู่แล้ว?{" "}
             <Link
               href="/admin"
-              className="text-[#c6af6c] hover:underline font-medium"
+              className="text-[#C9A227] hover:underline font-medium"
             >
               เข้าสู่ระบบ
             </Link>
@@ -195,7 +195,7 @@ export default function RegisterPage() {
         <div className="mt-6 text-center">
           <Link
             href="/"
-            className="text-sm text-gray-600 hover:text-[#c6af6c] transition-colors duration-300"
+            className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors duration-300"
           >
             ← กลับสู่หน้าหลัก
           </Link>

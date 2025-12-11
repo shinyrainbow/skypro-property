@@ -173,7 +173,7 @@ export default function InquiriesPage() {
               variant={filterStatus === "" ? "default" : "outline"}
               size="sm"
               onClick={() => setFilterStatus("")}
-              className={filterStatus === "" ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : ""}
+              className={filterStatus === "" ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""}
             >
               ทั้งหมด ({inquiries.length})
             </Button>
@@ -183,7 +183,7 @@ export default function InquiriesPage() {
                 variant={filterStatus === option.value ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilterStatus(option.value)}
-                className={filterStatus === option.value ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : ""}
+                className={filterStatus === option.value ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""}
               >
                 {option.label}
               </Button>
@@ -239,8 +239,8 @@ export default function InquiriesPage() {
               >
                 <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                   {/* Avatar */}
-                  <div className="w-12 h-12 bg-[#c6af6c]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="w-6 h-6 text-[#c6af6c]" />
+                  <div className="w-12 h-12 bg-[#C9A227]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <User className="w-6 h-6 text-[#C9A227]" />
                   </div>
 
                   {/* Content */}
@@ -258,7 +258,7 @@ export default function InquiriesPage() {
                         <Phone className="w-4 h-4" />
                         <a
                           href={`tel:${inquiry.phone}`}
-                          className="hover:text-[#c6af6c]"
+                          className="hover:text-[#C9A227]"
                           onClick={(e) => e.stopPropagation()}
                         >
                           {inquiry.phone}
@@ -278,7 +278,7 @@ export default function InquiriesPage() {
                           <Link
                             href={`/property/${inquiry.propertyId}`}
                             target="_blank"
-                            className="text-[#c6af6c] hover:underline flex items-center gap-1"
+                            className="text-[#C9A227] hover:underline flex items-center gap-1"
                             onClick={(e) => e.stopPropagation()}
                           >
                             ดูทรัพย์
@@ -349,14 +349,14 @@ export default function InquiriesPage() {
               {/* Customer Info */}
               <div className="space-y-4 mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-[#c6af6c]/20 rounded-full flex items-center justify-center">
-                    <User className="w-6 h-6 text-[#c6af6c]" />
+                  <div className="w-12 h-12 bg-[#C9A227]/20 rounded-full flex items-center justify-center">
+                    <User className="w-6 h-6 text-[#C9A227]" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">{selectedInquiry.name}</h3>
                     <a
                       href={`tel:${selectedInquiry.phone}`}
-                      className="text-[#c6af6c] hover:underline flex items-center gap-1"
+                      className="text-[#C9A227] hover:underline flex items-center gap-1"
                     >
                       <Phone className="w-4 h-4" />
                       {selectedInquiry.phone}
@@ -375,7 +375,7 @@ export default function InquiriesPage() {
                       <Link
                         href={`/property/${selectedInquiry.propertyId}`}
                         target="_blank"
-                        className="text-sm text-[#c6af6c] hover:underline flex items-center gap-1 mt-1"
+                        className="text-sm text-[#C9A227] hover:underline flex items-center gap-1 mt-1"
                       >
                         ดูหน้าทรัพย์
                         <ExternalLink className="w-3 h-3" />
@@ -413,7 +413,7 @@ export default function InquiriesPage() {
                           key={option.value}
                           size="sm"
                           variant={isActive ? "default" : "outline"}
-                          className={isActive ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : ""}
+                          className={isActive ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""}
                           onClick={() => setModalStatus(option.value)}
                         >
                           <option.icon className="w-4 h-4 mr-1" />
@@ -433,11 +433,11 @@ export default function InquiriesPage() {
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="เพิ่มบันทึก เช่น ติดต่อแล้ว รอนัดดู..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c6af6c]/50 focus:border-[#c6af6c] text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] text-gray-900"
                   />
                   <Button
                     size="sm"
-                    className="mt-2 bg-[#c6af6c] hover:bg-[#b39d5b]"
+                    className="mt-2 bg-[#C9A227] hover:bg-[#A88B1F]"
                     onClick={handleSaveInquiry}
                     disabled={updating}
                   >

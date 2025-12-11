@@ -26,7 +26,7 @@ export default function UserMenu({ scrolled = false }: UserMenuProps) {
         <Button
           className={`transition-all duration-300 transform hover:scale-105 ${
             scrolled
-              ? "bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+              ? "bg-[#C9A227] hover:bg-[#A88B1F] text-white"
               : "bg-white text-gray-900 hover:bg-gray-100"
           }`}
         >
@@ -49,7 +49,7 @@ export default function UserMenu({ scrolled = false }: UserMenuProps) {
       >
         <div
           className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-            scrolled ? "bg-[#c6af6c] text-white" : "bg-white text-[#c6af6c]"
+            scrolled ? "bg-[#C9A227] text-white" : "bg-white text-[#C9A227]"
           }`}
         >
           {session.user?.name?.charAt(0).toUpperCase() ||

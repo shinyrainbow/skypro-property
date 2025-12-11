@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Bed, Bath, Maximize, MapPin, Search, Star, Phone, Mail, ChevronDown, ChevronLeft, ChevronRight, TrendingUp, Award, ArrowRight, Quote, Building2 } from "lucide-react";
+import { Bed, Bath, Maximize, MapPin, Search, Star, Phone, Mail, ChevronDown, ChevronLeft, ChevronRight, ArrowRight, Play, Home, FileCheck, PhoneCall } from "lucide-react";
 import Image from "next/image";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -54,7 +54,7 @@ const mockReviews = [
     id: "rev-003",
     name: "คุณวิชัย ธนกิจ",
     rating: 4,
-    comment: "ซื้อบ้านผ่าน Budget Wise Property ทุกอย่างราบรื่น เอกสารครบถ้วน แนะนำครับ",
+    comment: "ซื้อบ้านผ่าน Sky Pro Properties ทุกอย่างราบรื่น เอกสารครบถ้วน แนะนำครับ",
     transactionType: "sale",
     location: "บางนา",
     createdAt: "2025-11-05T09:00:00Z",
@@ -429,398 +429,389 @@ export default function PublicPropertiesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* Shared Header */}
       <Header transparent />
 
-      {/* Hero Section with Parallax */}
-      <div className="relative h-[75vh] flex items-center justify-center pt-24 overflow-hidden">
-        {/* Rotating Background Images */}
-        {heroImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 bg-cover bg-center transition-all duration-[2000ms] ease-in-out ${
-              index === currentImageIndex
-                ? "opacity-100 scale-100"
-                : "opacity-0 scale-105"
-            }`}
-            style={{
-              backgroundImage: `url('${image}')`,
-              transform: `translateY(${scrollY * 0.3}px)`,
-            }}
-          />
-        ))}
+      {/* Hero Section - Split Layout, Edge-to-Edge */}
+      <section className="relative h-[85vh] overflow-hidden">
+        <div className="grid lg:grid-cols-2 h-full pl-20">
+          {/* Left Side - Content */}
+          <div className="flex flex-col justify-center px-6 md:px-10 lg:px-12 xl:px-16 py-16 lg:py-0">
+            {/* Gold accent line */}
+            <div className="w-12 h-0.5 bg-[#C9A227] mb-6" />
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
-
-        {/* Animated Overlay Pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtOS45NCAwLTE4IDguMDYtMTggMThzOC4wNiAxOCAxOCAxOCAxOC04LjA2IDE4LTE4LTguMDYtMTgtMTgtMTh6bS00LjUgMjcuNUMxOC42IDQzLjIgOCAzMi43IDggMjBjMC03LjcgNi4zLTE0IDE0LTE0czE0IDYuMyAxNCAxNC02LjMgMTQtMTQgMTR6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjwvZz48L3N2Zz4=')] opacity-20" />
-
-        {/* Hero Content */}
-        <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
-          <div
-            className="animate-fade-in-up"
-            style={{ animation: "fadeInUp 1s ease-out" }}
-          >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-              {t("hero.title")}
+            {/* Headline */}
+            <h1 className="font-heading text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-white mb-4 leading-tight tracking-wide">
+              <span className="font-medium">Sell or rent</span>
               <br />
-              <span className="text-[#c6af6c]">{t("hero.titleHighlight")}</span>
+              <span className="font-medium">your home at</span>
+              <br />
+              <span className="font-bold text-[#C9A227]">the best price</span>
             </h1>
-          </div>
-          <p
-            className="text-sm md:text-lg mb-8 md:mb-16 text-gray-200 max-w-2xl mx-auto animate-fade-in-up"
-            style={{ animation: "fadeInUp 1s ease-out 0.2s both" }}
-          >
-            {t("hero.subtitle")}
-          </p>
-        </div>
 
-        {/* Scroll Indicator - hidden on smaller hero */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce hidden">
-          <ChevronDown className="w-10 h-10 text-white drop-shadow-lg" />
-        </div>
+            {/* Subtitle */}
+            <p className="text-sm text-gray-400 mb-6 max-w-sm leading-relaxed">
+              {t("hero.subtitle")}
+            </p>
 
-        {/* Floating Stats */}
-        <div
-          className="absolute bottom-4 md:bottom-32 left-0 right-0 animate-fade-in-up"
-          style={{ animation: "fadeInUp 1s ease-out 0.6s both" }}
-        >
-          <div className="container mx-auto px-4 md:px-6">
-            {/* Mobile: Horizontal scroll, Desktop: Grid */}
-            <div className="flex md:grid md:grid-cols-4 gap-2 md:gap-4 max-w-4xl mx-auto overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
-              {[
-                { number: "500+", label: t("hero.stats.properties") },
-                { number: "1000+", label: t("hero.stats.happyClients") },
-                { number: "50+", label: t("hero.stats.expertAgents") },
-                { number: "15+", label: t("hero.stats.years") },
-              ].map((stat, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 w-[22%] md:w-auto bg-white/10 backdrop-blur-md rounded-lg md:rounded-xl p-2 md:p-3 text-center text-white border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
-                >
-                  <div className="text-base md:text-2xl font-bold text-[#c6af6c] mb-0.5 md:mb-1">
-                    {stat.number}
-                  </div>
-                  <div className="text-[10px] md:text-xs text-gray-200 whitespace-nowrap">{stat.label}</div>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                variant="gold"
+                size="default"
+                onClick={() => {
+                  const contactSection = document.getElementById("contact");
+                  contactSection?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="group px-6 font-heading tracking-wider text-sm"
+              >
+                GET IN TOUCH
+              </Button>
+              <Button
+                variant="dark-ghost"
+                size="default"
+                onClick={() => router.push("/search")}
+                className="group font-heading tracking-wider text-sm"
+              >
+                <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center mr-2 group-hover:border-[#C9A227] group-hover:bg-[#C9A227]/10 transition-all">
+                  <Play className="w-3 h-3 fill-white" />
                 </div>
-              ))}
+                HOW IT WORKS
+              </Button>
+            </div>
+
+            {/* Stats Row */}
+            <div className="flex gap-6 mt-10 pt-6 border-t border-white/10">
+              <div>
+                <div className="text-xl font-semibold text-white">500+</div>
+                <div className="text-xs text-gray-500">{t("hero.stats.properties")}</div>
+              </div>
+              <div>
+                <div className="text-xl font-semibold text-white">1000+</div>
+                <div className="text-xs text-gray-500">{t("hero.stats.happyClients")}</div>
+              </div>
+              <div>
+                <div className="text-xl font-semibold text-white">15+</div>
+                <div className="text-xs text-gray-500">{t("hero.stats.years")}</div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Search Section */}
+          {/* Right Side - Image (Clean Cut, No Gradient) */}
+          <div className="relative hidden lg:block">
+            {/* Main Image with slideshow */}
+            {heroImages.map((image, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+                  index === currentImageIndex ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <Image
+                  src={image}
+                  alt="Luxury property"
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile background image */}
+        <div className="absolute inset-0 lg:hidden">
+          {heroImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+                index === currentImageIndex ? "opacity-20" : "opacity-0"
+              }`}
+              style={{
+                backgroundImage: `url('${image}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-float z-20">
+          <ChevronDown className="w-5 h-5 text-gray-500" />
+        </div>
+      </section>
+
+      {/* Search Section - Dark Mode */}
       <section
         id="search"
         ref={(el) => {
           observerRefs.current["search"] = el;
         }}
-        className="relative -mt-28 z-20"
+        className="py-8"
       >
-        <div className="container mx-auto px-4 pb-10">
-          <Card
-            className={`max-w-4xl mx-auto p-6 bg-white/95 backdrop-blur-md shadow-2xl rounded-2xl border-0 transition-all duration-1000 ${
-              isVisible["search"]
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            {/* Row 1: Main filters */}
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  {t("search.listingType")}
-                </label>
-                <Select value={listingType} onValueChange={setListingType}>
-                  <SelectTrigger className="h-11 text-sm border-gray-200">
-                    <SelectValue placeholder={t("search.all")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">{t("search.all")}</SelectItem>
-                    <SelectItem value="rent">{t("search.rent")}</SelectItem>
-                    <SelectItem value="sale">{t("search.sale")}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  {t("search.propertyType")}
-                </label>
-                <Select value={propertyType} onValueChange={setPropertyType}>
-                  <SelectTrigger className="h-11 text-sm border-gray-200">
-                    <SelectValue placeholder={t("search.all")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">{t("search.all")}</SelectItem>
-                    <SelectItem value="Condo">{t("search.condo")}</SelectItem>
-                    <SelectItem value="Townhouse">{t("search.townhouse")}</SelectItem>
-                    <SelectItem value="SingleHouse">{t("search.singleHouse")}</SelectItem>
-                    <SelectItem value="Land">{t("search.land")}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  {t("search.bedrooms")}
-                </label>
-                <Select value={bedrooms} onValueChange={setBedrooms}>
-                  <SelectTrigger className="h-11 text-sm border-gray-200">
-                    <SelectValue placeholder={t("common.notSpecified")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">{t("common.notSpecified")}</SelectItem>
-                    <SelectItem value="1">1 {t("common.room")}</SelectItem>
-                    <SelectItem value="2">2 {t("common.rooms")}</SelectItem>
-                    <SelectItem value="3">3 {t("common.rooms")}</SelectItem>
-                    <SelectItem value="4">4+ {t("common.rooms")}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            {/* Section header */}
+            <div className="text-center mb-6">
+              <h2 className="text-lg font-semibold text-white mb-1">
+                {t("search.searchButton")}
+              </h2>
+              <p className="text-gray-400 text-sm">{t("hero.subtitle")}</p>
             </div>
 
-            {/* Row 2: Price range + Search button */}
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  {t("search.minPrice")}
-                </label>
-                <Input
-                  type="number"
-                  placeholder={t("common.notSpecified")}
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
-                  className="h-11 text-sm border-gray-200"
-                />
-              </div>
+            {/* Search filters - Dark card */}
+            <div className="bg-[#1a2332] rounded-xl p-4 border border-white/10">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                <div>
+                  <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
+                    {t("search.listingType")}
+                  </label>
+                  <Select value={listingType} onValueChange={setListingType}>
+                    <SelectTrigger className="h-9 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm">
+                      <SelectValue placeholder={t("search.all")} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#1F2937] border-white/10">
+                      <SelectItem value="all">{t("search.all")}</SelectItem>
+                      <SelectItem value="rent">{t("search.rent")}</SelectItem>
+                      <SelectItem value="sale">{t("search.sale")}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  {t("search.maxPrice")}
-                </label>
-                <Input
-                  type="number"
-                  placeholder={t("common.notSpecified")}
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                  className="h-11 text-sm border-gray-200"
-                />
-              </div>
+                <div>
+                  <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
+                    {t("search.propertyType")}
+                  </label>
+                  <Select value={propertyType} onValueChange={setPropertyType}>
+                    <SelectTrigger className="h-9 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm">
+                      <SelectValue placeholder={t("search.all")} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#1F2937] border-white/10">
+                      <SelectItem value="all">{t("search.all")}</SelectItem>
+                      <SelectItem value="Condo">{t("search.condo")}</SelectItem>
+                      <SelectItem value="Townhouse">{t("search.townhouse")}</SelectItem>
+                      <SelectItem value="SingleHouse">{t("search.singleHouse")}</SelectItem>
+                      <SelectItem value="Land">{t("search.land")}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <div className="flex items-end">
-                <Button
-                  className="h-11 w-full bg-[#c6af6c] hover:bg-[#b39d5b] text-white text-sm font-semibold transform hover:scale-105 transition-all duration-300"
-                  onClick={handleSearch}
-                >
-                  <Search className="w-4 h-4 mr-2" />
-                  {t("search.searchButton")}
-                </Button>
+                <div>
+                  <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
+                    {t("search.bedrooms")}
+                  </label>
+                  <Select value={bedrooms} onValueChange={setBedrooms}>
+                    <SelectTrigger className="h-9 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm">
+                      <SelectValue placeholder={t("common.notSpecified")} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#1F2937] border-white/10">
+                      <SelectItem value="all">{t("common.notSpecified")}</SelectItem>
+                      <SelectItem value="1">1+</SelectItem>
+                      <SelectItem value="2">2+</SelectItem>
+                      <SelectItem value="3">3+</SelectItem>
+                      <SelectItem value="4">4+</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
+                    {t("search.maxPrice")}
+                  </label>
+                  <Input
+                    type="number"
+                    placeholder="฿"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                    className="h-9 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm placeholder:text-gray-500"
+                  />
+                </div>
+
+                <div className="flex items-end">
+                  <Button
+                    variant="gold"
+                    className="h-9 w-full text-sm"
+                    onClick={handleSearch}
+                  >
+                    <Search className="w-3.5 h-3.5 mr-1.5" />
+                    {t("search.searchButton")}
+                  </Button>
+                </div>
               </div>
             </div>
-          </Card>
+          </div>
         </div>
       </section>
 
-      {/* Popular Properties Section */}
+      {/* Popular Properties Section - Dark Mode */}
       <section
         id="popular"
         ref={(el) => {
           observerRefs.current["popular"] = el;
         }}
-        className="py-1 bg-white"
+        className="py-12"
       >
         <div className="container mx-auto px-4">
-          {/* Section Header */}
+          {/* Section Header - Split Layout */}
           <div
-            className={`flex items-center justify-between mb-8 transition-all duration-1000 ${
+            className={`flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8 transition-all duration-700 ${
               isVisible["popular"]
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-6 h-6 text-[#c6af6c]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  {t("sections.popularProperties")}
+            {/* Left - Title with Icon */}
+            <div className="flex items-center gap-3">
+              <div className="text-[#C9A227] text-3xl font-heading">S</div>
+              <div>
+                <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
+                  LATEST
+                </h2>
+                <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
+                  PROPERTIES
                 </h2>
               </div>
-              <p className="text-gray-600">{t("sections.popularSubtitle")}</p>
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
-                  popularCanScrollLeft
-                    ? "border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white"
-                    : "border-gray-300 text-gray-300 cursor-not-allowed"
-                }`}
-                onClick={() => scrollSlider(popularSliderRef, "left", "popular")}
-                disabled={!popularCanScrollLeft}
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button
-                className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
-                  popularCanScrollRight
-                    ? "border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white"
-                    : "border-gray-300 text-gray-300 cursor-not-allowed"
-                }`}
-                onClick={() => scrollSlider(popularSliderRef, "right", "popular")}
-                disabled={!popularCanScrollRight}
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            </div>
+
+            {/* Right - Description */}
+            <p className="text-gray-400 text-sm max-w-md lg:text-right">
+              {t("sections.popularSubtitle")}
+            </p>
           </div>
 
-          {/* Slider */}
-          <div
-            ref={popularSliderRef}
-            className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-            onScroll={() => checkSliderScroll(popularSliderRef, "popular")}
-          >
-            {popularProperties.map((property, index) => (
+          {/* Property Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {popularProperties.slice(0, 6).map((property, index) => (
               <Link
                 key={property.id}
                 href={`/property/${property.id}`}
-                className={`flex-shrink-0 w-72 transition-all duration-500 ${
+                className={`block transition-all duration-500 ${
                   isVisible["popular"]
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
                 }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                style={{ transitionDelay: `${index * 80}ms` }}
               >
-                <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer border-0 rounded-xl bg-white h-full">
-                  <div className="relative h-44 overflow-hidden">
-                    {property.imageUrls && property.imageUrls.length > 0 ? (
-                      <Image
-                        src={property.imageUrls[0]}
-                        alt={property.propertyTitleTh || property.propertyTitleEn}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full bg-gray-100">
-                        <MapPin className="w-12 h-12 text-gray-300" />
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    {/* Promotion or Popular Badge */}
-                    {property.extension?.promotions && property.extension.promotions.length > 0 ? (
-                      <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-                        {property.extension.promotions[0].label}
-                      </div>
-                    ) : (
-                      <div className="absolute top-3 left-3 bg-[#c6af6c] text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                        <TrendingUp className="w-3 h-3" />
-                        Popular
-                      </div>
-                    )}
-                    {/* Listing Type Badges */}
-                    <div className="absolute top-3 right-3 flex gap-1">
-                      {property.rentalRateNum && property.rentalRateNum > 0 && (
-                        <span className="px-2 py-1 rounded-full text-xs font-semibold text-white bg-emerald-500">
-                          {t("property.forRent")}
+                <div className="group relative rounded-xl overflow-hidden h-80">
+                  {/* Full Card Image */}
+                  {property.imageUrls && property.imageUrls.length > 0 ? (
+                    <Image
+                      src={property.imageUrls[0]}
+                      alt={property.propertyTitleTh || property.propertyTitleEn}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-[#111928] flex items-center justify-center">
+                      <MapPin className="w-10 h-10 text-gray-600" />
+                    </div>
+                  )}
+
+                  {/* Gold Gradient Overlay on Left */}
+                  <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#FFD700]/30 to-transparent z-10" />
+
+                  {/* Bottom Gradient for Text */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+
+                  {/* Content Overlay */}
+                  <div className="absolute inset-0 z-20 flex flex-col justify-end">
+                    {/* Content with padding */}
+                    <div className="px-4 pb-3">
+                      {/* Price */}
+                      <div className="mb-1">
+                        <span className="text-xl font-light text-white">
+                          {property.rentalRateNum
+                            ? formatPrice(property.rentalRateNum)
+                            : formatPrice(property.sellPriceNum)}
                         </span>
-                      )}
-                      {property.sellPriceNum && property.sellPriceNum > 0 && (
-                        <span className="px-2 py-1 rounded-full text-xs font-semibold text-white bg-amber-500">
-                          {t("property.forSale")}
+                        <span className="text-xs text-gray-300 ml-1.5">
+                          {property.rentalRateNum ? "THB/mo" : "THB"}
                         </span>
-                      )}
-                    </div>
-                    <div className="absolute bottom-3 left-3 right-3">
-                      <p className="text-white font-bold text-lg line-clamp-1 drop-shadow-lg">
-                        {property.rentalRateNum
-                          ? `฿${formatPrice(property.rentalRateNum)}${t("property.perMonth")}`
-                          : `฿${formatPrice(property.sellPriceNum)}`}
+                      </div>
+
+                      {/* Location/Title */}
+                      <p className="text-gray-300 text-xs mb-3 line-clamp-1">
+                        {property.project?.projectNameTh || property.project?.projectNameEn || property.propertyTitleTh || property.propertyTitleEn}
                       </p>
+
+                      {/* Stats Row */}
+                      <div className="flex items-center justify-between text-white">
+                        <div className="text-center">
+                          <div className="text-lg font-light">{String(property.bedRoomNum).padStart(2, '0')}</div>
+                          <div className="text-[10px] text-gray-400 uppercase tracking-wider">Beds</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-lg font-light">{String(property.bathRoomNum).padStart(2, '0')}</div>
+                          <div className="text-[10px] text-gray-400 uppercase tracking-wider">Baths</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-lg font-light">
+                            {getSize(property)}m<sup>2</sup>
+                          </div>
+                          <div className="text-[10px] text-gray-400 uppercase tracking-wider">Area</div>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Learn More Button - Edge to Edge, Dark Gold */}
+                    <button className="w-full py-3 bg-gradient-to-r from-[#9A7B06] via-[#8A6B05] to-[#7A5B04] text-white font-heading font-semibold tracking-widest text-xs hover:from-[#C9A227] hover:via-[#B8960B] hover:to-[#9A7B06] transition-all">
+                      LEARN MORE
+                    </button>
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 line-clamp-1 mb-1 group-hover:text-[#c6af6c] transition-colors">
-                      {property.propertyTitleTh || property.propertyTitleEn}
-                    </h3>
-                    {property.project && (
-                      <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">
-                        <MapPin className="w-3 h-3" />
-                        {property.project.projectNameTh || property.project.projectNameEn}
-                      </p>
-                    )}
-                    <div className="flex items-center gap-3 text-xs text-gray-600">
-                      <span className="flex items-center gap-1">
-                        <Bed className="w-3 h-3 text-[#c6af6c]" />
-                        {property.bedRoomNum}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Bath className="w-3 h-3 text-[#c6af6c]" />
-                        {property.bathRoomNum}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Maximize className="w-3 h-3 text-[#c6af6c]" />
-                        {getSize(property)} {t("common.sqm")}
-                      </span>
-                    </div>
-                  </div>
-                </Card>
+                </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Just Closed Deals Section */}
+      {/* Just Closed Deals Section - Dark Mode */}
       <section
         id="closed-deals"
         ref={(el) => {
           observerRefs.current["closed-deals"] = el;
         }}
-        className="py-16 bg-gradient-to-b from-gray-50 to-white"
+        className="py-12 bg-[#0d1117]"
       >
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div
-            className={`flex items-center justify-between mb-8 transition-all duration-1000 ${
+            className={`flex items-center justify-between mb-6 transition-all duration-700 ${
               isVisible["closed-deals"]
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
             }`}
           >
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Award className="w-6 h-6 text-[#c6af6c]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  {t("sections.closedDeals")}
-                </h2>
-              </div>
-              <p className="text-gray-600">{t("sections.closedDealsSubtitle")}</p>
+              <h2 className="text-lg md:text-xl font-semibold text-white mb-1">
+                {t("sections.closedDeals")}
+              </h2>
+              <p className="text-gray-400 text-sm">{t("sections.closedDealsSubtitle")}</p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <button
-                className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                className={`w-8 h-8 flex items-center justify-center rounded-full border transition-all duration-200 ${
                   closedCanScrollLeft
-                    ? "border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white"
-                    : "border-gray-300 text-gray-300 cursor-not-allowed"
+                    ? "border-white/20 text-white hover:border-[#C9A227] hover:text-[#C9A227]"
+                    : "border-white/10 text-white/30 cursor-not-allowed"
                 }`}
                 onClick={() => scrollSlider(closedDealsSliderRef, "left", "closed")}
                 disabled={!closedCanScrollLeft}
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-4 h-4" />
               </button>
               <button
-                className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                className={`w-8 h-8 flex items-center justify-center rounded-full border transition-all duration-200 ${
                   closedCanScrollRight
-                    ? "border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white"
-                    : "border-gray-300 text-gray-300 cursor-not-allowed"
+                    ? "border-white/20 text-white hover:border-[#C9A227] hover:text-[#C9A227]"
+                    : "border-white/10 text-white/30 cursor-not-allowed"
                 }`}
                 onClick={() => scrollSlider(closedDealsSliderRef, "right", "closed")}
                 disabled={!closedCanScrollRight}
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -828,113 +819,119 @@ export default function PublicPropertiesPage() {
           {/* Slider */}
           <div
             ref={closedDealsSliderRef}
-            className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth"
+            className="flex gap-4 overflow-x-auto pb-3 scrollbar-hide scroll-smooth"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             onScroll={() => checkSliderScroll(closedDealsSliderRef, "closed")}
           >
             {closedDeals.map((property, index) => (
               <div
                 key={property.id}
-                className={`flex-shrink-0 w-72 transition-all duration-500 ${
+                className={`shrink-0 w-60 transition-all duration-500 ${
                   isVisible["closed-deals"]
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
                 }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                style={{ transitionDelay: `${index * 80}ms` }}
               >
-                <Card className="group overflow-hidden transition-all duration-500 border-0 rounded-xl bg-white h-full relative">
-                  {/* Sold/Rented Overlay */}
-                  <div className="absolute inset-0 z-10 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-32 h-32 overflow-hidden">
-                      <div
-                        className={`absolute top-4 -right-8 w-40 text-center py-1 text-xs font-bold text-white transform rotate-45 shadow-lg ${
-                          property.status === "sold" ? "bg-red-500" : "bg-blue-500"
-                        }`}
-                      >
-                        {property.status === "sold" ? t("property.sold") : t("property.rented")}
-                      </div>
-                    </div>
+                <div className="group bg-[#1F2937] rounded-xl border border-white/10 overflow-hidden h-full relative">
+                  {/* Status Badge */}
+                  <div className="absolute top-2 left-2 z-10">
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${
+                      property.status === "sold"
+                        ? "bg-red-500 text-white"
+                        : "bg-blue-500 text-white"
+                    }`}>
+                      {property.status === "sold" ? t("property.sold") : t("property.rented")}
+                    </span>
                   </div>
-                  <div className="relative h-44 overflow-hidden">
+
+                  {/* Image */}
+                  <div className="relative h-36 overflow-hidden">
                     {property.imageUrls && property.imageUrls.length > 0 ? (
                       <Image
                         src={property.imageUrls[0]}
                         alt={property.propertyTitleTh || property.propertyTitleEn}
                         fill
-                        className="object-cover grayscale-[30%]"
+                        className="object-cover grayscale-30 opacity-80"
                       />
                     ) : (
-                      <div className="flex items-center justify-center h-full bg-gray-100">
-                        <MapPin className="w-12 h-12 text-gray-300" />
+                      <div className="flex items-center justify-center h-full bg-[#111928]">
+                        <MapPin className="w-10 h-10 text-gray-600" />
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute bottom-3 left-3 right-3">
-                      <p className="text-white font-bold text-lg line-clamp-1 drop-shadow-lg">
-                        {property.status === "sold"
-                          ? `฿${formatPrice(property.sellPriceNum)}`
-                          : `฿${formatPrice(property.rentalRateNum)}${t("property.perMonth")}`}
-                      </p>
-                    </div>
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 line-clamp-1 mb-1">
-                      {property.propertyTitleTh || property.propertyTitleEn}
-                    </h3>
+
+                  {/* Content */}
+                  <div className="p-3">
+                    {/* Project name */}
                     {property.project && (
-                      <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">
-                        <MapPin className="w-3 h-3" />
+                      <p className="text-[10px] text-gray-500 mb-0.5 truncate">
                         {property.project.projectNameTh || property.project.projectNameEn}
                       </p>
                     )}
-                    <div className="flex items-center gap-3 text-xs text-gray-600">
+                    {/* Title */}
+                    <h3 className="font-medium text-white/70 text-sm line-clamp-1 mb-2">
+                      {property.propertyTitleTh || property.propertyTitleEn}
+                    </h3>
+
+                    {/* Price */}
+                    <p className="text-sm font-semibold text-gray-500 mb-2 line-through">
+                      {property.status === "sold"
+                        ? `฿${formatPrice(property.sellPriceNum)}`
+                        : `฿${formatPrice(property.rentalRateNum)}`}
+                      {property.status !== "sold" && (
+                        <span className="text-xs font-normal">{t("property.perMonth")}</span>
+                      )}
+                    </p>
+
+                    {/* Features */}
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
                       <span className="flex items-center gap-1">
-                        <Bed className="w-3 h-3 text-[#c6af6c]" />
+                        <Bed className="w-3 h-3" />
                         {property.bedRoomNum}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Bath className="w-3 h-3 text-[#c6af6c]" />
+                        <Bath className="w-3 h-3" />
                         {property.bathRoomNum}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Maximize className="w-3 h-3 text-[#c6af6c]" />
+                        <Maximize className="w-3 h-3" />
                         {getSize(property)} {t("common.sqm")}
                       </span>
                     </div>
                   </div>
-                </Card>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Projects Section - Dark Mode */}
       <section
         id="projects"
         ref={(el) => {
           observerRefs.current["projects"] = el;
         }}
-        className="py-4 bg-white"
+        className="py-12 bg-[#151c28]"
       >
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div
-            className={`text-center mb-10 transition-all duration-1000 ${
+            className={`text-center mb-8 transition-all duration-700 ${
               isVisible["projects"]
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-lg md:text-xl font-semibold text-white mb-1">
               {t("sections.popularProjects")}
             </h2>
-            <div className="w-16 h-1 bg-[#c6af6c] mx-auto mb-3"></div>
-            <p className="text-gray-600">{t("sections.popularProjectsSubtitle")}</p>
+            <p className="text-gray-400 text-sm">{t("sections.popularProjectsSubtitle")}</p>
           </div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {projects.map((project, index) => (
               <Link
                 key={project.projectCode}
@@ -946,34 +943,33 @@ export default function PublicPropertiesPage() {
                 }`}
                 style={{ transitionDelay: `${index * 50}ms` }}
               >
-                <Card className="relative overflow-hidden rounded-xl h-40 cursor-pointer border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105">
+                <div className="relative overflow-hidden rounded-xl h-32 cursor-pointer border border-white/10 hover:border-[#C9A227]/50 transition-all duration-200">
                   <Image
                     src={project.image}
                     alt={project.projectNameTh || project.projectNameEn}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/90 transition-all duration-300" />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
-                    <Building2 className="w-6 h-6 mb-2 group-hover:scale-110 transition-transform duration-300" />
-                    <h3 className="font-bold text-lg text-center line-clamp-2">{project.projectNameTh || project.projectNameEn}</h3>
-                    <p className="text-sm text-gray-200">{project.count} {t("common.properties")}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
+                    <h3 className="font-medium text-sm line-clamp-1 mb-0.5">{project.projectNameTh || project.projectNameEn}</h3>
+                    <p className="text-[10px] text-[#C9A227]">{project.count} {t("common.properties")}</p>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#c6af6c] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-                </Card>
+                </div>
               </Link>
             ))}
           </div>
 
           {/* View All Projects Button */}
-          <div className="text-center mt-8">
+          <div className="text-center mt-6">
             <Link href="/search">
               <Button
                 variant="outline"
-                className="border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white px-8 transform hover:scale-105 transition-all duration-300"
+                size="sm"
+                className="border-white/20 text-white hover:border-[#C9A227] hover:text-[#C9A227] px-6 text-sm"
               >
                 {t("sections.viewAllProjects")}
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
               </Button>
             </Link>
           </div>
@@ -1000,7 +996,7 @@ export default function PublicPropertiesPage() {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
               {t("nav.newProjects")}
             </h2>
-            <div className="w-16 h-1 bg-[#c6af6c] mx-auto mb-3"></div>
+            <div className="w-16 h-1 bg-[#C9A227] mx-auto mb-3"></div>
             <p className="text-gray-600">{t("sections.popularProjectsSubtitle")}</p>
           </div>
 
@@ -1028,7 +1024,7 @@ export default function PublicPropertiesPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                     {project.isNew && (
-                      <div className="absolute top-4 right-4 bg-gradient-to-r from-[#c6af6c] to-[#a38444] text-white px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1.5 shadow-lg">
+                      <div className="absolute top-4 right-4 bg-gradient-to-r from-[#C9A227] to-[#A88B1F] text-white px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1.5 shadow-lg">
                         NEW
                       </div>
                     )}
@@ -1064,7 +1060,7 @@ export default function PublicPropertiesPage() {
             <Link href="/new-projects">
               <Button
                 variant="outline"
-                className="border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white px-8 transform hover:scale-105 transition-all duration-300"
+                className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white px-8 transform hover:scale-105 transition-all duration-300"
               >
                 {t("sections.viewAllProjects")}
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -1074,63 +1070,63 @@ export default function PublicPropertiesPage() {
         </div>
       </section> */}
 
-      {/* Properties Section */}
+      {/* Properties Section - Dark Mode */}
       <section
         id="properties"
         ref={(el) => {
           observerRefs.current["properties"] = el;
         }}
-        className="py-12 bg-gradient-to-b from-white to-gray-50"
+        className="py-12"
       >
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div
-            className={`text-center mb-8 transition-all duration-1000 ${
+            className={`text-center mb-8 transition-all duration-700 ${
               isVisible["properties"]
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-lg md:text-xl font-semibold text-white mb-1">
               {t("sections.allProperties")}
             </h2>
-            <div className="w-16 h-1 bg-[#c6af6c] mx-auto mb-3"></div>
-            <p className="text-base text-gray-600">
+            <p className="text-gray-400 text-sm">
               {t("search.resultsFound", { count: total })}
             </p>
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
               {[...Array(12)].map((_, i) => (
                 <Card
                   key={i}
-                  className="h-80 animate-pulse bg-gray-100 rounded-xl"
+                  className="h-64 animate-pulse bg-[#1a2332] rounded-xl"
                 />
               ))}
             </div>
           ) : properties.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="text-gray-400 mb-4">
-                <Search className="w-20 h-20 mx-auto" />
+            <div className="text-center py-12">
+              <div className="text-gray-500 mb-3">
+                <Search className="w-12 h-12 mx-auto" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-white mb-1">
                 {t("search.noPropertiesFound")}
               </h3>
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-xs text-gray-400 mb-3">
                 {t("search.tryAdjustFilters")}
               </p>
               <Button
                 variant="outline"
+                size="sm"
                 onClick={handleResetFilters}
-                className="border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white transform hover:scale-105 transition-all duration-300"
+                className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white transition-all duration-300"
               >
                 {t("search.resetFilters")}
               </Button>
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                 {properties.map((property, index) => (
                   <Link
                     key={property.id}
@@ -1140,150 +1136,79 @@ export default function PublicPropertiesPage() {
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-10"
                     }`}
-                    style={{ transitionDelay: `${index * 50}ms` }}
+                    style={{ transitionDelay: `${index * 40}ms` }}
                   >
-                  <Card
-                    className="group overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer border-0 rounded-xl bg-white h-full"
-                  >
+                  <div className="group bg-[#1F2937] rounded-xl border border-white/10 overflow-hidden hover:border-[#C9A227]/50 transition-all duration-200 h-full">
                     {/* Property Image */}
-                    <div className="relative h-40 bg-gray-100 overflow-hidden">
+                    <div className="relative h-36 bg-[#1a2332] overflow-hidden">
                       {property.imageUrls && property.imageUrls.length > 0 ? (
                         <Image
                           src={property.imageUrls[0]}
                           alt={property.propertyTitleEn || "Property"}
                           fill
-                          className="object-cover group-hover:scale-125 transition-transform duration-700"
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
-                        <div className="flex items-center justify-center h-full text-gray-400">
-                          <MapPin className="w-12 h-12" />
+                        <div className="flex items-center justify-center h-full text-gray-500">
+                          <MapPin className="w-8 h-8" />
                         </div>
                       )}
 
-                      {/* Gradient Overlay on Hover */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                      {/* Promotion Badge */}
-                      {property.extension?.promotions && property.extension.promotions.length > 0 && (
-                        <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm transform group-hover:scale-110 transition-transform duration-300 animate-pulse">
-                          {property.extension.promotions[0].label}
-                        </div>
-                      )}
-                      {/* Listing Type Badge - only show if no promotion */}
-                      {(!property.extension?.promotions || property.extension.promotions.length === 0) && (
-                        <>
-                          {property.rentalRateNum && property.rentalRateNum > 0 && (
-                            <div className="absolute top-2 right-2 bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm transform group-hover:scale-110 transition-transform duration-300">
-                              {t("property.forRent")}
-                            </div>
-                          )}
-                          {property.sellPriceNum &&
-                            property.sellPriceNum > 0 &&
-                            !property.rentalRateNum && (
-                              <div className="absolute top-2 right-2 bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm transform group-hover:scale-110 transition-transform duration-300">
-                                {t("property.forSale")}
-                              </div>
-                            )}
-                        </>
-                      )}
-
-                      {/* Property Type Badge */}
-                      <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md text-gray-800 px-2 py-1 rounded-full text-xs font-semibold shadow-lg">
-                        {property.propertyType === "Condo"
-                          ? t("search.condo")
-                          : property.propertyType === "Townhouse"
-                          ? t("search.townhouse")
-                          : property.propertyType === "Land"
-                          ? t("search.land")
-                          : t("search.singleHouse")}
+                      {/* Single Badge - Listing Type */}
+                      <div className="absolute top-2 right-2">
+                        {property.rentalRateNum && property.rentalRateNum > 0 ? (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-[#C9A227] text-white">
+                            {t("property.forRent")}
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-white/90 backdrop-blur-sm text-[#111928]">
+                            {t("property.forSale")}
+                          </span>
+                        )}
                       </div>
-
-
                     </div>
 
                     {/* Property Details */}
                     <div className="p-3">
                       {/* Project Name */}
                       {property.project && (
-                        <div className="flex items-center text-xs text-gray-500 mb-1">
-                          <MapPin className="w-3 h-3 mr-1" />
-                          {property.project.projectNameTh ||
-                            property.project.projectNameEn}
-                        </div>
+                        <p className="text-[10px] text-gray-500 mb-0.5 truncate">
+                          {property.project.projectNameTh || property.project.projectNameEn}
+                        </p>
                       )}
 
-                      {/* Property Title - only show if not Condo */}
-                      {property.propertyType !== "Condo" && (
-                        <h3 className="font-bold text-sm mb-2 line-clamp-2 h-10 text-gray-900 group-hover:text-[#c6af6c] transition-colors duration-300">
-                          {property.propertyTitleTh ||
-                            property.propertyTitleEn ||
-                            t("property.noName")}
-                        </h3>
-                      )}
-
-                      {/* Property Features */}
-                      <div className="flex items-center gap-3 text-xs text-gray-600 mb-2 pb-2 border-b border-gray-100">
-                        <div className="flex items-center gap-1">
-                          <Bed className="w-3 h-3 text-[#c6af6c]" />
-                          <span className="font-semibold">
-                            {property.bedRoomNum}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Bath className="w-3 h-3 text-[#c6af6c]" />
-                          <span className="font-semibold">
-                            {property.bathRoomNum}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Maximize className="w-3 h-3 text-[#c6af6c]" />
-                          <span className="font-semibold">
-                            {getSize(property)} {t("common.sqm")}
-                          </span>
-                        </div>
-                      </div>
+                      {/* Property Title */}
+                      <h3 className="font-medium text-white text-sm line-clamp-1 mb-2 group-hover:text-[#C9A227] transition-colors">
+                        {property.propertyTitleTh || property.propertyTitleEn || t("property.noName")}
+                      </h3>
 
                       {/* Price */}
-                      <div>
-                        {property.rentalRateNum != null && property.rentalRateNum > 0 && (
-                          <div className="text-lg font-bold text-[#c6af6c]">
-                            <span className="text-sm font-medium text-gray-600">{t("search.rent")}: </span>
-                            ฿ {formatPrice(property.rentalRateNum)}
-                            <span className="text-xs font-normal text-gray-600">
-                              {t("property.perMonth")}
-                            </span>
-                          </div>
+                      <p className="text-sm font-semibold text-[#C9A227] mb-2">
+                        {property.rentalRateNum
+                          ? `฿${formatPrice(property.rentalRateNum)}`
+                          : `฿${formatPrice(property.sellPriceNum)}`}
+                        {property.rentalRateNum && (
+                          <span className="text-xs font-normal text-gray-400">{t("property.perMonth")}</span>
                         )}
-                        {property.sellPriceNum != null && property.sellPriceNum > 0 &&
-                          (property.rentalRateNum == null || property.rentalRateNum === 0) && (
-                            <div className="text-lg font-bold text-[#c6af6c]">
-                              <span className="text-sm font-medium text-gray-600">{t("search.sale")}: </span>
-                              ฿ {formatPrice(property.sellPriceNum)}
-                            </div>
-                          )}
-                      </div>
+                      </p>
 
-                      {/* Tags */}
-                      {property.extension?.tags && property.extension.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {property.extension.tags.slice(0, 3).map((tag) => (
-                            <span
-                              key={tag.id}
-                              className="px-2 py-0.5 rounded-full text-xs font-medium text-white"
-                              style={{ backgroundColor: tag.color || "#3B82F6" }}
-                            >
-                              {tag.name}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Property Code */}
-                      <div className="text-xs text-gray-400 mt-2">
-                        {t("common.code")}: {property.agentPropertyCode || "-"}
+                      {/* Property Features */}
+                      <div className="flex items-center gap-3 text-xs text-gray-400">
+                        <span className="flex items-center gap-1">
+                          <Bed className="w-3 h-3" />
+                          {property.bedRoomNum}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Bath className="w-3 h-3" />
+                          {property.bathRoomNum}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Maximize className="w-3 h-3" />
+                          {getSize(property)} {t("common.sqm")}
+                        </span>
                       </div>
                     </div>
-                  </Card>
+                  </div>
                   </Link>
                 ))}
               </div>
@@ -1296,7 +1221,7 @@ export default function PublicPropertiesPage() {
                     variant="outline"
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
-                    className="text-xs border-gray-300 hover:bg-gray-50 disabled:opacity-50"
+                    className="text-xs border-white/20 text-gray-400 hover:bg-white/10 hover:text-white disabled:opacity-50"
                   >
                     {t("common.previous")}
                   </Button>
@@ -1313,8 +1238,8 @@ export default function PublicPropertiesPage() {
                             onClick={() => setPage(pageNum)}
                             className={
                               page === pageNum
-                                ? "bg-[#c6af6c] hover:bg-[#b39d5b] text-white text-xs"
-                                : "border-gray-300 hover:bg-gray-50 text-xs"
+                                ? "bg-[#C9A227] hover:bg-[#A88B1F] text-white text-xs"
+                                : "border-white/20 text-gray-400 hover:bg-white/10 hover:text-white text-xs"
                             }
                           >
                             {pageNum}
@@ -1333,7 +1258,7 @@ export default function PublicPropertiesPage() {
                     variant="outline"
                     disabled={page >= Math.ceil(total / 12)}
                     onClick={() => setPage(page + 1)}
-                    className="text-xs border-gray-300 hover:bg-gray-50 disabled:opacity-50"
+                    className="text-xs border-white/20 text-gray-400 hover:bg-white/10 hover:text-white disabled:opacity-50"
                   >
                     {t("common.next")}
                   </Button>
@@ -1344,56 +1269,164 @@ export default function PublicPropertiesPage() {
         </div>
       </section>
 
-      {/* CTA Section with Animation */}
+      {/* How It Works Section */}
+      <section
+        id="how-it-works"
+        ref={(el) => {
+          observerRefs.current["how-it-works"] = el;
+        }}
+        className="py-16 bg-[#0d1117]"
+      >
+        <div className="container mx-auto px-4">
+          {/* Section Header */}
+          <div
+            className={`mb-12 transition-all duration-700 ${
+              isVisible["how-it-works"]
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <p className="text-[#C9A227] text-xs uppercase tracking-widest mb-3">HOW IT WORKS</p>
+            <h2 className="text-2xl md:text-3xl font-semibold text-white leading-tight">
+              We&apos;ll help sell your house,<br />
+              with our <span className="text-[#C9A227]">Guaranteed</span> services
+            </h2>
+          </div>
+
+          {/* Steps */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Step 1 */}
+            <div className={`transition-all duration-700 ${
+              isVisible["how-it-works"] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`} style={{ transitionDelay: "100ms" }}>
+              <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4">
+                <PhoneCall className="w-7 h-7 text-white" />
+              </div>
+              <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">STEP 1</p>
+              <p className="text-white font-medium">Give us a call,<br />we&apos;ll help</p>
+            </div>
+
+            {/* Step 2 */}
+            <div className={`transition-all duration-700 ${
+              isVisible["how-it-works"] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`} style={{ transitionDelay: "200ms" }}>
+              <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4">
+                <Home className="w-7 h-7 text-white" />
+              </div>
+              <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">STEP 2</p>
+              <p className="text-white font-medium">List your<br />property</p>
+            </div>
+
+            {/* Step 3 */}
+            <div className={`transition-all duration-700 ${
+              isVisible["how-it-works"] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`} style={{ transitionDelay: "300ms" }}>
+              <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4">
+                <FileCheck className="w-7 h-7 text-white" />
+              </div>
+              <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">STEP 3</p>
+              <p className="text-white font-medium">Your home sold<br />Guaranteed</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section with Image */}
       <section
         id="contact"
         ref={(el) => {
           observerRefs.current["contact"] = el;
         }}
-        className="relative py-16 overflow-hidden"
+        className="relative"
       >
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#c6af6c] via-[#b39d5b] to-[#c6af6c] bg-[length:200%_200%] animate-gradient" />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtOS45NCAwLTE4IDguMDYtMTggMThzOC4wNiAxOCAxOCAxOCAxOC04LjA2IDE4LTE4LTguMDYtMTgtMTgtMTh6bS00LjUgMjcuNUMxOC42IDQzLjIgOCAzMi43IDggMjBjMC03LjcgNi4zLTE0IDE0LTE0czE0IDYuMyAxNCAxNC02LjMgMTQtMTQgMTR6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9Ii4xIi8+PC9nPjwvc3ZnPg==')] opacity-30" />
+        {/* Main Content */}
+        <div className="relative h-[500px] md:h-[550px] overflow-hidden">
+          {/* Background Image */}
+          <Image
+            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920"
+            alt="Dream property"
+            fill
+            className="object-cover"
+          />
 
-        <div
-          className={`container mx-auto px-4 relative z-10 transition-all duration-1000 ${
-            isVisible["contact"]
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-10"
-          }`}
-        >
-          <div className="text-center text-white max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              {t("cta.title")}
-            </h2>
-            <p className="text-base mb-6 text-white/90">
-              {t("cta.subtitle")}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button
-                size="default"
-                className="bg-white text-[#c6af6c] hover:bg-gray-100 font-bold px-6 py-4 rounded-full transform hover:scale-110 transition-all duration-300 shadow-2xl"
-                onClick={() => {
-                  navigator.clipboard.writeText("0655614169");
-                  toast.success(t("common.copiedPhone"));
-                }}
-              >
-                <Phone className="w-4 h-4 mr-2" />
-                065-555-9999
-              </Button>
-              <Button
-                size="default"
-                variant="outline"
-                className="bg-white/10 backdrop-blur-md border-2 border-white text-white hover:bg-white hover:text-[#c6af6c] font-bold px-6 py-4 rounded-full transform hover:scale-105 transition-all duration-300"
-                onClick={() => {
-                  navigator.clipboard.writeText("bkgroup.ch.official@gmail.com");
-                  toast.success(t("common.copiedEmail"));
-                }}
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                bkgroup.ch.official@gmail.com
-              </Button>
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+
+          {/* Content */}
+          <div
+            className={`absolute inset-0 flex items-center transition-all duration-700 ${
+              isVisible["contact"]
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <div className="container mx-auto px-4">
+              <div className="max-w-lg">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-4">
+                  {t("cta.title")}
+                </h2>
+                <p className="text-gray-300 text-sm mb-6 max-w-md">
+                  {t("cta.subtitle")}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button
+                    variant="gold"
+                    size="default"
+                    className="rounded-lg text-sm"
+                    onClick={() => {
+                      navigator.clipboard.writeText("0655614169");
+                      toast.success(t("common.copiedPhone"));
+                    }}
+                  >
+                    <Phone className="w-3.5 h-3.5 mr-1.5" />
+                    065-555-9999
+                  </Button>
+                  <Button
+                    variant="glass"
+                    size="default"
+                    className="rounded-lg text-sm"
+                    onClick={() => {
+                      navigator.clipboard.writeText("bkgroup.ch.official@gmail.com");
+                      toast.success(t("common.copiedEmail"));
+                    }}
+                  >
+                    <Mail className="w-3.5 h-3.5 mr-1.5" />
+                    {t("nav.contact")}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Gold Stats Bar */}
+        <div className="bg-[#C9A227]">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6">
+              <div className="text-center md:text-left">
+                <div className="flex items-baseline justify-center md:justify-start gap-1">
+                  <span className="text-3xl md:text-4xl font-bold text-[#111928]">15+</span>
+                </div>
+                <p className="text-[#111928]/70 text-xs">Years of experience</p>
+              </div>
+              <div className="text-center md:text-left">
+                <div className="flex items-baseline justify-center md:justify-start gap-1">
+                  <span className="text-3xl md:text-4xl font-bold text-[#111928]">20+</span>
+                </div>
+                <p className="text-[#111928]/70 text-xs">Awards Gained</p>
+              </div>
+              <div className="text-center md:text-left">
+                <div className="flex items-baseline justify-center md:justify-start gap-1">
+                  <span className="text-3xl md:text-4xl font-bold text-[#111928]">500+</span>
+                </div>
+                <p className="text-[#111928]/70 text-xs">Properties Listed</p>
+              </div>
+              <div className="text-center md:text-left">
+                <div className="flex items-baseline justify-center md:justify-start gap-1">
+                  <span className="text-3xl md:text-4xl font-bold text-[#111928]">1000+</span>
+                </div>
+                <p className="text-[#111928]/70 text-xs">Happy Clients</p>
+              </div>
             </div>
           </div>
         </div>
@@ -1405,88 +1438,90 @@ export default function PublicPropertiesPage() {
         ref={(el) => {
           observerRefs.current["reviews"] = el;
         }}
-        className="py-16 bg-gray-50"
+        className="py-12"
       >
         <div className="container mx-auto px-4">
-          {/* Section Header */}
+          {/* Section Header - Minimal */}
           <div
-            className={`text-center mb-10 transition-all duration-1000 ${
+            className={`text-center mb-8 transition-all duration-700 ${
               isVisible["reviews"]
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-lg md:text-xl font-semibold text-white mb-1">
               {t("sections.reviews")}
             </h2>
-            <div className="w-16 h-1 bg-[#c6af6c] mx-auto mb-3"></div>
-            <p className="text-gray-600">{t("sections.reviewsSubtitle")}</p>
+            <p className="text-gray-400 text-sm">{t("sections.reviewsSubtitle")}</p>
           </div>
 
           {/* Reviews Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {reviews.length > 0 ? (
               reviews.map((review, index) => {
-                const avatarColors = ["bg-[#c6af6c]", "bg-blue-500", "bg-purple-500", "bg-green-500", "bg-orange-500"];
-                const avatarColor = avatarColors[index % avatarColors.length];
                 const firstChar = review.name.charAt(0).toUpperCase();
 
                 return (
-                  <Card
+                  <div
                     key={review.id}
-                    className={`p-6 border-0 shadow-lg hover:shadow-xl transition-all duration-500 ${
+                    className={`bg-[#1F2937] rounded-xl border border-white/10 p-4 hover:border-[#C9A227]/30 transition-all duration-200 ${
                       isVisible["reviews"]
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-10"
                     }`}
-                    style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+                    style={{ transitionDelay: `${(index + 1) * 80}ms` }}
                   >
-                    <div className="flex items-center gap-1 mb-4">
+                    {/* Rating */}
+                    <div className="flex items-center gap-0.5 mb-3">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-5 h-5 ${
+                          className={`w-3 h-3 ${
                             i < review.rating
-                              ? "fill-yellow-400 text-yellow-400"
+                              ? "fill-[#C9A227] text-[#C9A227]"
                               : "fill-gray-200 text-gray-200"
                           }`}
                         />
                       ))}
                     </div>
-                    <Quote className="w-8 h-8 text-[#c6af6c] mb-3" />
-                    <p className="text-gray-600 mb-4 leading-relaxed">
+
+                    {/* Comment */}
+                    <p className="text-gray-300 mb-4 leading-relaxed text-xs">
                       &quot;{review.comment}&quot;
                     </p>
-                    <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 ${avatarColor} rounded-full flex items-center justify-center text-white font-bold text-lg`}>
+
+                    {/* Author */}
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-[#C9A227] rounded-full flex items-center justify-center text-[#111928] font-medium text-xs">
                         {firstChar}
                       </div>
                       <div>
-                        <p className="font-semibold text-gray-900">{review.name}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="font-medium text-white text-xs">{review.name}</p>
+                        <p className="text-[10px] text-gray-400">
                           {review.transactionType === "rent" ? t("review.rentedAt") : t("review.boughtAt")} {review.location}
                         </p>
                       </div>
                     </div>
-                  </Card>
+                  </div>
                 );
               })
             ) : (
-              <div className="col-span-full text-center py-10 text-gray-500">
+              <div className="col-span-full text-center py-8 text-gray-400 text-sm">
                 {t("sections.noReviews")}
               </div>
             )}
           </div>
 
           {/* View All Button */}
-          <div className="text-center mt-8">
+          <div className="text-center mt-6">
             <Link href="/reviews">
               <Button
                 variant="outline"
-                className="border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white px-8 transform hover:scale-105 transition-all duration-300"
+                size="sm"
+                className="border-gray-300 text-[#111928] hover:border-[#C9A227] hover:text-[#C9A227] px-6 text-sm"
               >
                 {t("sections.viewAllReviews")}
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
               </Button>
             </Link>
           </div>
@@ -1504,28 +1539,12 @@ export default function PublicPropertiesPage() {
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
           }
-        }
-
-        @keyframes gradient {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-
-        .animate-gradient {
-          animation: gradient 15s ease infinite;
         }
       `}</style>
     </div>

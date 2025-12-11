@@ -88,7 +88,7 @@ export default function AdminLayout({
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-[#c6af6c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-[#C9A227] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">กำลังโหลด...</p>
         </div>
       </div>
@@ -120,7 +120,7 @@ export default function AdminLayout({
           <Link href="/admin-dashboard" className="flex items-center gap-2">
             <Image
               src="/web-logo.png"
-              alt="Budget Wise Property"
+              alt="Sky Pro Properties"
               width={32}
               height={32}
               className="w-8 h-8 object-contain"
@@ -146,7 +146,7 @@ export default function AdminLayout({
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                   isActive
-                    ? "bg-[#c6af6c] text-white shadow-md"
+                    ? "bg-[#C9A227] text-white shadow-md"
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
                 onClick={() => setSidebarOpen(false)}
@@ -203,7 +203,7 @@ export default function AdminLayout({
               className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-lg transition-colors"
               onClick={() => setUserMenuOpen(!userMenuOpen)}
             >
-              <div className="w-8 h-8 bg-[#c6af6c] rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-[#C9A227] rounded-full flex items-center justify-center">
                 <User className="w-4 h-4 text-white" />
               </div>
               <span className="hidden sm:block text-sm font-medium text-gray-700">

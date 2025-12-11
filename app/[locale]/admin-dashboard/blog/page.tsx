@@ -22,6 +22,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { useConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Link } from "@/i18n/routing";
+import RichTextEditor from "@/components/ui/rich-text-editor";
 
 interface BlogSection {
   id?: string;
@@ -371,7 +372,7 @@ export default function AdminBlogPage() {
         </div>
         <Button
           onClick={() => handleOpenModal()}
-          className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+          className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
         >
           <Plus className="w-4 h-4 mr-2" />
           สร้างบทความใหม่
@@ -426,7 +427,7 @@ export default function AdminBlogPage() {
           <p className="text-gray-500 mb-4">ยังไม่มีบทความ</p>
           <Button
             onClick={() => handleOpenModal()}
-            className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+            className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
           >
             <Plus className="w-4 h-4 mr-2" />
             สร้างบทความแรก
@@ -491,7 +492,7 @@ export default function AdminBlogPage() {
                   <Link
                     href={`/blog/${blog.slug}`}
                     target="_blank"
-                    className="text-sm text-[#c6af6c] hover:text-[#b39d5b] flex items-center gap-1 mb-3"
+                    className="text-sm text-[#C9A227] hover:text-[#A88B1F] flex items-center gap-1 mb-3"
                   >
                     <ExternalLink className="w-3 h-3" />
                     ดูบทความ
@@ -657,7 +658,7 @@ export default function AdminBlogPage() {
                     setFormData({ ...formData, excerpt: e.target.value })
                   }
                   placeholder="คำอธิบายสั้นๆ..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[80px] focus:outline-none focus:ring-2 focus:ring-[#c6af6c] focus:border-transparent text-gray-900"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[80px] focus:outline-none focus:ring-2 focus:ring-[#C9A227] focus:border-transparent text-gray-900"
                 />
               </div>
 
@@ -685,10 +686,10 @@ export default function AdminBlogPage() {
                 ) : (
                   <div
                     onClick={() => coverImageInputRef.current?.click()}
-                    className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-[#c6af6c] hover:bg-[#c6af6c]/5 transition-colors"
+                    className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-[#C9A227] hover:bg-[#C9A227]/5 transition-colors"
                   >
                     {uploading === "cover" ? (
-                      <Loader2 className="w-8 h-8 text-[#c6af6c] animate-spin mx-auto" />
+                      <Loader2 className="w-8 h-8 text-[#C9A227] animate-spin mx-auto" />
                     ) : (
                       <>
                         <Upload className="w-8 h-8 text-gray-500 mx-auto mb-2" />
@@ -717,7 +718,7 @@ export default function AdminBlogPage() {
                     variant="outline"
                     size="sm"
                     onClick={addSection}
-                    className="text-[#c6af6c] border-[#c6af6c] hover:bg-[#c6af6c]/10"
+                    className="text-[#C9A227] border-[#C9A227] hover:bg-[#C9A227]/10"
                   >
                     <Plus className="w-4 h-4 mr-1" />
                     เพิ่มส่วนเนื้อหา
@@ -772,10 +773,10 @@ export default function AdminBlogPage() {
                               setCurrentSectionIndex(index);
                               sectionImageInputRef.current?.click();
                             }}
-                            className="border border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-[#c6af6c] hover:bg-[#c6af6c]/5 transition-colors"
+                            className="border border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-[#C9A227] hover:bg-[#C9A227]/5 transition-colors"
                           >
                             {uploading === `section-${index}` ? (
-                              <Loader2 className="w-6 h-6 text-[#c6af6c] animate-spin mx-auto" />
+                              <Loader2 className="w-6 h-6 text-[#C9A227] animate-spin mx-auto" />
                             ) : (
                               <>
                                 <Upload className="w-6 h-6 text-gray-400 mx-auto mb-1" />
@@ -792,26 +793,24 @@ export default function AdminBlogPage() {
                           <label className="block text-xs font-medium text-gray-600 mb-1">
                             เนื้อหา (ภาษาไทย)
                           </label>
-                          <textarea
+                          <RichTextEditor
                             value={section.content}
-                            onChange={(e) =>
-                              updateSection(index, "content", e.target.value)
+                            onChange={(value) =>
+                              updateSection(index, "content", value)
                             }
                             placeholder="เนื้อหาส่วนนี้..."
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[100px] focus:outline-none focus:ring-2 focus:ring-[#c6af6c] focus:border-transparent text-gray-900"
                           />
                         </div>
                         <div>
                           <label className="block text-xs font-medium text-gray-600 mb-1">
                             Content (English)
                           </label>
-                          <textarea
+                          <RichTextEditor
                             value={section.contentEn}
-                            onChange={(e) =>
-                              updateSection(index, "contentEn", e.target.value)
+                            onChange={(value) =>
+                              updateSection(index, "contentEn", value)
                             }
                             placeholder="Content in English..."
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[80px] focus:outline-none focus:ring-2 focus:ring-[#c6af6c] focus:border-transparent text-gray-900"
                           />
                         </div>
                       </div>
@@ -837,7 +836,7 @@ export default function AdminBlogPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, isPublished: e.target.checked })
                   }
-                  className="w-4 h-4 text-[#c6af6c] border-gray-300 rounded focus:ring-[#c6af6c]"
+                  className="w-4 h-4 text-[#C9A227] border-gray-300 rounded focus:ring-[#C9A227]"
                 />
                 <label htmlFor="isPublished" className="text-sm text-gray-700">
                   เผยแพร่บทความนี้
@@ -855,7 +854,7 @@ export default function AdminBlogPage() {
                 ยกเลิก
               </Button>
               <Button
-                className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                 onClick={handleSubmit}
                 disabled={updating === "form" || !formData.title || !formData.slug}
               >

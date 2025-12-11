@@ -80,8 +80,8 @@ export default function SettingsPage() {
       {/* Profile Settings */}
       <Card className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-[#c6af6c]/10 rounded-lg">
-            <User className="w-5 h-5 text-[#c6af6c]" />
+          <div className="p-2 bg-[#C9A227]/10 rounded-lg">
+            <User className="w-5 h-5 text-[#C9A227]" />
           </div>
           <div>
             <h2 className="text-lg font-semibold text-gray-900">ข้อมูลส่วนตัว</h2>
@@ -126,8 +126,8 @@ export default function SettingsPage() {
       {/* Password Settings */}
       <Card className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-[#c6af6c]/10 rounded-lg">
-            <Lock className="w-5 h-5 text-[#c6af6c]" />
+          <div className="p-2 bg-[#C9A227]/10 rounded-lg">
+            <Lock className="w-5 h-5 text-[#C9A227]" />
           </div>
           <div>
             <h2 className="text-lg font-semibold text-gray-900">
@@ -226,8 +226,8 @@ export default function SettingsPage() {
       {/* Notification Settings */}
       {/* <Card className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-[#c6af6c]/10 rounded-lg">
-            <Bell className="w-5 h-5 text-[#c6af6c]" />
+          <div className="p-2 bg-[#C9A227]/10 rounded-lg">
+            <Bell className="w-5 h-5 text-[#C9A227]" />
           </div>
           <div>
             <h2 className="text-lg font-semibold text-gray-900">
@@ -267,7 +267,7 @@ export default function SettingsPage() {
                 type="button"
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   notifications[item.key as keyof typeof notifications]
-                    ? "bg-[#c6af6c]"
+                    ? "bg-[#C9A227]"
                     : "bg-gray-200"
                 }`}
                 onClick={() =>
@@ -293,8 +293,8 @@ export default function SettingsPage() {
       {/* Security Settings */}
       {/* <Card className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-[#c6af6c]/10 rounded-lg">
-            <Shield className="w-5 h-5 text-[#c6af6c]" />
+          <div className="p-2 bg-[#C9A227]/10 rounded-lg">
+            <Shield className="w-5 h-5 text-[#C9A227]" />
           </div>
           <div>
             <h2 className="text-lg font-semibold text-gray-900">ความปลอดภัย</h2>

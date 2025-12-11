@@ -71,7 +71,7 @@ export default function OtherServicesPage() {
       <div className="h-16" />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#c6af6c] to-[#b39d5b] py-16">
+      <section className="bg-gradient-to-r from-[#C9A227] to-[#A88B1F] py-16">
         <div
           className={`container mx-auto px-4 text-center text-white transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
@@ -109,7 +109,7 @@ export default function OtherServicesPage() {
                 กรุณากลับมาตรวจสอบใหม่ภายหลัง
               </p>
               <Link href="/">
-                <Button className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white">
+                <Button className="bg-[#C9A227] hover:bg-[#A88B1F] text-white">
                   กลับหน้าหลัก
                 </Button>
               </Link>
@@ -136,12 +136,12 @@ export default function OtherServicesPage() {
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     ) : (
-                      <div className="flex items-center justify-center h-full bg-gradient-to-br from-[#c6af6c]/20 to-[#c6af6c]/5">
-                        <Wrench className="w-16 h-16 text-[#c6af6c]/50" />
+                      <div className="flex items-center justify-center h-full bg-gradient-to-br from-[#C9A227]/20 to-[#C9A227]/5">
+                        <Wrench className="w-16 h-16 text-[#C9A227]/50" />
                       </div>
                     )}
                     {/* Sparkle Badge */}
-                    <div className="absolute top-3 right-3 bg-[#c6af6c] text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                    <div className="absolute top-3 right-3 bg-[#C9A227] text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
                       <Sparkles className="w-3 h-3" />
                       บริการแนะนำ
                     </div>
@@ -149,7 +149,7 @@ export default function OtherServicesPage() {
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#c6af6c] transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#C9A227] transition-colors">
                       {service.title}
                     </h3>
                     {service.titleEn && (
@@ -169,7 +169,7 @@ export default function OtherServicesPage() {
                         href={ensureAbsoluteUrl(service.linkUrl) || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-[#c6af6c] hover:text-[#b39d5b] font-medium transition-colors group/link"
+                        className="inline-flex items-center gap-2 text-[#C9A227] hover:text-[#A88B1F] font-medium transition-colors group/link"
                       >
                         ดูรายละเอียด
                         <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
@@ -201,7 +201,7 @@ export default function OtherServicesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
-                <Button className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white px-8 py-6 text-lg">
+                <Button className="bg-[#C9A227] hover:bg-[#A88B1F] text-white px-8 py-6 text-lg">
                   ติดต่อเรา
                 </Button>
               </Link>

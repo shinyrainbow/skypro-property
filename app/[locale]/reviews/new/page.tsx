@@ -95,19 +95,19 @@ const locations = [
             </h1>
             <p className="text-gray-600 mb-8">
               รีวิวของคุณจะแสดงบนเว็บไซต์หลังจากได้รับการตรวจสอบและอนุมัติ
-              ขอบคุณที่ใช้บริการ Budget Wise Property
+              ขอบคุณที่ใช้บริการ Sky Pro Properties
             </p>
             <div className="flex gap-4 justify-center">
               <Link href="/reviews">
                 <Button
                   variant="outline"
-                  className="border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white"
+                  className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
                 >
                   ดูรีวิวทั้งหมด
                 </Button>
               </Link>
               <Link href="/">
-                <Button className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white">
+                <Button className="bg-[#C9A227] hover:bg-[#A88B1F] text-white">
                   กลับหน้าหลัก
                 </Button>
               </Link>
@@ -124,11 +124,11 @@ const locations = [
       <div className="h-16" />
 
       {/* Hero */}
-      <section className="bg-gradient-to-r from-[#c6af6c] to-[#b39d5b] py-12">
+      <section className="bg-gradient-to-r from-[#C9A227] to-[#A88B1F] py-12">
         <div className="container mx-auto px-4 text-center text-white">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">เขียนรีวิว</h1>
           <p className="text-lg text-white/90">
-            แบ่งปันประสบการณ์การใช้บริการ Budget Wise Property
+            แบ่งปันประสบการณ์การใช้บริการ Sky Pro Properties
           </p>
         </div>
       </section>
@@ -138,7 +138,7 @@ const locations = [
         <div className="max-w-2xl mx-auto">
           <Link
             href="/reviews"
-            className="inline-flex items-center text-gray-600 hover:text-[#c6af6c] mb-6"
+            className="inline-flex items-center text-gray-600 hover:text-[#C9A227] mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             กลับไปหน้ารีวิว
@@ -274,8 +274,8 @@ const locations = [
                   onChange={(e) =>
                     setFormData({ ...formData, comment: e.target.value })
                   }
-                  placeholder="เล่าประสบการณ์การใช้บริการ Budget Wise Property..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[150px] focus:outline-none focus:ring-2 focus:ring-[#c6af6c] focus:border-transparent text-gray-900"
+                  placeholder="เล่าประสบการณ์การใช้บริการ Sky Pro Properties..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[150px] focus:outline-none focus:ring-2 focus:ring-[#C9A227] focus:border-transparent text-gray-900"
                   required
                 />
               </div>
@@ -297,7 +297,7 @@ const locations = [
                   !formData.location ||
                   !formData.comment
                 }
-                className="w-full bg-[#c6af6c] hover:bg-[#b39d5b] text-white py-6 text-lg"
+                className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white py-6 text-lg"
               >
                 {submitting ? "กำลังส่ง..." : "ส่งรีวิว"}
               </Button>

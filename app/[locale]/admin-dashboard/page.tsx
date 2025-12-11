@@ -355,7 +355,7 @@ export default function AdminDashboardPage() {
             </h3>
             <Link
               href="/admin-dashboard/properties"
-              className="text-sm text-[#c6af6c] hover:text-[#b39d5b] flex items-center gap-1"
+              className="text-sm text-[#C9A227] hover:text-[#A88B1F] flex items-center gap-1"
             >
               ดูทั้งหมด
               <ArrowRight className="w-4 h-4" />
@@ -467,7 +467,7 @@ export default function AdminDashboardPage() {
               <Tag className="w-12 h-12 text-gray-300 mx-auto mb-3" />
               <p className="text-gray-500 text-sm">ยังไม่มีทรัพย์สินที่มีโปรโมชัน</p>
               <Link href="/admin-dashboard/promotions">
-                <Button size="sm" className="mt-3 bg-[#c6af6c] hover:bg-[#b39d5b]">
+                <Button size="sm" className="mt-3 bg-[#C9A227] hover:bg-[#A88B1F]">
                   เพิ่มโปรโมชัน
                 </Button>
               </Link>

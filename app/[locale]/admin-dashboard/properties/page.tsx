@@ -518,13 +518,13 @@ export default function PropertiesListPage() {
                   {/* Price */}
                   <div className="mt-2">
                     {property.rentalRateNum > 0 && (
-                      <span className="text-lg font-bold text-[#c6af6c]">
+                      <span className="text-lg font-bold text-[#C9A227]">
                         ฿{formatPrice(property.rentalRateNum)}
                         <span className="text-sm font-normal text-gray-500">/เดือน</span>
                       </span>
                     )}
                     {property.sellPriceNum > 0 && (
-                      <span className={`text-lg font-bold text-[#c6af6c] ${property.rentalRateNum ? "ml-4" : ""}`}>
+                      <span className={`text-lg font-bold text-[#C9A227] ${property.rentalRateNum ? "ml-4" : ""}`}>
                         ฿{formatPrice(property.sellPriceNum)}
                       </span>
                     )}
@@ -667,7 +667,7 @@ export default function PropertiesListPage() {
                   size="sm"
                   variant={page === pageNum ? "default" : "outline"}
                   onClick={() => setPage(pageNum)}
-                  className={page === pageNum ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : ""}
+                  className={page === pageNum ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""}
                 >
                   {pageNum}
                 </Button>
@@ -753,7 +753,7 @@ export default function PropertiesListPage() {
                         }
                         className={`flex items-center gap-2 p-3 rounded-lg border-2 transition-colors ${
                           promotionForm.type === type.value
-                            ? "border-[#c6af6c] bg-[#c6af6c]/5"
+                            ? "border-[#C9A227] bg-[#C9A227]/5"
                             : "border-gray-200 hover:border-gray-300"
                         }`}
                       >
@@ -817,7 +817,7 @@ export default function PropertiesListPage() {
                     }))
                   }
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    promotionForm.isActive ? "bg-[#c6af6c]" : "bg-gray-200"
+                    promotionForm.isActive ? "bg-[#C9A227]" : "bg-gray-200"
                   }`}
                 >
                   <span
@@ -843,7 +843,7 @@ export default function PropertiesListPage() {
                 </Button>
                 <Button
                   type="submit"
-                  className="flex-1 bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                  className="flex-1 bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                   disabled={submitting}
                 >
                   {submitting ? (

@@ -3,11 +3,11 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-// Change these values
-const EMAIL = "newuser@example.com";
-const PASSWORD = "password123";
-const NAME = "New User";
-const ROLE = "user"; // "user", "admin", or "agent"
+// Demo account credentials
+const EMAIL = "demo@skypro.com";
+const PASSWORD = "demo1234";
+const NAME = "Demo Admin";
+const ROLE = "admin"; // "user", "admin", or "agent"
 
 async function main() {
   const hashedPassword = await bcrypt.hash(PASSWORD, 10);

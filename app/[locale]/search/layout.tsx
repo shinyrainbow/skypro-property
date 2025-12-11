@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "condo search Bangkok",
   ],
   openGraph: {
-    title: "ค้นหาอสังหาริมทรัพย์ - Budget Wise Property",
+    title: "ค้นหาอสังหาริมทรัพย์ - Sky Pro Properties",
     description:
       "ค้นหาคอนโด บ้านเดี่ยว ทาวน์เฮ้าส์ ให้เช่าและขาย ในกรุงเทพฯ และปริมณฑล",
     url: "https://primeestate.co.th/search",

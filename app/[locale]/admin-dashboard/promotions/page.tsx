@@ -303,7 +303,7 @@ export default function AdminPromotionsPage() {
           </p>
         </div>
         <Button
-          className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+          className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
           onClick={openAddModal}
         >
           <Plus className="w-4 h-4 mr-2" />
@@ -502,7 +502,7 @@ export default function AdminPromotionsPage() {
                       propertyId: e.target.value,
                     }))
                   }
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#c6af6c] text-gray-900"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#C9A227] text-gray-900"
                 >
                   <option value="">เลือกทรัพย์สิน</option>
                   {properties.map((p) => (
@@ -547,7 +547,7 @@ export default function AdminPromotionsPage() {
                         }
                         className={`flex items-center gap-2 p-3 rounded-lg border-2 transition-colors ${
                           formData.type === type.value
-                            ? "border-[#c6af6c] bg-[#c6af6c]/5"
+                            ? "border-[#C9A227] bg-[#C9A227]/5"
                             : "border-gray-200 hover:border-gray-300"
                         }`}
                       >
@@ -611,7 +611,7 @@ export default function AdminPromotionsPage() {
                     }))
                   }
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    formData.isActive ? "bg-[#c6af6c]" : "bg-gray-200"
+                    formData.isActive ? "bg-[#C9A227]" : "bg-gray-200"
                   }`}
                 >
                   <span
@@ -634,7 +634,7 @@ export default function AdminPromotionsPage() {
                 </Button>
                 <Button
                   type="submit"
-                  className="flex-1 bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                  className="flex-1 bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                   disabled={submitting}
                 >
                   {submitting ? (

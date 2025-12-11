@@ -47,7 +47,7 @@ export default function LanguageSwitcher({
   const textColor =
     variant === "light"
       ? "text-white hover:text-white/80"
-      : "text-gray-700 hover:text-[#c6af6c]";
+      : "text-gray-700 hover:text-[#C9A227]";
 
   const bgColor =
     variant === "light"
@@ -100,14 +100,14 @@ export default function LanguageSwitcher({
             disabled={isPending}
             className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors duration-200 ${
               locale === loc
-                ? "bg-[#c6af6c]/10 text-[#c6af6c]"
+                ? "bg-[#C9A227]/10 text-[#C9A227]"
                 : "hover:bg-gray-50 text-gray-700"
             } ${isPending ? "opacity-50" : ""}`}
           >
             <span className="text-lg">{localeFlags[loc]}</span>
             <span className="text-sm font-medium">{localeNames[loc]}</span>
             {locale === loc && (
-              <span className="ml-auto text-[#c6af6c]">&#10003;</span>
+              <span className="ml-auto text-[#C9A227]">&#10003;</span>
             )}
           </button>
         ))}

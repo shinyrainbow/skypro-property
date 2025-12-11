@@ -62,7 +62,7 @@ export default function ShareButton({ title, url }: ShareButtonProps) {
         variant="outline"
         size="sm"
         onClick={() => setShowModal(true)}
-        className="border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-[#c6af6c] hover:border-[#c6af6c]"
+        className="border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-[#C9A227] hover:border-[#C9A227]"
       >
         <Share2 className="w-4 h-4 mr-2" />
         แชร์
@@ -114,7 +114,7 @@ export default function ShareButton({ title, url }: ShareButtonProps) {
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${
                     copied
                       ? "bg-green-500 text-white"
-                      : "bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                      : "bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                   }`}
                 >
                   {copied ? (

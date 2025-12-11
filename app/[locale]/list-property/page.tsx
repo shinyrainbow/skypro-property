@@ -97,14 +97,14 @@ export default function ListPropertyPage() {
                     details: "",
                   });
                 }}
-                className="bg-[#c6af6c] hover:bg-[#b39d5b] text-white"
+                className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
               >
                 {t("submitNew")}
               </Button>
               <Link href="/">
                 <Button
                   variant="outline"
-                  className="border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white w-full"
+                  className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white w-full"
                 >
                   {t("backHome")}
                 </Button>
@@ -123,7 +123,7 @@ export default function ListPropertyPage() {
       <div className="h-16" />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#c6af6c] to-[#b39d5b] py-12">
+      <section className="bg-gradient-to-r from-[#C9A227] to-[#A88B1F] py-12">
         <div className="container mx-auto px-4 text-center text-white">
           <div className="flex items-center justify-center gap-3 mb-4">
             <FileText className="w-10 h-10" />
@@ -147,7 +147,7 @@ export default function ListPropertyPage() {
               {/* Contact Info */}
               <div className="space-y-4">
                 <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-[#c6af6c]" />
+                  <Phone className="w-4 h-4 text-[#C9A227]" />
                   {t("contactInfo")}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -196,7 +196,7 @@ export default function ListPropertyPage() {
               {/* Property Info */}
               <div className="space-y-4">
                 <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                  <Home className="w-4 h-4 text-[#c6af6c]" />
+                  <Home className="w-4 h-4 text-[#C9A227]" />
                   {t("propertyInfo")}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -245,7 +245,7 @@ export default function ListPropertyPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    <MapPin className="w-4 h-4 inline mr-1 text-[#c6af6c]" />
+                    <MapPin className="w-4 h-4 inline mr-1 text-[#C9A227]" />
                     {t("location")}
                   </label>
                   <Input
@@ -259,7 +259,7 @@ export default function ListPropertyPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      <Maximize className="w-4 h-4 inline mr-1 text-[#c6af6c]" />
+                      <Maximize className="w-4 h-4 inline mr-1 text-[#C9A227]" />
                       {t("size")}
                     </label>
                     <Input
@@ -272,7 +272,7 @@ export default function ListPropertyPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      <DollarSign className="w-4 h-4 inline mr-1 text-[#c6af6c]" />
+                      <DollarSign className="w-4 h-4 inline mr-1 text-[#C9A227]" />
                       {t("price")}
                     </label>
                     <Input
@@ -302,7 +302,7 @@ export default function ListPropertyPage() {
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full bg-[#c6af6c] hover:bg-[#b39d5b] text-white py-3"
+                className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white py-3"
                 disabled={loading}
               >
                 {loading ? (
@@ -331,8 +331,8 @@ export default function ListPropertyPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#c6af6c]/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Building2 className="w-6 h-6 text-[#c6af6c]" />
+                <div className="w-12 h-12 bg-[#C9A227]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Building2 className="w-6 h-6 text-[#C9A227]" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-1">
                   {t("benefit1Title")}
@@ -342,8 +342,8 @@ export default function ListPropertyPage() {
                 </p>
               </div>
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#c6af6c]/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <MapPin className="w-6 h-6 text-[#c6af6c]" />
+                <div className="w-12 h-12 bg-[#C9A227]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <MapPin className="w-6 h-6 text-[#C9A227]" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-1">
                   {t("benefit2Title")}
@@ -353,8 +353,8 @@ export default function ListPropertyPage() {
                 </p>
               </div>
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#c6af6c]/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Phone className="w-6 h-6 text-[#c6af6c]" />
+                <div className="w-12 h-12 bg-[#C9A227]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Phone className="w-6 h-6 text-[#C9A227]" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-1">
                   {t("benefit3Title")}

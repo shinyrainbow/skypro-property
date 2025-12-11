@@ -108,7 +108,7 @@ export function SelectTrigger({ className = "", children }: SelectTriggerProps) 
   return (
     <button
       type="button"
-      className={`flex w-full items-center justify-between rounded-md border bg-white text-gray-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#c6af6c] disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      className={`flex w-full items-center justify-between rounded-md border bg-white text-gray-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A227] disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
       onClick={() => setOpen(!open)}
     >
       {children}

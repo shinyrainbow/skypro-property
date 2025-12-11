@@ -36,7 +36,7 @@ export function PropertyJsonLd({ property }: PropertyJsonLdProps) {
     "@type": "RealEstateListing",
     name: property.propertyTitleTh || property.propertyTitleEn,
     description: property.descriptionTh || property.descriptionEn || "",
-    url: `https://primeestate.co.th/property/${property.id}`,
+    url: `https://skyproproperties.com/property/${property.id}`,
     image: property.imageUrls,
     offers: {
       "@type": "Offer",
@@ -85,14 +85,14 @@ interface OrganizationJsonLdProps {
 }
 
 export function OrganizationJsonLd({
-  name = "Budget Wise Property",
+  name = "Sky Pro Properties",
 }: OrganizationJsonLdProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     name: name,
-    url: "https://primeestate.co.th",
-    logo: "https://primeestate.co.th/icon.svg",
+    url: "https://skyproproperties.com",
+    logo: "https://skyproproperties.com/header-logo.png",
     description:
       "บริการที่ปรึกษาอสังหาริมทรัพย์ คอนโด บ้าน ทาวน์เฮ้าส์ ให้เช่าและขาย ในกรุงเทพฯ",
     areaServed: {
@@ -106,9 +106,9 @@ export function OrganizationJsonLd({
       addressCountry: "TH",
     },
     sameAs: [
-      "https://www.facebook.com/primeestate",
-      "https://www.instagram.com/primeestate",
-      "https://line.me/ti/p/@primeestate",
+      "https://www.facebook.com/skyproproperties",
+      "https://www.instagram.com/skyproproperties",
+      "https://line.me/ti/p/@skyproproperties",
     ],
   };
 

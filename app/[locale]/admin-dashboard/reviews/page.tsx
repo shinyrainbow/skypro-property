@@ -42,7 +42,7 @@ interface Stats {
 // Generate avatar background color based on name
 function getAvatarBg(name: string): string {
   const colors = [
-    "bg-[#c6af6c]",
+    "bg-[#C9A227]",
     "bg-blue-500",
     "bg-purple-500",
     "bg-emerald-500",
@@ -284,7 +284,7 @@ export default function AdminReviewsPage() {
               size="sm"
               onClick={() => setFilterStatus("all")}
               className={
-                filterStatus === "all" ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : ""
+                filterStatus === "all" ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""
               }
             >
               ทั้งหมด
@@ -295,7 +295,7 @@ export default function AdminReviewsPage() {
               onClick={() => setFilterStatus("pending")}
               className={
                 filterStatus === "pending"
-                  ? "bg-[#c6af6c] hover:bg-[#b39d5b]"
+                  ? "bg-[#C9A227] hover:bg-[#A88B1F]"
                   : ""
               }
             >
@@ -307,7 +307,7 @@ export default function AdminReviewsPage() {
               onClick={() => setFilterStatus("published")}
               className={
                 filterStatus === "published"
-                  ? "bg-[#c6af6c] hover:bg-[#b39d5b]"
+                  ? "bg-[#C9A227] hover:bg-[#A88B1F]"
                   : ""
               }
             >
@@ -319,7 +319,7 @@ export default function AdminReviewsPage() {
               onClick={() => setFilterStatus("rejected")}
               className={
                 filterStatus === "rejected"
-                  ? "bg-[#c6af6c] hover:bg-[#b39d5b]"
+                  ? "bg-[#C9A227] hover:bg-[#A88B1F]"
                   : ""
               }
             >
