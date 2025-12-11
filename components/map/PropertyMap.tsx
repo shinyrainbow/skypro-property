@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
-import { Bed, Bath, Maximize } from "lucide-react";
+import { Bed, Bath, Maximize, ChevronLeft, ChevronRight } from "lucide-react";
 import type { NainaHubProperty } from "@/lib/nainahub";
 
 // Fix Leaflet default icon issue
@@ -23,7 +23,27 @@ if (typeof window !== "undefined") {
   });
 }
 
-// Custom marker icon
+// Create custom marker with count badge
+const createCustomIcon = (count: number) => {
+  if (typeof window === "undefined") return null;
+
+  const html = count > 1
+    ? `<div style="position: relative;">
+        <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" style="width: 32px; height: 32px;" />
+        <div style="position: absolute; top: -8px; right: -8px; background: #C9A227; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; border: 2px solid white;">${count}</div>
+      </div>`
+    : `<img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" style="width: 32px; height: 32px;" />`;
+
+  return new L.DivIcon({
+    html,
+    className: 'custom-marker-icon',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+};
+
+// Custom marker icon (fallback)
 const customIcon = typeof window !== "undefined" ? new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/854/854878.png",
   iconSize: [32, 32],
@@ -35,11 +55,14 @@ const customIcon = typeof window !== "undefined" ? new L.Icon({
 function MapUpdater({ center, zoom }: { center: [number, number]; zoom: number }) {
   const map = useMap();
   useEffect(() => {
-    // Use flyTo for smooth animated transition
-    map.flyTo(center, zoom, {
-      duration: 1.5, // Animation duration in seconds
-      easeLinearity: 0.25,
-    });
+    // Only update if coordinates are valid
+    if (!isNaN(center[0]) && !isNaN(center[1])) {
+      // Use flyTo for smooth animated transition
+      map.flyTo(center, zoom, {
+        duration: 1.5, // Animation duration in seconds
+        easeLinearity: 0.25,
+      });
+    }
   }, [center, zoom, map]);
   return null;
 }
@@ -53,6 +76,99 @@ interface PropertyMapProps {
   t: (key: string) => string;
 }
 
+// Component to display multiple properties in popup
+function MultiPropertyPopup({
+  properties,
+  formatPrice,
+  getSize,
+  t,
+}: {
+  properties: NainaHubProperty[];
+  formatPrice: (price: number | null) => string | null;
+  getSize: (property: NainaHubProperty) => string;
+  t: (key: string) => string;
+}) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const property = properties[currentIndex];
+
+  return (
+    <div className="w-56">
+      {properties.length > 1 && (
+        <div className="flex items-center justify-between mb-2 pb-2 border-b border-gray-200">
+          <span className="text-xs font-semibold text-gray-700">
+            {currentIndex + 1} / {properties.length} {t("common.properties")}
+          </span>
+          <div className="flex gap-1">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex((prev) => (prev > 0 ? prev - 1 : properties.length - 1));
+              }}
+              className="p-1 hover:bg-gray-100 rounded"
+              disabled={properties.length <= 1}
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex((prev) => (prev < properties.length - 1 ? prev + 1 : 0));
+              }}
+              className="p-1 hover:bg-gray-100 rounded"
+              disabled={properties.length <= 1}
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {property.imageUrls && property.imageUrls[0] && (
+        <div className="relative h-32 mb-2">
+          <Image
+            src={property.imageUrls[0]}
+            alt={property.propertyTitleEn}
+            fill
+            className="object-cover rounded"
+          />
+        </div>
+      )}
+      <h3 className="font-semibold text-sm mb-1">
+        {property.propertyTitleTh || property.propertyTitleEn}
+      </h3>
+      <p className="text-xs text-gray-600 mb-2">
+        {property.project?.projectNameTh || property.project?.projectNameEn}
+      </p>
+      <p className="font-bold text-[#C9A227] text-sm mb-2">
+        {property.rentalRateNum && property.rentalRateNum > 0
+          ? `฿${formatPrice(property.rentalRateNum)}/month`
+          : property.sellPriceNum && property.sellPriceNum > 0
+          ? `฿${formatPrice(property.sellPriceNum)}`
+          : t("common.contactForPrice")}
+      </p>
+      <div className="flex items-center gap-3 text-xs text-gray-600 mb-2">
+        <span className="flex items-center gap-1">
+          <Bed className="w-3 h-3" />
+          {property.bedRoomNum}
+        </span>
+        <span className="flex items-center gap-1">
+          <Bath className="w-3 h-3" />
+          {property.bathRoomNum}
+        </span>
+        <span className="flex items-center gap-1">
+          <Maximize className="w-3 h-3" />
+          {getSize(property)} sqm
+        </span>
+      </div>
+      <Link href={`/property/${property.id}`} target="_blank">
+        <Button size="sm" className="w-full bg-[#C9A227] hover:bg-[#A8841F] text-white">
+          {t("common.viewDetails")}
+        </Button>
+      </Link>
+    </div>
+  );
+}
+
 export default function PropertyMap({
   properties,
   center,
@@ -63,9 +179,49 @@ export default function PropertyMap({
 }: PropertyMapProps) {
   if (!customIcon) return null;
 
+  // Validate center coordinates to prevent NaN errors
+  const validCenter: [number, number] =
+    !isNaN(center[0]) && !isNaN(center[1])
+      ? center
+      : [13.6904, 101.0779]; // Default to Chachoengsao center
+
+  // Group properties by coordinates
+  const groupedProperties = properties
+    .filter((p) => {
+      // Filter logic: check if property has valid coordinates
+      if (p.propertyType === "Condo" && p.project?.projectLatitude && p.project?.projectLongitude) {
+        return true;
+      }
+      return p.latitude && p.longitude;
+    })
+    .reduce((acc, property) => {
+      // Determine which coordinates to use based on property type
+      let lat: number;
+      let lng: number;
+
+      if (
+        property.propertyType === "Condo" &&
+        property.project?.projectLatitude &&
+        property.project?.projectLongitude
+      ) {
+        lat = property.project.projectLatitude;
+        lng = property.project.projectLongitude;
+      } else {
+        lat = property.latitude!;
+        lng = property.longitude!;
+      }
+
+      const key = `${lat.toFixed(6)},${lng.toFixed(6)}`;
+      if (!acc[key]) {
+        acc[key] = { lat, lng, properties: [] };
+      }
+      acc[key].properties.push(property);
+      return acc;
+    }, {} as Record<string, { lat: number; lng: number; properties: NainaHubProperty[] }>);
+
   return (
     <MapContainer
-      center={center}
+      center={validCenter}
       zoom={zoom}
       style={{ height: "100%", width: "100%" }}
       className="z-0"
@@ -76,88 +232,27 @@ export default function PropertyMap({
         subdomains="abcd"
         maxZoom={20}
       />
-      <MapUpdater center={center} zoom={zoom} />
+      <MapUpdater center={validCenter} zoom={zoom} />
 
-      {properties
-        .filter((p) => {
-          // Filter logic: check if property has valid coordinates
-          if (p.propertyType === "Condo" && p.project?.projectLatitude && p.project?.projectLongitude) {
-            return true;
-          }
-          return p.latitude && p.longitude;
-        })
-        .map((property) => {
-          // Determine which coordinates to use based on property type
-          let lat: number;
-          let lng: number;
-
-          if (
-            property.propertyType === "Condo" &&
-            property.project?.projectLatitude &&
-            property.project?.projectLongitude
-          ) {
-            // Use project coordinates for Condos with project location
-            lat = property.project.projectLatitude;
-            lng = property.project.projectLongitude;
-          } else {
-            // Use property coordinates for all other cases
-            lat = property.latitude!;
-            lng = property.longitude!;
-          }
-
-          return (
-            <Marker
-              key={property.id}
-              position={[lat, lng]}
-              icon={customIcon}
-            >
-            <Popup>
-              <div className="w-48">
-                {property.imageUrls && property.imageUrls[0] && (
-                  <div className="relative h-32 mb-2">
-                    <Image
-                      src={property.imageUrls[0]}
-                      alt={property.propertyTitleEn}
-                      fill
-                      className="object-cover rounded"
-                    />
-                  </div>
-                )}
-                <h3 className="font-semibold text-sm mb-1">
-                  {property.propertyTitleTh || property.propertyTitleEn}
-                </h3>
-                <p className="text-xs text-gray-600 mb-2">
-                  {property.project?.projectNameTh || property.project?.projectNameEn}
-                </p>
-                <p className="font-bold text-[#C9A227] text-sm mb-2">
-                  {property.rentalRateNum
-                    ? `฿${formatPrice(property.rentalRateNum)}/month`
-                    : `฿${formatPrice(property.sellPriceNum)}`}
-                </p>
-                <div className="flex items-center gap-3 text-xs text-gray-600 mb-2">
-                  <span className="flex items-center gap-1">
-                    <Bed className="w-3 h-3" />
-                    {property.bedRoomNum}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Bath className="w-3 h-3" />
-                    {property.bathRoomNum}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Maximize className="w-3 h-3" />
-                    {getSize(property)} sqm
-                  </span>
-                </div>
-                <Link href={`/property/${property.id}`} target="_blank">
-                  <Button size="sm" className="w-full bg-[#C9A227] hover:bg-[#A8841F] text-white">
-                    {t("common.viewDetails")}
-                  </Button>
-                </Link>
-              </div>
+      {Object.entries(groupedProperties).map(([key, group]) => {
+        const icon = createCustomIcon(group.properties.length);
+        return (
+          <Marker
+            key={key}
+            position={[group.lat, group.lng]}
+            icon={icon || customIcon}
+          >
+            <Popup maxWidth={300}>
+              <MultiPropertyPopup
+                properties={group.properties}
+                formatPrice={formatPrice}
+                getSize={getSize}
+                t={t}
+              />
             </Popup>
-            </Marker>
-          );
-        })}
+          </Marker>
+        );
+      })}
     </MapContainer>
   );
 }

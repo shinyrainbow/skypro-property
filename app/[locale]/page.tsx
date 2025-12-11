@@ -388,7 +388,7 @@ export default function PublicPropertiesPage() {
 
           {/* Left Side - Overlapping Content Card */}
           <div className="relative z-10 h-full flex items-center px-8 md:px-12 lg:pl-[calc((100vw-1024px)/2+2rem)] xl:pl-[calc((100vw-1280px)/2+2rem)] 2xl:pl-[calc((100vw-1536px)/2+2rem)] py-20 lg:pr-0">
-            <div className="w-full max-w-3xl lg:max-w-2xl xl:max-w-3xl lg:bg-white/5 lg:p-12 lg:border-l-4 lg:border-[#C9A227]">
+            <div className="w-full max-w-3xl lg:max-w-2xl xl:max-w-3xl bg-black/30 md:bg-black/20 lg:bg-white/5 backdrop-blur-sm p-6 md:p-8 lg:p-12 border-l-4 border-[#C9A227]">
               {/* Gold accent line */}
               <div className="w-12 h-0.5 bg-[#C9A227] mb-6" />
 
@@ -482,23 +482,26 @@ export default function PublicPropertiesPage() {
           </div>
         </div>
 
-        {/* Mobile background image */}
-        <div className="absolute inset-0 lg:hidden -z-10">
+        {/* Mobile/iPad background image */}
+        <div className="absolute inset-0 lg:hidden">
           {heroImages.map((image, index) => (
             <div
               key={index}
               className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
                 index === currentImageIndex ? "opacity-100" : "opacity-0"
               }`}
-              style={{
-                backgroundImage: `url('${image}')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            />
+            >
+              <Image
+                src={image}
+                alt="Luxury property"
+                fill
+                className="object-cover"
+                priority={index === 0}
+              />
+            </div>
           ))}
-          {/* Dark overlay for mobile */}
-          <div className="absolute inset-0 bg-black/60" />
+          {/* Dark overlay for mobile/iPad */}
+          <div className="absolute inset-0 bg-black/70" />
         </div>
 
         {/* Scroll indicator */}

@@ -56,16 +56,7 @@ export default function Header({ transparent = false }: HeaderProps) {
           {/* Desktop: Logo left, nav center, language right */}
           <div className="hidden md:grid md:grid-cols-3 items-center">
             {/* Left - Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className={`relative transition-all duration-300 ${isScrolled ? "h-16" : "h-20"} aspect-square`}>
-                <Image
-                  src="/header-logo.png"
-                  alt="Sky Pro Properties"
-                  fill
-                  className="object-contain"
-                  unoptimized
-                />
-              </div>
+            <Link href="/" className="flex items-center group">
               <div className={`relative transition-all duration-300 ${isScrolled ? "h-14" : "h-16"} w-auto`}>
                 <Image
                   src="/name-logo.png"
@@ -99,16 +90,7 @@ export default function Header({ transparent = false }: HeaderProps) {
 
           {/* Mobile: Logo left, menu right */}
           <div className="flex md:hidden items-center justify-between">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="relative w-12 h-12">
-                <Image
-                  src="/header-logo.png"
-                  alt="Sky Pro Properties"
-                  fill
-                  className="object-contain"
-                  unoptimized
-                />
-              </div>
+            <Link href="/" className="flex items-center">
               <div className="relative h-10 w-auto">
                 <Image
                   src="/name-logo.png"
