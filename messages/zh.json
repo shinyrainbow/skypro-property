@@ -25,13 +25,77 @@
     "home": "首页",
     "rent": "租房",
     "sale": "购房",
+    "mapSearch": "地图搜索",
     "promotions": "优惠活动",
     "newProjects": "新项目",
     "listProperty": "委托出售/出租",
     "reviews": "评价",
     "blog": "博客",
+    "about": "关于我们",
     "contact": "联系我们",
     "premiumRealEstate": "高端房产"
+  },
+  "about": {
+    "hero": {
+      "title": "关于 SkyPro Property",
+      "subtitle": "您在泰国寻找完美房产的可信赖合作伙伴。我们结合当地专业知识和国际标准，提供卓越的房地产服务。"
+    },
+    "stats": {
+      "properties": "已售房产",
+      "clients": "满意客户",
+      "years": "年卓越服务",
+      "satisfaction": "客户满意度"
+    },
+    "story": {
+      "title": "我们的故事",
+      "paragraph1": "SkyPro Property 成立于2009年，从一家小型地方中介发展成为泰国最受信赖的房地产公司之一。我们的旅程始于一个简单的使命：帮助人们找到梦想家园和投资房产。",
+      "paragraph2": "多年来，我们与开发商、房产业主和数千名满意的客户建立了牢固的关系。我们经验丰富的代理团队深谙泰国房地产市场，确保您获得最佳交易和最可靠的建议。",
+      "paragraph3": "如今，我们自豪地为本地和国际客户提供服务，提供从曼谷豪华公寓到普吉岛和清迈宁静别墅的全方位房产选择。"
+    },
+    "valuesSection": {
+      "title": "我们的核心价值观",
+      "subtitle": "这些原则指导我们所做的一切，并定义了我们作为公司的身份。"
+    },
+    "values": {
+      "trust": {
+        "title": "信任与诚信",
+        "description": "我们相信每笔交易都应完全透明和诚实。您的信任是我们最宝贵的资产，我们努力赢得并维护它。"
+      },
+      "excellence": {
+        "title": "卓越服务",
+        "description": "我们竭尽全力提供卓越的服务。从首次咨询到最终交付，我们确保流畅专业的体验。"
+      },
+      "community": {
+        "title": "社区关注",
+        "description": "我们不仅仅是在销售房产，我们正在帮助建设社区。我们关心我们服务的社区和生活在其中的人们。"
+      }
+    },
+    "teamSection": {
+      "title": "认识我们的团队",
+      "subtitle": "我们敬业的专业人员将在您房产旅程的每一步为您提供指导。"
+    },
+    "team": {
+      "ceo": {
+        "name": "宋猜·塔纳瓦",
+        "role": "首席执行官兼创始人",
+        "description": "宋猜在房地产领域拥有超过20年的经验，以远见和对卓越的奉献精神领导我们的团队。"
+      },
+      "director": {
+        "name": "纳帕·西里万",
+        "role": "销售总监",
+        "description": "纳帕拥有15年豪华房产销售专业知识，帮助客户找到完美的投资。"
+      },
+      "manager": {
+        "name": "克里·帕塔纳",
+        "role": "物业经理",
+        "description": "克里确保我们所有的房源都符合最高标准，并为客户提供专业的市场洞察。"
+      }
+    },
+    "cta": {
+      "title": "准备好找到您的梦想房产了吗？",
+      "subtitle": "让我们经验丰富的团队帮助您发现符合您需求和预算的完美房产。",
+      "button": "立即联系我们"
+    }
   },
   "hero": {
     "title": "寻找您的",
@@ -48,20 +112,55 @@
     "listingType": "交易类型",
     "propertyType": "房产类型",
     "bedrooms": "卧室",
+    "bathrooms": "浴室",
     "minPrice": "最低价格 (฿)",
     "maxPrice": "最高价格 (฿)",
     "all": "全部",
     "rent": "租房",
     "sale": "购房",
+    "forRent": "出租",
+    "forSale": "出售",
     "condo": "公寓",
     "townhouse": "联排别墅",
     "singleHouse": "独栋别墅",
+    "house": "别墅",
     "land": "土地",
     "searchButton": "搜索",
     "resetFilters": "重置筛选",
+    "filters": "筛选条件",
+    "found": "找到",
+    "clearAll": "清除所有",
+    "priceRange": "价格范围",
+    "sizeRange": "面积范围",
+    "min": "最低",
+    "max": "最高",
     "resultsFound": "找到 {count} 处符合条件的房产",
     "noPropertiesFound": "未找到房产",
+    "noResults": "未找到结果",
     "tryAdjustFilters": "请尝试调整您的搜索条件"
+  },
+  "propertyTypes": {
+    "main": {
+      "living": "住宅",
+      "land": "土地",
+      "commercial": "商业"
+    },
+    "sub": {
+      "condo": "公寓",
+      "townhouse": "联排别墅",
+      "singleHouse": "独栋别墅",
+      "villa": "别墅",
+      "land": "土地",
+      "office": "办公室",
+      "store": "商铺",
+      "factory": "工厂",
+      "hotel": "酒店",
+      "building": "大楼"
+    },
+    "mainPropertyType": "主类型",
+    "subPropertyType": "子类型",
+    "selectMainType": "选择主类型",
+    "selectSubType": "选择子类型"
   },
   "property": {
     "forRent": "出租",
@@ -258,6 +357,54 @@
     "security": "24小时安保",
     "parking": "停车位",
     "garden": "花园",
-    "cctv": "监控"
+    "cctv": "监控",
+    "beds": "卧室",
+    "baths": "浴室",
+    "area": "面积",
+    "learnMore": "了解更多"
+  },
+  "homePage": {
+    "sellOrRent": "出售或出租",
+    "yourHomeAt": "您的房产以",
+    "bestPrice": "最优价格",
+    "premiumProperties": "高端房产",
+    "handPickedLuxury": "精选豪华房源",
+    "guaranteedService": "保证服务",
+    "professionalSupport": "24/7专业支持",
+    "getInTouch": "联系我们",
+    "howItWorks": "如何运作",
+    "clientSatisfaction": "客户满意度",
+    "weHelpSell": "我们帮您出售房产",
+    "withGuaranteed": "通过我们的",
+    "guaranteedText": "保证",
+    "services": "服务",
+    "step1": "步骤 1",
+    "step1Line1": "给我们打电话",
+    "step1Line2": "我们随时帮助您",
+    "step2": "步骤 2",
+    "step2Line1": "委托您的",
+    "step2Line2": "房产",
+    "step3": "步骤 3",
+    "step3Line1": "您的房产已售出",
+    "step3Line2": "保证",
+    "years": "年",
+    "ofExperience": "经验",
+    "awardsGained": "获得奖项",
+    "propertiesListed": "房产上市",
+    "happyClients": "满意客户",
+    "realEstateGuru": "清迈房地产专家",
+    "buyAnd": "买卖租 - 房屋、公寓、土地、泳池别墅"
+  },
+  "footerNav": {
+    "quickLinks": "快速链接",
+    "contact": "联系方式",
+    "connect": "联系我们",
+    "addLineSupport": "在LINE上添加我们以获得即时支持",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "phone": "电话",
+    "email": "邮箱",
+    "address": "地址",
+    "lineOfficial": "Line 官方"
   }
 }

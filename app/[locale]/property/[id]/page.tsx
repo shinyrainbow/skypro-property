@@ -524,28 +524,30 @@ export default function PropertyDetailPage() {
   };
 
   useEffect(() => {
-    const loadProperty = () => {
-      const propertyId = params.id as string;
+    const loadProperty = async () => {
+      try {
+        const propertyId = params.id as string;
 
-      // Check if this is a predefined mock project ID
-      if (propertyId && mockProjectProperties[propertyId]) {
-        setProperty(mockProjectProperties[propertyId]);
-      } else {
-        // Generate mock data for any other ID
-        const fallbackProperty = generateFallbackProperty(propertyId);
-        setProperty(fallbackProperty);
+        // Fetch property from NainaHub API
+        const response = await fetch(`/api/nainahub/property/${propertyId}`);
+        if (!response.ok) {
+          throw new Error("Property not found");
+        }
+        const propertyData = await response.json();
+        setProperty(propertyData);
+
+        // Fetch recommended properties
+        const recommendedResponse = await fetch(`/api/nainahub/properties?limit=4`);
+        if (recommendedResponse.ok) {
+          const recommendedData = await recommendedResponse.json();
+          setRecommendedProperties(recommendedData.data.filter((p: any) => p.id !== propertyId).slice(0, 4));
+        }
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading property:", error);
+        setLoading(false);
       }
-
-      // Generate mock recommended properties
-      const mockRecommended = Object.values(mockProjectProperties)
-        .filter((p) => p.id !== propertyId)
-        .slice(0, 4);
-      setRecommendedProperties(mockRecommended);
-
-      // Set mock review stats
-      setReviewStats({ count: 47, avgRating: 4.8 });
-
-      setLoading(false);
     };
 
     if (params.id) {
@@ -1267,7 +1269,7 @@ export default function PropertyDetailPage() {
                               name: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 border border-white/20 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all text-white placeholder:text-gray-500"
+                          className="w-full px-4 py-3 border border-gray-200 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all text-gray-900 placeholder:text-gray-500"
                           disabled={formSubmitting}
                         />
                         <input
@@ -1280,7 +1282,7 @@ export default function PropertyDetailPage() {
                               phone: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 border border-white/20 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all text-white placeholder:text-gray-500"
+                          className="w-full px-4 py-3 border border-gray-200 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all text-gray-900 placeholder:text-gray-500"
                           disabled={formSubmitting}
                         />
                         <textarea
@@ -1293,12 +1295,12 @@ export default function PropertyDetailPage() {
                               message: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 border border-white/20 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all resize-none text-white placeholder:text-gray-500"
+                          className="w-full px-4 py-3 border border-gray-200 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all resize-none text-gray-900 placeholder:text-gray-500"
                           disabled={formSubmitting}
                         />
 
                         {formError && (
-                          <p className="text-sm text-red-400">{formError}</p>
+                          <p className="text-sm text-red-600">{formError}</p>
                         )}
 
                         <Button
@@ -1311,7 +1313,7 @@ export default function PropertyDetailPage() {
                       </form>
                     )}
 
-                    <p className="text-xs text-gray-400 mt-3 text-center">
+                    <p className="text-xs text-gray-500 mt-3 text-center">
                       เราจะติดต่อกลับภายใน 24 ชั่วโมง
                     </p>
                   </div>

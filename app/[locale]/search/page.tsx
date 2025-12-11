@@ -25,135 +25,19 @@ import {
   Grid3X3,
   List,
   Building2,
-  Sparkles,
-  Tag,
-  TrendingUp,
   CheckCircle,
 } from "lucide-react";
 import Image from "next/image";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { getProperties, type Property as DataProperty } from "@/lib/data";
+import {
+  type NainaHubProperty,
+  type FetchPropertiesParams,
+  type NainaHubResponse,
+} from "@/lib/nainahub";
 
-// Mock projects data
-const mockProjects = [
-  {
-    projectCode: "PROJ-001",
-    projectNameEn: "The Diplomat 39",
-    projectNameTh: "เดอะ ดิโพลแมท 39",
-    count: 5,
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
-  },
-  {
-    projectCode: "PROJ-002",
-    projectNameEn: "Noble Around Ari",
-    projectNameTh: "โนเบิล อะราวด์ อารีย์",
-    count: 3,
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800",
-  },
-  {
-    projectCode: "PROJ-003",
-    projectNameEn: "The Met Sathorn",
-    projectNameTh: "เดอะ เม็ท สาทร",
-    count: 4,
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
-  },
-  {
-    projectCode: "PROJ-004",
-    projectNameEn: "Life Sukhumvit",
-    projectNameTh: "ไลฟ์ สุขุมวิท",
-    count: 6,
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
-  },
-  {
-    projectCode: "PROJ-005",
-    projectNameEn: "Setthasiri Bangna",
-    projectNameTh: "เศรษฐสิริ บางนา",
-    count: 4,
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
-  },
-  {
-    projectCode: "PROJ-006",
-    projectNameEn: "Baan Klang Muang",
-    projectNameTh: "บ้านกลางเมือง",
-    count: 7,
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
-  },
-  {
-    projectCode: "PROJ-007",
-    projectNameEn: "Tela Thonglor",
-    projectNameTh: "เทลา ทองหล่อ",
-    count: 3,
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800",
-  },
-  {
-    projectCode: "PROJ-008",
-    projectNameEn: "Edge Sukhumvit 23",
-    projectNameTh: "เอดจ์ สุขุมวิท 23",
-    count: 5,
-    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800",
-  },
-];
-
-interface Promotion {
-  id: string;
-  label: string;
-  type: string;
-  isActive: boolean;
-}
-
-interface PropertyTag {
-  id: string;
-  name: string;
-  color: string | null;
-}
-
-interface PropertyExtension {
-  id: string;
-  priority: number;
-  isHidden: boolean;
-  isFeaturedPopular: boolean;
-  promotions: Promotion[];
-  tags: PropertyTag[];
-}
-
-type PropertyStatus =
-  | "pending"
-  | "available"
-  | "reserved"
-  | "under_contract"
-  | "sold"
-  | "rented"
-  | "under_maintenance"
-  | "off_market";
-
-interface Property {
-  id: string;
-  agentPropertyCode: string;
-  propertyType: string;
-  propertyTitleEn: string;
-  propertyTitleTh: string;
-  bedRoomNum: number;
-  bathRoomNum: number;
-  roomSizeNum: number | null;
-  usableAreaSqm: number | null;
-  landSizeSqw: number | null;
-  floor: string | null;
-  building: string | null;
-  imageUrls: string[];
-  rentalRateNum: number | null;
-  sellPriceNum: number | null;
-  latitude: number | null;
-  longitude: number | null;
-  district?: string;
-  projectCode?: string;
-  status: PropertyStatus;
-  project: {
-    projectNameEn: string;
-    projectNameTh: string;
-  } | null;
-  extension: PropertyExtension | null;
-}
+// Use NainaHub property type
+type Property = NainaHubProperty;
 
 interface Project {
   projectCode: string;
@@ -161,6 +45,27 @@ interface Project {
   projectNameTh: string;
   count: number;
   image: string;
+}
+
+// Helper function to fetch properties from API route
+async function fetchPropertiesFromAPI(params: FetchPropertiesParams = {}): Promise<NainaHubResponse> {
+  const searchParams = new URLSearchParams();
+
+  if (params.page) searchParams.set("page", params.page.toString());
+  if (params.limit) searchParams.set("limit", params.limit.toString());
+  if (params.propertyType) searchParams.set("propertyType", params.propertyType);
+  if (params.listingType) searchParams.set("listingType", params.listingType);
+  if (params.bedrooms) searchParams.set("bedrooms", params.bedrooms.toString());
+  if (params.minPrice) searchParams.set("minPrice", params.minPrice.toString());
+  if (params.maxPrice) searchParams.set("maxPrice", params.maxPrice.toString());
+
+  const response = await fetch(`/api/nainahub/properties?${searchParams.toString()}`);
+
+  if (!response.ok) {
+    throw new Error(`API error: ${response.status}`);
+  }
+
+  return response.json();
 }
 
 function SearchContent() {
@@ -212,40 +117,51 @@ function SearchContent() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Convert DataProperty to Property format
-  const convertProperty = (p: DataProperty): Property => ({
-    id: p.id,
-    agentPropertyCode: p.agentPropertyCode,
-    propertyType: p.propertyType,
-    propertyTitleEn: p.propertyTitleEn,
-    propertyTitleTh: p.propertyTitleTh,
-    bedRoomNum: p.bedRoomNum,
-    bathRoomNum: p.bathRoomNum,
-    roomSizeNum: p.roomSizeNum,
-    usableAreaSqm: p.usableAreaSqm,
-    landSizeSqw: p.landSizeSqw,
-    floor: p.floor,
-    building: p.building,
-    imageUrls: p.imageUrls,
-    rentalRateNum: p.rentalRateNum,
-    sellPriceNum: p.sellPriceNum,
-    latitude: p.latitude,
-    longitude: p.longitude,
-    district: p.district,
-    status: p.status as PropertyStatus,
-    project: p.project,
-    extension: null,
-  });
 
-  // Load data from mock
+  // Load properties from NainaHub API
   useEffect(() => {
-    setLoading(true);
-    // Load properties from mock data
-    const mockProperties = getProperties().map(convertProperty);
-    setAllProperties(mockProperties);
-    // Load projects from mock data
-    setProjects(mockProjects);
-    setLoading(false);
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetchPropertiesFromAPI({ limit: 100 });
+        setAllProperties(response.data);
+
+        // Generate projects from properties
+        const projectsMap = new Map<string, { count: number; image: string; project: any }>();
+        response.data.forEach((property: NainaHubProperty) => {
+          if (property.project) {
+            const existing = projectsMap.get(property.projectCode);
+            if (existing) {
+              existing.count++;
+            } else {
+              projectsMap.set(property.projectCode, {
+                count: 1,
+                image: property.imageUrls[0] || "",
+                project: property.project,
+              });
+            }
+          }
+        });
+
+        const projectsArray: Project[] = Array.from(projectsMap.entries()).map(
+          ([code, data]) => ({
+            projectCode: code,
+            projectNameEn: data.project.projectNameEn,
+            projectNameTh: data.project.projectNameTh,
+            count: data.count,
+            image: data.image,
+          })
+        );
+
+        setProjects(projectsArray);
+      } catch (error) {
+        console.error("Error loading properties:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
   }, []);
 
   // Filter properties based on selected filters
@@ -710,20 +626,6 @@ function SearchContent() {
                               ? t("search.land")
                               : t("search.singleHouse")}
                           </div>
-                          {/* Popular Badge */}
-                          {property.extension?.isFeaturedPopular && (
-                            <div className="bg-gradient-to-r from-orange-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
-                              <TrendingUp className="w-3 h-3" />
-                              {t("property.popular")}
-                            </div>
-                          )}
-                          {/* Promotion Badge */}
-                          {property.extension?.promotions && property.extension.promotions.length > 0 && (
-                            <div className="bg-gradient-to-r from-red-500 to-rose-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
-                              <Sparkles className="w-3 h-3" />
-                              {property.extension.promotions[0].label}
-                            </div>
-                          )}
                         </div>
 
                         {/* Listing Type & Closed Deal Badge */}
@@ -807,24 +709,6 @@ function SearchContent() {
                             )}
                         </div>
 
-                        {/* Tags */}
-                        {property.extension?.tags && property.extension.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {property.extension.tags.slice(0, 3).map((tag) => (
-                              <span
-                                key={tag.id}
-                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"
-                                style={{
-                                  backgroundColor: `${tag.color || "#3B82F6"}20`,
-                                  color: tag.color || "#3B82F6",
-                                }}
-                              >
-                                <Tag className="w-2.5 h-2.5" />
-                                {tag.name}
-                              </span>
-                            ))}
-                          </div>
-                        )}
 
                         <div className="text-xs text-gray-400 mt-2">
                           {t("common.code")}: {property.agentPropertyCode}

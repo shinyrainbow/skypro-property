@@ -2,18 +2,32 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 // GET /api/public/blog - Get all published blog posts
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const categorySlug = searchParams.get("category");
+
+    const whereClause: any = {
+      isPublished: true,
+    };
+
+    // Filter by category if provided
+    if (categorySlug) {
+      whereClause.category = {
+        slug: categorySlug,
+        isActive: true,
+      };
+    }
+
     const blogs = await prisma.blog.findMany({
-      where: {
-        isPublished: true,
-      },
+      where: whereClause,
       include: {
         sections: {
           orderBy: {
             order: "asc",
           },
         },
+        category: true,
       },
       orderBy: {
         publishedAt: "desc",

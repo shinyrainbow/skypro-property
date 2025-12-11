@@ -19,27 +19,40 @@ interface BlogSection {
   contentJa: string | null;
 }
 
+interface BlogCategory {
+  id: string;
+  name: string;
+  nameEn: string | null;
+  nameZh: string | null;
+  slug: string;
+  color: string;
+  _count?: {
+    blogs: number;
+  };
+}
+
 interface Blog {
   id: string;
   title: string;
   titleEn: string | null;
   titleZh: string | null;
-  titleJa: string | null;
   slug: string;
   excerpt: string | null;
   excerptEn: string | null;
   excerptZh: string | null;
-  excerptJa: string | null;
   coverImage: string | null;
   isPublished: boolean;
   publishedAt: string | null;
   sections: BlogSection[];
+  category: BlogCategory | null;
 }
 
 export default function BlogPage() {
   const t = useTranslations("blog");
   const locale = useLocale();
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [categories, setCategories] = useState<BlogCategory[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -48,10 +61,31 @@ export default function BlogPage() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/public/categories");
+        const data = await res.json();
+        if (data.success) {
+          setCategories(data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // Fetch blogs (with optional category filter)
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch("/api/public/blog");
+        setLoading(true);
+        const url = selectedCategory
+          ? `/api/public/blog?category=${selectedCategory}`
+          : "/api/public/blog";
+        const res = await fetch(url);
         const data = await res.json();
         if (data.success) {
           setBlogs(data.data);
@@ -63,7 +97,7 @@ export default function BlogPage() {
       }
     };
     fetchBlogs();
-  }, []);
+  }, [selectedCategory]);
 
   const getLocalizedTitle = (blog: Blog) => {
     switch (locale) {
@@ -71,8 +105,6 @@ export default function BlogPage() {
         return blog.titleEn || blog.title;
       case "zh":
         return blog.titleZh || blog.title;
-      case "ja":
-        return blog.titleJa || blog.title;
       default:
         return blog.title;
     }
@@ -84,17 +116,26 @@ export default function BlogPage() {
         return blog.excerptEn || blog.excerpt;
       case "zh":
         return blog.excerptZh || blog.excerpt;
-      case "ja":
-        return blog.excerptJa || blog.excerpt;
       default:
         return blog.excerpt;
+    }
+  };
+
+  const getLocalizedCategoryName = (category: BlogCategory) => {
+    switch (locale) {
+      case "en":
+        return category.nameEn || category.name;
+      case "zh":
+        return category.nameZh || category.name;
+      default:
+        return category.name;
     }
   };
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "";
     const date = new Date(dateString);
-    return date.toLocaleDateString(locale === "th" ? "th-TH" : locale === "zh" ? "zh-CN" : locale === "ja" ? "ja-JP" : "en-US", {
+    return date.toLocaleDateString(locale === "th" ? "th-TH" : locale === "zh" ? "zh-CN" : "en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -119,7 +160,7 @@ export default function BlogPage() {
         >
           <div className="max-w-3xl">
             <p className="text-[#C9A227] text-xs uppercase tracking-widest mb-3">BLOG & NEWS</p>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
               {t("title")}
             </h1>
             <p className="text-gray-400">
@@ -267,7 +308,7 @@ export default function BlogPage() {
                 <div className="sticky top-24 space-y-6">
                   {/* Popular Articles */}
                   <div className="bg-white rounded-xl border border-gray-200 p-5">
-                    <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                    <h3 className="text-gray-900 font-semibold mb-4 flex items-center gap-2">
                       <TrendingUp className="w-4 h-4 text-[#C9A227]" />
                       Popular Articles
                     </h3>
@@ -309,23 +350,45 @@ export default function BlogPage() {
 
                   {/* Categories / Tags */}
                   <div className="bg-white rounded-xl border border-gray-200 p-5">
-                    <h3 className="text-white font-semibold mb-4">Categories</h3>
+                    <h3 className="text-gray-900 font-semibold mb-4">Categories</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["Real Estate", "Market Trends", "Tips", "Investment", "News"].map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full border border-gray-200 hover:border-[#C9A227]/50 hover:text-[#C9A227] transition-colors cursor-pointer"
+                      {/* All Categories button */}
+                      <button
+                        onClick={() => setSelectedCategory(null)}
+                        className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                          selectedCategory === null
+                            ? "bg-[#C9A227] text-white border-[#C9A227]"
+                            : "bg-gray-100 text-gray-600 border-gray-200 hover:border-[#C9A227]/50 hover:text-[#C9A227]"
+                        }`}
+                      >
+                        All
+                      </button>
+                      {categories.map((category) => (
+                        <button
+                          key={category.id}
+                          onClick={() => setSelectedCategory(category.slug)}
+                          className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                            selectedCategory === category.slug
+                              ? "text-white border-[#C9A227]"
+                              : "bg-gray-100 text-gray-600 border-gray-200 hover:border-[#C9A227]/50 hover:text-[#C9A227]"
+                          }`}
+                          style={{
+                            backgroundColor: selectedCategory === category.slug ? category.color : undefined,
+                          }}
                         >
-                          {tag}
-                        </span>
+                          {getLocalizedCategoryName(category)}
+                          {category._count && category._count.blogs > 0 && (
+                            <span className="ml-1.5 opacity-70">({category._count.blogs})</span>
+                          )}
+                        </button>
                       ))}
                     </div>
                   </div>
 
                   {/* Newsletter CTA */}
                   <div className="bg-gradient-to-br from-[#C9A227]/20 to-[#C9A227]/5 rounded-xl border border-[#C9A227]/30 p-5">
-                    <h3 className="text-white font-semibold mb-2">Stay Updated</h3>
-                    <p className="text-gray-400 text-xs mb-4">Get the latest real estate news and updates.</p>
+                    <h3 className="text-gray-900 font-semibold mb-2">Stay Updated</h3>
+                    <p className="text-gray-600 text-xs mb-4">Get the latest real estate news and updates.</p>
                     <Button variant="gold" size="sm" className="w-full text-xs">
                       Subscribe Now
                     </Button>

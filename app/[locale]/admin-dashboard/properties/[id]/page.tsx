@@ -28,6 +28,14 @@ import {
   Save,
 } from "lucide-react";
 import Image from "next/image";
+import {
+  getMainPropertyTypes,
+  getSubPropertyTypes,
+  getMainPropertyType,
+  getSubPropertyType,
+  type MainPropertyType,
+  type SubPropertyType,
+} from "@/lib/propertyTypes";
 
 interface Promotion {
   id: string;
@@ -49,6 +57,8 @@ interface PropertyExtension {
   internalNotes: string | null;
   isHidden: boolean;
   isFeaturedPopular: boolean;
+  mainPropertyType: string | null;
+  subPropertyType: string | null;
   promotions: Promotion[];
   tags: PropertyTag[];
 }
@@ -106,6 +116,8 @@ export default function PropertyDetailsPage() {
     internalNotes: "",
     isFeaturedPopular: false,
     isHidden: false,
+    mainPropertyType: "" as string,
+    subPropertyType: "" as string,
   });
 
   // Promotion form state
@@ -120,18 +132,37 @@ export default function PropertyDetailsPage() {
   const fetchProperty = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/public/enhanced-properties/${id}`);
+      const res = await fetch(`/api/nainahub/property/${id}`);
       const data = await res.json();
 
       if (data.success && data.data) {
         setProperty(data.data);
         // Initialize form with existing extension data
         if (data.data.extension) {
+          // Auto-populate property types from NainaHub if not set
+          const autoMain = getMainPropertyType(data.data.propertyType);
+          const autoSub = getSubPropertyType(data.data.propertyType);
+
           setExtensionForm({
             priority: data.data.extension.priority || 0,
             internalNotes: data.data.extension.internalNotes || "",
             isFeaturedPopular: data.data.extension.isFeaturedPopular || false,
             isHidden: data.data.extension.isHidden || false,
+            mainPropertyType: data.data.extension.mainPropertyType || autoMain || "",
+            subPropertyType: data.data.extension.subPropertyType || autoSub || "",
+          });
+        } else {
+          // No extension yet, auto-populate from NainaHub
+          const autoMain = getMainPropertyType(data.data.propertyType);
+          const autoSub = getSubPropertyType(data.data.propertyType);
+
+          setExtensionForm({
+            priority: 0,
+            internalNotes: "",
+            isFeaturedPopular: false,
+            isHidden: false,
+            mainPropertyType: autoMain || "",
+            subPropertyType: autoSub || "",
           });
         }
       } else {
@@ -484,6 +515,58 @@ export default function PropertyDetailsPage() {
                 onChange={(e) => setExtensionForm({ ...extensionForm, priority: parseInt(e.target.value) || 0 })}
               />
             </div>
+
+            {/* Main Property Type */}
+            <div className="py-3 border-b">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                ประเภทหลัก (Main Type)
+              </label>
+              <Select
+                value={extensionForm.mainPropertyType}
+                onValueChange={(value) => {
+                  setExtensionForm({
+                    ...extensionForm,
+                    mainPropertyType: value,
+                    subPropertyType: "" // Reset sub type when main type changes
+                  });
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="เลือกประเภทหลัก" />
+                </SelectTrigger>
+                <SelectContent>
+                  {getMainPropertyTypes().map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type === "Living" ? "ที่อยู่อาศัย" : type === "Land" ? "ที่ดิน" : "พาณิชย์"}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Sub Property Type */}
+            {extensionForm.mainPropertyType && (
+              <div className="py-3 border-b">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  ประเภทย่อย (Sub Type)
+                </label>
+                <Select
+                  value={extensionForm.subPropertyType}
+                  onValueChange={(value) => setExtensionForm({ ...extensionForm, subPropertyType: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="เลือกประเภทย่อย" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {getSubPropertyTypes(extensionForm.mainPropertyType as MainPropertyType).map((subType) => (
+                      <SelectItem key={subType} value={subType}>
+                        {subType}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
             {/* Internal Notes */}
             <div className="py-3">

@@ -31,9 +31,12 @@ export default function Header({ transparent = false }: HeaderProps) {
   const leftNavLinks = [
     { href: "/search?listingType=rent", label: t("rent") },
     { href: "/search?listingType=sale", label: t("sale") },
+    { href: "/map-search", label: t("mapSearch") },
   ];
 
   const rightNavLinks = [
+    { href: "/list-property", label: t("listProperty") },
+    { href: "/about", label: t("about") },
     { href: "/blog", label: t("blog") },
     { href: "/#contact", label: t("contact") },
   ];
@@ -76,12 +79,12 @@ export default function Header({ transparent = false }: HeaderProps) {
             </Link>
 
             {/* Center - Navigation */}
-            <div className="flex items-center justify-center gap-8">
+            <div className="flex items-center justify-center gap-6">
               {allNavLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-xs font-medium tracking-wider uppercase text-white/70 hover:text-[#C9A227] transition-colors duration-200"
+                  className="text-xs font-medium tracking-wider uppercase text-white/70 hover:text-[#C9A227] transition-colors duration-200 whitespace-nowrap"
                 >
                   {link.label}
                 </Link>

@@ -8,12 +8,13 @@ import { MapPin, Phone, Mail } from "lucide-react";
 export default function Footer() {
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
+  const tFooter = useTranslations("footerNav");
 
   const quickLinks = [
     { href: "/search?listingType=rent", label: tNav("rent") },
     { href: "/search?listingType=sale", label: tNav("sale") },
     { href: "/blog", label: tNav("blog") },
-    { href: "/reviews", label: "Reviews" },
+    { href: "/reviews", label: tNav("reviews") },
   ];
 
   return (
@@ -48,7 +49,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-medium text-sm mb-4">Quick Links</h4>
+            <h4 className="text-white font-medium text-sm mb-4">{tFooter("quickLinks")}</h4>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.href}>
@@ -65,7 +66,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-white font-medium text-sm mb-4">Contact</h4>
+            <h4 className="text-white font-medium text-sm mb-4">{tFooter("contact")}</h4>
             <ul className="space-y-2.5">
               <li className="flex items-start gap-2">
                 <Phone className="w-3 h-3 text-[#C9A227] mt-0.5 flex-shrink-0" />
@@ -84,9 +85,9 @@ export default function Footer() {
 
           {/* Social / LINE */}
           <div>
-            <h4 className="text-white font-medium text-sm mb-4">Connect</h4>
+            <h4 className="text-white font-medium text-sm mb-4">{tFooter("connect")}</h4>
             <p className="text-gray-400 text-xs mb-3">
-              Add us on LINE for instant support
+              {tFooter("addLineSupport")}
             </p>
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#06C755] rounded-lg text-white text-xs font-medium">
               <span>@skyproproperties</span>
@@ -102,10 +103,10 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4">
               <Link href="/privacy" className="text-gray-500 text-[10px] hover:text-gray-400 transition-colors">
-                Privacy Policy
+                {tFooter("privacyPolicy")}
               </Link>
               <Link href="/terms" className="text-gray-500 text-[10px] hover:text-gray-400 transition-colors">
-                Terms of Service
+                {tFooter("termsOfService")}
               </Link>
             </div>
           </div>

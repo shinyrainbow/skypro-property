@@ -398,7 +398,7 @@ export default function BlogPostPage({
               <div className="sticky top-24 space-y-6">
                 {/* Related Articles */}
                 <div className="bg-white rounded-xl border border-gray-200 p-5">
-                  <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                  <h3 className="text-gray-900 font-semibold mb-4 flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-[#C9A227]" />
                     Related Articles
                   </h3>
@@ -444,7 +444,7 @@ export default function BlogPostPage({
 
                 {/* Categories */}
                 <div className="bg-white rounded-xl border border-gray-200 p-5">
-                  <h3 className="text-white font-semibold mb-4">Categories</h3>
+                  <h3 className="text-gray-900 font-semibold mb-4">Categories</h3>
                   <div className="flex flex-wrap gap-2">
                     {["Real Estate", "Market Trends", "Tips", "Investment", "News"].map((tag) => (
                       <span
@@ -459,8 +459,8 @@ export default function BlogPostPage({
 
                 {/* Contact CTA */}
                 <div className="bg-gradient-to-br from-[#C9A227]/20 to-[#C9A227]/5 rounded-xl border border-[#C9A227]/30 p-5">
-                  <h3 className="text-white font-semibold mb-2">Need Help?</h3>
-                  <p className="text-gray-400 text-xs mb-4">Have questions about real estate? Our team is here to help.</p>
+                  <h3 className="text-gray-900 font-semibold mb-2">Need Help?</h3>
+                  <p className="text-gray-600 text-xs mb-4">Have questions about real estate? Our team is here to help.</p>
                   <Link href="/#contact">
                     <Button variant="gold" size="sm" className="w-full text-xs">
                       Contact Us
@@ -477,7 +477,7 @@ export default function BlogPostPage({
       {relatedBlogs.length > 0 && (
         <section className="py-12 bg-[#0d1117]">
           <div className="container mx-auto px-4">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
               <FileText className="w-5 h-5 text-[#C9A227]" />
               More Articles You Might Like
             </h2>

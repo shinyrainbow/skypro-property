@@ -25,13 +25,77 @@
     "home": "Home",
     "rent": "Rent",
     "sale": "Buy",
+    "mapSearch": "Map Search",
     "promotions": "Promotions",
     "newProjects": "New Projects",
     "listProperty": "List Property",
     "reviews": "Reviews",
     "blog": "Blog",
+    "about": "About Us",
     "contact": "Contact",
     "premiumRealEstate": "Premium Real Estate"
+  },
+  "about": {
+    "hero": {
+      "title": "About SkyPro Property",
+      "subtitle": "Your trusted partner in finding the perfect property in Thailand. We combine local expertise with international standards to deliver exceptional real estate services."
+    },
+    "stats": {
+      "properties": "Properties Sold",
+      "clients": "Happy Clients",
+      "years": "Years of Excellence",
+      "satisfaction": "Client Satisfaction"
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "Founded in 2009, SkyPro Property has grown from a small local agency to one of Thailand's most trusted real estate companies. Our journey began with a simple mission: to help people find their dream homes and investment properties.",
+      "paragraph2": "Over the years, we've built strong relationships with developers, property owners, and thousands of satisfied clients. Our team of experienced agents understands the Thai property market inside and out, ensuring you get the best deals and most reliable advice.",
+      "paragraph3": "Today, we're proud to serve both local and international clients, offering a comprehensive range of properties from luxury condos in Bangkok to peaceful villas in Phuket and Chiang Mai."
+    },
+    "valuesSection": {
+      "title": "Our Core Values",
+      "subtitle": "These principles guide everything we do and define who we are as a company."
+    },
+    "values": {
+      "trust": {
+        "title": "Trust & Integrity",
+        "description": "We believe in complete transparency and honesty in every transaction. Your trust is our most valuable asset, and we work hard to earn and maintain it."
+      },
+      "excellence": {
+        "title": "Excellence in Service",
+        "description": "We go above and beyond to provide exceptional service. From the first consultation to the final handover, we ensure a smooth and professional experience."
+      },
+      "community": {
+        "title": "Community Focus",
+        "description": "We're not just selling properties; we're helping build communities. We care about the neighborhoods we serve and the people who live in them."
+      }
+    },
+    "teamSection": {
+      "title": "Meet Our Team",
+      "subtitle": "Our dedicated professionals are here to guide you through every step of your property journey."
+    },
+    "team": {
+      "ceo": {
+        "name": "Somchai Tanawat",
+        "role": "CEO & Founder",
+        "description": "With over 20 years of experience in real estate, Somchai leads our team with vision and dedication to excellence."
+      },
+      "director": {
+        "name": "Napat Siriwan",
+        "role": "Sales Director",
+        "description": "Napat brings 15 years of expertise in luxury property sales, helping clients find their perfect investment."
+      },
+      "manager": {
+        "name": "Krit Pattana",
+        "role": "Property Manager",
+        "description": "Krit ensures all our listings meet the highest standards and provides expert market insights to our clients."
+      }
+    },
+    "cta": {
+      "title": "Ready to Find Your Dream Property?",
+      "subtitle": "Let our experienced team help you discover the perfect property that matches your needs and budget.",
+      "button": "Contact Us Today"
+    }
   },
   "hero": {
     "title": "Find Your Dream",
@@ -48,20 +112,57 @@
     "listingType": "Listing Type",
     "propertyType": "Property Type",
     "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
     "minPrice": "Min Price (฿)",
     "maxPrice": "Max Price (฿)",
+    "priceRange": "Price Range",
+    "sizeRange": "Size Range",
+    "min": "Min",
+    "max": "Max",
+    "filters": "Filters",
+    "clearAll": "Clear All",
+    "found": "found",
+    "hideFilters": "Hide Filters",
+    "showFilters": "Show Filters",
     "all": "All",
     "rent": "Rent",
     "sale": "Sale",
+    "forRent": "For Rent",
+    "forSale": "For Sale",
     "condo": "Condo",
     "townhouse": "Townhouse",
     "singleHouse": "Single House",
+    "house": "House",
     "land": "Land",
     "searchButton": "Search",
     "resetFilters": "Reset Filters",
     "resultsFound": "Found {count} properties matching your criteria",
     "noPropertiesFound": "No properties found",
-    "tryAdjustFilters": "Try adjusting your search criteria"
+    "tryAdjustFilters": "Try adjusting your search criteria",
+    "noResults": "No results found"
+  },
+  "propertyTypes": {
+    "main": {
+      "living": "Living",
+      "land": "Land",
+      "commercial": "Commercial"
+    },
+    "sub": {
+      "condo": "Condo",
+      "townhouse": "Townhouse",
+      "singleHouse": "Single House",
+      "villa": "Villa",
+      "land": "Land",
+      "office": "Office",
+      "store": "Store",
+      "factory": "Factory",
+      "hotel": "Hotel",
+      "building": "Building"
+    },
+    "mainPropertyType": "Main Type",
+    "subPropertyType": "Sub Type",
+    "selectMainType": "Select Main Type",
+    "selectSubType": "Select Sub Type"
   },
   "property": {
     "forRent": "For Rent",
@@ -259,6 +360,54 @@
     "security": "24/7 Security",
     "parking": "Parking",
     "garden": "Garden",
-    "cctv": "CCTV"
+    "cctv": "CCTV",
+    "beds": "Beds",
+    "baths": "Baths",
+    "area": "Area",
+    "learnMore": "LEARN MORE"
+  },
+  "homePage": {
+    "sellOrRent": "Sell or rent",
+    "yourHomeAt": "your home at",
+    "bestPrice": "the best price",
+    "premiumProperties": "Premium Properties",
+    "handPickedLuxury": "Hand-picked luxury listings",
+    "guaranteedService": "Guaranteed Service",
+    "professionalSupport": "Professional support 24/7",
+    "getInTouch": "GET IN TOUCH",
+    "howItWorks": "HOW IT WORKS",
+    "clientSatisfaction": "Client Satisfaction",
+    "weHelpSell": "We'll help sell your house,",
+    "withGuaranteed": "with our",
+    "guaranteedText": "Guaranteed",
+    "services": "services",
+    "step1": "STEP 1",
+    "step1Line1": "Give us a call,",
+    "step1Line2": "we'll help",
+    "step2": "STEP 2",
+    "step2Line1": "List your",
+    "step2Line2": "property",
+    "step3": "STEP 3",
+    "step3Line1": "Your home sold",
+    "step3Line2": "Guaranteed",
+    "years": "Years",
+    "ofExperience": "of experience",
+    "awardsGained": "Awards Gained",
+    "propertiesListed": "Properties Listed",
+    "happyClients": "Happy Clients",
+    "realEstateGuru": "Real Estate Guru In Chiangmai",
+    "buyAnd": "Buy, Sell, Rent - House, Condo, Land, Pool Villa"
+  },
+  "footerNav": {
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "connect": "Connect",
+    "addLineSupport": "Add us on LINE for instant support",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "lineOfficial": "Line Official"
   }
 }

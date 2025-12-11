@@ -14,17 +14,11 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import {
-  Bed,
-  Bath,
-  Maximize,
   MapPin,
   Search,
-  Star,
   Phone,
   Mail,
   ChevronDown,
-  ChevronLeft,
-  ChevronRight,
   ArrowRight,
   Play,
   Home,
@@ -37,172 +31,28 @@ import Footer from "@/components/layout/footer";
 import PartnersSection from "@/components/sections/partners";
 import { toast } from "sonner";
 import {
-  getProperties,
-  getPopularProperties,
-  getClosedDeals,
-  type Property as DataProperty,
-} from "@/lib/data";
+  type NainaHubProperty,
+  type FetchPropertiesParams,
+  type NainaHubResponse,
+} from "@/lib/nainahub";
 
 // Hero background images for slideshow
 const heroImages = [
   "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920",
-  // "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920",
   "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920",
   "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920",
   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920",
+  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920",
+  "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920",
+  "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1920",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920",
 ];
 
-// Mock reviews data
-const mockReviews = [
-  {
-    id: "rev-001",
-    name: "คุณสมชาย วงศ์สุวรรณ",
-    rating: 5,
-    comment: "บริการดีมากครับ ทีมงานมืออาชีพ ช่วยหาคอนโดได้ตรงใจมาก ขอบคุณครับ",
-    transactionType: "rent",
-    location: "สุขุมวิท",
-    createdAt: "2025-11-15T10:00:00Z",
-  },
-  {
-    id: "rev-002",
-    name: "คุณนภา ศรีสุข",
-    rating: 5,
-    comment:
-      "ประทับใจมากค่ะ ตอบคำถามรวดเร็ว พาชมห้องหลายที่จนได้ห้องที่ถูกใจ แนะนำเลยค่ะ",
-    transactionType: "rent",
-    location: "ทองหล่อ",
-    createdAt: "2025-11-10T14:00:00Z",
-  },
-  {
-    id: "rev-003",
-    name: "คุณวิชัย ธนกิจ",
-    rating: 4,
-    comment:
-      "ซื้อบ้านผ่าน Sky Pro Properties ทุกอย่างราบรื่น เอกสารครบถ้วน แนะนำครับ",
-    transactionType: "sale",
-    location: "บางนา",
-    createdAt: "2025-11-05T09:00:00Z",
-  },
-];
+// Projects will be generated from real property data
 
-// Mock projects data
-const mockProjects = [
-  {
-    projectCode: "PROJ-001",
-    projectNameEn: "The Diplomat 39",
-    projectNameTh: "เดอะ ดิโพลแมท 39",
-    count: 5,
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
-  },
-  {
-    projectCode: "PROJ-002",
-    projectNameEn: "Noble Around Ari",
-    projectNameTh: "โนเบิล อะราวด์ อารีย์",
-    count: 3,
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800",
-  },
-  {
-    projectCode: "PROJ-003",
-    projectNameEn: "The Met Sathorn",
-    projectNameTh: "เดอะ เม็ท สาทร",
-    count: 4,
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
-  },
-  {
-    projectCode: "PROJ-004",
-    projectNameEn: "Life Sukhumvit",
-    projectNameTh: "ไลฟ์ สุขุมวิท",
-    count: 6,
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
-  },
-  {
-    projectCode: "PROJ-005",
-    projectNameEn: "Setthasiri Bangna",
-    projectNameTh: "เศรษฐสิริ บางนา",
-    count: 4,
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
-  },
-  {
-    projectCode: "PROJ-006",
-    projectNameEn: "Baan Klang Muang",
-    projectNameTh: "บ้านกลางเมือง",
-    count: 7,
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
-  },
-  {
-    projectCode: "PROJ-007",
-    projectNameEn: "Tela Thonglor",
-    projectNameTh: "เทลา ทองหล่อ",
-    count: 3,
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800",
-  },
-  {
-    projectCode: "PROJ-008",
-    projectNameEn: "Edge Sukhumvit 23",
-    projectNameTh: "เอดจ์ สุขุมวิท 23",
-    count: 5,
-    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800",
-  },
-];
-
-interface Promotion {
-  id: string;
-  label: string;
-  type: string;
-  isActive: boolean;
-}
-
-interface PropertyTag {
-  id: string;
-  name: string;
-  color: string | null;
-}
-
-interface PropertyExtension {
-  id: string;
-  priority: number;
-  isHidden: boolean;
-  isFeaturedPopular: boolean;
-  promotions: Promotion[];
-  tags: PropertyTag[];
-}
-
-type PropertyStatus =
-  | "pending"
-  | "available"
-  | "reserved"
-  | "under_contract"
-  | "sold"
-  | "rented"
-  | "under_maintenance"
-  | "off_market";
-
-interface Property {
-  id: string;
-  agentPropertyCode: string | null;
-  propertyType: string;
-  propertyTitleEn: string;
-  propertyTitleTh: string;
-  bedRoomNum: number;
-  bathRoomNum: number;
-  roomSizeNum: number | null;
-  usableAreaSqm: number | null;
-  landSizeSqw: number | null;
-  floor: string | null;
-  building: string | null;
-  imageUrls: string[];
-  rentalRateNum: number | null;
-  sellPriceNum: number | null;
-  latitude: number | null;
-  longitude: number | null;
-  status: PropertyStatus;
-  views?: number;
-  project: {
-    projectNameEn: string;
-    projectNameTh: string;
-  } | null;
-  extension?: PropertyExtension | null;
-}
+// Use NainaHub property type
+type Property = NainaHubProperty;
 
 interface Project {
   projectCode: string;
@@ -212,14 +62,25 @@ interface Project {
   image: string;
 }
 
-interface Review {
-  id: string;
-  name: string;
-  rating: number;
-  comment: string;
-  transactionType: string;
-  location: string;
-  createdAt: string;
+// Helper function to fetch properties from API route
+async function fetchPropertiesFromAPI(params: FetchPropertiesParams = {}): Promise<NainaHubResponse> {
+  const searchParams = new URLSearchParams();
+
+  if (params.page) searchParams.set("page", params.page.toString());
+  if (params.limit) searchParams.set("limit", params.limit.toString());
+  if (params.propertyType) searchParams.set("propertyType", params.propertyType);
+  if (params.listingType) searchParams.set("listingType", params.listingType);
+  if (params.bedrooms) searchParams.set("bedrooms", params.bedrooms.toString());
+  if (params.minPrice) searchParams.set("minPrice", params.minPrice.toString());
+  if (params.maxPrice) searchParams.set("maxPrice", params.maxPrice.toString());
+
+  const response = await fetch(`/api/nainahub/properties?${searchParams.toString()}`);
+
+  if (!response.ok) {
+    throw new Error(`API error: ${response.status}`);
+  }
+
+  return response.json();
 }
 
 export default function PublicPropertiesPage() {
@@ -228,9 +89,7 @@ export default function PublicPropertiesPage() {
   const t = useTranslations();
   const [properties, setProperties] = useState<Property[]>([]);
   const [popularProperties, setPopularProperties] = useState<Property[]>([]);
-  const [closedDeals, setClosedDeals] = useState<Property[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -238,13 +97,6 @@ export default function PublicPropertiesPage() {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
   const observerRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const popularSliderRef = useRef<HTMLDivElement>(null);
-  const closedDealsSliderRef = useRef<HTMLDivElement>(null);
-
-  // Slider scroll position states
-  const [popularCanScrollLeft, setPopularCanScrollLeft] = useState(false);
-  const [popularCanScrollRight, setPopularCanScrollRight] = useState(true);
-  const [closedCanScrollLeft, setClosedCanScrollLeft] = useState(false);
-  const [closedCanScrollRight, setClosedCanScrollRight] = useState(true);
 
   // Hero background slideshow
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -307,147 +159,97 @@ export default function PublicPropertiesPage() {
     return () => observer.disconnect();
   }, []);
 
-  // Convert DataProperty to Property format
-  const convertProperty = (p: DataProperty): Property => ({
-    id: p.id,
-    agentPropertyCode: p.agentPropertyCode,
-    propertyType: p.propertyType,
-    propertyTitleEn: p.propertyTitleEn,
-    propertyTitleTh: p.propertyTitleTh,
-    bedRoomNum: p.bedRoomNum,
-    bathRoomNum: p.bathRoomNum,
-    roomSizeNum: p.roomSizeNum,
-    usableAreaSqm: p.usableAreaSqm,
-    landSizeSqw: p.landSizeSqw,
-    floor: p.floor,
-    building: p.building,
-    imageUrls: p.imageUrls,
-    rentalRateNum: p.rentalRateNum,
-    sellPriceNum: p.sellPriceNum,
-    latitude: p.latitude,
-    longitude: p.longitude,
-    status: p.status as PropertyStatus,
-    views: p.views,
-    project: p.project,
-  });
+  // Load properties from NainaHub API with filters
+  const loadProperties = async () => {
+    try {
+      setLoading(true);
+      const params: FetchPropertiesParams = {
+        page,
+        limit: 12,
+      };
 
-  // Load properties from mock data with filters
-  const loadProperties = () => {
-    setLoading(true);
-    let allProperties = getProperties().filter((p) => p.status === "active");
-
-    // Apply filters
-    if (propertyType && propertyType !== "all") {
-      allProperties = allProperties.filter(
-        (p) => p.propertyType === propertyType
-      );
-    }
-    if (listingType && listingType !== "all") {
-      if (listingType === "rent") {
-        allProperties = allProperties.filter(
-          (p) => p.rentalRateNum && p.rentalRateNum > 0
-        );
-      } else if (listingType === "sale") {
-        allProperties = allProperties.filter(
-          (p) => p.sellPriceNum && p.sellPriceNum > 0
-        );
+      // Apply filters
+      if (propertyType && propertyType !== "all") {
+        params.propertyType = propertyType as any;
       }
-    }
-    if (bedrooms && bedrooms !== "all") {
-      const bedroomNum = parseInt(bedrooms);
-      allProperties = allProperties.filter((p) => p.bedRoomNum >= bedroomNum);
-    }
-    if (minPrice) {
-      const min = parseInt(minPrice);
-      allProperties = allProperties.filter((p) => {
-        const price = p.rentalRateNum || p.sellPriceNum || 0;
-        return price >= min;
-      });
-    }
-    if (maxPrice) {
-      const max = parseInt(maxPrice);
-      allProperties = allProperties.filter((p) => {
-        const price = p.rentalRateNum || p.sellPriceNum || 0;
-        return price <= max;
-      });
-    }
+      if (listingType && listingType !== "all") {
+        params.listingType = listingType as any;
+      }
+      if (bedrooms && bedrooms !== "all") {
+        params.bedrooms = parseInt(bedrooms);
+      }
+      if (minPrice) {
+        params.minPrice = parseInt(minPrice);
+      }
+      if (maxPrice) {
+        params.maxPrice = parseInt(maxPrice);
+      }
 
-    // Pagination
-    const limit = 12;
-    const startIndex = (page - 1) * limit;
-    const paginatedProperties = allProperties.slice(
-      startIndex,
-      startIndex + limit
-    );
-
-    setProperties(paginatedProperties.map(convertProperty));
-    setTotal(allProperties.length);
-    setLoading(false);
+      const response = await fetchPropertiesFromAPI(params);
+      setProperties(response.data);
+      setTotal(response.pagination.total);
+    } catch (error) {
+      console.error("Error loading properties:", error);
+      toast.error("Failed to load properties");
+      setProperties([]);
+      setTotal(0);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     loadProperties();
   }, [page, propertyType, listingType, bedrooms, minPrice, maxPrice]);
 
-  // Load popular properties, closed deals, projects, and reviews from mock data
+  // Load popular properties and generate projects from real data
   useEffect(() => {
-    // Popular properties
-    const popular = getPopularProperties(10).map(convertProperty);
-    setPopularProperties(popular);
+    const loadInitialData = async () => {
+      try {
+        // Load more properties to get popular ones and generate projects
+        const response = await fetchPropertiesFromAPI({ limit: 100 });
 
-    // Closed deals
-    const closed = getClosedDeals(8).map(convertProperty);
-    setClosedDeals(closed);
+        // Get latest 10 properties as "popular"
+        const popular = response.data.slice(0, 10);
+        setPopularProperties(popular);
 
-    // Projects from mock data
-    setProjects(mockProjects);
+        // Generate projects from properties
+        const projectsMap = new Map<string, { count: number; image: string; project: any }>();
+        response.data.forEach((property: NainaHubProperty) => {
+          if (property.project) {
+            const existing = projectsMap.get(property.projectCode);
+            if (existing) {
+              existing.count++;
+            } else {
+              projectsMap.set(property.projectCode, {
+                count: 1,
+                image: property.imageUrls[0] || "",
+                project: property.project,
+              });
+            }
+          }
+        });
 
-    // Reviews from mock data
-    setReviews(mockReviews);
+        // Convert to projects array
+        const projectsArray: Project[] = Array.from(projectsMap.entries())
+          .map(([code, data]) => ({
+            projectCode: code,
+            projectNameEn: data.project.projectNameEn,
+            projectNameTh: data.project.projectNameTh,
+            count: data.count,
+            image: data.image,
+          }))
+          .slice(0, 8); // Limit to 8 projects
+
+        setProjects(projectsArray);
+      } catch (error) {
+        console.error("Error loading initial data:", error);
+      }
+    };
+
+    loadInitialData();
   }, []);
 
-  // Check slider scroll position
-  const checkSliderScroll = (
-    ref: React.RefObject<HTMLDivElement | null>,
-    type: "popular" | "closed"
-  ) => {
-    if (ref.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = ref.current;
-      const canLeft = scrollLeft > 0;
-      const canRight = scrollLeft < scrollWidth - clientWidth - 10;
-
-      if (type === "popular") {
-        setPopularCanScrollLeft(canLeft);
-        setPopularCanScrollRight(canRight);
-      } else {
-        setClosedCanScrollLeft(canLeft);
-        setClosedCanScrollRight(canRight);
-      }
-    }
-  };
-
-  // Initialize slider scroll states
-  useEffect(() => {
-    checkSliderScroll(popularSliderRef, "popular");
-    checkSliderScroll(closedDealsSliderRef, "closed");
-  }, [popularProperties, closedDeals]);
-
-  // Slider scroll functions
-  const scrollSlider = (
-    ref: React.RefObject<HTMLDivElement | null>,
-    direction: "left" | "right",
-    type: "popular" | "closed"
-  ) => {
-    if (ref.current) {
-      const scrollAmount = 320;
-      ref.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-      // Check scroll position after animation
-      setTimeout(() => checkSliderScroll(ref, type), 350);
-    }
-  };
 
   const formatPrice = (price: number | null) => {
     if (!price) return null;
@@ -475,79 +277,20 @@ export default function PublicPropertiesPage() {
       {/* Shared Header */}
       <Header transparent />
 
-      {/* Hero Section - Split Layout */}
+      {/* Unified Gradient Background Container */}
+      <div className="bg-gradient-to-br from-[#1a1f2e] via-[#0d1117] to-[#0A0E1A]">
+
+      {/* Hero Section - Overlapping + Angled Divider Layout */}
       <section className="relative h-[85vh] overflow-hidden">
-        <div className="grid lg:grid-cols-2 h-full">
-          {/* Left Side - Content */}
-          <div className="flex flex-col justify-center px-8 md:px-16 lg:px-12 xl:px-16 py-20 lg:py-0">
-            {/* Gold accent line */}
-            <div className="w-12 h-0.5 bg-[#C9A227] mb-6" />
-
-            {/* Headline */}
-            <h1 className="font-heading text-3xl md:text-4xl lg:text-3xl xl:text-4xl text-white mb-6 leading-tight tracking-wide">
-              <span className="font-medium">Sell or rent</span>
-              <br />
-              <span className="font-medium">your home at</span>
-              <br />
-              <span className="font-bold text-[#C9A227]">the best price</span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-base md:text-sm text-gray-400 mb-8 max-w-sm leading-relaxed">
-              {t("hero.subtitle")}
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                variant="gold"
-                size="default"
-                onClick={() => {
-                  const contactSection = document.getElementById("contact");
-                  contactSection?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="group px-8 font-heading tracking-wider text-sm"
-              >
-                GET IN TOUCH
-              </Button>
-              <Button
-                variant="dark-ghost"
-                size="default"
-                onClick={() => router.push("/search")}
-                className="group font-heading tracking-wider text-sm"
-              >
-                <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center mr-2 group-hover:border-[#C9A227] group-hover:bg-[#C9A227]/10 transition-all">
-                  <Play className="w-3 h-3 fill-white" />
-                </div>
-                HOW IT WORKS
-              </Button>
-            </div>
-
-            {/* Stats Row */}
-            <div className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-white/10">
-              <div>
-                <div className="text-2xl md:text-xl font-semibold text-white">500+</div>
-                <div className="text-sm md:text-xs text-gray-500">
-                  {t("hero.stats.properties")}
-                </div>
-              </div>
-              <div>
-                <div className="text-2xl md:text-xl font-semibold text-white">1000+</div>
-                <div className="text-sm md:text-xs text-gray-500">
-                  {t("hero.stats.happyClients")}
-                </div>
-              </div>
-              <div>
-                <div className="text-2xl md:text-xl font-semibold text-white">15+</div>
-                <div className="text-sm md:text-xs text-gray-500">
-                  {t("hero.stats.years")}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Side - Image */}
-          <div className="relative hidden lg:block">
+        {/* // bg-[#0A0E1A] */}
+        <div className="relative h-full">
+          {/* Right Side - Image with Angled Divider */}
+          <div
+            className="absolute top-0 right-0 bottom-0 hidden lg:block w-[60%]"
+            style={{
+              clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0 100%)"
+            }}
+          >
             {/* Main Image with slideshow */}
             {heroImages.map((image, index) => (
               <div
@@ -565,6 +308,110 @@ export default function PublicPropertiesPage() {
                 />
               </div>
             ))}
+
+            {/* Dark overlay to make images darker */}
+            <div className="absolute inset-0 bg-black/60" />
+
+            {/* Gradient overlay on the angled edge for blending */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0E1A] via-transparent to-transparent" style={{ width: "25%" }} />
+          </div>
+
+          {/* Left Side - Overlapping Content Card */}
+          <div className="relative z-10 h-full flex items-center px-8 md:px-12 lg:pl-[calc((100vw-1024px)/2+2rem)] xl:pl-[calc((100vw-1280px)/2+2rem)] 2xl:pl-[calc((100vw-1536px)/2+2rem)] py-20 lg:pr-0">
+            <div className="w-full max-w-3xl lg:max-w-2xl xl:max-w-3xl lg:bg-white/5 lg:p-12 lg:border-l-4 lg:border-[#C9A227]">
+              {/* Gold accent line */}
+              <div className="w-12 h-0.5 bg-[#C9A227] mb-6" />
+
+              {/* Headline */}
+              <h1 className="font-heading text-3xl md:text-4xl lg:text-3xl xl:text-4xl text-white mb-6 leading-tight tracking-wide">
+                <span className="font-medium">{t("homePage.sellOrRent")}</span>
+                <br />
+                <span className="font-medium">{t("homePage.yourHomeAt")}</span>
+                <br />
+                <span className="font-bold text-[#C9A227]">{t("homePage.bestPrice")}</span>
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-base md:text-sm text-gray-300 mb-8 leading-relaxed">
+                {t("hero.subtitle")}
+              </p>
+
+              {/* Key Features */}
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#C9A227]/20 flex items-center justify-center flex-shrink-0">
+                    <Home className="w-4 h-4 text-[#C9A227]" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-medium text-sm mb-1">{t("homePage.premiumProperties")}</h3>
+                    <p className="text-gray-400 text-xs">{t("homePage.handPickedLuxury")}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#C9A227]/20 flex items-center justify-center flex-shrink-0">
+                    <FileCheck className="w-4 h-4 text-[#C9A227]" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-medium text-sm mb-1">{t("homePage.guaranteedService")}</h3>
+                    <p className="text-gray-400 text-xs">{t("homePage.professionalSupport")}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                <Button
+                  variant="gold"
+                  size="default"
+                  onClick={() => {
+                    const contactSection = document.getElementById("contact");
+                    contactSection?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="group px-8 font-heading tracking-wider text-sm"
+                >
+                  {t("homePage.getInTouch")}
+                </Button>
+                <Button
+                  variant="dark-ghost"
+                  size="default"
+                  onClick={() => router.push("/search")}
+                  className="group font-heading tracking-wider text-sm"
+                >
+                  <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center mr-2 group-hover:border-[#C9A227] group-hover:bg-[#C9A227]/10 transition-all">
+                    <Play className="w-3 h-3 fill-white" />
+                  </div>
+                  {t("homePage.howItWorks")}
+                </Button>
+              </div>
+
+              {/* Stats Row */}
+              <div className="flex flex-wrap gap-6 pt-8 border-t border-white/10">
+                <div>
+                  <div className="text-2xl md:text-xl font-semibold text-white">500+</div>
+                  <div className="text-sm md:text-xs text-gray-400">
+                    {t("hero.stats.properties")}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-2xl md:text-xl font-semibold text-white">1000+</div>
+                  <div className="text-sm md:text-xs text-gray-400">
+                    {t("hero.stats.happyClients")}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-2xl md:text-xl font-semibold text-white">15+</div>
+                  <div className="text-sm md:text-xs text-gray-400">
+                    {t("hero.stats.years")}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-2xl md:text-xl font-semibold text-white">95%</div>
+                  <div className="text-sm md:text-xs text-gray-400">
+                    {t("homePage.clientSatisfaction")}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -583,10 +430,12 @@ export default function PublicPropertiesPage() {
               }}
             />
           ))}
+          {/* Dark overlay for mobile */}
+          <div className="absolute inset-0 bg-black/60" />
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-float z-20">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-float z-50 cursor-pointer">
           <ChevronDown className="w-5 h-5 text-gray-500" />
         </div>
       </section>
@@ -597,7 +446,7 @@ export default function PublicPropertiesPage() {
         ref={(el) => {
           observerRefs.current["search"] = el;
         }}
-        className="py-8 "
+        className="py-8"
       >
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -633,7 +482,7 @@ export default function PublicPropertiesPage() {
                     {t("search.propertyType")}
                   </label>
                   <Select value={propertyType} onValueChange={setPropertyType}>
-                    <SelectTrigger className="h-9 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm">
+                    <SelectTrigger className="h-9 border-white/10 rounded-lg text-white text-sm">
                       <SelectValue placeholder={t("search.all")} />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1F2937] border-white/10">
@@ -739,13 +588,9 @@ export default function PublicPropertiesPage() {
 
             {/* Right - Description */}
             <p className="text-gray-400 text-sm max-w-md lg:text-right">
-              {/* {t("sections.popularSubtitle")} */}
-              Real Estate Guru In Chiangmai 
-
+              {t("homePage.realEstateGuru")}
               <br/>
-              กูรูด้านอสังหาริมทรัยพ์ในเชียงใหม่
-              <br/>
-              ซื้อ ขาย เช่า - บ้าน คอนโด ที่ดิน Pool villa
+              {t("homePage.buyAnd")}
             </p>
           </div>
 
@@ -772,16 +617,19 @@ export default function PublicPropertiesPage() {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-[#111928] flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center">
                       <MapPin className="w-10 h-10 text-gray-600" />
                     </div>
                   )}
+
+                  {/* Dark overlay - darker by default, lighter on hover */}
+                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors duration-500" />
 
                   {/* Gold Gradient Overlay on Left */}
                   <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#FFD700]/30 to-transparent z-10" />
 
                   {/* Bottom Gradient for Text */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+                  <div className="absolute inset-0 to-transparent z-10" />
 
                   {/* Content Overlay */}
                   <div className="absolute inset-0 z-20 flex flex-col justify-end">
@@ -814,7 +662,7 @@ export default function PublicPropertiesPage() {
                             {String(property.bedRoomNum).padStart(2, "0")}
                           </div>
                           <div className="text-[10px] text-gray-400 uppercase tracking-wider">
-                            Beds
+                            {t("propertyDetail.beds")}
                           </div>
                         </div>
                         <div className="text-center">
@@ -822,7 +670,7 @@ export default function PublicPropertiesPage() {
                             {String(property.bathRoomNum).padStart(2, "0")}
                           </div>
                           <div className="text-[10px] text-gray-400 uppercase tracking-wider">
-                            Baths
+                            {t("propertyDetail.baths")}
                           </div>
                         </div>
                         <div className="text-center">
@@ -830,7 +678,7 @@ export default function PublicPropertiesPage() {
                             {getSize(property)}m<sup>2</sup>
                           </div>
                           <div className="text-[10px] text-gray-400 uppercase tracking-wider">
-                            Area
+                            {t("propertyDetail.area")}
                           </div>
                         </div>
                       </div>
@@ -838,7 +686,7 @@ export default function PublicPropertiesPage() {
 
                     {/* Learn More Button - Edge to Edge, Dark Gold */}
                     <button className="w-full py-3 bg-gradient-to-r from-[#9A7B06] via-[#8A6B05] to-[#7A5B04] text-white font-heading font-semibold tracking-widest text-xs hover:from-[#C9A227] hover:via-[#B8960B] hover:to-[#9A7B06] transition-all">
-                      LEARN MORE
+                      {t("propertyDetail.learnMore")}
                     </button>
                   </div>
                 </div>
@@ -848,160 +696,8 @@ export default function PublicPropertiesPage() {
         </div>
       </section>
 
-      {/* Just Closed Deals Section - Dark Mode */}
-      <section
-        id="closed-deals"
-        ref={(el) => {
-          observerRefs.current["closed-deals"] = el;
-        }}
-        className="py-12 bg-white"
-      >
-        <div className="container mx-auto px-4">
-          {/* Section Header */}
-          <div
-            className={`flex items-center justify-between mb-6 transition-all duration-700 ${
-              isVisible["closed-deals"]
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div>
-              <h2 className="text-lg md:text-xl font-semibold text-[#121928] mb-1">
-                {t("sections.closedDeals")}
-              </h2>
-              <p className="text-gray-400 text-sm">
-                {t("sections.closedDealsSubtitle")}
-              </p>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <button
-                className={`w-8 h-8 flex items-center justify-center rounded-full border transition-all duration-200 ${
-                  closedCanScrollLeft
-                    ? "border-white/20 text-white hover:border-[#C9A227] hover:text-[#C9A227]"
-                    : "border-white/10 text-white/30 cursor-not-allowed"
-                }`}
-                onClick={() =>
-                  scrollSlider(closedDealsSliderRef, "left", "closed")
-                }
-                disabled={!closedCanScrollLeft}
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                className={`w-8 h-8 flex items-center justify-center rounded-full border transition-all duration-200 ${
-                  closedCanScrollRight
-                    ? "border-white/20 text-white hover:border-[#C9A227] hover:text-[#C9A227]"
-                    : "border-white/10 text-white/30 cursor-not-allowed"
-                }`}
-                onClick={() =>
-                  scrollSlider(closedDealsSliderRef, "right", "closed")
-                }
-                disabled={!closedCanScrollRight}
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* Slider */}
-          <div
-            ref={closedDealsSliderRef}
-            className="flex gap-4 overflow-x-auto pb-3 scrollbar-hide scroll-smooth"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-            onScroll={() => checkSliderScroll(closedDealsSliderRef, "closed")}
-          >
-            {closedDeals.map((property, index) => (
-              <div
-                key={property.id}
-                className={`shrink-0 w-60 transition-all duration-500 ${
-                  isVisible["closed-deals"]
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
-                style={{ transitionDelay: `${index * 80}ms` }}
-              >
-                <div className="group bg-[#1F2937] rounded-xl border border-white/10 overflow-hidden h-full relative">
-                  {/* Status Badge */}
-                  <div className="absolute top-2 left-2 z-10">
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-medium ${
-                        property.status === "sold"
-                          ? "bg-red-500 text-white"
-                          : "bg-blue-500 text-white"
-                      }`}
-                    >
-                      {property.status === "sold"
-                        ? t("property.sold")
-                        : t("property.rented")}
-                    </span>
-                  </div>
-
-                  {/* Image */}
-                  <div className="relative h-36 overflow-hidden">
-                    {property.imageUrls && property.imageUrls.length > 0 ? (
-                      <Image
-                        src={property.imageUrls[0]}
-                        alt={
-                          property.propertyTitleTh || property.propertyTitleEn
-                        }
-                        fill
-                        className="object-cover grayscale-30 opacity-80"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full bg-[#111928]">
-                        <MapPin className="w-10 h-10 text-gray-600" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-3">
-                    {/* Project name */}
-                    {property.project && (
-                      <p className="text-[10px] text-gray-500 mb-0.5 truncate">
-                        {property.project.projectNameTh ||
-                          property.project.projectNameEn}
-                      </p>
-                    )}
-                    {/* Title */}
-                    <h3 className="font-medium text-white/70 text-sm line-clamp-1 mb-2">
-                      {property.propertyTitleTh || property.propertyTitleEn}
-                    </h3>
-
-                    {/* Price */}
-                    <p className="text-sm font-semibold text-gray-500 mb-2 line-through">
-                      {property.status === "sold"
-                        ? `฿${formatPrice(property.sellPriceNum)}`
-                        : `฿${formatPrice(property.rentalRateNum)}`}
-                      {property.status !== "sold" && (
-                        <span className="text-xs font-normal">
-                          {t("property.perMonth")}
-                        </span>
-                      )}
-                    </p>
-
-                    {/* Features */}
-                    <div className="flex items-center gap-3 text-xs text-gray-500">
-                      <span className="flex items-center gap-1">
-                        <Bed className="w-3 h-3" />
-                        {property.bedRoomNum}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Bath className="w-3 h-3" />
-                        {property.bathRoomNum}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Maximize className="w-3 h-3" />
-                        {getSize(property)} {t("common.sqm")}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </div>
+      {/* End Unified Gradient Background Container */}
 
       {/* Projects Section - Dark Mode */}
       <section
@@ -1050,6 +746,8 @@ export default function PublicPropertiesPage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+                  {/* Dark overlay - darker by default, lighter on hover */}
+                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
                     <h3 className="font-medium text-sm line-clamp-1 mb-0.5">
@@ -1307,7 +1005,7 @@ export default function PublicPropertiesPage() {
                                 {String(property.bedRoomNum).padStart(2, "0")}
                               </div>
                               <div className="text-[10px] text-gray-400 uppercase tracking-wider">
-                                Beds
+                                {t("propertyDetail.beds")}
                               </div>
                             </div>
                             <div className="text-center">
@@ -1315,7 +1013,7 @@ export default function PublicPropertiesPage() {
                                 {String(property.bathRoomNum).padStart(2, "0")}
                               </div>
                               <div className="text-[10px] text-gray-400 uppercase tracking-wider">
-                                Baths
+                                {t("propertyDetail.baths")}
                               </div>
                             </div>
                             <div className="text-center">
@@ -1323,7 +1021,7 @@ export default function PublicPropertiesPage() {
                                 {getSize(property)}m<sup>2</sup>
                               </div>
                               <div className="text-[10px] text-gray-400 uppercase tracking-wider">
-                                Area
+                                {t("propertyDetail.area")}
                               </div>
                             </div>
                           </div>
@@ -1331,7 +1029,7 @@ export default function PublicPropertiesPage() {
 
                         {/* Learn More Button - Edge to Edge, Dark Gold */}
                         <button className="w-full py-3 bg-gradient-to-r from-[#9A7B06] via-[#8A6B05] to-[#7A5B04] text-white font-heading font-semibold tracking-widest text-xs hover:from-[#C9A227] hover:via-[#B8960B] hover:to-[#9A7B06] transition-all">
-                          LEARN MORE
+                          {t("propertyDetail.learnMore")}
                         </button>
                       </div>
                     </div>
@@ -1413,13 +1111,13 @@ export default function PublicPropertiesPage() {
             }`}
           >
             <p className="text-[#C9A227] text-xs uppercase tracking-widest mb-3">
-              HOW IT WORKS
+              {t("homePage.howItWorks")}
             </p>
             <h2 className="text-2xl md:text-3xl font-semibold text-white leading-tight">
-              We&apos;ll help sell your house,
+              {t("homePage.weHelpSell")}
               <br />
-              with our <span className="text-[#C9A227]">Guaranteed</span>{" "}
-              services
+              {t("homePage.withGuaranteed")} <span className="text-[#C9A227]">{t("homePage.guaranteedText")}</span>{" "}
+              {t("homePage.services")}
             </h2>
           </div>
 
@@ -1438,12 +1136,12 @@ export default function PublicPropertiesPage() {
                 <PhoneCall className="w-7 h-7 text-white" />
               </div>
               <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">
-                STEP 1
+                {t("homePage.step1")}
               </p>
               <p className="text-white font-medium">
-                Give us a call,
+                {t("homePage.step1Line1")}
                 <br />
-                we&apos;ll help
+                {t("homePage.step1Line2")}
               </p>
             </div>
 
@@ -1460,12 +1158,12 @@ export default function PublicPropertiesPage() {
                 <Home className="w-7 h-7 text-white" />
               </div>
               <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">
-                STEP 2
+                {t("homePage.step2")}
               </p>
               <p className="text-white font-medium">
-                List your
+                {t("homePage.step2Line1")}
                 <br />
-                property
+                {t("homePage.step2Line2")}
               </p>
             </div>
 
@@ -1482,12 +1180,12 @@ export default function PublicPropertiesPage() {
                 <FileCheck className="w-7 h-7 text-white" />
               </div>
               <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">
-                STEP 3
+                {t("homePage.step3")}
               </p>
               <p className="text-white font-medium">
-                Your home sold
+                {t("homePage.step3Line1")}
                 <br />
-                Guaranteed
+                {t("homePage.step3Line2")}
               </p>
             </div>
           </div>
@@ -1618,109 +1316,6 @@ export default function PublicPropertiesPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Reviews Section */}
-      <section
-        id="reviews"
-        ref={(el) => {
-          observerRefs.current["reviews"] = el;
-        }}
-        className="py-12 bg-white"
-      >
-        <div className="container mx-auto px-4">
-          {/* Section Header - Minimal */}
-          <div
-            className={`text-center mb-8 transition-all duration-700 ${
-              isVisible["reviews"]
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            <h2 className="text-lg md:text-xl font-semibold text-[#111928] mb-1">
-              {t("sections.reviews")}
-            </h2>
-            <p className="text-gray-600 text-sm">
-              {t("sections.reviewsSubtitle")}
-            </p>
-          </div>
-
-          {/* Reviews Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {reviews.length > 0 ? (
-              reviews.map((review, index) => {
-                const firstChar = review.name.charAt(0).toUpperCase();
-
-                return (
-                  <div
-                    key={review.id}
-                    className={`bg-gray-50 rounded-xl border border-gray-200 p-4 hover:border-[#C9A227]/50 hover:shadow-md transition-all duration-200 ${
-                      isVisible["reviews"]
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-10"
-                    }`}
-                    style={{ transitionDelay: `${(index + 1) * 80}ms` }}
-                  >
-                    {/* Rating */}
-                    <div className="flex items-center gap-0.5 mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-3 h-3 ${
-                            i < review.rating
-                              ? "fill-[#C9A227] text-[#C9A227]"
-                              : "fill-gray-300 text-gray-300"
-                          }`}
-                        />
-                      ))}
-                    </div>
-
-                    {/* Comment */}
-                    <p className="text-gray-700 mb-4 leading-relaxed text-xs">
-                      &quot;{review.comment}&quot;
-                    </p>
-
-                    {/* Author */}
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-[#C9A227] rounded-full flex items-center justify-center text-[#111928] font-medium text-xs">
-                        {firstChar}
-                      </div>
-                      <div>
-                        <p className="font-medium text-[#111928] text-xs">
-                          {review.name}
-                        </p>
-                        <p className="text-[10px] text-gray-500">
-                          {review.transactionType === "rent"
-                            ? t("review.rentedAt")
-                            : t("review.boughtAt")}{" "}
-                          {review.location}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="col-span-full text-center py-8 text-gray-500 text-sm">
-                {t("sections.noReviews")}
-              </div>
-            )}
-          </div>
-
-          {/* View All Button */}
-          {/* <div className="text-center mt-6">
-            <Link href="/reviews">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white px-6 text-sm"
-              >
-                {t("sections.viewAllReviews")}
-                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-              </Button>
-            </Link>
-          </div> */}
         </div>
       </section>
 

@@ -20,6 +20,7 @@ export async function GET(
             order: "asc",
           },
         },
+        category: true,
       },
     });
 

@@ -158,9 +158,9 @@ export default async function LocaleLayout({
         </NextIntlClientProvider>
         <Toaster />
       </body>
-      {process.env.NEXT_PUBLIC_GA_ID && (
+      {/* {process.env.NEXT_PUBLIC_GA_ID && (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-      )}
+      )} */}
     </html>
   );
 }

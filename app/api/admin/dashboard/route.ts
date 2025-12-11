@@ -34,9 +34,7 @@ export async function GET() {
     // Get local extension stats
     const [
       popularCount,
-      activePromotionsCount,
       reviewStats,
-      extensionsWithPromotions,
       inquiryStats,
     ] = await Promise.all([
       // Popular properties count (exclude sold/rented properties)
@@ -46,29 +44,10 @@ export async function GET() {
           isHidden: false,
         },
       }),
-      // Active promotions count
-      prisma.promotion.count({
-        where: {
-          isActive: true,
-          OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
-        },
-      }),
       // Review stats
       prisma.review.groupBy({
         by: ["status"],
         _count: true,
-      }),
-      // Properties with promotions
-      prisma.propertyExtension.findMany({
-        where: {
-          promotions: {
-            some: {
-              isActive: true,
-              OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
-            },
-          },
-        },
-        select: { externalPropertyId: true },
       }),
       // Inquiry stats
       prisma.inquiry.groupBy({
@@ -76,6 +55,10 @@ export async function GET() {
         _count: true,
       }),
     ]);
+
+    // Promotions feature not yet implemented
+    const activePromotionsCount = 0;
+    const extensionsWithPromotions: any[] = [];
 
     // Calculate stats from API data
     const stats = {

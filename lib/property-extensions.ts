@@ -1,6 +1,6 @@
 /**
  * Property Extensions Service
- * Manages local enhancements (promotions, tags) for external properties
+ * Manages local enhancements (tags) for external properties
  */
 
 import { prisma } from "./prisma";
@@ -11,11 +11,10 @@ import {
   type FetchPropertiesParams,
   type NainaHubPagination,
 } from "./nainahub";
-import type { PropertyExtension, Promotion, PropertyTag } from "@prisma/client";
+import type { PropertyExtension, PropertyTag } from "@prisma/client";
 
 // Types for extension with relations
 export type PropertyExtensionWithRelations = PropertyExtension & {
-  promotions: Promotion[];
   tags: PropertyTag[];
 };
 
@@ -55,13 +54,6 @@ export async function getEnhancedProperties(
       externalPropertyId: { in: propertyIds },
     },
     include: {
-      promotions: {
-        where: {
-          isActive: true,
-          OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
-        },
-        orderBy: { createdAt: "desc" },
-      },
       tags: {
         orderBy: { name: "asc" },
       },
@@ -109,12 +101,6 @@ export async function getEnhancedPropertyById(
     prisma.propertyExtension.findUnique({
       where: { externalPropertyId: id },
       include: {
-        promotions: {
-          where: {
-            isActive: true,
-            OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
-          },
-        },
         tags: true,
       },
     }),
@@ -142,6 +128,8 @@ export async function upsertPropertyExtension(
     internalNotes?: string;
     isHidden?: boolean;
     isFeaturedPopular?: boolean;
+    mainPropertyType?: string | null;
+    subPropertyType?: string | null;
     closedDealDate?: Date | null;
     closedDealType?: string | null;
     closedDealPrice?: number | null;
@@ -155,7 +143,6 @@ export async function upsertPropertyExtension(
     },
     update: data,
     include: {
-      promotions: true,
       tags: true,
     },
   });
@@ -170,14 +157,13 @@ export async function getExtensionByPropertyId(
   return prisma.propertyExtension.findUnique({
     where: { externalPropertyId },
     include: {
-      promotions: true,
       tags: true,
     },
   });
 }
 
 /**
- * Delete extension (and all related promotions/tags via cascade)
+ * Delete extension (and all related tags via cascade)
  */
 export async function deletePropertyExtension(
   externalPropertyId: string
@@ -185,79 +171,6 @@ export async function deletePropertyExtension(
   await prisma.propertyExtension.delete({
     where: { externalPropertyId },
   });
-}
-
-// ============================================
-// Promotion CRUD Operations
-// ============================================
-
-/**
- * Add a promotion to a property
- */
-export async function addPromotion(
-  externalPropertyId: string,
-  data: {
-    label: string;
-    type: string;
-    startDate?: Date;
-    endDate?: Date | null;
-    isActive?: boolean;
-  }
-): Promise<Promotion> {
-  // Ensure extension exists
-  const extension = await prisma.propertyExtension.upsert({
-    where: { externalPropertyId },
-    create: { externalPropertyId },
-    update: {},
-  });
-
-  return prisma.promotion.create({
-    data: {
-      ...data,
-      extensionId: extension.id,
-    },
-  });
-}
-
-/**
- * Update a promotion
- */
-export async function updatePromotion(
-  promotionId: string,
-  data: {
-    label?: string;
-    type?: string;
-    startDate?: Date;
-    endDate?: Date | null;
-    isActive?: boolean;
-  }
-): Promise<Promotion> {
-  return prisma.promotion.update({
-    where: { id: promotionId },
-    data,
-  });
-}
-
-/**
- * Delete a promotion
- */
-export async function deletePromotion(promotionId: string): Promise<void> {
-  await prisma.promotion.delete({
-    where: { id: promotionId },
-  });
-}
-
-/**
- * Get all promotions for a property
- */
-export async function getPromotionsByPropertyId(
-  externalPropertyId: string
-): Promise<Promotion[]> {
-  const extension = await prisma.propertyExtension.findUnique({
-    where: { externalPropertyId },
-    include: { promotions: true },
-  });
-  return extension?.promotions || [];
 }
 
 // ============================================
@@ -321,98 +234,10 @@ export async function getTagsByPropertyId(
 export async function getAllExtensions(): Promise<PropertyExtensionWithRelations[]> {
   return prisma.propertyExtension.findMany({
     include: {
-      promotions: true,
       tags: true,
     },
     orderBy: { updatedAt: "desc" },
   });
-}
-
-/**
- * Get properties with active promotions
- */
-export async function getPropertiesWithActivePromotions(): Promise<
-  PropertyExtensionWithRelations[]
-> {
-  return prisma.propertyExtension.findMany({
-    where: {
-      promotions: {
-        some: {
-          isActive: true,
-          OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
-        },
-      },
-    },
-    include: {
-      promotions: {
-        where: {
-          isActive: true,
-          OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
-        },
-      },
-      tags: true,
-    },
-  });
-}
-
-/**
- * Get enhanced properties with active promotions (merged with API data)
- * Returns full property data including API info and local extensions
- */
-export async function getEnhancedPropertiesWithPromotions(
-  limit: number = 12
-): Promise<EnhancedProperty[]> {
-  // 1. Get extensions that have active promotions
-  const extensionsWithPromotions = await prisma.propertyExtension.findMany({
-    where: {
-      isHidden: false,
-      promotions: {
-        some: {
-          isActive: true,
-          OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
-        },
-      },
-    },
-    include: {
-      promotions: {
-        where: {
-          isActive: true,
-          OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
-        },
-      },
-      tags: true,
-    },
-    orderBy: { priority: "desc" },
-    take: limit,
-  });
-
-  if (extensionsWithPromotions.length === 0) {
-    return [];
-  }
-
-  // 2. Fetch all properties from API
-  const apiResponse = await fetchNainaHubProperties({ limit: 100 });
-
-  if (!apiResponse.success) {
-    return [];
-  }
-
-  // 3. Create lookup map for API properties
-  const apiPropertyMap = new Map(apiResponse.data.map((p) => [p.id, p]));
-
-  // 4. Merge and return (filter out sold/rented properties)
-  const propertiesWithPromotions: EnhancedProperty[] = [];
-  for (const ext of extensionsWithPromotions) {
-    const apiProperty = apiPropertyMap.get(ext.externalPropertyId);
-    if (apiProperty && apiProperty.status !== "sold" && apiProperty.status !== "rented") {
-      propertiesWithPromotions.push({
-        ...apiProperty,
-        extension: ext,
-      });
-    }
-  }
-
-  return propertiesWithPromotions;
 }
 
 // ============================================
@@ -434,12 +259,6 @@ export async function getPopularProperties(
       closedDealDate: null, // Not closed deals
     },
     include: {
-      promotions: {
-        where: {
-          isActive: true,
-          OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
-        },
-      },
       tags: true,
     },
     orderBy: { priority: "desc" },
@@ -522,7 +341,6 @@ export async function getClosedDeals(
       isHidden: false,
     },
     include: {
-      promotions: true,
       tags: true,
     },
   });

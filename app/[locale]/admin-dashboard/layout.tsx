@@ -19,6 +19,7 @@ import {
   Wrench,
   MessageSquare,
   FileText,
+  Text,
 } from "lucide-react";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
@@ -50,11 +51,12 @@ const menuItems = [
     href: "/admin-dashboard/inquiries",
     icon: MessageSquare,
   },
-  // {
-  //   label: "บริการอื่นๆ",
-  //   href: "/admin-dashboard/other-services",
-  //   icon: Wrench,
-  // },
+   {
+    label: "ฝากขาย/เช่า",
+    href: "/admin-dashboard/property-listings",
+    icon: Text,
+  },
+ 
   {
     label: "จัดการบล็อก",
     href: "/admin-dashboard/blog",

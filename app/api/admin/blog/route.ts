@@ -19,6 +19,7 @@ export async function GET() {
             order: "asc",
           },
         },
+        category: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -73,15 +74,14 @@ export async function POST(request: NextRequest) {
         title: body.title,
         titleEn: body.titleEn || null,
         titleZh: body.titleZh || null,
-        titleJa: body.titleJa || null,
         slug: body.slug,
         excerpt: body.excerpt || null,
         excerptEn: body.excerptEn || null,
         excerptZh: body.excerptZh || null,
-        excerptJa: body.excerptJa || null,
         coverImage: body.coverImage || null,
         isPublished: body.isPublished || false,
         publishedAt: body.isPublished ? new Date() : null,
+        categoryId: body.categoryId || null,
         sections: {
           create: (body.sections || []).map(
             (
@@ -90,7 +90,6 @@ export async function POST(request: NextRequest) {
                 content?: string;
                 contentEn?: string;
                 contentZh?: string;
-                contentJa?: string;
               },
               index: number
             ) => ({
@@ -99,7 +98,6 @@ export async function POST(request: NextRequest) {
               content: section.content || null,
               contentEn: section.contentEn || null,
               contentZh: section.contentZh || null,
-              contentJa: section.contentJa || null,
             })
           ),
         },
@@ -110,6 +108,7 @@ export async function POST(request: NextRequest) {
             order: "asc",
           },
         },
+        category: true,
       },
     });
 

@@ -19,8 +19,10 @@ import {
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import Header from "@/components/layout/header";
+import { useTranslations } from "next-intl";
 
 export default function ContactPage() {
+  const t = useTranslations();
   const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -162,7 +164,7 @@ export default function ContactPage() {
                 <MessageSquare className="w-7 h-7 text-white" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Line Official
+                {t("footerNav.lineOfficial")}
               </h3>
               <p className="text-gray-600 text-sm mb-3">
                 สแกน QR Code เพื่อติดต่อผ่าน Line
@@ -474,10 +476,10 @@ export default function ContactPage() {
             </span>
           </div>
           <p className="mb-2 text-sm">
-            Premium Real Estate Solutions | Chachoengsao, Thailand
+            Premium Real Estate Solutions | Chiangmai, Thailand
           </p>
           <p className="text-xs">
-            © 2025 บริษัท บัดเจ็ต ไวส์ พร๊อพเพอร์ตี้ จำกัด. All rights reserved.
+            © 2025 บริษัท สกายโปรพร้อมเพอร์ตี้ จำกัด. All rights reserved.
           </p>
         </div>
       </footer>

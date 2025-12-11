@@ -60,6 +60,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       internalNotes: body.internalNotes,
       isHidden: body.isHidden,
       isFeaturedPopular: body.isFeaturedPopular,
+      mainPropertyType: body.mainPropertyType,
+      subPropertyType: body.subPropertyType,
       closedDealDate: body.closedDealDate ? new Date(body.closedDealDate) : body.closedDealDate,
       closedDealType: body.closedDealType,
       closedDealPrice: body.closedDealPrice,

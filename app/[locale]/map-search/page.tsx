@@ -1,0 +1,540 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Bed,
+  Bath,
+  Maximize,
+  MapPin,
+  SlidersHorizontal,
+} from "lucide-react";
+import Image from "next/image";
+import { Link } from "@/i18n/routing";
+import type { NainaHubProperty } from "@/lib/nainahub";
+import {
+  getMainPropertyTypes,
+  getSubPropertyTypes,
+  SUB_PROPERTY_TYPE_LABELS,
+  type MainPropertyType,
+  type SubPropertyType,
+} from "@/lib/propertyTypes";
+
+type Property = NainaHubProperty;
+
+// Dynamically import the map component to avoid SSR issues
+const PropertyMap = dynamic(() => import("@/components/map/PropertyMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center bg-[#0A0E1A]">
+      <p className="text-white">Loading map...</p>
+    </div>
+  ),
+});
+
+export default function MapSearchPage() {
+  const t = useTranslations();
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Map state
+  const [mapCenter, setMapCenter] = useState<[number, number]>([13.6904, 101.0779]); // Chachoengsao center
+  const [mapZoom, setMapZoom] = useState(12);
+
+  // Filters
+  const [mainPropertyType, setMainPropertyType] = useState<string>("");
+  const [subPropertyType, setSubPropertyType] = useState<string>("");
+  const [listingType, setListingType] = useState<string>("");
+  const [bedrooms, setBedrooms] = useState<string>("");
+  const [bathrooms, setBathrooms] = useState<string>("");
+  const [minPrice, setMinPrice] = useState<string>("");
+  const [maxPrice, setMaxPrice] = useState<string>("");
+  const [minSize, setMinSize] = useState<string>("");
+  const [maxSize, setMaxSize] = useState<string>("");
+
+  // Load properties
+  useEffect(() => {
+    const loadProperties = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/nainahub/properties?limit=100");
+        if (!response.ok) {
+          throw new Error("Failed to fetch properties");
+        }
+        const data = await response.json();
+        setProperties(data.data);
+        setFilteredProperties(data.data);
+      } catch (error) {
+        console.error("Error loading properties:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProperties();
+  }, []);
+
+  // Apply filters
+  useEffect(() => {
+    let filtered = [...properties];
+
+    // Filter by subPropertyType if selected
+    if (subPropertyType && subPropertyType !== "all") {
+      filtered = filtered.filter((p) => p.propertyType === subPropertyType);
+    }
+
+    if (listingType && listingType !== "all") {
+      if (listingType === "rent") {
+        filtered = filtered.filter((p) => p.rentalRateNum && p.rentalRateNum > 0);
+      } else if (listingType === "sale") {
+        filtered = filtered.filter((p) => p.sellPriceNum && p.sellPriceNum > 0);
+      }
+    }
+
+    if (bedrooms && bedrooms !== "all") {
+      const bedroomNum = parseInt(bedrooms);
+      filtered = filtered.filter((p) => p.bedRoomNum >= bedroomNum);
+    }
+
+    if (bathrooms && bathrooms !== "all") {
+      const bathroomNum = parseInt(bathrooms);
+      filtered = filtered.filter((p) => p.bathRoomNum >= bathroomNum);
+    }
+
+    if (minPrice) {
+      const min = parseInt(minPrice);
+      filtered = filtered.filter((p) => {
+        const price = p.rentalRateNum || p.sellPriceNum || 0;
+        return price >= min;
+      });
+    }
+
+    if (maxPrice) {
+      const max = parseInt(maxPrice);
+      filtered = filtered.filter((p) => {
+        const price = p.rentalRateNum || p.sellPriceNum || 0;
+        return price <= max;
+      });
+    }
+
+    if (minSize) {
+      const min = parseInt(minSize);
+      filtered = filtered.filter((p) => {
+        const size = p.usableAreaSqm || p.roomSizeNum || 0;
+        return size >= min;
+      });
+    }
+
+    if (maxSize) {
+      const max = parseInt(maxSize);
+      filtered = filtered.filter((p) => {
+        const size = p.usableAreaSqm || p.roomSizeNum || 0;
+        return size <= max;
+      });
+    }
+
+    setFilteredProperties(filtered);
+  }, [properties, subPropertyType, listingType, bedrooms, bathrooms, minPrice, maxPrice, minSize, maxSize]);
+
+  const formatPrice = (price: number | null) => {
+    if (!price) return null;
+    return new Intl.NumberFormat("th-TH").format(price);
+  };
+
+  const getSize = (property: Property) => {
+    if (property.propertyType === "Condo") {
+      return property.roomSizeNum ? `${property.roomSizeNum}` : "-";
+    }
+    return property.usableAreaSqm ? `${property.usableAreaSqm}` : "-";
+  };
+
+  const handleClearFilters = () => {
+    setMainPropertyType("");
+    setSubPropertyType("");
+    setListingType("");
+    setBedrooms("");
+    setBathrooms("");
+    setMinPrice("");
+    setMaxPrice("");
+    setMinSize("");
+    setMaxSize("");
+  };
+
+  const handlePropertyClick = (property: Property) => {
+    // Determine which coordinates to use based on property type
+    let lat: number;
+    let lng: number;
+
+    if (
+      property.propertyType === "Condo" &&
+      property.project?.projectLatitude &&
+      property.project?.projectLongitude
+    ) {
+      // Use project coordinates for Condos with project location
+      lat = property.project.projectLatitude;
+      lng = property.project.projectLongitude;
+    } else if (property.latitude && property.longitude) {
+      // Use property coordinates for all other cases
+      lat = property.latitude;
+      lng = property.longitude;
+    } else {
+      // If no coordinates, don't do anything
+      return;
+    }
+
+    // Zoom to the property location
+    setMapCenter([lat, lng]);
+    setMapZoom(16); // Close zoom level to see the property clearly
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0A0E1A]">
+      <Header />
+
+      {/* Filters - Fixed at Top */}
+      <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 p-4 shadow-md">
+        <div className="container mx-auto">
+            {/* Filter Header */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <SlidersHorizontal className="w-5 h-5 text-[#C9A227]" />
+                <h2 className="text-lg font-semibold text-gray-900">
+                  {t("search.filters")}
+                </h2>
+                <span className="text-sm text-gray-600">
+                  {filteredProperties.length} {t("common.properties")} {t("search.found")}
+                </span>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleClearFilters}
+                className="text-xs text-[#C9A227] hover:text-[#C9A227]/80"
+              >
+                {t("search.clearAll")}
+              </Button>
+            </div>
+
+            {/* Filter Controls - Horizontal Layout */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+              {/* Main Property Type */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">
+                  {t("propertyTypes.mainPropertyType")}
+                </label>
+                <Select
+                  value={mainPropertyType}
+                  onValueChange={(value) => {
+                    setMainPropertyType(value);
+                    setSubPropertyType(""); // Reset sub type when main type changes
+                  }}
+                >
+                  <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
+                    <SelectValue placeholder={t("common.all")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">{t("common.all")}</SelectItem>
+                    {getMainPropertyTypes().map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {t(`propertyTypes.main.${type.toLowerCase()}`)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Sub Property Type */}
+              {mainPropertyType && mainPropertyType !== "all" && (
+                <div>
+                  <label className="block text-xs font-medium text-gray-700 mb-1.5">
+                    {t("propertyTypes.subPropertyType")}
+                  </label>
+                  <Select value={subPropertyType} onValueChange={setSubPropertyType}>
+                    <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
+                      <SelectValue placeholder={t("common.all")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">{t("common.all")}</SelectItem>
+                      {getSubPropertyTypes(mainPropertyType as MainPropertyType).map((subType) => (
+                        <SelectItem key={subType} value={subType}>
+                          {t(`propertyTypes.sub.${subType.toLowerCase()}`)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              {/* Listing Type */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">
+                  {t("search.listingType")}
+                </label>
+                <Select value={listingType} onValueChange={setListingType}>
+                  <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
+                    <SelectValue placeholder={t("common.all")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">{t("common.all")}</SelectItem>
+                    <SelectItem value="rent">{t("search.forRent")}</SelectItem>
+                    <SelectItem value="sale">{t("search.forSale")}</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Bedrooms */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">
+                  {t("search.bedrooms")}
+                </label>
+                <Select value={bedrooms} onValueChange={setBedrooms}>
+                  <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
+                    <SelectValue placeholder={t("common.all")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">{t("common.all")}</SelectItem>
+                    <SelectItem value="1">1+</SelectItem>
+                    <SelectItem value="2">2+</SelectItem>
+                    <SelectItem value="3">3+</SelectItem>
+                    <SelectItem value="4">4+</SelectItem>
+                    <SelectItem value="5">5+</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Bathrooms */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">
+                  {t("search.bathrooms")}
+                </label>
+                <Select value={bathrooms} onValueChange={setBathrooms}>
+                  <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
+                    <SelectValue placeholder={t("common.all")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">{t("common.all")}</SelectItem>
+                    <SelectItem value="1">1+</SelectItem>
+                    <SelectItem value="2">2+</SelectItem>
+                    <SelectItem value="3">3+</SelectItem>
+                    <SelectItem value="4">4+</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Price Range */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">
+                  {t("search.priceRange")}
+                </label>
+                <div className="flex gap-1">
+                  <Input
+                    type="number"
+                    placeholder={t("search.min")}
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                    className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-9 text-sm"
+                  />
+                  <Input
+                    type="number"
+                    placeholder={t("search.max")}
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                    className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-9 text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Size Range */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">
+                  {t("search.sizeRange")} ({t("common.sqm")})
+                </label>
+                <div className="flex gap-1">
+                  <Input
+                    type="number"
+                    placeholder={t("search.min")}
+                    value={minSize}
+                    onChange={(e) => setMinSize(e.target.value)}
+                    className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-9 text-sm"
+                  />
+                  <Input
+                    type="number"
+                    placeholder={t("search.max")}
+                    value={maxSize}
+                    onChange={(e) => setMaxSize(e.target.value)}
+                    className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-9 text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {/* Main Content - Map (Left) and Cards (Right) */}
+      <div className="pt-[240px] min-h-screen">
+        <div className="flex h-[calc(100vh-240px)]">
+          {/* Left - Map */}
+          <div className="w-1/2 relative">
+            {!loading && (
+              <PropertyMap
+                properties={filteredProperties}
+                center={mapCenter}
+                zoom={mapZoom}
+                formatPrice={formatPrice}
+                getSize={getSize}
+                t={t}
+              />
+            )}
+
+            {loading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-[#0A0E1A]">
+                <p className="text-white">{t("common.loading")}</p>
+              </div>
+            )}
+          </div>
+
+          {/* Right - Property Cards */}
+          <div className="w-1/2 bg-[#0A0E1A] overflow-y-auto">
+            <div className="p-4 grid grid-cols-2 gap-4">
+              {filteredProperties.map((property) => (
+                <div
+                  key={property.id}
+                  onClick={() => handlePropertyClick(property)}
+                  className="block"
+                >
+                  <div className="group overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer bg-white border border-gray-200 hover:border-[#C9A227]/50 rounded-lg">
+                    {/* Property Image */}
+                    <div className="relative h-48 overflow-hidden bg-gray-100">
+                      {property.imageUrls && property.imageUrls.length > 0 ? (
+                        <Image
+                          src={property.imageUrls[0]}
+                          alt={property.propertyTitleTh || property.propertyTitleEn}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="flex items-center justify-center h-full">
+                          <MapPin className="w-12 h-12 text-gray-500" />
+                        </div>
+                      )}
+
+                      {/* Property Type Badge */}
+                      <div className="absolute top-2 left-2">
+                        <div className="bg-[#C9A227] text-white px-2 py-1 rounded-full text-xs font-semibold shadow-lg">
+                          {property.propertyType === "Condo"
+                            ? t("search.condo")
+                            : property.propertyType === "Townhouse"
+                            ? t("search.townhouse")
+                            : property.propertyType === "Land"
+                            ? t("search.land")
+                            : t("search.singleHouse")}
+                        </div>
+                      </div>
+
+                      {/* Listing Type Badge */}
+                      <div className="absolute top-2 right-2 flex flex-col gap-1">
+                        {property.rentalRateNum != null && property.rentalRateNum > 0 && (
+                          <div className="bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
+                            {t("property.forRent")}
+                          </div>
+                        )}
+                        {property.sellPriceNum != null && property.sellPriceNum > 0 && (
+                          <div className="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
+                            {t("property.forSale")}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Property Details */}
+                    <div className="p-4">
+                      {property.project && (
+                        <div className="flex items-center text-xs text-gray-500 mb-1">
+                          <MapPin className="w-3 h-3 mr-1" />
+                          {property.project.projectNameTh || property.project.projectNameEn}
+                        </div>
+                      )}
+
+                      <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#C9A227] transition-colors">
+                        {property.propertyTitleTh || property.propertyTitleEn}
+                      </h3>
+
+                      <div className="flex items-center gap-3 text-xs text-gray-500 mb-3 pb-3 border-b border-gray-100">
+                        <div className="flex items-center gap-1">
+                          <Bed className="w-3 h-3 text-[#C9A227]" />
+                          <span className="font-semibold">{property.bedRoomNum}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Bath className="w-3 h-3 text-[#C9A227]" />
+                          <span className="font-semibold">{property.bathRoomNum}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Maximize className="w-3 h-3 text-[#C9A227]" />
+                          <span className="font-semibold">
+                            {getSize(property)} {t("common.sqm")}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Price */}
+                      <div>
+                        {property.rentalRateNum != null && property.rentalRateNum > 0 && (
+                          <div className="text-lg font-bold text-[#C9A227]">
+                            <span className="text-xs font-normal text-gray-500 mr-1">
+                              {t("property.forRent")}:
+                            </span>
+                            ฿{formatPrice(property.rentalRateNum)}
+                            <span className="text-xs font-normal text-gray-400">
+                              {t("property.perMonth")}
+                            </span>
+                          </div>
+                        )}
+                        {property.sellPriceNum != null && property.sellPriceNum > 0 && (
+                          <div
+                            className={`font-bold text-[#C9A227] ${
+                              property.rentalRateNum != null && property.rentalRateNum > 0
+                                ? "text-sm mt-1"
+                                : "text-lg"
+                            }`}
+                          >
+                            <span className="text-xs font-normal text-gray-500 mr-1">
+                              {t("property.forSale")}:
+                            </span>
+                            ฿{formatPrice(property.sellPriceNum)}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="text-xs text-gray-400 mt-2">
+                        {t("common.code")}: {property.agentPropertyCode}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {!loading && filteredProperties.length === 0 && (
+                <div className="col-span-2 text-center py-12">
+                  <p className="text-gray-400">{t("search.noResults")}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

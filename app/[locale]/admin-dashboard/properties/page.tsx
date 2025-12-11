@@ -126,7 +126,7 @@ export default function PropertiesListPage() {
         ...(typeFilter && typeFilter !== "all" && { propertyType: typeFilter }),
       });
 
-      const res = await fetch(`/api/public/enhanced-properties?${params}&includeHidden=true`);
+      const res = await fetch(`/api/nainahub/properties?${params}`);
       const data = await res.json();
 
       if (data.success) {

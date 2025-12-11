@@ -55,12 +55,29 @@ export default function ListPropertyPage() {
 
     setLoading(true);
 
-    // Mock success - simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch("/api/public/property-listings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setSubmitted(true);
-    toast.success(t("toastSuccess"));
-    setLoading(false);
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        toast.success(t("toastSuccess"));
+      } else {
+        toast.error(data.error || t("requiredFields"));
+      }
+    } catch (error) {
+      console.error("Error submitting property listing:", error);
+      toast.error(t("requiredFields"));
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
