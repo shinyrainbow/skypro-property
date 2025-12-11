@@ -14,7 +14,7 @@ export default function Footer() {
     { href: "/search?listingType=rent", label: tNav("rent") },
     { href: "/search?listingType=sale", label: tNav("sale") },
     { href: "/blog", label: tNav("blog") },
-    { href: "/reviews", label: tNav("reviews") },
+    // { href: "/reviews", label: tNav("reviews") },
   ];
 
   return (

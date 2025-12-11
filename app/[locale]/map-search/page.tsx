@@ -175,8 +175,8 @@ export default function MapSearchPage() {
 
   const handlePropertyClick = (property: Property) => {
     // Determine which coordinates to use based on property type
-    let lat: number;
-    let lng: number;
+    let lat: number | undefined;
+    let lng: number | undefined;
 
     if (
       property.propertyType === "Condo" &&
@@ -190,14 +190,13 @@ export default function MapSearchPage() {
       // Use property coordinates for all other cases
       lat = property.latitude;
       lng = property.longitude;
-    } else {
-      // If no coordinates, don't do anything
-      return;
     }
 
-    // Zoom to the property location
-    setMapCenter([lat, lng]);
-    setMapZoom(16); // Close zoom level to see the property clearly
+    // Only update map center if we have valid coordinates
+    if (lat !== undefined && lng !== undefined && !isNaN(lat) && !isNaN(lng)) {
+      setMapCenter([lat, lng]);
+      setMapZoom(16); // Close zoom level to see the property clearly
+    }
   };
 
   return (
@@ -205,16 +204,16 @@ export default function MapSearchPage() {
       <Header />
 
       {/* Filters - Fixed at Top */}
-      <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 p-4 shadow-md">
+      <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 p-3 md:p-4 shadow-md">
         <div className="container mx-auto">
             {/* Filter Header */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <SlidersHorizontal className="w-5 h-5 text-[#C9A227]" />
-                <h2 className="text-lg font-semibold text-gray-900">
+            <div className="flex items-center justify-between mb-3 md:mb-4">
+              <div className="flex items-center gap-2 md:gap-3">
+                <SlidersHorizontal className="w-4 h-4 md:w-5 md:h-5 text-[#C9A227]" />
+                <h2 className="text-base md:text-lg font-semibold text-gray-900">
                   {t("search.filters")}
                 </h2>
-                <span className="text-sm text-gray-600">
+                <span className="hidden sm:inline text-xs md:text-sm text-gray-600">
                   {filteredProperties.length} {t("common.properties")} {t("search.found")}
                 </span>
               </div>
@@ -384,11 +383,11 @@ export default function MapSearchPage() {
         </div>
 
       {/* Main Content - Map (Left) and Cards (Right) */}
-      <div className="pt-[240px] min-h-screen">
-        <div className="flex h-[calc(100vh-240px)]">
-          {/* Left - Map */}
-          <div className="w-1/2 relative">
-            {!loading && (
+      <div className="pt-[320px] md:pt-[280px] lg:pt-[240px] min-h-screen">
+        <div className="flex flex-col md:flex-row min-h-[calc(100vh-320px)] md:h-[calc(100vh-280px)] lg:h-[calc(100vh-240px)]">
+          {/* Left - Map (Hidden on mobile) */}
+          <div className="hidden md:block md:w-1/2 relative md:h-auto">
+            {!loading && !isNaN(mapCenter[0]) && !isNaN(mapCenter[1]) && (
               <PropertyMap
                 properties={filteredProperties}
                 center={mapCenter}
@@ -407,8 +406,8 @@ export default function MapSearchPage() {
           </div>
 
           {/* Right - Property Cards */}
-          <div className="w-1/2 bg-[#0A0E1A] overflow-y-auto">
-            <div className="p-4 grid grid-cols-2 gap-4">
+          <div className="w-full md:w-1/2 bg-[#0A0E1A] overflow-y-auto">
+            <div className="px-4 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
               {filteredProperties.map((property) => (
                 <div
                   key={property.id}
@@ -527,7 +526,7 @@ export default function MapSearchPage() {
               ))}
 
               {!loading && filteredProperties.length === 0 && (
-                <div className="col-span-2 text-center py-12">
+                <div className="col-span-1 lg:col-span-2 text-center py-12">
                   <p className="text-gray-400">{t("search.noResults")}</p>
                 </div>
               )}

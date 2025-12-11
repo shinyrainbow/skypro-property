@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/routing";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Image from "next/image";
@@ -9,6 +10,7 @@ import { Award, Users, Home, TrendingUp, Shield, Heart } from "lucide-react";
 
 export default function AboutPage() {
   const t = useTranslations("about");
+  const router = useRouter();
 
   const stats = [
     { icon: Home, value: "500+", label: t("stats.properties") },
@@ -227,14 +229,7 @@ export default function AboutPage() {
             size="lg"
             variant="outline"
             className="bg-white text-[#C9A227] hover:bg-white/90 border-white px-8"
-            onClick={() => {
-              const contactSection = document.getElementById("contact");
-              if (contactSection) {
-                contactSection.scrollIntoView({ behavior: "smooth" });
-              } else {
-                window.location.href = "/#contact";
-              }
-            }}
+            onClick={() => router.push("/contact")}
           >
             {t("cta.button")}
           </Button>

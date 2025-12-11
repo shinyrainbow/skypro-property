@@ -38,7 +38,7 @@ export default function Header({ transparent = false }: HeaderProps) {
     { href: "/list-property", label: t("listProperty") },
     { href: "/about", label: t("about") },
     { href: "/blog", label: t("blog") },
-    { href: "/#contact", label: t("contact") },
+    { href: "/contact", label: t("contact") },
   ];
 
   const allNavLinks = [...leftNavLinks, ...rightNavLinks];

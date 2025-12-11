@@ -36,16 +36,6 @@ const menuItems = [
     href: "/admin-dashboard/properties",
     icon: Home,
   },
-  // {
-  //   label: "จัดการโปรโมชัน",
-  //   href: "/admin-dashboard/promotions",
-  //   icon: Tag,
-  // },
-  // {
-  //   label: "จัดการรีวิว",
-  //   href: "/admin-dashboard/reviews",
-  //   icon: Star,
-  // },
   {
     label: "ข้อความติดต่อ",
     href: "/admin-dashboard/inquiries",

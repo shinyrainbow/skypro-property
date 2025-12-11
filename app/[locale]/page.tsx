@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, Link } from "@/i18n/routing";
 import { Card } from "@/components/ui/card";
@@ -24,6 +24,15 @@ import {
   Home,
   FileCheck,
   PhoneCall,
+  Award,
+  ChevronLeft,
+  ChevronRight,
+  Bed,
+  Bath,
+  Maximize,
+  LandPlot,
+  Grid2x2,
+  Square,
 } from "lucide-react";
 import Image from "next/image";
 import Header from "@/components/layout/header";
@@ -97,6 +106,12 @@ export default function PublicPropertiesPage() {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
   const observerRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const popularSliderRef = useRef<HTMLDivElement>(null);
+
+  // Closed Deals slider
+  const [closedDeals, setClosedDeals] = useState<Property[]>([]);
+  const closedDealsSliderRef = useRef<HTMLDivElement>(null);
+  const [closedCanScrollLeft, setClosedCanScrollLeft] = useState(false);
+  const [closedCanScrollRight, setClosedCanScrollRight] = useState(false);
 
   // Hero background slideshow
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -202,7 +217,49 @@ export default function PublicPropertiesPage() {
     loadProperties();
   }, [page, propertyType, listingType, bedrooms, minPrice, maxPrice]);
 
-  // Load popular properties and generate projects from real data
+  // Check slider scroll state
+  const checkSliderScroll = useCallback(
+    (ref: React.RefObject<HTMLDivElement | null>, sliderType: string) => {
+      if (!ref.current) return;
+
+      const { scrollLeft, scrollWidth, clientWidth } = ref.current;
+      const canScrollLeft = scrollLeft > 0;
+      const canScrollRight = scrollLeft < scrollWidth - clientWidth - 10;
+
+      if (sliderType === "closed") {
+        setClosedCanScrollLeft(canScrollLeft);
+        setClosedCanScrollRight(canScrollRight);
+      }
+    },
+    []
+  );
+
+  // Scroll slider helper function
+  const scrollSlider = useCallback(
+    (
+      ref: React.RefObject<HTMLDivElement | null>,
+      direction: "left" | "right",
+      sliderType: string
+    ) => {
+      if (!ref.current) return;
+      const scrollAmount = 300;
+      const newScrollLeft =
+        direction === "left"
+          ? ref.current.scrollLeft - scrollAmount
+          : ref.current.scrollLeft + scrollAmount;
+
+      ref.current.scrollTo({
+        left: newScrollLeft,
+        behavior: "smooth",
+      });
+
+      // Check scroll state after animation
+      setTimeout(() => checkSliderScroll(ref, sliderType), 300);
+    },
+    [checkSliderScroll]
+  );
+
+  // Load popular properties, closed deals, and generate projects from real data
   useEffect(() => {
     const loadInitialData = async () => {
       try {
@@ -212,6 +269,12 @@ export default function PublicPropertiesPage() {
         // Get latest 10 properties as "popular"
         const popular = response.data.slice(0, 10);
         setPopularProperties(popular);
+
+        // Get closed deals (sold/rented properties) - limit to 10
+        const closed = response.data
+          .filter((p: NainaHubProperty) => p.status === "sold" || p.status === "rented")
+          .slice(0, 10);
+        setClosedDeals(closed);
 
         // Generate projects from properties
         const projectsMap = new Map<string, { count: number; image: string; project: any }>();
@@ -242,13 +305,20 @@ export default function PublicPropertiesPage() {
           .slice(0, 8); // Limit to 8 projects
 
         setProjects(projectsArray);
+
+        // Check initial scroll state for closed deals slider after data loads
+        setTimeout(() => {
+          if (closedDealsSliderRef.current) {
+            checkSliderScroll(closedDealsSliderRef, "closed");
+          }
+        }, 100);
       } catch (error) {
         console.error("Error loading initial data:", error);
       }
     };
 
     loadInitialData();
-  }, []);
+  }, [checkSliderScroll]);
 
 
   const formatPrice = (price: number | null) => {
@@ -363,10 +433,7 @@ export default function PublicPropertiesPage() {
                 <Button
                   variant="gold"
                   size="default"
-                  onClick={() => {
-                    const contactSection = document.getElementById("contact");
-                    contactSection?.scrollIntoView({ behavior: "smooth" });
-                  }}
+                  onClick={() => router.push("/contact")}
                   className="group px-8 font-heading tracking-wider text-sm"
                 >
                   {t("homePage.getInTouch")}
@@ -421,7 +488,7 @@ export default function PublicPropertiesPage() {
             <div
               key={index}
               className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
-                index === currentImageIndex ? "opacity-20" : "opacity-0"
+                index === currentImageIndex ? "opacity-100" : "opacity-0"
               }`}
               style={{
                 backgroundImage: `url('${image}')`,
@@ -591,6 +658,8 @@ export default function PublicPropertiesPage() {
               {t("homePage.realEstateGuru")}
               <br/>
               {t("homePage.buyAnd")}
+                 <br/>
+              {t("homePage.contactUs")}
             </p>
           </div>
 
@@ -777,100 +846,6 @@ export default function PublicPropertiesPage() {
           </div>
         </div>
       </section>
-
-      {/* New Projects Section */}
-      {/* <section
-        id="new-projects"
-        ref={(el) => {
-          observerRefs.current["new-projects"] = el;
-        }}
-        className="py-16 bg-gradient-to-b from-gray-50 to-white"
-      >
-        <div className="container mx-auto px-4">
-
-          <div
-            className={`text-center mb-10 transition-all duration-1000 ${
-              isVisible["new-projects"]
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              {t("nav.newProjects")}
-            </h2>
-            <div className="w-16 h-1 bg-[#C9A227] mx-auto mb-3"></div>
-            <p className="text-gray-600">{t("sections.popularProjectsSubtitle")}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { id: "project-1", name: "The Skyline Residence", location: "Sukhumvit, Bangkok", imageUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80", startingPrice: 4500000, propertyTypes: ["Condo"], isNew: true },
-              { id: "project-2", name: "Garden Valley Villas", location: "Pattaya, Chonburi", imageUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80", startingPrice: 8900000, propertyTypes: ["Single House"], isNew: true },
-              { id: "project-4", name: "Riverside Serenity", location: "Chao Phraya, Bangkok", imageUrl: "https://images.unsplash.com/photo-1567684014761-b65e2e59b9eb?w=800&q=80", startingPrice: 12500000, propertyTypes: ["Condo"], isNew: true },
-            ].map((project, index) => (
-              <Link key={project.id} href={`/property/${project.id}`}>
-                <Card
-                  className={`overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer ${
-                    isVisible["new-projects"]
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-10"
-                  }`}
-                  style={{ transitionDelay: `${(index + 1) * 100}ms` }}
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={project.imageUrl}
-                      alt={project.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                    {project.isNew && (
-                      <div className="absolute top-4 right-4 bg-gradient-to-r from-[#C9A227] to-[#A88B1F] text-white px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1.5 shadow-lg">
-                        NEW
-                      </div>
-                    )}
-                    <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <p className="text-2xl font-bold">
-                        ฿{(project.startingPrice / 1000000).toFixed(1)}M+
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">
-                      {project.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-2 flex items-center gap-1">
-                      <MapPin className="w-4 h-4" />
-                      {project.location}
-                    </p>
-                    <div className="flex items-center gap-2">
-                      {project.propertyTypes.map((type) => (
-                        <span key={type} className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
-                          {type}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </Card>
-              </Link>
-            ))}
-          </div>
-
-          View All Button
-          <div className="text-center mt-8">
-            <Link href="/new-projects">
-              <Button
-                variant="outline"
-                className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white px-8 transform hover:scale-105 transition-all duration-300"
-              >
-                {t("sections.viewAllProjects")}
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section> */}
 
       {/* Properties Section - Dark Mode */}
       <section
@@ -1092,6 +1067,164 @@ export default function PublicPropertiesPage() {
           )}
         </div>
       </section>
+
+  {/* Just Closed Deals Section */}
+      <section
+        id="closed-deals"
+        ref={(el) => {
+          observerRefs.current["closed-deals"] = el;
+        }}
+        className="py-16 bg-gradient-to-b from-gray-50 to-white"
+      >
+        <div className="container mx-auto px-4">
+          {/* Section Header */}
+          <div
+            className={`flex items-center justify-between mb-8 transition-all duration-1000 ${
+              isVisible["closed-deals"]
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Award className="w-6 h-6 text-[#c6af6c]" />
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                  ปิดการขายล่าสุด
+                </h2>
+              </div>
+              <p className="text-gray-600">ทรัพย์สินที่เพิ่งปิดการขายหรือเช่าสำเร็จ</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                  closedCanScrollLeft
+                    ? "border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white"
+                    : "border-gray-300 text-gray-300 cursor-not-allowed"
+                }`}
+                onClick={() => scrollSlider(closedDealsSliderRef, "left", "closed")}
+                disabled={!closedCanScrollLeft}
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                  closedCanScrollRight
+                    ? "border-[#c6af6c] text-[#c6af6c] hover:bg-[#c6af6c] hover:text-white"
+                    : "border-gray-300 text-gray-300 cursor-not-allowed"
+                }`}
+                onClick={() => scrollSlider(closedDealsSliderRef, "right", "closed")}
+                disabled={!closedCanScrollRight}
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+
+          {/* Slider */}
+          <div
+            ref={closedDealsSliderRef}
+            className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            onScroll={() => checkSliderScroll(closedDealsSliderRef, "closed")}
+          >
+            {closedDeals.map((property, index) => (
+              <div
+                key={property.id}
+                className={`flex-shrink-0 w-72 transition-all duration-500 ${
+                  isVisible["closed-deals"]
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-10"
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                <Card className="group overflow-hidden transition-all duration-500 border-0 rounded-xl bg-white h-full relative">
+                  {/* Sold/Rented Overlay */}
+                  <div className="absolute inset-0 z-10 pointer-events-none">
+                    <div className="absolute top-0 right-0 w-32 h-32 overflow-hidden">
+                      <div
+                        className={`absolute top-4 -right-8 w-40 text-center py-1 text-xs font-bold text-white transform rotate-45 shadow-lg ${
+                          property.status === "sold" ? "bg-red-500" : "bg-blue-500"
+                        }`}
+                      >
+                        {property.status === "sold" ? "ขายแล้ว" : "เช่าแล้ว"}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative h-44 overflow-hidden">
+                    {property.imageUrls && property.imageUrls.length > 0 ? (
+                      <Image
+                        src={property.imageUrls[0]}
+                        alt={property.propertyTitleTh || property.propertyTitleEn}
+                        fill
+                        className="object-cover grayscale-[30%]"
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center h-full bg-gray-100">
+                        <MapPin className="w-12 h-12 text-gray-300" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-3 left-3 right-3">
+                      <p className="text-white font-bold text-lg line-clamp-1 drop-shadow-lg">
+                        {property.status === "sold" && property.sellPriceNum && property.sellPriceNum > 0
+                          ? `฿${formatPrice(property.sellPriceNum)}`
+                          : property.rentalRateNum && property.rentalRateNum > 0
+                          ? `฿${formatPrice(property.rentalRateNum)}/เดือน`
+                          : property.sellPriceNum && property.sellPriceNum > 0
+                          ? `฿${formatPrice(property.sellPriceNum)}`
+                          : "ติดต่อสอบถาม"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-gray-900 line-clamp-1 mb-1">
+                      {property.propertyTitleTh || property.propertyTitleEn}
+                    </h3>
+                    {property.project && (
+                      <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">
+                        <MapPin className="w-3 h-3" />
+                        {property.project.projectNameTh || property.project.projectNameEn}
+                      </p>
+                    )}
+                    {property.propertyType === "Land" ? (
+                      <div className="flex items-center gap-2 text-xs text-gray-600">
+                        <span className="flex items-center gap-1">
+                          <LandPlot className="w-3 h-3 text-[#c6af6c]" />
+                          {property.rai ?? 0} ไร่
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Grid2x2 className="w-3 h-3 text-[#c6af6c]" />
+                          {property.ngan ?? 0} งาน
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Square className="w-3 h-3 text-[#c6af6c]" />
+                          {property.landSizeSqw ?? 0} ตร.ว.
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3 text-xs text-gray-600">
+                        <span className="flex items-center gap-1">
+                          <Bed className="w-3 h-3 text-[#c6af6c]" />
+                          {property.bedRoomNum}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Bath className="w-3 h-3 text-[#c6af6c]" />
+                          {property.bathRoomNum}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Maximize className="w-3 h-3 text-[#c6af6c]" />
+                          {getSize(property)} ตร.ม.
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* How It Works Section */}
       <section
