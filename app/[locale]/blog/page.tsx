@@ -106,7 +106,7 @@ export default function BlogPage() {
   const restBlogs = blogs.slice(1);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       <div className="h-16" />
 
@@ -119,7 +119,7 @@ export default function BlogPage() {
         >
           <div className="max-w-3xl">
             <p className="text-[#C9A227] text-xs uppercase tracking-widest mb-3">BLOG & NEWS</p>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t("title")}
             </h1>
             <p className="text-gray-400">
@@ -130,7 +130,7 @@ export default function BlogPage() {
       </section>
 
       {/* Blog Content */}
-      <section className="py-12 bg-[#111928]">
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           {loading ? (
             <div className="flex justify-center items-center py-20">
@@ -138,8 +138,8 @@ export default function BlogPage() {
             </div>
           ) : blogs.length === 0 ? (
             <div className="text-center py-20">
-              <FileText className="w-16 h-16 mx-auto text-gray-600 mb-4" />
-              <p className="text-gray-400 text-lg mb-2">{t("noBlogs")}</p>
+              <FileText className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+              <p className="text-gray-700 text-lg mb-2">{t("noBlogs")}</p>
               <p className="text-gray-500 text-sm mb-6">Check back later for updates</p>
               <Link href="/">
                 <Button variant="gold">
@@ -160,7 +160,7 @@ export default function BlogPage() {
                       isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
                     }`}
                   >
-                    <div className="relative rounded-xl overflow-hidden bg-[#1F2937] border border-white/10 hover:border-[#C9A227]/50 transition-all">
+                    <div className="relative rounded-xl overflow-hidden bg-white border border-gray-200 hover:border-[#C9A227]/50 hover:shadow-lg transition-all">
                       {/* Featured Image */}
                       <div className="relative h-72 md:h-96 overflow-hidden">
                         {featuredBlog.coverImage ? (
@@ -171,7 +171,7 @@ export default function BlogPage() {
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                         ) : (
-                          <div className="absolute inset-0 flex items-center justify-center bg-[#1a2332]">
+                          <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
                             <FileText className="w-20 h-20 text-gray-600" />
                           </div>
                         )}
@@ -188,7 +188,7 @@ export default function BlogPage() {
 
                       {/* Content */}
                       <div className="absolute bottom-0 left-0 right-0 p-6">
-                        <h2 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-[#C9A227] transition-colors line-clamp-2">
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-[#C9A227] transition-colors line-clamp-2">
                           {getLocalizedTitle(featuredBlog)}
                         </h2>
 
@@ -226,7 +226,7 @@ export default function BlogPage() {
                       }`}
                       style={{ transitionDelay: `${(index + 1) * 100}ms` }}
                     >
-                      <div className="bg-[#1F2937] rounded-xl border border-white/10 overflow-hidden hover:border-[#C9A227]/50 transition-all h-full">
+                      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#C9A227]/50 transition-all h-full">
                         {/* Image */}
                         <div className="relative h-44 overflow-hidden">
                           {blog.coverImage ? (
@@ -237,7 +237,7 @@ export default function BlogPage() {
                               className="object-cover group-hover:scale-105 transition-transform duration-500"
                             />
                           ) : (
-                            <div className="absolute inset-0 flex items-center justify-center bg-[#1a2332]">
+                            <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
                               <FileText className="w-12 h-12 text-gray-600" />
                             </div>
                           )}
@@ -245,7 +245,7 @@ export default function BlogPage() {
 
                         {/* Content */}
                         <div className="p-4">
-                          <h3 className="font-semibold text-white mb-2 group-hover:text-[#C9A227] transition-colors line-clamp-2 text-sm">
+                          <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#C9A227] transition-colors line-clamp-2 text-sm">
                             {getLocalizedTitle(blog)}
                           </h3>
 
@@ -266,7 +266,7 @@ export default function BlogPage() {
               <div className="lg:col-span-1">
                 <div className="sticky top-24 space-y-6">
                   {/* Popular Articles */}
-                  <div className="bg-[#1F2937] rounded-xl border border-white/10 p-5">
+                  <div className="bg-white rounded-xl border border-gray-200 p-5">
                     <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
                       <TrendingUp className="w-4 h-4 text-[#C9A227]" />
                       Popular Articles
@@ -287,13 +287,13 @@ export default function BlogPage() {
                                 className="object-cover"
                               />
                             ) : (
-                              <div className="absolute inset-0 bg-[#1a2332] flex items-center justify-center">
+                              <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
                                 <FileText className="w-6 h-6 text-gray-600" />
                               </div>
                             )}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="text-white text-xs font-medium line-clamp-2 group-hover:text-[#C9A227] transition-colors">
+                            <h4 className="text-gray-900 text-xs font-medium line-clamp-2 group-hover:text-[#C9A227] transition-colors">
                               {getLocalizedTitle(blog)}
                             </h4>
                             {blog.publishedAt && (
@@ -308,13 +308,13 @@ export default function BlogPage() {
                   </div>
 
                   {/* Categories / Tags */}
-                  <div className="bg-[#1F2937] rounded-xl border border-white/10 p-5">
+                  <div className="bg-white rounded-xl border border-gray-200 p-5">
                     <h3 className="text-white font-semibold mb-4">Categories</h3>
                     <div className="flex flex-wrap gap-2">
                       {["Real Estate", "Market Trends", "Tips", "Investment", "News"].map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1 bg-[#111928] text-gray-400 text-xs rounded-full border border-white/10 hover:border-[#C9A227]/50 hover:text-[#C9A227] transition-colors cursor-pointer"
+                          className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full border border-gray-200 hover:border-[#C9A227]/50 hover:text-[#C9A227] transition-colors cursor-pointer"
                         >
                           {tag}
                         </span>

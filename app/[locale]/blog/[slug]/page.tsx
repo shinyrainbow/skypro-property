@@ -169,10 +169,10 @@ export default function BlogPostPage({
 
   if (loading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="h-16" />
-        <div className="flex justify-center items-center py-40 bg-[#111928]">
+        <div className="flex justify-center items-center py-40 bg-gray-50">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C9A227]"></div>
         </div>
         <Footer />
@@ -182,12 +182,12 @@ export default function BlogPostPage({
 
   if (notFound || !blog) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="h-16" />
-        <div className="container mx-auto px-4 py-20 text-center bg-[#111928]">
+        <div className="container mx-auto px-4 py-20 text-center bg-gray-50">
           <FileText className="w-20 h-20 mx-auto text-gray-600 mb-6" />
-          <h1 className="text-2xl font-bold text-white mb-4">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
             Blog post not found
           </h1>
           <p className="text-gray-400 mb-8">
@@ -195,7 +195,7 @@ export default function BlogPostPage({
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/blog">
-              <Button variant="outline" className="border-white/20 text-white hover:border-[#C9A227] hover:text-[#C9A227]">
+              <Button variant="outline" className="border-gray-300 text-gray-700 hover:border-[#C9A227] hover:text-[#C9A227]">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Blog
               </Button>
@@ -214,7 +214,7 @@ export default function BlogPostPage({
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       <div className="h-16" />
 
@@ -236,7 +236,7 @@ export default function BlogPostPage({
       </div>
 
       {/* Main Content */}
-      <section className="py-8 bg-[#111928]">
+      <section className="py-8 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Article Content */}
@@ -248,7 +248,7 @@ export default function BlogPostPage({
               >
                 {/* Article Header */}
                 <header className="mb-8">
-                  <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+                  <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
                     {getLocalizedTitle(blog)}
                   </h1>
 
@@ -383,7 +383,7 @@ export default function BlogPostPage({
                       </button>
                     </div>
                     <Link href="/blog">
-                      <Button variant="outline" size="sm" className="border-white/20 text-white hover:border-[#C9A227] hover:text-[#C9A227]">
+                      <Button variant="outline" size="sm" className="border-gray-300 text-gray-700 hover:border-[#C9A227] hover:text-[#C9A227]">
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Back to Blog
                       </Button>
@@ -397,7 +397,7 @@ export default function BlogPostPage({
             <div className="lg:col-span-1">
               <div className="sticky top-24 space-y-6">
                 {/* Related Articles */}
-                <div className="bg-[#1F2937] rounded-xl border border-white/10 p-5">
+                <div className="bg-white rounded-xl border border-gray-200 p-5">
                   <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-[#C9A227]" />
                     Related Articles
@@ -418,13 +418,13 @@ export default function BlogPostPage({
                               className="object-cover"
                             />
                           ) : (
-                            <div className="absolute inset-0 bg-[#1a2332] flex items-center justify-center">
+                            <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
                               <FileText className="w-6 h-6 text-gray-600" />
                             </div>
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-white text-xs font-medium line-clamp-2 group-hover:text-[#C9A227] transition-colors">
+                          <h4 className="text-gray-900 text-xs font-medium line-clamp-2 group-hover:text-[#C9A227] transition-colors">
                             {getLocalizedTitle(relatedBlog)}
                           </h4>
                           {relatedBlog.publishedAt && (
@@ -443,13 +443,13 @@ export default function BlogPostPage({
                 </div>
 
                 {/* Categories */}
-                <div className="bg-[#1F2937] rounded-xl border border-white/10 p-5">
+                <div className="bg-white rounded-xl border border-gray-200 p-5">
                   <h3 className="text-white font-semibold mb-4">Categories</h3>
                   <div className="flex flex-wrap gap-2">
                     {["Real Estate", "Market Trends", "Tips", "Investment", "News"].map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 bg-[#111928] text-gray-400 text-xs rounded-full border border-white/10 hover:border-[#C9A227]/50 hover:text-[#C9A227] transition-colors cursor-pointer"
+                        className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full border border-gray-200 hover:border-[#C9A227]/50 hover:text-[#C9A227] transition-colors cursor-pointer"
                       >
                         {tag}
                       </span>
@@ -477,7 +477,7 @@ export default function BlogPostPage({
       {relatedBlogs.length > 0 && (
         <section className="py-12 bg-[#0d1117]">
           <div className="container mx-auto px-4">
-            <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
               <FileText className="w-5 h-5 text-[#C9A227]" />
               More Articles You Might Like
             </h2>
@@ -488,7 +488,7 @@ export default function BlogPostPage({
                   href={`/blog/${relatedBlog.slug}`}
                   className="group"
                 >
-                  <div className="bg-[#1F2937] rounded-xl border border-white/10 overflow-hidden hover:border-[#C9A227]/50 transition-all">
+                  <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#C9A227]/50 transition-all">
                     <div className="relative h-36 overflow-hidden">
                       {relatedBlog.coverImage ? (
                         <Image
@@ -498,13 +498,13 @@ export default function BlogPostPage({
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
-                        <div className="absolute inset-0 bg-[#1a2332] flex items-center justify-center">
+                        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
                           <FileText className="w-10 h-10 text-gray-600" />
                         </div>
                       )}
                     </div>
                     <div className="p-4">
-                      <h3 className="text-white text-sm font-medium line-clamp-2 group-hover:text-[#C9A227] transition-colors mb-2">
+                      <h3 className="text-gray-900 text-sm font-medium line-clamp-2 group-hover:text-[#C9A227] transition-colors mb-2">
                         {getLocalizedTitle(relatedBlog)}
                       </h3>
                       {relatedBlog.publishedAt && (

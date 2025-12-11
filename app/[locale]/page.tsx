@@ -13,18 +13,40 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Bed, Bath, Maximize, MapPin, Search, Star, Phone, Mail, ChevronDown, ChevronLeft, ChevronRight, ArrowRight, Play, Home, FileCheck, PhoneCall } from "lucide-react";
+import {
+  Bed,
+  Bath,
+  Maximize,
+  MapPin,
+  Search,
+  Star,
+  Phone,
+  Mail,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  Play,
+  Home,
+  FileCheck,
+  PhoneCall,
+} from "lucide-react";
 import Image from "next/image";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import PartnersSection from "@/components/sections/partners";
 import { toast } from "sonner";
-import { getProperties, getPopularProperties, getClosedDeals, type Property as DataProperty } from "@/lib/data";
+import {
+  getProperties,
+  getPopularProperties,
+  getClosedDeals,
+  type Property as DataProperty,
+} from "@/lib/data";
 
 // Hero background images for slideshow
 const heroImages = [
   "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920",
-  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920",
+  // "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920",
   "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920",
   "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920",
   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920",
@@ -45,7 +67,8 @@ const mockReviews = [
     id: "rev-002",
     name: "คุณนภา ศรีสุข",
     rating: 5,
-    comment: "ประทับใจมากค่ะ ตอบคำถามรวดเร็ว พาชมห้องหลายที่จนได้ห้องที่ถูกใจ แนะนำเลยค่ะ",
+    comment:
+      "ประทับใจมากค่ะ ตอบคำถามรวดเร็ว พาชมห้องหลายที่จนได้ห้องที่ถูกใจ แนะนำเลยค่ะ",
     transactionType: "rent",
     location: "ทองหล่อ",
     createdAt: "2025-11-10T14:00:00Z",
@@ -54,7 +77,8 @@ const mockReviews = [
     id: "rev-003",
     name: "คุณวิชัย ธนกิจ",
     rating: 4,
-    comment: "ซื้อบ้านผ่าน Sky Pro Properties ทุกอย่างราบรื่น เอกสารครบถ้วน แนะนำครับ",
+    comment:
+      "ซื้อบ้านผ่าน Sky Pro Properties ทุกอย่างราบรื่น เอกสารครบถ้วน แนะนำครับ",
     transactionType: "sale",
     location: "บางนา",
     createdAt: "2025-11-05T09:00:00Z",
@@ -235,8 +259,10 @@ export default function PublicPropertiesPage() {
   // Handle search - navigate to /search with filters
   const handleSearch = () => {
     const params = new URLSearchParams();
-    if (propertyType && propertyType !== "all") params.set("propertyType", propertyType);
-    if (listingType && listingType !== "all") params.set("listingType", listingType);
+    if (propertyType && propertyType !== "all")
+      params.set("propertyType", propertyType);
+    if (listingType && listingType !== "all")
+      params.set("listingType", listingType);
     if (bedrooms && bedrooms !== "all") params.set("bedrooms", bedrooms);
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
@@ -308,33 +334,39 @@ export default function PublicPropertiesPage() {
   // Load properties from mock data with filters
   const loadProperties = () => {
     setLoading(true);
-    let allProperties = getProperties().filter(p => p.status === "active");
+    let allProperties = getProperties().filter((p) => p.status === "active");
 
     // Apply filters
     if (propertyType && propertyType !== "all") {
-      allProperties = allProperties.filter(p => p.propertyType === propertyType);
+      allProperties = allProperties.filter(
+        (p) => p.propertyType === propertyType
+      );
     }
     if (listingType && listingType !== "all") {
       if (listingType === "rent") {
-        allProperties = allProperties.filter(p => p.rentalRateNum && p.rentalRateNum > 0);
+        allProperties = allProperties.filter(
+          (p) => p.rentalRateNum && p.rentalRateNum > 0
+        );
       } else if (listingType === "sale") {
-        allProperties = allProperties.filter(p => p.sellPriceNum && p.sellPriceNum > 0);
+        allProperties = allProperties.filter(
+          (p) => p.sellPriceNum && p.sellPriceNum > 0
+        );
       }
     }
     if (bedrooms && bedrooms !== "all") {
       const bedroomNum = parseInt(bedrooms);
-      allProperties = allProperties.filter(p => p.bedRoomNum >= bedroomNum);
+      allProperties = allProperties.filter((p) => p.bedRoomNum >= bedroomNum);
     }
     if (minPrice) {
       const min = parseInt(minPrice);
-      allProperties = allProperties.filter(p => {
+      allProperties = allProperties.filter((p) => {
         const price = p.rentalRateNum || p.sellPriceNum || 0;
         return price >= min;
       });
     }
     if (maxPrice) {
       const max = parseInt(maxPrice);
-      allProperties = allProperties.filter(p => {
+      allProperties = allProperties.filter((p) => {
         const price = p.rentalRateNum || p.sellPriceNum || 0;
         return price <= max;
       });
@@ -343,7 +375,10 @@ export default function PublicPropertiesPage() {
     // Pagination
     const limit = 12;
     const startIndex = (page - 1) * limit;
-    const paginatedProperties = allProperties.slice(startIndex, startIndex + limit);
+    const paginatedProperties = allProperties.slice(
+      startIndex,
+      startIndex + limit
+    );
 
     setProperties(paginatedProperties.map(convertProperty));
     setTotal(allProperties.length);
@@ -372,7 +407,10 @@ export default function PublicPropertiesPage() {
   }, []);
 
   // Check slider scroll position
-  const checkSliderScroll = (ref: React.RefObject<HTMLDivElement | null>, type: "popular" | "closed") => {
+  const checkSliderScroll = (
+    ref: React.RefObject<HTMLDivElement | null>,
+    type: "popular" | "closed"
+  ) => {
     if (ref.current) {
       const { scrollLeft, scrollWidth, clientWidth } = ref.current;
       const canLeft = scrollLeft > 0;
@@ -395,7 +433,11 @@ export default function PublicPropertiesPage() {
   }, [popularProperties, closedDeals]);
 
   // Slider scroll functions
-  const scrollSlider = (ref: React.RefObject<HTMLDivElement | null>, direction: "left" | "right", type: "popular" | "closed") => {
+  const scrollSlider = (
+    ref: React.RefObject<HTMLDivElement | null>,
+    direction: "left" | "right",
+    type: "popular" | "closed"
+  ) => {
     if (ref.current) {
       const scrollAmount = 320;
       ref.current.scrollBy({
@@ -433,16 +475,16 @@ export default function PublicPropertiesPage() {
       {/* Shared Header */}
       <Header transparent />
 
-      {/* Hero Section - Split Layout, Edge-to-Edge */}
+      {/* Hero Section - Split Layout */}
       <section className="relative h-[85vh] overflow-hidden">
-        <div className="grid lg:grid-cols-2 h-full pl-20">
+        <div className="grid lg:grid-cols-2 h-full">
           {/* Left Side - Content */}
-          <div className="flex flex-col justify-center px-6 md:px-10 lg:px-12 xl:px-16 py-16 lg:py-0">
+          <div className="flex flex-col justify-center px-8 md:px-16 lg:px-12 xl:px-16 py-20 lg:py-0">
             {/* Gold accent line */}
             <div className="w-12 h-0.5 bg-[#C9A227] mb-6" />
 
             {/* Headline */}
-            <h1 className="font-heading text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-white mb-4 leading-tight tracking-wide">
+            <h1 className="font-heading text-3xl md:text-4xl lg:text-3xl xl:text-4xl text-white mb-6 leading-tight tracking-wide">
               <span className="font-medium">Sell or rent</span>
               <br />
               <span className="font-medium">your home at</span>
@@ -451,12 +493,12 @@ export default function PublicPropertiesPage() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-sm text-gray-400 mb-6 max-w-sm leading-relaxed">
+            <p className="text-base md:text-sm text-gray-400 mb-8 max-w-sm leading-relaxed">
               {t("hero.subtitle")}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 variant="gold"
                 size="default"
@@ -464,7 +506,7 @@ export default function PublicPropertiesPage() {
                   const contactSection = document.getElementById("contact");
                   contactSection?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="group px-6 font-heading tracking-wider text-sm"
+                className="group px-8 font-heading tracking-wider text-sm"
               >
                 GET IN TOUCH
               </Button>
@@ -482,23 +524,29 @@ export default function PublicPropertiesPage() {
             </div>
 
             {/* Stats Row */}
-            <div className="flex gap-6 mt-10 pt-6 border-t border-white/10">
+            <div className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-white/10">
               <div>
-                <div className="text-xl font-semibold text-white">500+</div>
-                <div className="text-xs text-gray-500">{t("hero.stats.properties")}</div>
+                <div className="text-2xl md:text-xl font-semibold text-white">500+</div>
+                <div className="text-sm md:text-xs text-gray-500">
+                  {t("hero.stats.properties")}
+                </div>
               </div>
               <div>
-                <div className="text-xl font-semibold text-white">1000+</div>
-                <div className="text-xs text-gray-500">{t("hero.stats.happyClients")}</div>
+                <div className="text-2xl md:text-xl font-semibold text-white">1000+</div>
+                <div className="text-sm md:text-xs text-gray-500">
+                  {t("hero.stats.happyClients")}
+                </div>
               </div>
               <div>
-                <div className="text-xl font-semibold text-white">15+</div>
-                <div className="text-xs text-gray-500">{t("hero.stats.years")}</div>
+                <div className="text-2xl md:text-xl font-semibold text-white">15+</div>
+                <div className="text-sm md:text-xs text-gray-500">
+                  {t("hero.stats.years")}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Side - Image (Clean Cut, No Gradient) */}
+          {/* Right Side - Image */}
           <div className="relative hidden lg:block">
             {/* Main Image with slideshow */}
             {heroImages.map((image, index) => (
@@ -521,7 +569,7 @@ export default function PublicPropertiesPage() {
         </div>
 
         {/* Mobile background image */}
-        <div className="absolute inset-0 lg:hidden">
+        <div className="absolute inset-0 lg:hidden -z-10">
           {heroImages.map((image, index) => (
             <div
               key={index}
@@ -549,7 +597,7 @@ export default function PublicPropertiesPage() {
         ref={(el) => {
           observerRefs.current["search"] = el;
         }}
-        className="py-8"
+        className="py-8 "
       >
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -562,7 +610,7 @@ export default function PublicPropertiesPage() {
             </div>
 
             {/* Search filters - Dark card */}
-            <div className="bg-[#1a2332] rounded-xl p-4 border border-white/10">
+            <div className="rounded-xl p-4 border border-white/40">
               <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
                 <div>
                   <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
@@ -591,8 +639,12 @@ export default function PublicPropertiesPage() {
                     <SelectContent className="bg-[#1F2937] border-white/10">
                       <SelectItem value="all">{t("search.all")}</SelectItem>
                       <SelectItem value="Condo">{t("search.condo")}</SelectItem>
-                      <SelectItem value="Townhouse">{t("search.townhouse")}</SelectItem>
-                      <SelectItem value="SingleHouse">{t("search.singleHouse")}</SelectItem>
+                      <SelectItem value="Townhouse">
+                        {t("search.townhouse")}
+                      </SelectItem>
+                      <SelectItem value="SingleHouse">
+                        {t("search.singleHouse")}
+                      </SelectItem>
                       <SelectItem value="Land">{t("search.land")}</SelectItem>
                     </SelectContent>
                   </Select>
@@ -607,7 +659,9 @@ export default function PublicPropertiesPage() {
                       <SelectValue placeholder={t("common.notSpecified")} />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1F2937] border-white/10">
-                      <SelectItem value="all">{t("common.notSpecified")}</SelectItem>
+                      <SelectItem value="all">
+                        {t("common.notSpecified")}
+                      </SelectItem>
                       <SelectItem value="1">1+</SelectItem>
                       <SelectItem value="2">2+</SelectItem>
                       <SelectItem value="3">3+</SelectItem>
@@ -664,20 +718,34 @@ export default function PublicPropertiesPage() {
           >
             {/* Left - Title with Icon */}
             <div className="flex items-center gap-3">
-              <div className="text-[#C9A227] text-3xl font-heading">S</div>
+              <div className="text-[#C9A227] text-3xl font-heading">
+                <Image
+                  src="/header-logo.png"
+                  alt="Sky Pro Properties"
+                  fill
+                  className="object-contain"
+                  unoptimized
+                />
+              </div>
               <div>
                 <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
-                  LATEST
+                  Latest
                 </h2>
                 <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
-                  PROPERTIES
+                  Properties
                 </h2>
               </div>
             </div>
 
             {/* Right - Description */}
             <p className="text-gray-400 text-sm max-w-md lg:text-right">
-              {t("sections.popularSubtitle")}
+              {/* {t("sections.popularSubtitle")} */}
+              Real Estate Guru In Chiangmai 
+
+              <br/>
+              กูรูด้านอสังหาริมทรัยพ์ในเชียงใหม่
+              <br/>
+              ซื้อ ขาย เช่า - บ้าน คอนโด ที่ดิน Pool villa
             </p>
           </div>
 
@@ -694,7 +762,7 @@ export default function PublicPropertiesPage() {
                 }`}
                 style={{ transitionDelay: `${index * 80}ms` }}
               >
-                <div className="group relative rounded-xl overflow-hidden h-80">
+                <div className="group relative rounded-lg overflow-hidden h-80">
                   {/* Full Card Image */}
                   {property.imageUrls && property.imageUrls.length > 0 ? (
                     <Image
@@ -733,24 +801,37 @@ export default function PublicPropertiesPage() {
 
                       {/* Location/Title */}
                       <p className="text-gray-300 text-xs mb-3 line-clamp-1">
-                        {property.project?.projectNameTh || property.project?.projectNameEn || property.propertyTitleTh || property.propertyTitleEn}
+                        {property.project?.projectNameTh ||
+                          property.project?.projectNameEn ||
+                          property.propertyTitleTh ||
+                          property.propertyTitleEn}
                       </p>
 
                       {/* Stats Row */}
                       <div className="flex items-center justify-between text-white">
                         <div className="text-center">
-                          <div className="text-lg font-light">{String(property.bedRoomNum).padStart(2, '0')}</div>
-                          <div className="text-[10px] text-gray-400 uppercase tracking-wider">Beds</div>
+                          <div className="text-lg font-light">
+                            {String(property.bedRoomNum).padStart(2, "0")}
+                          </div>
+                          <div className="text-[10px] text-gray-400 uppercase tracking-wider">
+                            Beds
+                          </div>
                         </div>
                         <div className="text-center">
-                          <div className="text-lg font-light">{String(property.bathRoomNum).padStart(2, '0')}</div>
-                          <div className="text-[10px] text-gray-400 uppercase tracking-wider">Baths</div>
+                          <div className="text-lg font-light">
+                            {String(property.bathRoomNum).padStart(2, "0")}
+                          </div>
+                          <div className="text-[10px] text-gray-400 uppercase tracking-wider">
+                            Baths
+                          </div>
                         </div>
                         <div className="text-center">
                           <div className="text-lg font-light">
                             {getSize(property)}m<sup>2</sup>
                           </div>
-                          <div className="text-[10px] text-gray-400 uppercase tracking-wider">Area</div>
+                          <div className="text-[10px] text-gray-400 uppercase tracking-wider">
+                            Area
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -773,7 +854,7 @@ export default function PublicPropertiesPage() {
         ref={(el) => {
           observerRefs.current["closed-deals"] = el;
         }}
-        className="py-12 bg-[#0d1117]"
+        className="py-12 bg-white"
       >
         <div className="container mx-auto px-4">
           {/* Section Header */}
@@ -785,10 +866,12 @@ export default function PublicPropertiesPage() {
             }`}
           >
             <div>
-              <h2 className="text-lg md:text-xl font-semibold text-white mb-1">
+              <h2 className="text-lg md:text-xl font-semibold text-[#121928] mb-1">
                 {t("sections.closedDeals")}
               </h2>
-              <p className="text-gray-400 text-sm">{t("sections.closedDealsSubtitle")}</p>
+              <p className="text-gray-400 text-sm">
+                {t("sections.closedDealsSubtitle")}
+              </p>
             </div>
             <div className="flex items-center gap-1.5">
               <button
@@ -797,7 +880,9 @@ export default function PublicPropertiesPage() {
                     ? "border-white/20 text-white hover:border-[#C9A227] hover:text-[#C9A227]"
                     : "border-white/10 text-white/30 cursor-not-allowed"
                 }`}
-                onClick={() => scrollSlider(closedDealsSliderRef, "left", "closed")}
+                onClick={() =>
+                  scrollSlider(closedDealsSliderRef, "left", "closed")
+                }
                 disabled={!closedCanScrollLeft}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -808,7 +893,9 @@ export default function PublicPropertiesPage() {
                     ? "border-white/20 text-white hover:border-[#C9A227] hover:text-[#C9A227]"
                     : "border-white/10 text-white/30 cursor-not-allowed"
                 }`}
-                onClick={() => scrollSlider(closedDealsSliderRef, "right", "closed")}
+                onClick={() =>
+                  scrollSlider(closedDealsSliderRef, "right", "closed")
+                }
                 disabled={!closedCanScrollRight}
               >
                 <ChevronRight className="w-4 h-4" />
@@ -836,12 +923,16 @@ export default function PublicPropertiesPage() {
                 <div className="group bg-[#1F2937] rounded-xl border border-white/10 overflow-hidden h-full relative">
                   {/* Status Badge */}
                   <div className="absolute top-2 left-2 z-10">
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${
-                      property.status === "sold"
-                        ? "bg-red-500 text-white"
-                        : "bg-blue-500 text-white"
-                    }`}>
-                      {property.status === "sold" ? t("property.sold") : t("property.rented")}
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] font-medium ${
+                        property.status === "sold"
+                          ? "bg-red-500 text-white"
+                          : "bg-blue-500 text-white"
+                      }`}
+                    >
+                      {property.status === "sold"
+                        ? t("property.sold")
+                        : t("property.rented")}
                     </span>
                   </div>
 
@@ -850,7 +941,9 @@ export default function PublicPropertiesPage() {
                     {property.imageUrls && property.imageUrls.length > 0 ? (
                       <Image
                         src={property.imageUrls[0]}
-                        alt={property.propertyTitleTh || property.propertyTitleEn}
+                        alt={
+                          property.propertyTitleTh || property.propertyTitleEn
+                        }
                         fill
                         className="object-cover grayscale-30 opacity-80"
                       />
@@ -866,7 +959,8 @@ export default function PublicPropertiesPage() {
                     {/* Project name */}
                     {property.project && (
                       <p className="text-[10px] text-gray-500 mb-0.5 truncate">
-                        {property.project.projectNameTh || property.project.projectNameEn}
+                        {property.project.projectNameTh ||
+                          property.project.projectNameEn}
                       </p>
                     )}
                     {/* Title */}
@@ -880,7 +974,9 @@ export default function PublicPropertiesPage() {
                         ? `฿${formatPrice(property.sellPriceNum)}`
                         : `฿${formatPrice(property.rentalRateNum)}`}
                       {property.status !== "sold" && (
-                        <span className="text-xs font-normal">{t("property.perMonth")}</span>
+                        <span className="text-xs font-normal">
+                          {t("property.perMonth")}
+                        </span>
                       )}
                     </p>
 
@@ -913,7 +1009,7 @@ export default function PublicPropertiesPage() {
         ref={(el) => {
           observerRefs.current["projects"] = el;
         }}
-        className="py-12 bg-[#151c28]"
+        className="py-12 bg-white"
       >
         <div className="container mx-auto px-4">
           {/* Section Header */}
@@ -924,10 +1020,12 @@ export default function PublicPropertiesPage() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-lg md:text-xl font-semibold text-white mb-1">
+            <h2 className="text-lg md:text-xl font-semibold text-[#121928] mb-1">
               {t("sections.popularProjects")}
             </h2>
-            <p className="text-gray-400 text-sm">{t("sections.popularProjectsSubtitle")}</p>
+            <p className="text-gray-400 text-sm">
+              {t("sections.popularProjectsSubtitle")}
+            </p>
           </div>
 
           {/* Projects Grid */}
@@ -935,7 +1033,9 @@ export default function PublicPropertiesPage() {
             {projects.map((project, index) => (
               <Link
                 key={project.projectCode}
-                href={`/search?project=${encodeURIComponent(project.projectCode)}`}
+                href={`/search?project=${encodeURIComponent(
+                  project.projectCode
+                )}`}
                 className={`group transition-all duration-500 ${
                   isVisible["projects"]
                     ? "opacity-100 translate-y-0"
@@ -952,8 +1052,12 @@ export default function PublicPropertiesPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
-                    <h3 className="font-medium text-sm line-clamp-1 mb-0.5">{project.projectNameTh || project.projectNameEn}</h3>
-                    <p className="text-[10px] text-[#C9A227]">{project.count} {t("common.properties")}</p>
+                    <h3 className="font-medium text-sm line-clamp-1 mb-0.5">
+                      {project.projectNameTh || project.projectNameEn}
+                    </h3>
+                    <p className="text-[10px] text-[#C9A227]">
+                      {project.count} {t("common.properties")}
+                    </p>
                   </div>
                 </div>
               </Link>
@@ -1076,7 +1180,7 @@ export default function PublicPropertiesPage() {
         ref={(el) => {
           observerRefs.current["properties"] = el;
         }}
-        className="py-12"
+        className="py-12 bg-white"
       >
         <div className="container mx-auto px-4">
           {/* Section Header */}
@@ -1087,7 +1191,7 @@ export default function PublicPropertiesPage() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-lg md:text-xl font-semibold text-white mb-1">
+            <h2 className="text-lg md:text-xl font-semibold text-black mb-1">
               {t("sections.allProperties")}
             </h2>
             <p className="text-gray-400 text-sm">
@@ -1126,7 +1230,7 @@ export default function PublicPropertiesPage() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {properties.map((property, index) => (
                   <Link
                     key={property.id}
@@ -1138,24 +1242,29 @@ export default function PublicPropertiesPage() {
                     }`}
                     style={{ transitionDelay: `${index * 40}ms` }}
                   >
-                  <div className="group bg-[#1F2937] rounded-xl border border-white/10 overflow-hidden hover:border-[#C9A227]/50 transition-all duration-200 h-full">
-                    {/* Property Image */}
-                    <div className="relative h-36 bg-[#1a2332] overflow-hidden">
+                    <div className="group relative rounded-lg overflow-hidden h-72">
+                      {/* Full Card Image */}
                       {property.imageUrls && property.imageUrls.length > 0 ? (
                         <Image
                           src={property.imageUrls[0]}
-                          alt={property.propertyTitleEn || "Property"}
+                          alt={property.propertyTitleTh || property.propertyTitleEn || "Property"}
                           fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="flex items-center justify-center h-full text-gray-500">
-                          <MapPin className="w-8 h-8" />
+                        <div className="absolute inset-0 bg-[#111928] flex items-center justify-center">
+                          <MapPin className="w-10 h-10 text-gray-600" />
                         </div>
                       )}
 
-                      {/* Single Badge - Listing Type */}
-                      <div className="absolute top-2 right-2">
+                      {/* Gold Gradient Overlay on Left */}
+                      <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#FFD700]/30 to-transparent z-10" />
+
+                      {/* Bottom Gradient for Text */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+
+                      {/* Badge - Listing Type */}
+                      <div className="absolute top-2 right-2 z-20">
                         {property.rentalRateNum && property.rentalRateNum > 0 ? (
                           <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-[#C9A227] text-white">
                             {t("property.forRent")}
@@ -1166,49 +1275,66 @@ export default function PublicPropertiesPage() {
                           </span>
                         )}
                       </div>
-                    </div>
 
-                    {/* Property Details */}
-                    <div className="p-3">
-                      {/* Project Name */}
-                      {property.project && (
-                        <p className="text-[10px] text-gray-500 mb-0.5 truncate">
-                          {property.project.projectNameTh || property.project.projectNameEn}
-                        </p>
-                      )}
+                      {/* Content Overlay */}
+                      <div className="absolute inset-0 z-20 flex flex-col justify-end">
+                        {/* Content with padding */}
+                        <div className="px-4 pb-3">
+                          {/* Price */}
+                          <div className="mb-1">
+                            <span className="text-xl font-light text-white">
+                              {property.rentalRateNum
+                                ? formatPrice(property.rentalRateNum)
+                                : formatPrice(property.sellPriceNum)}
+                            </span>
+                            <span className="text-xs text-gray-300 ml-1.5">
+                              {property.rentalRateNum ? "THB/mo" : "THB"}
+                            </span>
+                          </div>
 
-                      {/* Property Title */}
-                      <h3 className="font-medium text-white text-sm line-clamp-1 mb-2 group-hover:text-[#C9A227] transition-colors">
-                        {property.propertyTitleTh || property.propertyTitleEn || t("property.noName")}
-                      </h3>
+                          {/* Location/Title */}
+                          <p className="text-gray-300 text-xs mb-3 line-clamp-1">
+                            {property.project?.projectNameTh ||
+                              property.project?.projectNameEn ||
+                              property.propertyTitleTh ||
+                              property.propertyTitleEn}
+                          </p>
 
-                      {/* Price */}
-                      <p className="text-sm font-semibold text-[#C9A227] mb-2">
-                        {property.rentalRateNum
-                          ? `฿${formatPrice(property.rentalRateNum)}`
-                          : `฿${formatPrice(property.sellPriceNum)}`}
-                        {property.rentalRateNum && (
-                          <span className="text-xs font-normal text-gray-400">{t("property.perMonth")}</span>
-                        )}
-                      </p>
+                          {/* Stats Row */}
+                          <div className="flex items-center justify-between text-white">
+                            <div className="text-center">
+                              <div className="text-lg font-light">
+                                {String(property.bedRoomNum).padStart(2, "0")}
+                              </div>
+                              <div className="text-[10px] text-gray-400 uppercase tracking-wider">
+                                Beds
+                              </div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-lg font-light">
+                                {String(property.bathRoomNum).padStart(2, "0")}
+                              </div>
+                              <div className="text-[10px] text-gray-400 uppercase tracking-wider">
+                                Baths
+                              </div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-lg font-light">
+                                {getSize(property)}m<sup>2</sup>
+                              </div>
+                              <div className="text-[10px] text-gray-400 uppercase tracking-wider">
+                                Area
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-                      {/* Property Features */}
-                      <div className="flex items-center gap-3 text-xs text-gray-400">
-                        <span className="flex items-center gap-1">
-                          <Bed className="w-3 h-3" />
-                          {property.bedRoomNum}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Bath className="w-3 h-3" />
-                          {property.bathRoomNum}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Maximize className="w-3 h-3" />
-                          {getSize(property)} {t("common.sqm")}
-                        </span>
+                        {/* Learn More Button - Edge to Edge, Dark Gold */}
+                        <button className="w-full py-3 bg-gradient-to-r from-[#9A7B06] via-[#8A6B05] to-[#7A5B04] text-white font-heading font-semibold tracking-widest text-xs hover:from-[#C9A227] hover:via-[#B8960B] hover:to-[#9A7B06] transition-all">
+                          LEARN MORE
+                        </button>
                       </div>
                     </div>
-                  </div>
                   </Link>
                 ))}
               </div>
@@ -1286,46 +1412,83 @@ export default function PublicPropertiesPage() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <p className="text-[#C9A227] text-xs uppercase tracking-widest mb-3">HOW IT WORKS</p>
+            <p className="text-[#C9A227] text-xs uppercase tracking-widest mb-3">
+              HOW IT WORKS
+            </p>
             <h2 className="text-2xl md:text-3xl font-semibold text-white leading-tight">
-              We&apos;ll help sell your house,<br />
-              with our <span className="text-[#C9A227]">Guaranteed</span> services
+              We&apos;ll help sell your house,
+              <br />
+              with our <span className="text-[#C9A227]">Guaranteed</span>{" "}
+              services
             </h2>
           </div>
 
           {/* Steps */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
-            <div className={`transition-all duration-700 ${
-              isVisible["how-it-works"] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`} style={{ transitionDelay: "100ms" }}>
+            <div
+              className={`transition-all duration-700 ${
+                isVisible["how-it-works"]
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
+              style={{ transitionDelay: "100ms" }}
+            >
               <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4">
                 <PhoneCall className="w-7 h-7 text-white" />
               </div>
-              <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">STEP 1</p>
-              <p className="text-white font-medium">Give us a call,<br />we&apos;ll help</p>
+              <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">
+                STEP 1
+              </p>
+              <p className="text-white font-medium">
+                Give us a call,
+                <br />
+                we&apos;ll help
+              </p>
             </div>
 
             {/* Step 2 */}
-            <div className={`transition-all duration-700 ${
-              isVisible["how-it-works"] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`} style={{ transitionDelay: "200ms" }}>
+            <div
+              className={`transition-all duration-700 ${
+                isVisible["how-it-works"]
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
+              style={{ transitionDelay: "200ms" }}
+            >
               <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4">
                 <Home className="w-7 h-7 text-white" />
               </div>
-              <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">STEP 2</p>
-              <p className="text-white font-medium">List your<br />property</p>
+              <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">
+                STEP 2
+              </p>
+              <p className="text-white font-medium">
+                List your
+                <br />
+                property
+              </p>
             </div>
 
             {/* Step 3 */}
-            <div className={`transition-all duration-700 ${
-              isVisible["how-it-works"] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`} style={{ transitionDelay: "300ms" }}>
+            <div
+              className={`transition-all duration-700 ${
+                isVisible["how-it-works"]
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
+              style={{ transitionDelay: "300ms" }}
+            >
               <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4">
                 <FileCheck className="w-7 h-7 text-white" />
               </div>
-              <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">STEP 3</p>
-              <p className="text-white font-medium">Your home sold<br />Guaranteed</p>
+              <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">
+                STEP 3
+              </p>
+              <p className="text-white font-medium">
+                Your home sold
+                <br />
+                Guaranteed
+              </p>
             </div>
           </div>
         </div>
@@ -1337,7 +1500,7 @@ export default function PublicPropertiesPage() {
         ref={(el) => {
           observerRefs.current["contact"] = el;
         }}
-        className="relative"
+        className="relative bg-[#0d1117]"
       >
         {/* Image Container */}
         <div className="relative h-[400px] md:h-[450px] ml-8 md:ml-16 lg:ml-24 z-10">
@@ -1386,7 +1549,9 @@ export default function PublicPropertiesPage() {
                     size="default"
                     className="rounded-lg text-sm"
                     onClick={() => {
-                      navigator.clipboard.writeText("bkgroup.ch.official@gmail.com");
+                      navigator.clipboard.writeText(
+                        "bkgroup.ch.official@gmail.com"
+                      );
                       toast.success(t("common.copiedEmail"));
                     }}
                   >
@@ -1405,26 +1570,50 @@ export default function PublicPropertiesPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6">
               <div className="text-center md:text-left">
                 <div className="flex items-baseline justify-center md:justify-start gap-2">
-                  <span className="text-3xl md:text-4xl font-bold text-white">10+</span>
-                  <span className="text-white/80 text-sm">Years<br />of experience</span>
+                  <span className="text-3xl md:text-4xl font-bold text-white">
+                    10+
+                  </span>
+                  <span className="text-white/80 text-sm">
+                    Years
+                    <br />
+                    of experience
+                  </span>
                 </div>
               </div>
               <div className="text-center md:text-left">
                 <div className="flex items-baseline justify-center md:justify-start gap-2">
-                  <span className="text-3xl md:text-4xl font-bold text-white">20+</span>
-                  <span className="text-white/80 text-sm">Awards<br />Gained</span>
+                  <span className="text-3xl md:text-4xl font-bold text-white">
+                    20+
+                  </span>
+                  <span className="text-white/80 text-sm">
+                    Awards
+                    <br />
+                    Gained
+                  </span>
                 </div>
               </div>
               <div className="text-center md:text-left">
                 <div className="flex items-baseline justify-center md:justify-start gap-2">
-                  <span className="text-3xl md:text-4xl font-bold text-white">879</span>
-                  <span className="text-white/80 text-sm">Properties<br />Listed</span>
+                  <span className="text-3xl md:text-4xl font-bold text-white">
+                    879
+                  </span>
+                  <span className="text-white/80 text-sm">
+                    Properties
+                    <br />
+                    Listed
+                  </span>
                 </div>
               </div>
               <div className="text-center md:text-left">
                 <div className="flex items-baseline justify-center md:justify-start gap-2">
-                  <span className="text-3xl md:text-4xl font-bold text-white">1000+</span>
-                  <span className="text-white/80 text-sm">Happy<br />Clients</span>
+                  <span className="text-3xl md:text-4xl font-bold text-white">
+                    1000+
+                  </span>
+                  <span className="text-white/80 text-sm">
+                    Happy
+                    <br />
+                    Clients
+                  </span>
                 </div>
               </div>
             </div>
@@ -1452,7 +1641,9 @@ export default function PublicPropertiesPage() {
             <h2 className="text-lg md:text-xl font-semibold text-[#111928] mb-1">
               {t("sections.reviews")}
             </h2>
-            <p className="text-gray-600 text-sm">{t("sections.reviewsSubtitle")}</p>
+            <p className="text-gray-600 text-sm">
+              {t("sections.reviewsSubtitle")}
+            </p>
           </div>
 
           {/* Reviews Grid */}
@@ -1496,9 +1687,14 @@ export default function PublicPropertiesPage() {
                         {firstChar}
                       </div>
                       <div>
-                        <p className="font-medium text-[#111928] text-xs">{review.name}</p>
+                        <p className="font-medium text-[#111928] text-xs">
+                          {review.name}
+                        </p>
                         <p className="text-[10px] text-gray-500">
-                          {review.transactionType === "rent" ? t("review.rentedAt") : t("review.boughtAt")} {review.location}
+                          {review.transactionType === "rent"
+                            ? t("review.rentedAt")
+                            : t("review.boughtAt")}{" "}
+                          {review.location}
                         </p>
                       </div>
                     </div>
@@ -1513,7 +1709,7 @@ export default function PublicPropertiesPage() {
           </div>
 
           {/* View All Button */}
-          <div className="text-center mt-6">
+          {/* <div className="text-center mt-6">
             <Link href="/reviews">
               <Button
                 variant="outline"
@@ -1524,7 +1720,7 @@ export default function PublicPropertiesPage() {
                 <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
               </Button>
             </Link>
-          </div>
+          </div> */}
         </div>
       </section>
 

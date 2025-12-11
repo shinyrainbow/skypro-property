@@ -377,7 +377,7 @@ function SearchContent() {
                               selectedProject;
 
   return (
-    <div className="min-h-screen bg-[#0D1B2A]">
+    <div className="min-h-screen bg-gray-50">
       {/* Shared Header */}
       <Header />
 
@@ -416,7 +416,7 @@ function SearchContent() {
       </section>
 
       {/* Projects Quick Select */}
-      <section className="bg-[#152238] py-6 border-b border-white/10">
+      <section className="bg-white py-6 border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-2 justify-center">
             {projects.map((project) => (
@@ -428,7 +428,7 @@ function SearchContent() {
                 className={`transition-all duration-300 ${
                   selectedProject === project.projectCode
                     ? "bg-[#C9A227] hover:bg-[#A88B1F] text-white border-[#C9A227]"
-                    : "bg-[#1B2D44] border-2 border-white/20 text-white hover:border-[#C9A227] hover:bg-[#C9A227]/10 hover:text-[#C9A227]"
+                    : "bg-white border-2 border-gray-200 text-gray-700 hover:border-[#C9A227] hover:bg-[#C9A227]/10 hover:text-[#C9A227]"
                 }`}
                 onClick={() => handleProjectSelect(project.projectCode)}
               >
@@ -463,9 +463,9 @@ function SearchContent() {
               showFilters ? "block" : "hidden"
             } lg:block transition-all duration-300`}
           >
-            <Card className="p-6 sticky top-24 shadow-lg bg-[#1B2D44] border border-white/10">
+            <Card className="p-6 sticky top-24 shadow-lg bg-white border border-gray-200">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold text-white">{t("searchPage.filters")}</h2>
+                <h2 className="text-lg font-bold text-gray-900">{t("searchPage.filters")}</h2>
                 <Button
                   variant="outline"
                   size="sm"
@@ -479,31 +479,31 @@ function SearchContent() {
               <div className="space-y-5">
                 {/* Text Search */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">
                     {t("common.search")}
                   </label>
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
                       type="text"
                       placeholder={t("searchPage.searchPlaceholder")}
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
-                      className="pl-10 border-white/20 bg-[#152238] text-white placeholder:text-gray-500"
+                      className="pl-10 border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
                 </div>
 
                 {/* Property Type */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">
                     {t("search.propertyType")}
                   </label>
                   <Select value={propertyType} onValueChange={setPropertyType}>
-                    <SelectTrigger className="border-white/20 bg-[#152238] text-white">
+                    <SelectTrigger className="border-gray-200 bg-gray-50 text-gray-900">
                       <SelectValue placeholder={t("search.all")} />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1B2D44] border-white/20">
+                    <SelectContent className="bg-white border-gray-200">
                       <SelectItem value="all">{t("search.all")}</SelectItem>
                       <SelectItem value="Condo">{t("search.condo")}</SelectItem>
                       <SelectItem value="Townhouse">{t("search.townhouse")}</SelectItem>
@@ -515,14 +515,14 @@ function SearchContent() {
 
                 {/* Listing Type */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">
                     {t("search.listingType")}
                   </label>
                   <Select value={listingType} onValueChange={setListingType}>
-                    <SelectTrigger className="border-white/20 bg-[#152238] text-white">
+                    <SelectTrigger className="border-gray-200 bg-gray-50 text-gray-900">
                       <SelectValue placeholder={t("search.all")} />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1B2D44] border-white/20">
+                    <SelectContent className="bg-white border-gray-200">
                       <SelectItem value="all">{t("search.all")}</SelectItem>
                       <SelectItem value="rent">{t("search.rent")}</SelectItem>
                       <SelectItem value="sale">{t("search.sale")}</SelectItem>
@@ -532,14 +532,14 @@ function SearchContent() {
 
                 {/* Bedrooms */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">
                     {t("search.bedrooms")}
                   </label>
                   <Select value={bedrooms} onValueChange={setBedrooms}>
-                    <SelectTrigger className="border-white/20 bg-[#152238] text-white">
+                    <SelectTrigger className="border-gray-200 bg-gray-50 text-gray-900">
                       <SelectValue placeholder={t("common.notSpecified")} />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1B2D44] border-white/20">
+                    <SelectContent className="bg-white border-gray-200">
                       <SelectItem value="all">{t("common.notSpecified")}</SelectItem>
                       <SelectItem value="1">1 {t("common.room")}</SelectItem>
                       <SelectItem value="2">2 {t("common.rooms")}</SelectItem>
@@ -551,7 +551,7 @@ function SearchContent() {
 
                 {/* Price Range */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">
                     {t("search.minPrice")} - {t("search.maxPrice")}
                   </label>
                   <div className="flex gap-2">
@@ -560,14 +560,14 @@ function SearchContent() {
                       placeholder={t("search.minPrice")}
                       value={minPrice}
                       onChange={(e) => setMinPrice(e.target.value)}
-                      className="border-white/20 bg-[#152238] text-white placeholder:text-gray-500"
+                      className="border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400"
                     />
                     <Input
                       type="number"
                       placeholder={t("search.maxPrice")}
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
-                      className="border-white/20 bg-[#152238] text-white placeholder:text-gray-500"
+                      className="border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
                 </div>
@@ -580,10 +580,10 @@ function SearchContent() {
             {/* Results Header */}
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-xl font-bold text-white">
+                <h2 className="text-xl font-bold text-gray-900">
                   {t("searchPage.title")}
                 </h2>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-500">
                   {properties.length} {t("common.properties")}
                 </p>
               </div>
@@ -594,7 +594,7 @@ function SearchContent() {
                   className={
                     viewMode === "grid"
                       ? "bg-[#C9A227] hover:bg-[#A88B1F]"
-                      : "border-white/20 text-white hover:bg-white/10"
+                      : "border-gray-300 text-gray-700 hover:bg-gray-100"
                   }
                   onClick={() => setViewMode("grid")}
                 >
@@ -606,7 +606,7 @@ function SearchContent() {
                   className={
                     viewMode === "list"
                       ? "bg-[#C9A227] hover:bg-[#A88B1F]"
-                      : "border-white/20 text-white hover:bg-white/10"
+                      : "border-gray-300 text-gray-700 hover:bg-gray-100"
                   }
                   onClick={() => setViewMode("list")}
                 >
@@ -627,7 +627,7 @@ function SearchContent() {
                 {[...Array(6)].map((_, i) => (
                   <Card
                     key={i}
-                    className={`animate-pulse bg-[#152238] ${
+                    className={`animate-pulse bg-gray-200 ${
                       viewMode === "grid" ? "h-80" : "h-40"
                     }`}
                   />
@@ -635,14 +635,14 @@ function SearchContent() {
               </div>
             ) : properties.length === 0 ? (
               /* Empty State */
-              <Card className="p-12 text-center shadow-lg bg-[#1B2D44] border border-white/10">
-                <div className="text-gray-500 mb-4">
+              <Card className="p-12 text-center shadow-lg bg-white border border-gray-200">
+                <div className="text-gray-400 mb-4">
                   <Search className="w-16 h-16 mx-auto" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   {t("search.noPropertiesFound")}
                 </h3>
-                <p className="text-gray-400 mb-6">
+                <p className="text-gray-500 mb-6">
                   {t("search.tryAdjustFilters")}
                 </p>
                 <Button
@@ -673,13 +673,13 @@ function SearchContent() {
                     style={{ transitionDelay: `${index * 50}ms` }}
                   >
                     <Card
-                      className={`group overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer bg-[#1B2D44] border border-white/10 hover:border-[#C9A227]/50 ${
+                      className={`group overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer bg-white border border-gray-200 hover:border-[#C9A227]/50 ${
                         viewMode === "list" ? "flex flex-row h-40" : ""
                       }`}
                     >
                       {/* Property Image */}
                       <div
-                        className={`relative overflow-hidden bg-[#152238] flex-shrink-0 ${
+                        className={`relative overflow-hidden bg-gray-100 flex-shrink-0 ${
                           viewMode === "list" ? "w-48 h-40" : "h-48"
                         }`}
                       >
@@ -761,11 +761,11 @@ function SearchContent() {
                           </div>
                         )}
 
-                        <h3 className="font-bold text-white mb-2 line-clamp-2 group-hover:text-[#C9A227] transition-colors">
+                        <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#C9A227] transition-colors">
                           {property.propertyTitleTh || property.propertyTitleEn}
                         </h3>
 
-                        <div className="flex items-center gap-3 text-xs text-gray-400 mb-3 pb-3 border-b border-white/10">
+                        <div className="flex items-center gap-3 text-xs text-gray-500 mb-3 pb-3 border-b border-gray-100">
                           <div className="flex items-center gap-1">
                             <Bed className="w-3 h-3 text-[#C9A227]" />
                             <span className="font-semibold">
@@ -849,7 +849,7 @@ function SearchContent() {
 
 function SearchSkeleton() {
   return (
-    <div className="min-h-screen bg-[#0D1B2A]">
+    <div className="min-h-screen bg-gray-50">
       <header className="bg-[#152238] shadow-sm py-4">
         <div className="container mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center gap-2">

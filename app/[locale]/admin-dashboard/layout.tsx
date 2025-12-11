@@ -35,26 +35,26 @@ const menuItems = [
     href: "/admin-dashboard/properties",
     icon: Home,
   },
-  {
-    label: "จัดการโปรโมชัน",
-    href: "/admin-dashboard/promotions",
-    icon: Tag,
-  },
-  {
-    label: "จัดการรีวิว",
-    href: "/admin-dashboard/reviews",
-    icon: Star,
-  },
+  // {
+  //   label: "จัดการโปรโมชัน",
+  //   href: "/admin-dashboard/promotions",
+  //   icon: Tag,
+  // },
+  // {
+  //   label: "จัดการรีวิว",
+  //   href: "/admin-dashboard/reviews",
+  //   icon: Star,
+  // },
   {
     label: "ข้อความติดต่อ",
     href: "/admin-dashboard/inquiries",
     icon: MessageSquare,
   },
-  {
-    label: "บริการอื่นๆ",
-    href: "/admin-dashboard/other-services",
-    icon: Wrench,
-  },
+  // {
+  //   label: "บริการอื่นๆ",
+  //   href: "/admin-dashboard/other-services",
+  //   icon: Wrench,
+  // },
   {
     label: "จัดการบล็อก",
     href: "/admin-dashboard/blog",

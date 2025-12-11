@@ -612,7 +612,7 @@ export default function PropertyDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0D1B2A]">
+      <div className="min-h-screen bg-gray-50">
         {/* Navigation Skeleton */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-[#152238] shadow-sm">
           <div className="container mx-auto px-6 py-4">
@@ -641,13 +641,13 @@ export default function PropertyDetailPage() {
 
   if (!property) {
     return (
-      <div className="min-h-screen bg-[#0D1B2A] flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Home className="w-20 h-20 text-gray-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-2">
+          <Home className="w-20 h-20 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
             {t("propertyDetail.notFound")}
           </h2>
-          <p className="text-gray-400 mb-6">
+          <p className="text-gray-500 mb-6">
             {t("propertyDetail.notFoundDesc")}
           </p>
           <Link href="/">
@@ -662,7 +662,7 @@ export default function PropertyDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0D1B2A]">
+    <div className="min-h-screen bg-gray-50">
       {/* JSON-LD Structured Data for SEO */}
       <PropertyJsonLd property={property} />
 
@@ -670,11 +670,11 @@ export default function PropertyDetailPage() {
       <Header />
 
       {/* Action Bar */}
-      <div className="fixed top-16 left-0 right-0 z-40 bg-[#152238] border-b border-white/10">
+      <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div className="container mx-auto px-6 py-2 flex items-center justify-between">
           <button
             onClick={() => router.back()}
-            className="flex items-center gap-2 text-gray-400 hover:text-[#C9A227] transition-colors pt-6 pb-4"
+            className="flex items-center gap-2 text-gray-600 hover:text-[#C9A227] transition-colors pt-6 pb-4"
           >
             <ArrowLeft className="w-5 h-5" />
             <span className="text-sm font-medium">{t("propertyDetail.back")}</span>
@@ -686,7 +686,7 @@ export default function PropertyDetailPage() {
               className={`p-2 rounded-full transition-colors ${
                 isLiked
                   ? "bg-red-500/20 text-red-500"
-                  : "hover:bg-white/10 text-gray-400"
+                  : "hover:bg-gray-100 text-gray-500"
               }`}
             >
               <Heart
@@ -895,11 +895,11 @@ export default function PropertyDetailPage() {
                   <span>|</span>
                   <span>{t("common.code")}: {property.agentPropertyCode}</span>
                 </div>
-                <h1 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
                   {property.propertyTitleTh || property.propertyTitleEn}
                 </h1>
                 {property.project && (
-                  <div className="flex items-center text-gray-400 mb-2">
+                  <div className="flex items-center text-gray-600 mb-2">
                     <Building2 className="w-5 h-5 mr-2 text-[#C9A227]" />
                     {property.project.projectNameTh ||
                       property.project.projectNameEn}
@@ -915,7 +915,7 @@ export default function PropertyDetailPage() {
 
               {/* Price */}
               <Card
-                className={`p-6 shadow-lg bg-[#1B2D44] border border-white/10 bg-gradient-to-r from-[#C9A227]/10 to-transparent transition-all duration-700 delay-100 ${
+                className={`p-6 shadow-lg bg-white border border-gray-200 bg-gradient-to-r from-[#C9A227]/10 to-transparent transition-all duration-700 delay-100 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
@@ -924,7 +924,7 @@ export default function PropertyDetailPage() {
                 <div className="flex flex-wrap gap-6">
                   {property.rentalRateNum && property.rentalRateNum > 0 && (
                     <div>
-                      <div className="text-sm text-gray-400 mb-1">
+                      <div className="text-sm text-gray-500 mb-1">
                         {t("propertyDetail.rentPerMonth")}
                       </div>
                       <div className="text-3xl font-bold text-[#C9A227]">
@@ -934,7 +934,7 @@ export default function PropertyDetailPage() {
                   )}
                   {property.sellPriceNum && property.sellPriceNum > 0 && (
                     <div>
-                      <div className="text-sm text-gray-400 mb-1">{t("propertyDetail.salePrice")}</div>
+                      <div className="text-sm text-gray-500 mb-1">{t("propertyDetail.salePrice")}</div>
                       <div className="text-3xl font-bold text-[#C9A227]">
                         ฿ {formatPrice(property.sellPriceNum)}
                       </div>
@@ -945,56 +945,56 @@ export default function PropertyDetailPage() {
 
               {/* Features Grid */}
               <Card
-                className={`p-6 shadow-lg bg-[#1B2D44] border border-white/10 transition-all duration-700 delay-200 ${
+                className={`p-6 shadow-lg bg-white border border-gray-200 transition-all duration-700 delay-200 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
                 }`}
               >
-                <h2 className="text-lg font-bold text-white mb-4">
+                <h2 className="text-lg font-bold text-gray-900 mb-4">
                   {t("propertyDetail.propertyDetails")}
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="flex items-center gap-3 p-4 bg-[#152238] rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                     <div className="p-2 bg-[#C9A227]/20 rounded-lg">
                       <Bed className="w-6 h-6 text-[#C9A227]" />
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-white">
+                      <div className="text-2xl font-bold text-gray-900">
                         {property.bedRoomNum}
                       </div>
-                      <div className="text-sm text-gray-400">{t("property.bedrooms")}</div>
+                      <div className="text-sm text-gray-500">{t("property.bedrooms")}</div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-4 bg-[#152238] rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                     <div className="p-2 bg-[#C9A227]/20 rounded-lg">
                       <Bath className="w-6 h-6 text-[#C9A227]" />
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-white">
+                      <div className="text-2xl font-bold text-gray-900">
                         {property.bathRoomNum}
                       </div>
-                      <div className="text-sm text-gray-400">{t("property.bathrooms")}</div>
+                      <div className="text-sm text-gray-500">{t("property.bathrooms")}</div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-4 bg-[#152238] rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                     <div className="p-2 bg-[#C9A227]/20 rounded-lg">
                       <Maximize className="w-6 h-6 text-[#C9A227]" />
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-white">
+                      <div className="text-2xl font-bold text-gray-900">
                         {getSize()}
                       </div>
-                      <div className="text-sm text-gray-400">{t("common.sqm")}</div>
+                      <div className="text-sm text-gray-500">{t("common.sqm")}</div>
                     </div>
                   </div>
                   {property.landSizeSqw && (
-                    <div className="flex items-center gap-3 p-4 bg-[#152238] rounded-xl">
+                    <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                       <div className="p-2 bg-[#C9A227]/20 rounded-lg">
                         <Home className="w-6 h-6 text-[#C9A227]" />
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-white">
+                        <div className="text-2xl font-bold text-gray-900">
                           {property.landSizeSqw}
                         </div>
                         <div className="text-sm text-gray-500">sqw</div>
@@ -1002,28 +1002,28 @@ export default function PropertyDetailPage() {
                     </div>
                   )}
                   {property.floor && (
-                    <div className="flex items-center gap-3 p-4 bg-[#152238] rounded-xl">
+                    <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                       <div className="p-2 bg-[#C9A227]/20 rounded-lg">
                         <Layers className="w-6 h-6 text-[#C9A227]" />
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-white">
+                        <div className="text-2xl font-bold text-gray-900">
                           {property.floor}
                         </div>
-                        <div className="text-sm text-gray-400">{t("property.floor")}</div>
+                        <div className="text-sm text-gray-500">{t("property.floor")}</div>
                       </div>
                     </div>
                   )}
                   {property.building && (
-                    <div className="flex items-center gap-3 p-4 bg-[#152238] rounded-xl">
+                    <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                       <div className="p-2 bg-[#C9A227]/20 rounded-lg">
                         <Building2 className="w-6 h-6 text-[#C9A227]" />
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-white">
+                        <div className="text-2xl font-bold text-gray-900">
                           {property.building}
                         </div>
-                        <div className="text-sm text-gray-400">{t("property.building")}</div>
+                        <div className="text-sm text-gray-500">{t("property.building")}</div>
                       </div>
                     </div>
                   )}
@@ -1033,13 +1033,13 @@ export default function PropertyDetailPage() {
               {/* Description */}
               {(property.descriptionTh || property.descriptionEn) && (
                 <Card
-                  className={`p-6 shadow-lg bg-[#1B2D44] border border-white/10 transition-all duration-700 delay-300 ${
+                  className={`p-6 shadow-lg bg-white border border-gray-200 transition-all duration-700 delay-300 ${
                     isVisible
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-8"
                   }`}
                 >
-                  <h2 className="text-lg font-bold text-white mb-4">
+                  <h2 className="text-lg font-bold text-gray-900 mb-4">
                     {t("propertyDetail.moreDetails")}
                   </h2>
                   <p className="text-gray-400 leading-relaxed whitespace-pre-line">
@@ -1050,13 +1050,13 @@ export default function PropertyDetailPage() {
 
               {/* Amenities */}
               <Card
-                className={`p-6 shadow-lg bg-[#1B2D44] border border-white/10 transition-all duration-700 delay-[400ms] ${
+                className={`p-6 shadow-lg bg-white border border-gray-200 transition-all duration-700 delay-[400ms] ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
                 }`}
               >
-                <h2 className="text-lg font-bold text-white mb-4">
+                <h2 className="text-lg font-bold text-gray-900 mb-4">
                   {t("propertyDetail.amenities")}
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -1079,13 +1079,13 @@ export default function PropertyDetailPage() {
               {/* Location Map */}
               {property.latitude && property.longitude && (
                 <Card
-                  className={`p-6 shadow-lg bg-[#1B2D44] border border-white/10 transition-all duration-700 delay-[500ms] ${
+                  className={`p-6 shadow-lg bg-white border border-gray-200 transition-all duration-700 delay-[500ms] ${
                     isVisible
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-8"
                   }`}
                 >
-                  <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                  <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                     <MapPin className="w-5 h-5 text-[#C9A227]" />
                     {t("propertyDetail.location")}
                   </h2>
@@ -1142,15 +1142,15 @@ export default function PropertyDetailPage() {
                     : "opacity-0 translate-x-8"
                 }`}
               >
-                <Card className="p-6 shadow-xl bg-[#1B2D44] border border-white/10 hover:shadow-2xl transition-shadow duration-500">
-                  <h3 className="text-lg font-bold text-white mb-4">
+                <Card className="p-6 shadow-xl bg-white border border-gray-200 hover:shadow-2xl transition-shadow duration-500">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">
                     {t("propertyDetail.interested")}
                   </h3>
 
                   {/* Agent Info */}
-                  <div className="flex items-center gap-4 mb-6 p-4 bg-[#152238] rounded-xl">
+                  <div className="flex items-center gap-4 mb-6 p-4 bg-gray-50 rounded-xl">
                     <div className="w-14 h-14 bg-[#C9A227] rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-white">PW</span>
+                      <span className="text-xl font-bold text-gray-900">PW</span>
                     </div>
                     <div>
                       <div className="font-semibold text-white">
@@ -1211,7 +1211,7 @@ export default function PropertyDetailPage() {
                     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
                       <div className="bg-[#1B2D44] rounded-2xl p-6 mx-4 max-w-sm w-full shadow-2xl border border-white/10">
                         <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-lg font-bold text-white">
+                          <h3 className="text-lg font-bold text-gray-900">
                             {t("propertyDetail.addLineFriend")}
                           </h3>
                           <button
@@ -1267,7 +1267,7 @@ export default function PropertyDetailPage() {
                               name: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 border border-white/20 bg-[#152238] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all text-white placeholder:text-gray-500"
+                          className="w-full px-4 py-3 border border-white/20 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all text-white placeholder:text-gray-500"
                           disabled={formSubmitting}
                         />
                         <input
@@ -1280,7 +1280,7 @@ export default function PropertyDetailPage() {
                               phone: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 border border-white/20 bg-[#152238] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all text-white placeholder:text-gray-500"
+                          className="w-full px-4 py-3 border border-white/20 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all text-white placeholder:text-gray-500"
                           disabled={formSubmitting}
                         />
                         <textarea
@@ -1293,7 +1293,7 @@ export default function PropertyDetailPage() {
                               message: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 border border-white/20 bg-[#152238] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all resize-none text-white placeholder:text-gray-500"
+                          className="w-full px-4 py-3 border border-white/20 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] transition-all resize-none text-white placeholder:text-gray-500"
                           disabled={formSubmitting}
                         />
 

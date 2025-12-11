@@ -49,12 +49,12 @@ export default function Header({ transparent = false }: HeaderProps) {
             : "bg-transparent"
         } ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
       >
-        <div className={`container mx-auto px-4 transition-all duration-300 ${isScrolled ? "py-2" : "py-3"}`}>
-          {/* Desktop: Logo left, nav right */}
-          <div className="hidden md:flex items-center justify-between">
+        <div className="container mx-auto px-4">
+          {/* Desktop: Logo left, nav center, language right */}
+          <div className="hidden md:grid md:grid-cols-3 items-center">
             {/* Left - Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className={`relative transition-all duration-300 ${isScrolled ? "h-10" : "h-12"} aspect-square`}>
+              <div className={`relative transition-all duration-300 ${isScrolled ? "h-16" : "h-20"} aspect-square`}>
                 <Image
                   src="/header-logo.png"
                   alt="Sky Pro Properties"
@@ -63,20 +63,20 @@ export default function Header({ transparent = false }: HeaderProps) {
                   unoptimized
                 />
               </div>
-              <div className={`relative transition-all duration-300 ${isScrolled ? "h-8" : "h-10"} w-auto`}>
+              <div className={`relative transition-all duration-300 ${isScrolled ? "h-14" : "h-16"} w-auto`}>
                 <Image
                   src="/name-logo.png"
                   alt="Sky Pro Properties"
-                  height={40}
-                  width={120}
+                  height={64}
+                  width={192}
                   className="object-contain h-full w-auto"
                   unoptimized
                 />
               </div>
             </Link>
 
-            {/* Right - Navigation */}
-            <div className="flex items-center gap-8">
+            {/* Center - Navigation */}
+            <div className="flex items-center justify-center gap-8">
               {allNavLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -86,16 +86,18 @@ export default function Header({ transparent = false }: HeaderProps) {
                   {link.label}
                 </Link>
               ))}
-              <div className="pl-6 border-l border-white/20">
-                <LanguageSwitcher variant="light" compact />
-              </div>
+            </div>
+
+            {/* Right - Language Switcher */}
+            <div className="flex justify-end">
+              <LanguageSwitcher variant="light" compact />
             </div>
           </div>
 
           {/* Mobile: Logo left, menu right */}
           <div className="flex md:hidden items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="relative w-10 h-10">
+              <div className="relative w-12 h-12">
                 <Image
                   src="/header-logo.png"
                   alt="Sky Pro Properties"
@@ -104,12 +106,12 @@ export default function Header({ transparent = false }: HeaderProps) {
                   unoptimized
                 />
               </div>
-              <div className="relative h-8 w-auto">
+              <div className="relative h-10 w-auto">
                 <Image
                   src="/name-logo.png"
                   alt="Sky Pro Properties"
-                  height={32}
-                  width={96}
+                  height={40}
+                  width={120}
                   className="object-contain h-full w-auto"
                   unoptimized
                 />
@@ -163,16 +165,16 @@ export default function Header({ transparent = false }: HeaderProps) {
               <Image
                 src="/header-logo.png"
                 alt="Sky Pro Properties"
-                width={44}
-                height={44}
+                width={52}
+                height={52}
                 className="object-contain"
                 unoptimized
               />
               <Image
                 src="/name-logo.png"
                 alt="Sky Pro Properties"
-                height={36}
-                width={108}
+                height={44}
+                width={132}
                 className="object-contain"
                 unoptimized
               />

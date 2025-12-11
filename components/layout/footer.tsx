@@ -25,19 +25,19 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & About */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <Image
                 src="/header-logo.png"
                 alt="Sky Pro Properties"
-                width={36}
-                height={36}
-                className="w-9 h-9 object-contain"
+                width={48}
+                height={48}
+                className="w-12 h-12 object-contain"
               />
               <Image
                 src="/name-logo.png"
                 alt="Sky Pro Properties"
-                height={28}
-                width={84}
+                height={40}
+                width={120}
                 className="object-contain"
               />
             </div>
