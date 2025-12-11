@@ -121,6 +121,7 @@
     "max": "Max",
     "filters": "Filters",
     "clearAll": "Clear All",
+    "applyFilters": "Apply Filters",
     "found": "found",
     "hideFilters": "Hide Filters",
     "showFilters": "Show Filters",

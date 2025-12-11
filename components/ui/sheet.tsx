@@ -48,7 +48,8 @@ export function SheetTrigger({ children, asChild, ...props }: SheetTriggerProps)
       ...props,
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
         onOpenChange(true);
-        children.props.onClick?.(e);
+        const childProps = children.props as { onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void };
+        childProps.onClick?.(e);
       },
     } as any);
   }
