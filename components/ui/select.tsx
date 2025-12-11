@@ -19,6 +19,7 @@ interface SelectValueProps {
 
 interface SelectContentProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface SelectItemProps {
@@ -124,14 +125,14 @@ export function SelectValue({ placeholder }: SelectValueProps) {
   return <span className="text-gray-900">{label || placeholder}</span>;
 }
 
-export function SelectContent({ children }: SelectContentProps) {
+export function SelectContent({ children, className = "" }: SelectContentProps) {
   const { open } = React.useContext(SelectContext);
 
   return (
     <div
       className={`absolute z-50 mt-1 w-full rounded-md border border-gray-200 bg-white text-gray-900 shadow-lg ${
         open ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"
-      }`}
+      } ${className}`}
     >
       <div className="p-1">{children}</div>
     </div>
