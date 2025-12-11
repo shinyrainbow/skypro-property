@@ -15,6 +15,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetClose,
+} from "@/components/ui/sheet";
+import {
   Bed,
   Bath,
   Maximize,
@@ -38,8 +45,8 @@ type Property = NainaHubProperty;
 const PropertyMap = dynamic(() => import("@/components/map/PropertyMap"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-[#0A0E1A]">
-      <p className="text-white">Loading map...</p>
+    <div className="w-full h-full flex items-center justify-center bg-gray-50">
+      <p className="text-gray-600">Loading map...</p>
     </div>
   ),
 });
@@ -53,6 +60,9 @@ export default function MapSearchPage() {
   // Map state
   const [mapCenter, setMapCenter] = useState<[number, number]>([13.6904, 101.0779]); // Chachoengsao center
   const [mapZoom, setMapZoom] = useState(12);
+
+  // Filter drawer state (for mobile/tablet)
+  const [filterOpen, setFilterOpen] = useState(false);
 
   // Filters
   const [mainPropertyType, setMainPropertyType] = useState<string>("");
@@ -200,11 +210,26 @@ export default function MapSearchPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0E1A]">
+    <div className="min-h-screen bg-gray-50">
       <Header />
 
-      {/* Filters - Fixed at Top */}
-      <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 p-3 md:p-4 shadow-md">
+      {/* Mobile Filter Button - Shows only on mobile */}
+      <div className="fixed top-16 left-0 right-0 z-40 md:hidden bg-white border-b border-gray-200 p-3 shadow-md">
+        <Button
+          onClick={() => setFilterOpen(true)}
+          variant="outline"
+          className="w-full flex items-center justify-center gap-2"
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          <span>{t("search.filters")}</span>
+          <span className="ml-auto text-xs text-gray-600">
+            {filteredProperties.length} {t("common.properties")}
+          </span>
+        </Button>
+      </div>
+
+      {/* Filters - Fixed at Top (Desktop only) */}
+      <div className="hidden md:block fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 p-3 md:p-4 shadow-md">
         <div className="container mx-auto">
             {/* Filter Header */}
             <div className="flex items-center justify-between mb-3 md:mb-4">
@@ -382,8 +407,199 @@ export default function MapSearchPage() {
           </div>
         </div>
 
+      {/* Mobile Filter Drawer */}
+      <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
+        <SheetContent side="bottom" className="overflow-y-auto max-h-[85vh] p-0">
+          <SheetHeader className="sticky top-0 bg-white z-10">
+            <div className="flex items-center justify-between">
+              <SheetTitle className="flex items-center gap-2">
+                <SlidersHorizontal className="w-5 h-5 text-[#C9A227]" />
+                {t("search.filters")}
+              </SheetTitle>
+              <SheetClose />
+            </div>
+          </SheetHeader>
+
+          <div className="p-4 space-y-6">
+            {/* Filter Count */}
+            <div className="flex items-center justify-between pb-3 border-b border-gray-200">
+              <span className="text-sm text-gray-600">
+                {filteredProperties.length} {t("common.properties")} {t("search.found")}
+              </span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleClearFilters}
+                className="text-xs text-[#C9A227] hover:text-[#C9A227]/80"
+              >
+                {t("search.clearAll")}
+              </Button>
+            </div>
+
+            {/* Main Property Type */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t("propertyTypes.mainPropertyType")}
+              </label>
+              <Select
+                value={mainPropertyType}
+                onValueChange={(value) => {
+                  setMainPropertyType(value);
+                  setSubPropertyType("");
+                }}
+              >
+                <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                  <SelectValue placeholder={t("common.all")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("common.all")}</SelectItem>
+                  {getMainPropertyTypes().map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {t(`propertyTypes.main.${type.toLowerCase()}`)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Sub Property Type */}
+            {mainPropertyType && mainPropertyType !== "all" && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t("propertyTypes.subPropertyType")}
+                </label>
+                <Select value={subPropertyType} onValueChange={setSubPropertyType}>
+                  <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                    <SelectValue placeholder={t("common.all")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">{t("common.all")}</SelectItem>
+                    {getSubPropertyTypes(mainPropertyType as MainPropertyType).map((subType) => (
+                      <SelectItem key={subType} value={subType}>
+                        {t(`propertyTypes.sub.${subType.toLowerCase()}`)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
+            {/* Listing Type */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t("search.listingType")}
+              </label>
+              <Select value={listingType} onValueChange={setListingType}>
+                <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                  <SelectValue placeholder={t("common.all")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("common.all")}</SelectItem>
+                  <SelectItem value="rent">{t("search.forRent")}</SelectItem>
+                  <SelectItem value="sale">{t("search.forSale")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Bedrooms */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t("search.bedrooms")}
+              </label>
+              <Select value={bedrooms} onValueChange={setBedrooms}>
+                <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                  <SelectValue placeholder={t("common.all")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("common.all")}</SelectItem>
+                  <SelectItem value="1">1+</SelectItem>
+                  <SelectItem value="2">2+</SelectItem>
+                  <SelectItem value="3">3+</SelectItem>
+                  <SelectItem value="4">4+</SelectItem>
+                  <SelectItem value="5">5+</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Bathrooms */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t("search.bathrooms")}
+              </label>
+              <Select value={bathrooms} onValueChange={setBathrooms}>
+                <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                  <SelectValue placeholder={t("common.all")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("common.all")}</SelectItem>
+                  <SelectItem value="1">1+</SelectItem>
+                  <SelectItem value="2">2+</SelectItem>
+                  <SelectItem value="3">3+</SelectItem>
+                  <SelectItem value="4">4+</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Price Range */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t("search.priceRange")}
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <Input
+                  type="number"
+                  placeholder={t("search.min")}
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400"
+                />
+                <Input
+                  type="number"
+                  placeholder={t("search.max")}
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400"
+                />
+              </div>
+            </div>
+
+            {/* Size Range */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t("search.sizeRange")} ({t("common.sqm")})
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <Input
+                  type="number"
+                  placeholder={t("search.min")}
+                  value={minSize}
+                  onChange={(e) => setMinSize(e.target.value)}
+                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400"
+                />
+                <Input
+                  type="number"
+                  placeholder={t("search.max")}
+                  value={maxSize}
+                  onChange={(e) => setMaxSize(e.target.value)}
+                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400"
+                />
+              </div>
+            </div>
+
+            {/* Apply Button */}
+            <Button
+              onClick={() => setFilterOpen(false)}
+              variant="gold"
+              className="w-full"
+            >
+              {t("search.applyFilters")} ({filteredProperties.length})
+            </Button>
+          </div>
+        </SheetContent>
+      </Sheet>
+
       {/* Main Content - Map (Left) and Cards (Right) */}
-      <div className="pt-[320px] md:pt-[280px] lg:pt-[240px] min-h-screen">
+      <div className="pt-20 md:pt-[280px] lg:pt-[240px] min-h-screen">
         <div className="flex flex-col md:flex-row min-h-[calc(100vh-320px)] md:h-[calc(100vh-280px)] lg:h-[calc(100vh-240px)]">
           {/* Left - Map (Hidden on mobile) */}
           <div className="hidden md:block md:w-1/2 relative md:h-auto">
@@ -399,14 +615,14 @@ export default function MapSearchPage() {
             )}
 
             {loading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-[#0A0E1A]">
-                <p className="text-white">{t("common.loading")}</p>
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+                <p className="text-gray-600">{t("common.loading")}</p>
               </div>
             )}
           </div>
 
           {/* Right - Property Cards */}
-          <div className="w-full md:w-1/2 bg-[#0A0E1A] overflow-y-auto">
+          <div className="w-full md:w-1/2 bg-gray-50 overflow-y-auto">
             <div className="px-4 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
               {filteredProperties.map((property) => (
                 <div
