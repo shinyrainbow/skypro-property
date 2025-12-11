@@ -1339,8 +1339,8 @@ export default function PublicPropertiesPage() {
         }}
         className="relative"
       >
-        {/* Main Content */}
-        <div className="relative h-[500px] md:h-[550px] overflow-hidden">
+        {/* Image Container */}
+        <div className="relative h-[400px] md:h-[450px] ml-8 md:ml-16 lg:ml-24 z-10">
           {/* Background Image */}
           <Image
             src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920"
@@ -1350,7 +1350,7 @@ export default function PublicPropertiesPage() {
           />
 
           {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
 
           {/* Content */}
           <div
@@ -1360,7 +1360,7 @@ export default function PublicPropertiesPage() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <div className="container mx-auto px-4">
+            <div className="px-8 md:px-12 lg:px-16">
               <div className="max-w-lg">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-4">
                   {t("cta.title")}
@@ -1399,33 +1399,33 @@ export default function PublicPropertiesPage() {
           </div>
         </div>
 
-        {/* Gold Stats Bar */}
-        <div className="bg-[#C9A227]">
+        {/* Gold Stats Bar - pulls up behind bottom half of image */}
+        <div className="bg-gradient-to-r from-[#9A7B06] via-[#8A6B05] to-[#7A5B04] -mt-[200px] md:-mt-[225px] pt-[200px] md:pt-[225px]">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6">
               <div className="text-center md:text-left">
-                <div className="flex items-baseline justify-center md:justify-start gap-1">
-                  <span className="text-3xl md:text-4xl font-bold text-[#111928]">15+</span>
+                <div className="flex items-baseline justify-center md:justify-start gap-2">
+                  <span className="text-3xl md:text-4xl font-bold text-white">10+</span>
+                  <span className="text-white/80 text-sm">Years<br />of experience</span>
                 </div>
-                <p className="text-[#111928]/70 text-xs">Years of experience</p>
               </div>
               <div className="text-center md:text-left">
-                <div className="flex items-baseline justify-center md:justify-start gap-1">
-                  <span className="text-3xl md:text-4xl font-bold text-[#111928]">20+</span>
+                <div className="flex items-baseline justify-center md:justify-start gap-2">
+                  <span className="text-3xl md:text-4xl font-bold text-white">20+</span>
+                  <span className="text-white/80 text-sm">Awards<br />Gained</span>
                 </div>
-                <p className="text-[#111928]/70 text-xs">Awards Gained</p>
               </div>
               <div className="text-center md:text-left">
-                <div className="flex items-baseline justify-center md:justify-start gap-1">
-                  <span className="text-3xl md:text-4xl font-bold text-[#111928]">500+</span>
+                <div className="flex items-baseline justify-center md:justify-start gap-2">
+                  <span className="text-3xl md:text-4xl font-bold text-white">879</span>
+                  <span className="text-white/80 text-sm">Properties<br />Listed</span>
                 </div>
-                <p className="text-[#111928]/70 text-xs">Properties Listed</p>
               </div>
               <div className="text-center md:text-left">
-                <div className="flex items-baseline justify-center md:justify-start gap-1">
-                  <span className="text-3xl md:text-4xl font-bold text-[#111928]">1000+</span>
+                <div className="flex items-baseline justify-center md:justify-start gap-2">
+                  <span className="text-3xl md:text-4xl font-bold text-white">1000+</span>
+                  <span className="text-white/80 text-sm">Happy<br />Clients</span>
                 </div>
-                <p className="text-[#111928]/70 text-xs">Happy Clients</p>
               </div>
             </div>
           </div>
@@ -1438,7 +1438,7 @@ export default function PublicPropertiesPage() {
         ref={(el) => {
           observerRefs.current["reviews"] = el;
         }}
-        className="py-12"
+        className="py-12 bg-white"
       >
         <div className="container mx-auto px-4">
           {/* Section Header - Minimal */}
@@ -1449,10 +1449,10 @@ export default function PublicPropertiesPage() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-lg md:text-xl font-semibold text-white mb-1">
+            <h2 className="text-lg md:text-xl font-semibold text-[#111928] mb-1">
               {t("sections.reviews")}
             </h2>
-            <p className="text-gray-400 text-sm">{t("sections.reviewsSubtitle")}</p>
+            <p className="text-gray-600 text-sm">{t("sections.reviewsSubtitle")}</p>
           </div>
 
           {/* Reviews Grid */}
@@ -1464,7 +1464,7 @@ export default function PublicPropertiesPage() {
                 return (
                   <div
                     key={review.id}
-                    className={`bg-[#1F2937] rounded-xl border border-white/10 p-4 hover:border-[#C9A227]/30 transition-all duration-200 ${
+                    className={`bg-gray-50 rounded-xl border border-gray-200 p-4 hover:border-[#C9A227]/50 hover:shadow-md transition-all duration-200 ${
                       isVisible["reviews"]
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-10"
@@ -1479,14 +1479,14 @@ export default function PublicPropertiesPage() {
                           className={`w-3 h-3 ${
                             i < review.rating
                               ? "fill-[#C9A227] text-[#C9A227]"
-                              : "fill-gray-200 text-gray-200"
+                              : "fill-gray-300 text-gray-300"
                           }`}
                         />
                       ))}
                     </div>
 
                     {/* Comment */}
-                    <p className="text-gray-300 mb-4 leading-relaxed text-xs">
+                    <p className="text-gray-700 mb-4 leading-relaxed text-xs">
                       &quot;{review.comment}&quot;
                     </p>
 
@@ -1496,8 +1496,8 @@ export default function PublicPropertiesPage() {
                         {firstChar}
                       </div>
                       <div>
-                        <p className="font-medium text-white text-xs">{review.name}</p>
-                        <p className="text-[10px] text-gray-400">
+                        <p className="font-medium text-[#111928] text-xs">{review.name}</p>
+                        <p className="text-[10px] text-gray-500">
                           {review.transactionType === "rent" ? t("review.rentedAt") : t("review.boughtAt")} {review.location}
                         </p>
                       </div>
@@ -1506,7 +1506,7 @@ export default function PublicPropertiesPage() {
                 );
               })
             ) : (
-              <div className="col-span-full text-center py-8 text-gray-400 text-sm">
+              <div className="col-span-full text-center py-8 text-gray-500 text-sm">
                 {t("sections.noReviews")}
               </div>
             )}
@@ -1518,7 +1518,7 @@ export default function PublicPropertiesPage() {
               <Button
                 variant="outline"
                 size="sm"
-                className="border-gray-300 text-[#111928] hover:border-[#C9A227] hover:text-[#C9A227] px-6 text-sm"
+                className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white px-6 text-sm"
               >
                 {t("sections.viewAllReviews")}
                 <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
