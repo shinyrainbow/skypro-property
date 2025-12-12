@@ -51,6 +51,7 @@ interface Project {
 async function fetchPropertiesFromAPI(params: FetchPropertiesParams = {}): Promise<NainaHubResponse> {
   const searchParams = new URLSearchParams();
 
+  if (params.q) searchParams.set("q", params.q);
   if (params.page) searchParams.set("page", params.page.toString());
   if (params.limit) searchParams.set("limit", params.limit.toString());
   if (params.propertyType) searchParams.set("propertyType", params.propertyType);
@@ -181,7 +182,7 @@ function SearchContent() {
   };
 
   // Filter properties based on selected project (UI-only filter)
-  // All other filters are handled by the API
+  // Search and other filters (propertyType, listingType, bedrooms, prices) are handled by the API
   useEffect(() => {
     let filtered = [...allProperties];
 
