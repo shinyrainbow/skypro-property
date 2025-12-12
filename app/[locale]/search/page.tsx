@@ -368,6 +368,11 @@ function SearchContent() {
                       placeholder={t("searchPage.searchPlaceholder")}
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleSearch();
+                        }
+                      }}
                       className="pl-10 border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400"
                     />
                   </div>

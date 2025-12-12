@@ -544,6 +544,11 @@ export default function PublicPropertiesPage() {
                     placeholder={t("searchPage.searchPlaceholder")}
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleSearch();
+                      }
+                    }}
                     className="h-9 pl-8 bg-white border-gray-200 rounded-lg text-gray-900 text-sm placeholder:text-gray-400 w-full"
                   />
                 </div>

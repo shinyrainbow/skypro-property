@@ -338,6 +338,11 @@ export default function MapSearchPage() {
                     placeholder={t("searchPage.searchPlaceholder")}
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleApplySearch();
+                      }
+                    }}
                     className="h-9 pl-8 bg-white border-gray-300 text-gray-900 text-sm placeholder:text-gray-400"
                   />
                 </div>
