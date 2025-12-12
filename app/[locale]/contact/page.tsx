@@ -3,13 +3,11 @@
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Building2,
   Phone,
   MapPin,
   Clock,
-  Send,
   MessageSquare,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
@@ -20,36 +18,11 @@ import { useTranslations } from "next-intl";
 export default function ContactPage() {
   const t = useTranslations();
   const [isVisible, setIsVisible] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const contactInfo = [
     {
@@ -172,143 +145,19 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form & Map */}
+      {/* Map & Social */}
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
+          <div className="max-w-3xl mx-auto">
             <div
               className={`transition-all duration-700 ${
                 isVisible
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 -translate-x-10"
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
               }`}
               style={{ transitionDelay: "400ms" }}
             >
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                ส่งข้อความถึงเรา
-              </h2>
-
-              {submitted ? (
-                <Card className="p-8 text-center border-0 shadow-lg bg-green-50">
-                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Send className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    ส่งข้อความสำเร็จ!
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    ขอบคุณที่ติดต่อเรา เราจะตอบกลับโดยเร็วที่สุด
-                  </p>
-                  <Button
-                    onClick={() => setSubmitted(false)}
-                    className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
-                  >
-                    ส่งข้อความอีกครั้ง
-                  </Button>
-                </Card>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        ชื่อ-นามสกุล *
-                      </label>
-                      <Input
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        placeholder="กรอกชื่อ-นามสกุล"
-                        className="border-gray-300 focus:border-[#C9A227] focus:ring-[#C9A227]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        เบอร์โทรศัพท์ *
-                      </label>
-                      <Input
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required
-                        placeholder="08X-XXX-XXXX"
-                        className="border-gray-300 focus:border-[#C9A227] focus:ring-[#C9A227]"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      อีเมล *
-                    </label>
-                    <Input
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      placeholder="your@email.com"
-                      className="border-gray-300 focus:border-[#C9A227] focus:ring-[#C9A227]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      หัวข้อ
-                    </label>
-                    <Input
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      placeholder="เรื่องที่ต้องการติดต่อ"
-                      className="border-gray-300 focus:border-[#C9A227] focus:ring-[#C9A227]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      ข้อความ *
-                    </label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={5}
-                      placeholder="รายละเอียดที่ต้องการสอบถาม..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227]"
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white py-6 text-lg"
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center gap-2">
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        กำลังส่ง...
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-2">
-                        <Send className="w-5 h-5" />
-                        ส่งข้อความ
-                      </span>
-                    )}
-                  </Button>
-                </form>
-              )}
-            </div>
-
-            {/* Map & Social */}
-            <div
-              className={`transition-all duration-700 ${
-                isVisible
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 translate-x-10"
-              }`}
-              style={{ transitionDelay: "500ms" }}
-            >
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
                 แผนที่และช่องทางติดตาม
               </h2>
 

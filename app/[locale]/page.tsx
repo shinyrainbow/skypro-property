@@ -735,11 +735,11 @@ export default function PublicPropertiesPage() {
                     </div>
                   )}
 
-                  {/* Dark overlay - darker by default, lighter on hover */}
-                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors duration-500" />
+                  {/* Dark overlay - lighter for better image visibility */}
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
 
                   {/* Bottom Gradient for Text */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
 
                   {/* Content Overlay */}
                   <div className="absolute inset-0 z-20 flex flex-col justify-end">
