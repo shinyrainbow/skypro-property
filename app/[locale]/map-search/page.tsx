@@ -26,6 +26,7 @@ import {
   Bath,
   Maximize,
   MapPin,
+  Search,
   SlidersHorizontal,
 } from "lucide-react";
 import Image from "next/image";
@@ -65,6 +66,8 @@ export default function MapSearchPage() {
   const [filterOpen, setFilterOpen] = useState(false);
 
   // Filters
+  const [searchText, setSearchText] = useState<string>("");
+  const [appliedSearchText, setAppliedSearchText] = useState<string>(""); // Actually applied search
   const [mainPropertyType, setMainPropertyType] = useState<string>("");
   const [subPropertyType, setSubPropertyType] = useState<string>("");
   const [listingType, setListingType] = useState<string>("");
@@ -100,6 +103,20 @@ export default function MapSearchPage() {
   // Apply filters
   useEffect(() => {
     let filtered = [...properties];
+
+    // Filter by search text
+    if (appliedSearchText) {
+      const searchLower = appliedSearchText.toLowerCase();
+      filtered = filtered.filter(
+        (p) =>
+          p.propertyTitleTh?.toLowerCase().includes(searchLower) ||
+          p.propertyTitleEn?.toLowerCase().includes(searchLower) ||
+          p.propertyLocationText?.toLowerCase().includes(searchLower) ||
+          p.project?.projectNameTh?.toLowerCase().includes(searchLower) ||
+          p.project?.projectNameEn?.toLowerCase().includes(searchLower) ||
+          p.project?.projectLocationText?.toLowerCase().includes(searchLower)
+      );
+    }
 
     // Filter by subPropertyType if selected
     if (subPropertyType && subPropertyType !== "all") {
@@ -157,7 +174,12 @@ export default function MapSearchPage() {
     }
 
     setFilteredProperties(filtered);
-  }, [properties, subPropertyType, listingType, bedrooms, bathrooms, minPrice, maxPrice, minSize, maxSize]);
+  }, [properties, appliedSearchText, subPropertyType, listingType, bedrooms, bathrooms, minPrice, maxPrice, minSize, maxSize]);
+
+  // Handle search button click
+  const handleApplySearch = () => {
+    setAppliedSearchText(searchText);
+  };
 
   const formatPrice = (price: number | null) => {
     if (!price) return null;
@@ -172,6 +194,8 @@ export default function MapSearchPage() {
   };
 
   const handleClearFilters = () => {
+    setSearchText("");
+    setAppliedSearchText("");
     setMainPropertyType("");
     setSubPropertyType("");
     setListingType("");
@@ -254,6 +278,23 @@ export default function MapSearchPage() {
 
             {/* Filter Controls - Horizontal Layout */}
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+              {/* Search Input */}
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">
+                  {t("search.search")}
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder={t("searchPage.searchPlaceholder")}
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    className="h-9 pl-8 bg-white border-gray-300 text-gray-900 text-sm placeholder:text-gray-400"
+                  />
+                </div>
+              </div>
+
               {/* Main Property Type */}
               <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
@@ -403,6 +444,17 @@ export default function MapSearchPage() {
                   />
                 </div>
               </div>
+            </div>
+
+            {/* Search Button */}
+            <div className="mt-4">
+              <Button
+                onClick={handleApplySearch}
+                className="w-full md:w-auto bg-[#C9A227] hover:bg-[#A88B1F] text-white"
+              >
+                <Search className="w-4 h-4 mr-2" />
+                {t("search.searchButton")}
+              </Button>
             </div>
           </div>
         </div>

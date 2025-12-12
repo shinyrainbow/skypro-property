@@ -99,6 +99,7 @@ function SearchContent() {
   const [bedrooms, setBedrooms] = useState<string>(bedroomsParam);
   const [minPrice, setMinPrice] = useState<string>(minPriceParam);
   const [maxPrice, setMaxPrice] = useState<string>(maxPriceParam);
+  const [searchTrigger, setSearchTrigger] = useState(0); // Trigger for manual search
 
   // Sync state with URL params when they change (e.g., navigating from homepage)
   useEffect(() => {
@@ -111,9 +112,10 @@ function SearchContent() {
     setMaxPrice(searchParams.get("maxPrice") || "");
   }, [searchParams]);
 
-  // Animation trigger
+  // Animation trigger and initial search
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
+    setSearchTrigger(1); // Trigger initial search
     return () => clearTimeout(timer);
   }, []);
 
@@ -171,7 +173,12 @@ function SearchContent() {
     };
 
     loadData();
-  }, [searchText, propertyType, listingType, bedrooms, minPrice, maxPrice]);
+  }, [searchTrigger]); // Only search when searchTrigger changes
+
+  // Handle search button click
+  const handleSearch = () => {
+    setSearchTrigger(prev => prev + 1);
+  };
 
   // Filter properties based on selected project (UI-only filter)
   // All other filters are handled by the API
@@ -434,6 +441,17 @@ function SearchContent() {
                       className="border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
+                </div>
+
+                {/* Search Button */}
+                <div className="mt-4">
+                  <Button
+                    onClick={handleSearch}
+                    className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white"
+                  >
+                    <Search className="w-4 h-4 mr-2" />
+                    {t("search.searchButton")}
+                  </Button>
                 </div>
               </div>
             </Card>
