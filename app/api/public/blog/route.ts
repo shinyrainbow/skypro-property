@@ -6,6 +6,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const categorySlug = searchParams.get("category");
+    const limit = parseInt(searchParams.get("limit") || "20");
 
     const whereClause: any = {
       isPublished: true,
@@ -47,13 +48,20 @@ export async function GET(request: Request) {
       orderBy: {
         publishedAt: "desc",
       },
-      take: 50, // Limit to 50 most recent posts
+      take: Math.min(limit, 50), // Limit to requested amount, max 50
     });
 
-    return NextResponse.json({
-      success: true,
-      data: blogs,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        data: blogs,
+      },
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=180, stale-while-revalidate=360",
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching blogs:", error);
     return NextResponse.json(

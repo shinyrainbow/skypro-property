@@ -1024,7 +1024,7 @@ export default function PublicPropertiesPage() {
                     variant="outline"
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
-                    className="text-xs border-white/20 text-gray-400 hover:bg-white/10 hover:text-white disabled:opacity-50"
+                    className="text-xs border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-50"
                   >
                     {t("common.previous")}
                   </Button>
@@ -1042,7 +1042,7 @@ export default function PublicPropertiesPage() {
                             className={
                               page === pageNum
                                 ? "bg-[#C9A227] hover:bg-[#A88B1F] text-white text-xs"
-                                : "border-white/20 text-gray-400 hover:bg-white/10 hover:text-white text-xs"
+                                : "border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-900 text-xs"
                             }
                           >
                             {pageNum}
@@ -1061,7 +1061,7 @@ export default function PublicPropertiesPage() {
                     variant="outline"
                     disabled={page >= Math.ceil(total / 12)}
                     onClick={() => setPage(page + 1)}
-                    className="text-xs border-white/20 text-gray-400 hover:bg-white/10 hover:text-white disabled:opacity-50"
+                    className="text-xs border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-50"
                   >
                     {t("common.next")}
                   </Button>

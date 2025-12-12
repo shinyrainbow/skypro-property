@@ -63,6 +63,10 @@ export default function BlogPostPage({
         const data = await res.json();
         if (data.success) {
           setBlog(data.data);
+          // Related blogs are now included in the API response
+          if (data.data.relatedBlogs) {
+            setRelatedBlogs(data.data.relatedBlogs);
+          }
         } else {
           setNotFound(true);
         }
@@ -74,21 +78,7 @@ export default function BlogPostPage({
       }
     };
 
-    const fetchRelatedBlogs = async () => {
-      try {
-        const res = await fetch("/api/public/blog");
-        const data = await res.json();
-        if (data.success) {
-          // Filter out current blog and take first 5
-          setRelatedBlogs(data.data.filter((b: Blog) => b.slug !== resolvedParams.slug).slice(0, 5));
-        }
-      } catch (error) {
-        console.error("Error fetching related blogs:", error);
-      }
-    };
-
     fetchBlog();
-    fetchRelatedBlogs();
   }, [resolvedParams.slug]);
 
   const getLocalizedTitle = (blog: Blog) => {

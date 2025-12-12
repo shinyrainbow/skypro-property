@@ -14,13 +14,42 @@ export async function GET(
         slug,
         isPublished: true,
       },
-      include: {
+      select: {
+        id: true,
+        title: true,
+        titleEn: true,
+        titleZh: true,
+        slug: true,
+        excerpt: true,
+        excerptEn: true,
+        excerptZh: true,
+        coverImage: true,
+        isPublished: true,
+        publishedAt: true,
+        categoryId: true,
         sections: {
+          select: {
+            id: true,
+            order: true,
+            imageUrl: true,
+            content: true,
+            contentEn: true,
+            contentZh: true,
+          },
           orderBy: {
             order: "asc",
           },
         },
-        category: true,
+        category: {
+          select: {
+            id: true,
+            name: true,
+            nameEn: true,
+            nameZh: true,
+            slug: true,
+            color: true,
+          },
+        },
       },
     });
 
@@ -31,10 +60,46 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      data: blog,
-    });
+    // Get related blogs by same category (limit to 5)
+    const relatedBlogs = blog.categoryId
+      ? await prisma.blog.findMany({
+          where: {
+            isPublished: true,
+            categoryId: blog.categoryId,
+            NOT: {
+              id: blog.id,
+            },
+          },
+          select: {
+            id: true,
+            title: true,
+            titleEn: true,
+            titleZh: true,
+            slug: true,
+            coverImage: true,
+            publishedAt: true,
+          },
+          orderBy: {
+            publishedAt: "desc",
+          },
+          take: 5,
+        })
+      : [];
+
+    return NextResponse.json(
+      {
+        success: true,
+        data: {
+          ...blog,
+          relatedBlogs,
+        },
+      },
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching blog:", error);
     return NextResponse.json(
