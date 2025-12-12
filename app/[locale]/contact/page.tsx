@@ -14,7 +14,6 @@ import {
   MessageSquare,
   Facebook,
   Instagram,
-  Youtube,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
@@ -73,7 +72,7 @@ export default function ContactPage() {
     {
       icon: MapPin,
       title: "ที่อยู่",
-      details: ["จังหวัดฉะเชิงเทรา", "ประเทศไทย"],
+      details: ["จังหวัดเชียงใหม่", "ประเทศไทย"],
       color: "bg-red-500",
       links: [],
     },
@@ -329,7 +328,7 @@ export default function ContactPage() {
                   <div className="text-center text-gray-500">
                     <MapPin className="w-12 h-12 mx-auto mb-2 text-[#C9A227]" />
                     <p className="font-medium">Sky Pro Properties</p>
-                    <p className="text-sm">ฉะเชิงเทรา, ประเทศไทย</p>
+                    <p className="text-sm">เชียงใหม่, ประเทศไทย</p>
                   </div>
                 </div>
               </Card>
@@ -360,26 +359,38 @@ export default function ContactPage() {
                 </h3>
                 <div className="flex gap-4">
                   <a
-                    href="#"
+                    href="https://www.facebook.com/share/1BqpBqLF4x/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
+                    title="Facebook"
                   >
                     <Facebook className="w-6 h-6 text-white" />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.instagram.com/skyproproperty?igsh=dmQ3NzkwMGMzNjI5"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-500 rounded-full flex items-center justify-center hover:from-purple-700 hover:to-pink-600 transition-colors"
+                    title="Instagram"
                   >
                     <Instagram className="w-6 h-6 text-white" />
                   </a>
                   <a
-                    href="#"
-                    className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"
+                    href="https://www.tiktok.com/@skyproproperty?_r=1&_t=ZS-9291zppaPLT"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors"
+                    title="TikTok"
                   >
-                    <Youtube className="w-6 h-6 text-white" />
+                    <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                    </svg>
                   </a>
                   <a
-                    href="#"
+                    href="tel:0655559999"
                     className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
+                    title="Phone"
                   >
                     <Phone className="w-6 h-6 text-white" />
                   </a>
