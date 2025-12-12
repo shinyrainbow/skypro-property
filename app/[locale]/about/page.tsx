@@ -21,12 +21,12 @@ export default function AboutPage() {
 
   const values = [
     {
-      icon: Shield,
+      icon: Home,
       title: t("values.trust.title"),
       description: t("values.trust.description"),
     },
     {
-      icon: Heart,
+      icon: Shield,
       title: t("values.excellence.title"),
       description: t("values.excellence.description"),
     },
@@ -34,6 +34,34 @@ export default function AboutPage() {
       icon: Users,
       title: t("values.community.title"),
       description: t("values.community.description"),
+    },
+    {
+      icon: TrendingUp,
+      title: t("values.advisory.title"),
+      description: t("values.advisory.description"),
+    },
+  ];
+
+  const whyChooseUs = [
+    {
+      icon: Award,
+      title: t("whyChooseUs.reasons.marketKnowledge.title"),
+      description: t("whyChooseUs.reasons.marketKnowledge.description"),
+    },
+    {
+      icon: Users,
+      title: t("whyChooseUs.reasons.experience.title"),
+      description: t("whyChooseUs.reasons.experience.description"),
+    },
+    {
+      icon: TrendingUp,
+      title: t("whyChooseUs.reasons.professional.title"),
+      description: t("whyChooseUs.reasons.professional.description"),
+    },
+    {
+      icon: Heart,
+      title: t("whyChooseUs.reasons.service.title"),
+      description: t("whyChooseUs.reasons.service.description"),
     },
   ];
 
@@ -59,7 +87,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0A0E1A]">
+    <div className="min-h-screen bg-gray-50">
       <Header />
 
       {/* Hero Section */}
@@ -111,22 +139,22 @@ export default function AboutPage() {
       </section>
 
       {/* Story Section */}
-      <section className="py-20 bg-[#0A0E1A]">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <div className="w-12 h-0.5 bg-[#C9A227] mb-6" />
-              <h2 className="text-4xl font-bold text-white mb-6">
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">
                 {t("story.title")}
               </h2>
-              <div className="space-y-4 text-gray-300 leading-relaxed">
+              <div className="space-y-4 text-gray-700 leading-relaxed text-lg">
                 <p>{t("story.paragraph1")}</p>
                 <p>{t("story.paragraph2")}</p>
-                <p>{t("story.paragraph3")}</p>
+                <p className="font-semibold text-[#C9A227]">{t("story.paragraph3")}</p>
               </div>
             </div>
 
-            <div className="relative h-[500px] rounded-lg overflow-hidden">
+            <div className="relative h-[500px] rounded-lg overflow-hidden shadow-xl">
               <Image
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800"
                 alt="Our Story"
@@ -138,8 +166,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-20 bg-white">
+      {/* Values Section - สิ่งที่เราเชี่ยวชาญ */}
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="w-12 h-0.5 bg-[#C9A227] mx-auto mb-6" />
@@ -151,16 +179,16 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {values.map((value, index) => (
               <div
                 key={index}
-                className="bg-gray-50 p-8 rounded-lg hover:shadow-lg transition-shadow"
+                className="bg-white p-8 rounded-lg hover:shadow-xl transition-all border border-gray-200 hover:border-[#C9A227]/50"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C9A227]/10 mb-6">
                   <value.icon className="w-8 h-8 text-[#C9A227]" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
                   {value.title}
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -172,15 +200,49 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-[#0A0E1A]">
+      {/* Why Choose Us Section - ทำไมลูกค้าถึงเลือกเรา */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="w-12 h-0.5 bg-[#C9A227] mx-auto mb-6" />
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              {t("whyChooseUs.title")}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              {t("whyChooseUs.subtitle")}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {whyChooseUs.map((reason, index) => (
+              <div
+                key={index}
+                className="bg-gray-50 p-8 rounded-lg hover:shadow-xl transition-all border border-gray-200 hover:border-[#C9A227]/50"
+              >
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C9A227]/10 mb-6">
+                  <reason.icon className="w-8 h-8 text-[#C9A227]" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  {reason.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {reason.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="w-12 h-0.5 bg-[#C9A227] mx-auto mb-6" />
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
               {t("teamSection.title")}
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               {t("teamSection.subtitle")}
             </p>
           </div>
@@ -189,7 +251,7 @@ export default function AboutPage() {
             {team.map((member, index) => (
               <div
                 key={index}
-                className="group bg-white/5 rounded-lg overflow-hidden hover:bg-white/10 transition-all"
+                className="group bg-white rounded-lg overflow-hidden hover:shadow-xl transition-all border border-gray-200"
               >
                 <div className="relative h-80 overflow-hidden">
                   <Image
@@ -200,13 +262,13 @@ export default function AboutPage() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
                     {member.name}
                   </h3>
                   <p className="text-[#C9A227] font-medium mb-4">
                     {member.role}
                   </p>
-                  <p className="text-gray-400 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed">
                     {member.description}
                   </p>
                 </div>

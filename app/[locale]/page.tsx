@@ -558,13 +558,15 @@ export default function PublicPropertiesPage() {
                     <SelectContent className="bg-[#1F2937] border-white/10">
                       <SelectItem value="all">{t("search.all")}</SelectItem>
                       <SelectItem value="Condo">{t("search.condo")}</SelectItem>
-                      <SelectItem value="Townhouse">
-                        {t("search.townhouse")}
-                      </SelectItem>
-                      <SelectItem value="SingleHouse">
-                        {t("search.singleHouse")}
-                      </SelectItem>
+                      <SelectItem value="Townhouse">{t("search.townhouse")}</SelectItem>
+                      <SelectItem value="SingleHouse">{t("search.singleHouse")}</SelectItem>
+                      <SelectItem value="Villa">{t("search.villa")}</SelectItem>
                       <SelectItem value="Land">{t("search.land")}</SelectItem>
+                      <SelectItem value="Office">{t("search.office")}</SelectItem>
+                      <SelectItem value="Store">{t("search.store")}</SelectItem>
+                      <SelectItem value="Factory">{t("search.factory")}</SelectItem>
+                      <SelectItem value="Hotel">{t("search.hotel")}</SelectItem>
+                      <SelectItem value="Building">{t("search.building")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

@@ -55,17 +55,13 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to Cloudinary
+    // Upload to Cloudinary (without inline transformations for faster upload)
     const result = await new Promise<{ secure_url: string; public_id: string }>((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
           folder: "skypro-blog",
           resource_type: "image",
-          transformation: [
-            { width: 1200, height: 800, crop: "limit" },
-            { quality: "auto:good" },
-            { fetch_format: "auto" },
-          ],
+          // No inline transformations - apply on-demand via URL for faster upload
         },
         (error, result) => {
           if (error) {
@@ -79,10 +75,19 @@ export async function POST(request: NextRequest) {
       ).end(buffer);
     });
 
+    // Generate optimized URL with transformations applied on-demand
+    const optimizedUrl = cloudinary.url(result.public_id, {
+      transformation: [
+        { width: 1200, height: 800, crop: "limit" },
+        { quality: "auto:good" },
+        { fetch_format: "auto" },
+      ],
+    });
+
     return NextResponse.json({
       success: true,
       data: {
-        url: result.secure_url,
+        url: optimizedUrl, // Return optimized URL with transformations
         publicId: result.public_id,
       },
     });

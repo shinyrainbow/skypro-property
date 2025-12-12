@@ -38,7 +38,7 @@
   "about": {
     "hero": {
       "title": "About SkyPro Property",
-      "subtitle": "Your trusted partner in finding the perfect property in Thailand. We combine local expertise with international standards to deliver exceptional real estate services."
+      "subtitle": "Comprehensive real estate consultancy in Chiang Mai. Providing buy-sell-rent services, property management, and professional investment management with the goal to \"Elevate your real estate experience beyond others in the market.\""
     },
     "stats": {
       "properties": "Properties Sold",
@@ -47,27 +47,53 @@
       "satisfaction": "Client Satisfaction"
     },
     "story": {
-      "title": "Our Story",
-      "paragraph1": "Founded in 2009, SkyPro Property has grown from a small local agency to one of Thailand's most trusted real estate companies. Our journey began with a simple mission: to help people find their dream homes and investment properties.",
-      "paragraph2": "Over the years, we've built strong relationships with developers, property owners, and thousands of satisfied clients. Our team of experienced agents understands the Thai property market inside and out, ensuring you get the best deals and most reliable advice.",
-      "paragraph3": "Today, we're proud to serve both local and international clients, offering a comprehensive range of properties from luxury condos in Bangkok to peaceful villas in Phuket and Chiang Mai."
+      "title": "About Us",
+      "paragraph1": "We view real estate not just as buying and selling, but as planning, investing, and making important life decisions.",
+      "paragraph2": "We have developed a service system that meets the needs of investors, general individuals, foreigners, as well as project owners who want a management team that can deliver real results.",
+      "paragraph3": "Skypro Property – Making your real estate decisions easier and delivering real results."
     },
     "valuesSection": {
-      "title": "Our Core Values",
-      "subtitle": "These principles guide everything we do and define who we are as a company."
+      "title": "What We're Expert At",
+      "subtitle": "Comprehensive services designed to meet your real estate investment needs."
     },
     "values": {
       "trust": {
-        "title": "Trust & Integrity",
-        "description": "We believe in complete transparency and honesty in every transaction. Your trust is our most valuable asset, and we work hard to earn and maintain it."
+        "title": "Buy-Sell-Rent Chiang Mai Real Estate",
+        "description": "We analyze location, market prices, deals, and growth opportunities to help clients make informed decisions."
       },
       "excellence": {
-        "title": "Excellence in Service",
-        "description": "We go above and beyond to provide exceptional service. From the first consultation to the final handover, we ensure a smooth and professional experience."
+        "title": "Rental Management & Property Care",
+        "description": "Professional rental management services including income, expenses, maintenance, and return reporting."
       },
       "community": {
-        "title": "Community Focus",
-        "description": "We're not just selling properties; we're helping build communities. We care about the neighborhoods we serve and the people who live in them."
+        "title": "Investment Consultation for Thai & Foreign Investors",
+        "description": "Structuring property ownership, rental, ROI calculations, with proper legal guidance for foreigners."
+      },
+      "advisory": {
+        "title": "Project Analysis & Real Estate Development",
+        "description": "Collaborate on sales strategies, marketing, and pricing to help projects close sales quickly and sustainably."
+      }
+    },
+    "whyChooseUs": {
+      "title": "Why Clients Choose Us",
+      "subtitle": "What makes Skypro Property different from competitors in the market.",
+      "reasons": {
+        "marketKnowledge": {
+          "title": "Deep & Real Understanding of Chiang Mai Market",
+          "description": "We have in-depth knowledge of the Chiang Mai real estate market, including locations, prices, and growth opportunities."
+        },
+        "experience": {
+          "title": "Extensive Experience with Foreign Investors",
+          "description": "We understand the needs and legal requirements for foreign investors thoroughly."
+        },
+        "professional": {
+          "title": "Professional Team Focused on Results",
+          "description": "Everyone on our team is committed to creating the best results for clients."
+        },
+        "service": {
+          "title": "Fast Service, Treating Properties Like Our Own",
+          "description": "We value your property as if it were our own, with fast and professional service."
+        }
       }
     },
     "teamSection": {
@@ -133,8 +159,14 @@
     "condo": "Condo",
     "townhouse": "Townhouse",
     "singleHouse": "Single House",
+    "villa": "Villa",
     "house": "House",
     "land": "Land",
+    "office": "Office",
+    "store": "Store",
+    "factory": "Factory",
+    "hotel": "Hotel",
+    "building": "Building",
     "searchButton": "Search",
     "resetFilters": "Reset Filters",
     "resultsFound": "Found {count} properties matching your criteria",
