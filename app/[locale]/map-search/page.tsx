@@ -104,25 +104,41 @@ export default function MapSearchPage() {
   useEffect(() => {
     let filtered = [...properties];
 
-    // Filter by search text with conditional logic based on property type
+    // Filter by search text
     if (appliedSearchText) {
       const searchLower = appliedSearchText.toLowerCase();
       filtered = filtered.filter((p) => {
-        // If property type is Condo, search in project fields
-        if (p.propertyType === "Condo") {
+        // If no property type filter selected (ทั้งหมด), search ALL fields
+        if (!subPropertyType || subPropertyType === "" || subPropertyType === "all") {
           return (
+            // Search project fields
             p.project?.projectNameEn?.toLowerCase().includes(searchLower) ||
             p.project?.projectNameTh?.toLowerCase().includes(searchLower) ||
-            p.project?.projectLocationText?.toLowerCase().includes(searchLower)
-          );
-        }
-        // For other property types, search in property fields
-        else {
-          return (
+            p.project?.projectLocationText?.toLowerCase().includes(searchLower) ||
+            // AND property fields
             p.propertyTitleEn?.toLowerCase().includes(searchLower) ||
             p.propertyTitleTh?.toLowerCase().includes(searchLower) ||
             p.propertyLocationText?.toLowerCase().includes(searchLower)
           );
+        }
+        // If specific property type selected, use conditional logic
+        else {
+          // If property type is Condo, search in project fields
+          if (p.propertyType === "Condo") {
+            return (
+              p.project?.projectNameEn?.toLowerCase().includes(searchLower) ||
+              p.project?.projectNameTh?.toLowerCase().includes(searchLower) ||
+              p.project?.projectLocationText?.toLowerCase().includes(searchLower)
+            );
+          }
+          // For other property types, search in property fields
+          else {
+            return (
+              p.propertyTitleEn?.toLowerCase().includes(searchLower) ||
+              p.propertyTitleTh?.toLowerCase().includes(searchLower) ||
+              p.propertyLocationText?.toLowerCase().includes(searchLower)
+            );
+          }
         }
       });
     }

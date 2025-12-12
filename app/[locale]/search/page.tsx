@@ -216,25 +216,41 @@ function SearchContent() {
   useEffect(() => {
     let filtered = [...allProperties];
 
-    // Client-side search filter with conditional logic based on property type
+    // Client-side search filter
     if (searchText) {
       const searchLower = searchText.toLowerCase();
       filtered = filtered.filter((p) => {
-        // If property type is Condo, search in project fields
-        if (p.propertyType === "Condo") {
+        // If no property type filter selected (ทั้งหมด), search ALL fields
+        if (!propertyType || propertyType === "" || propertyType === "all") {
           return (
+            // Search project fields
             p.project?.projectNameEn?.toLowerCase().includes(searchLower) ||
             p.project?.projectNameTh?.toLowerCase().includes(searchLower) ||
-            p.project?.projectLocationText?.toLowerCase().includes(searchLower)
-          );
-        }
-        // For other property types, search in property fields
-        else {
-          return (
+            p.project?.projectLocationText?.toLowerCase().includes(searchLower) ||
+            // AND property fields
             p.propertyTitleEn?.toLowerCase().includes(searchLower) ||
             p.propertyTitleTh?.toLowerCase().includes(searchLower) ||
             p.propertyLocationText?.toLowerCase().includes(searchLower)
           );
+        }
+        // If specific property type selected, use conditional logic
+        else {
+          // If property type is Condo, search in project fields
+          if (p.propertyType === "Condo") {
+            return (
+              p.project?.projectNameEn?.toLowerCase().includes(searchLower) ||
+              p.project?.projectNameTh?.toLowerCase().includes(searchLower) ||
+              p.project?.projectLocationText?.toLowerCase().includes(searchLower)
+            );
+          }
+          // For other property types, search in property fields
+          else {
+            return (
+              p.propertyTitleEn?.toLowerCase().includes(searchLower) ||
+              p.propertyTitleTh?.toLowerCase().includes(searchLower) ||
+              p.propertyLocationText?.toLowerCase().includes(searchLower)
+            );
+          }
         }
       });
     }
@@ -245,7 +261,7 @@ function SearchContent() {
     }
 
     setProperties(filtered);
-  }, [allProperties, selectedProject, searchText]);
+  }, [allProperties, selectedProject, searchText, propertyType]);
 
   const formatPrice = (price: number | null) => {
     if (!price) return null;
