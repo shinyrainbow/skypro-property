@@ -108,7 +108,7 @@ export function OrganizationJsonLd({
     sameAs: [
       "https://www.facebook.com/skyproproperties",
       "https://www.instagram.com/skyproproperties",
-      "https://line.me/ti/p/@skyproproperties",
+      "https://line.me/ti/p/@skypro",
     ],
   };
 

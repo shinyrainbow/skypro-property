@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
 
 export default function Footer() {
   const t = useTranslations("footer");
@@ -63,15 +63,15 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li className="flex items-start gap-2">
                 <Phone className="w-3 h-3 text-[#C9A227] mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400 text-xs">065-555-9999</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Mail className="w-3 h-3 text-[#C9A227] mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400 text-xs">contact@skyproproperties.com</span>
+                <span className="text-gray-400 text-xs">063-956-2446</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-3 h-3 text-[#C9A227] mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400 text-xs">Bangkok, Thailand</span>
+                <span className="text-gray-400 text-xs leading-relaxed">
+                  บริษัท สกายโปรพร้อมเพอร์ตี้ จำกัด<br />
+                  111 หมู่ที่ 2 ตำบลไชยสถาน<br />
+                  อำเภอสารภี จังหวัดเชียงใหม่ 50140
+                </span>
               </li>
             </ul>
           </div>
@@ -83,7 +83,7 @@ export default function Footer() {
               {tFooter("addLineSupport")}
             </p>
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#06C755] rounded-lg text-white text-xs font-medium">
-              <span>@skyproproperties</span>
+              <span>@skypro</span>
             </div>
           </div>
         </div>

@@ -17,7 +17,6 @@ import {
   MapPin,
   Search,
   Phone,
-  Mail,
   ChevronDown,
   ArrowRight,
   Play,
@@ -1373,25 +1372,20 @@ export default function PublicPropertiesPage() {
                     size="default"
                     className="rounded-lg text-sm"
                     onClick={() => {
-                      navigator.clipboard.writeText("0655614169");
+                      navigator.clipboard.writeText("0639562446");
                       toast.success(t("common.copiedPhone"));
                     }}
                   >
                     <Phone className="w-3.5 h-3.5 mr-1.5" />
-                    065-555-9999
+                    063-956-2446
                   </Button>
                   <Button
                     variant="glass"
                     size="default"
                     className="rounded-lg text-sm"
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        "bkgroup.ch.official@gmail.com"
-                      );
-                      toast.success(t("common.copiedEmail"));
-                    }}
+                    onClick={() => router.push("/contact")}
                   >
-                    <Mail className="w-3.5 h-3.5 mr-1.5" />
+                    <MapPin className="w-3.5 h-3.5 mr-1.5" />
                     {t("nav.contact")}
                   </Button>
                 </div>
