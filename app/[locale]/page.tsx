@@ -532,24 +532,25 @@ export default function PublicPropertiesPage() {
 
             {/* Search filters - Dark card */}
             <div className="rounded-xl p-4 border border-white/40">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
-                {/* Search Input - Full width on mobile, 1 column on desktop */}
-                <div className="sm:col-span-2 lg:col-span-1">
-                  <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
-                    {t("search.search")}
-                  </label>
-                  <div className="relative">
-                    <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
-                    <Input
-                      type="text"
-                      placeholder={t("searchPage.searchPlaceholder")}
-                      value={searchText}
-                      onChange={(e) => setSearchText(e.target.value)}
-                      className="h-9 pl-8 bg-white border-gray-200 rounded-lg text-gray-900 text-sm placeholder:text-gray-400"
-                    />
-                  </div>
+              {/* Search Input - Full width in its own row */}
+              <div className="mb-3">
+                <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
+                  {t("search.search")}
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder={t("searchPage.searchPlaceholder")}
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    className="h-9 pl-8 bg-white border-gray-200 rounded-lg text-gray-900 text-sm placeholder:text-gray-400 w-full"
+                  />
                 </div>
+              </div>
 
+              {/* Other filters in a grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
                 {/* Listing Type */}
                 <div>
                   <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
@@ -626,19 +627,17 @@ export default function PublicPropertiesPage() {
                     className="h-9 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm placeholder:text-gray-500"
                   />
                 </div>
-
-                {/* Search Button - Full width on mobile, 1 column on desktop */}
-                <div className="sm:col-span-2 lg:col-span-1 flex items-end">
-                  <Button
-                    variant="gold"
-                    className="h-9 w-full text-sm"
-                    onClick={handleSearch}
-                  >
-                    <Search className="w-3.5 h-3.5 mr-1.5" />
-                    {t("search.searchButton")}
-                  </Button>
-                </div>
               </div>
+
+              {/* Search Button - Full width in its own row */}
+              <Button
+                variant="gold"
+                className="h-9 w-full text-sm"
+                onClick={handleSearch}
+              >
+                <Search className="w-3.5 h-3.5 mr-1.5" />
+                {t("search.searchButton")}
+              </Button>
             </div>
           </div>
         </div>

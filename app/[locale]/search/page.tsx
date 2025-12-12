@@ -602,9 +602,23 @@ function SearchContent() {
                               ? t("search.condo")
                               : property.propertyType === "Townhouse"
                               ? t("search.townhouse")
+                              : property.propertyType === "SingleHouse"
+                              ? t("search.singleHouse")
+                              : property.propertyType === "Villa"
+                              ? t("search.villa")
                               : property.propertyType === "Land"
                               ? t("search.land")
-                              : t("search.singleHouse")}
+                              : property.propertyType === "Office"
+                              ? t("search.office")
+                              : property.propertyType === "Store"
+                              ? t("search.store")
+                              : property.propertyType === "Factory"
+                              ? t("search.factory")
+                              : property.propertyType === "Hotel"
+                              ? t("search.hotel")
+                              : property.propertyType === "Building"
+                              ? t("search.building")
+                              : property.propertyType}
                           </div>
                         </div>
 

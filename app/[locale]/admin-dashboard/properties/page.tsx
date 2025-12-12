@@ -353,7 +353,7 @@ export default function PropertiesListPage() {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
-                placeholder="ค้นหาชื่อ หรือรหัสทรัพย์สิน..."
+                placeholder="ชื่อโครงการ ทำเล.."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="pl-10"

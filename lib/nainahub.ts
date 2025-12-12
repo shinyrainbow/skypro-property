@@ -29,7 +29,7 @@ export interface NainaHubProperty {
   id: string;
   projectPropertyCode: string | null;
   agentPropertyCode: string | null;
-  propertyType: "Condo" | "Townhouse" | "SingleHouse" | "Land";
+  propertyType: "Condo" | "Townhouse" | "SingleHouse" | "Villa" | "Land" | "Office" | "Store" | "Factory" | "Hotel" | "Building";
   propertyTitleEn: string;
   propertyTitleTh: string;
   propertyLocationText: string | null;
@@ -75,7 +75,7 @@ export interface NainaHubResponse {
 
 export interface FetchPropertiesParams {
   q?: string;
-  propertyType?: "Condo" | "Townhouse" | "SingleHouse" | "Land";
+  propertyType?: "Condo" | "Townhouse" | "SingleHouse" | "Villa" | "Land" | "Office" | "Store" | "Factory" | "Hotel" | "Building";
   listingType?: "rent" | "sale" | "";
   minPrice?: number;
   maxPrice?: number;
