@@ -87,7 +87,7 @@ export default function LanguageSwitcher({
 
       {/* Dropdown */}
       <div
-        className={`absolute right-0 mt-2 w-40 rounded-xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 z-50 ${dropdownBg} ${
+        className={`absolute right-0 mt-2 w-40 rounded-xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 z-100 ${dropdownBg} ${
           isOpen
             ? "opacity-100 translate-y-0 visible"
             : "opacity-0 -translate-y-2 invisible"

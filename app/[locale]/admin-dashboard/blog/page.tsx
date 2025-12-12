@@ -605,7 +605,7 @@ export default function AdminBlogPage() {
               </div>
 
               {/* Multilingual Titles */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     หัวข้อ (English)
@@ -629,19 +629,6 @@ export default function AdminBlogPage() {
                       setFormData({ ...formData, titleZh: e.target.value })
                     }
                     placeholder="博客标题"
-                    className="text-gray-900"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    หัวข้อ (日本語)
-                  </label>
-                  <Input
-                    value={formData.titleJa}
-                    onChange={(e) =>
-                      setFormData({ ...formData, titleJa: e.target.value })
-                    }
-                    placeholder="ブログタイトル"
                     className="text-gray-900"
                   />
                 </div>
