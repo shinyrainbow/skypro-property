@@ -123,7 +123,16 @@ function SearchContent() {
     const loadData = async () => {
       try {
         setLoading(true);
-        const response = await fetchPropertiesFromAPI({ limit: 100 });
+        const params: FetchPropertiesParams = {
+          limit: 100,
+          ...(searchText && { q: searchText }),
+          ...(propertyType && propertyType !== "all" && { propertyType: propertyType as any }),
+          ...(listingType && listingType !== "all" && { listingType: listingType as any }),
+          ...(bedrooms && bedrooms !== "all" && { bedrooms: parseInt(bedrooms) }),
+          ...(minPrice && { minPrice: parseInt(minPrice) }),
+          ...(maxPrice && { maxPrice: parseInt(maxPrice) }),
+        };
+        const response = await fetchPropertiesFromAPI(params);
         setAllProperties(response.data);
 
         // Generate projects from properties
@@ -162,87 +171,20 @@ function SearchContent() {
     };
 
     loadData();
-  }, []);
+  }, [searchText, propertyType, listingType, bedrooms, minPrice, maxPrice]);
 
-  // Filter properties based on selected filters
+  // Filter properties based on selected project (UI-only filter)
+  // All other filters are handled by the API
   useEffect(() => {
     let filtered = [...allProperties];
 
-    // Filter by text search
-    if (searchText) {
-      const searchLower = searchText.toLowerCase();
-      filtered = filtered.filter(
-        (p) =>
-          p.propertyTitleTh?.toLowerCase().includes(searchLower) ||
-          p.propertyTitleEn?.toLowerCase().includes(searchLower) ||
-          p.agentPropertyCode?.toLowerCase().includes(searchLower) ||
-          p.project?.projectNameTh?.toLowerCase().includes(searchLower) ||
-          p.project?.projectNameEn?.toLowerCase().includes(searchLower)
-      );
-    }
-
-    // Filter by project
+    // Filter by project (UI-only feature)
     if (selectedProject) {
-      filtered = filtered.filter(
-        (p) => p.projectCode === selectedProject
-      );
-    }
-
-    // Filter by property type
-    if (propertyType && propertyType !== "all") {
-      filtered = filtered.filter((p) => p.propertyType === propertyType);
-    }
-
-    // Filter by listing type
-    if (listingType && listingType !== "all") {
-      if (listingType === "rent") {
-        filtered = filtered.filter(
-          (p) => p.rentalRateNum && p.rentalRateNum > 0
-        );
-      } else if (listingType === "sale") {
-        filtered = filtered.filter(
-          (p) => p.sellPriceNum && p.sellPriceNum > 0 && !p.rentalRateNum
-        );
-      }
-    }
-
-    // Filter by bedrooms
-    if (bedrooms && bedrooms !== "all") {
-      const bedroomNum = parseInt(bedrooms);
-      if (bedroomNum === 4) {
-        filtered = filtered.filter((p) => p.bedRoomNum >= 4);
-      } else {
-        filtered = filtered.filter((p) => p.bedRoomNum === bedroomNum);
-      }
-    }
-
-    // Filter by price
-    if (minPrice) {
-      const min = parseInt(minPrice);
-      filtered = filtered.filter((p) => {
-        const price = p.rentalRateNum || p.sellPriceNum || 0;
-        return price >= min;
-      });
-    }
-    if (maxPrice) {
-      const max = parseInt(maxPrice);
-      filtered = filtered.filter((p) => {
-        const price = p.rentalRateNum || p.sellPriceNum || 0;
-        return price <= max;
-      });
+      filtered = filtered.filter((p) => p.projectCode === selectedProject);
     }
 
     setProperties(filtered);
-  }, [
-    allProperties,
-    searchText,
-    selectedProject,
-    propertyType,
-    listingType,
-    bedrooms,
-    minPrice,
-    maxPrice,
-  ]);
+  }, [allProperties, selectedProject]);
 
   // Update URL when filters change
   useEffect(() => {

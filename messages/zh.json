@@ -135,6 +135,7 @@
     }
   },
   "search": {
+    "search": "搜索",
     "listingType": "交易类型",
     "propertyType": "房产类型",
     "bedrooms": "卧室",

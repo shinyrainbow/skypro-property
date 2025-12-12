@@ -135,6 +135,7 @@
     }
   },
   "search": {
+    "search": "Search",
     "listingType": "Listing Type",
     "propertyType": "Property Type",
     "bedrooms": "Bedrooms",

@@ -122,7 +122,7 @@ export default function Header({ transparent = false }: HeaderProps) {
 
       {/* Mobile Menu */}
       <div className={`fixed inset-0 z-60 md:hidden transition-all duration-300 ${
-        mobileMenuOpen ? "visible" : "invisible"
+        mobileMenuOpen ? "block" : "hidden"
       }`}>
         {/* Backdrop */}
         <div

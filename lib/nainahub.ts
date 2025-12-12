@@ -10,6 +10,7 @@ export interface NainaHubProject {
   projectCode: string;
   projectNameEn: string;
   projectNameTh: string;
+  projectLocationText: string | null;
   projectLatitude: number | null;
   projectLongitude: number | null;
 }
@@ -31,6 +32,7 @@ export interface NainaHubProperty {
   propertyType: "Condo" | "Townhouse" | "SingleHouse" | "Land";
   propertyTitleEn: string;
   propertyTitleTh: string;
+  propertyLocationText: string | null;
   bedRoom: number | null;
   bedRoomNum: number;
   bathRoom: number | null;
@@ -72,6 +74,7 @@ export interface NainaHubResponse {
 }
 
 export interface FetchPropertiesParams {
+  q?: string;
   propertyType?: "Condo" | "Townhouse" | "SingleHouse" | "Land";
   listingType?: "rent" | "sale" | "";
   minPrice?: number;
@@ -98,6 +101,7 @@ export async function fetchNainaHubProperties(
   // Always include userId
   searchParams.set("userId", NAINAHUB_USER_ID);
 
+  if (params.q) searchParams.set("q", params.q);
   if (params.propertyType) searchParams.set("propertyType", params.propertyType);
   if (params.listingType) searchParams.set("listingType", params.listingType);
   if (params.minPrice) searchParams.set("minPrice", params.minPrice.toString());

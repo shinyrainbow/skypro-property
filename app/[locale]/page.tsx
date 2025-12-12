@@ -116,6 +116,7 @@ export default function PublicPropertiesPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Filters
+  const [searchText, setSearchText] = useState<string>("");
   const [propertyType, setPropertyType] = useState<string>("");
   const [listingType, setListingType] = useState<string>("");
   const [bedrooms, setBedrooms] = useState<string>("");
@@ -125,6 +126,7 @@ export default function PublicPropertiesPage() {
   // Handle search - navigate to /search with filters
   const handleSearch = () => {
     const params = new URLSearchParams();
+    if (searchText) params.set("q", searchText);
     if (propertyType && propertyType !== "all")
       params.set("propertyType", propertyType);
     if (listingType && listingType !== "all")
@@ -529,7 +531,23 @@ export default function PublicPropertiesPage() {
 
             {/* Search filters - Dark card */}
             <div className="rounded-xl p-4 border border-white/40">
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+                <div className="col-span-2 md:col-span-1">
+                  <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
+                    {t("search.search")}
+                  </label>
+                  <div className="relative">
+                    <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                    <Input
+                      type="text"
+                      placeholder={t("searchPage.searchPlaceholder")}
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      className="h-9 pl-8 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm placeholder:text-gray-500"
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
                     {t("search.listingType")}

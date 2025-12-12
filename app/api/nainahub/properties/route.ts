@@ -8,6 +8,7 @@ export async function GET(request: Request) {
     const params: FetchPropertiesParams = {};
 
     // Parse all filter parameters
+    const q = searchParams.get("q");
     const limit = searchParams.get("limit");
     const page = searchParams.get("page");
     const propertyType = searchParams.get("propertyType");
@@ -16,6 +17,7 @@ export async function GET(request: Request) {
     const minPrice = searchParams.get("minPrice");
     const maxPrice = searchParams.get("maxPrice");
 
+    if (q) params.q = q;
     if (limit) params.limit = parseInt(limit);
     if (page) params.page = parseInt(page);
     if (propertyType && propertyType !== "all") params.propertyType = propertyType as any;

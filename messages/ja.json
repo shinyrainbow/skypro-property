@@ -109,6 +109,7 @@
     }
   },
   "search": {
+    "search": "検索",
     "listingType": "取引タイプ",
     "propertyType": "物件タイプ",
     "bedrooms": "寝室",
