@@ -95,7 +95,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1920"
-            alt="About SkyPro Property"
+            alt="About SKYPRO PROPERTY"
             fill
             className="object-cover"
             priority
