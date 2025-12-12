@@ -630,15 +630,25 @@ export default function PublicPropertiesPage() {
         <div className="container mx-auto px-4">
           {/* Section Header - Split Layout */}
           <div
-            className={`flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8 transition-all duration-700 ${
+            className={`flex flex-col lg:grid lg:grid-cols-3 items-center gap-6 mb-8 transition-all duration-700 ${
               isVisible["popular"]
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
             }`}
           >
-            {/* Left - Title with Icon */}
-            <div className="flex items-center gap-3">
-              <div className="text-[#C9A227] text-3xl font-heading">
+            {/* Left - Title (hidden on mobile, shown on desktop) */}
+            <div className="hidden lg:block">
+              <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
+                Latest
+              </h2>
+              <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
+                Properties
+              </h2>
+            </div>
+
+            {/* Center - Logo + Title on mobile */}
+            <div className="flex flex-col items-center justify-center gap-2">
+              <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24">
                 <Image
                   src="/header-logo.png"
                   alt="Sky Pro Properties"
@@ -647,18 +657,19 @@ export default function PublicPropertiesPage() {
                   unoptimized
                 />
               </div>
-              <div>
-                <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
+              {/* Title only on mobile */}
+              <div className="lg:hidden text-center">
+                <h2 className="text-base sm:text-xl font-heading text-white tracking-wide">
                   Latest
                 </h2>
-                <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
+                <h2 className="text-base sm:text-xl font-heading text-white tracking-wide">
                   Properties
                 </h2>
               </div>
             </div>
 
             {/* Right - Description */}
-            <p className="text-gray-400 text-sm max-w-md lg:text-right">
+            <p className="text-gray-400 text-xs sm:text-sm max-w-md text-center lg:text-right mx-auto lg:mx-0">
               {t("homePage.realEstateGuru")}
               <br/>
               {t("homePage.buyAnd")}

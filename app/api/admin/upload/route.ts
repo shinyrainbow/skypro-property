@@ -3,11 +3,13 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { v2 as cloudinary } from "cloudinary";
 
-// Configure Cloudinary
+// Configure Cloudinary with optimizations
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true, // Use HTTPS for CDN delivery
+  // upload_prefix: "https://upload-api-ap.cloudinary.com", // Enterprise only: Asia-Pacific Fast API
 });
 
 // POST /api/admin/upload - Upload image to Cloudinary
@@ -55,12 +57,17 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to Cloudinary (without inline transformations for faster upload)
+    // Upload to Cloudinary (optimized for speed)
     const result = await new Promise<{ secure_url: string; public_id: string }>((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
           folder: "skypro-blog",
           resource_type: "image",
+          // Performance optimizations:
+          invalidate: false, // Don't invalidate CDN cache (faster)
+          overwrite: false, // Don't check for duplicates (faster)
+          unique_filename: true, // Generate unique names
+          use_filename: false, // Ignore original filename for speed
           // No inline transformations - apply on-demand via URL for faster upload
         },
         (error, result) => {

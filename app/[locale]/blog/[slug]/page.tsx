@@ -162,9 +162,108 @@ export default function BlogPostPage({
       <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="h-16" />
-        <div className="flex justify-center items-center py-40 bg-gray-50">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C9A227]"></div>
+
+        {/* Breadcrumb Skeleton */}
+        <div className="bg-[#0d1117] py-4 border-b border-white/10">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center gap-2 animate-pulse">
+              <div className="h-4 bg-gray-700 rounded w-12" />
+              <div className="h-4 bg-gray-700 rounded w-1" />
+              <div className="h-4 bg-gray-700 rounded w-12" />
+              <div className="h-4 bg-gray-700 rounded w-1" />
+              <div className="h-4 bg-gray-700 rounded w-32" />
+            </div>
+          </div>
         </div>
+
+        {/* Main Content Skeleton */}
+        <section className="py-8 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Article Content Skeleton */}
+              <div className="lg:col-span-2">
+                <article className="animate-pulse">
+                  {/* Header Skeleton */}
+                  <header className="mb-8">
+                    <div className="h-10 bg-gray-200 rounded mb-4 w-3/4" />
+                    <div className="h-6 bg-gray-200 rounded mb-4 w-1/2" />
+
+                    {/* Meta Info Skeleton */}
+                    <div className="flex flex-wrap items-center gap-4 mb-6">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-gray-200 rounded-full" />
+                        <div className="h-4 bg-gray-200 rounded w-24" />
+                      </div>
+                      <div className="h-4 bg-gray-200 rounded w-32" />
+                    </div>
+
+                    {/* Social Share Skeleton */}
+                    <div className="flex items-center gap-2 pb-6 border-b border-gray-200">
+                      <div className="h-4 bg-gray-200 rounded w-12" />
+                      <div className="w-9 h-9 bg-gray-200 rounded-lg" />
+                      <div className="w-9 h-9 bg-gray-200 rounded-lg" />
+                      <div className="w-9 h-9 bg-gray-200 rounded-lg" />
+                      <div className="w-9 h-9 bg-gray-200 rounded-lg" />
+                    </div>
+                  </header>
+
+                  {/* Article Content Card Skeleton */}
+                  <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    {/* Cover Image Skeleton */}
+                    <div className="relative w-full aspect-video rounded-lg bg-gray-200 mb-8" />
+
+                    {/* Content Skeleton */}
+                    <div className="space-y-6">
+                      <div className="space-y-3">
+                        <div className="h-4 bg-gray-200 rounded w-full" />
+                        <div className="h-4 bg-gray-200 rounded w-full" />
+                        <div className="h-4 bg-gray-200 rounded w-4/5" />
+                      </div>
+                      <div className="my-8 h-64 bg-gray-200 rounded-lg" />
+                      <div className="space-y-3">
+                        <div className="h-4 bg-gray-200 rounded w-full" />
+                        <div className="h-4 bg-gray-200 rounded w-full" />
+                        <div className="h-4 bg-gray-200 rounded w-3/4" />
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              {/* Sidebar Skeleton */}
+              <div className="lg:col-span-1">
+                <div className="sticky top-24 space-y-6">
+                  {/* Related Articles Skeleton */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-5 animate-pulse">
+                    <div className="h-6 bg-gray-200 rounded mb-4 w-1/2" />
+                    <div className="space-y-4">
+                      {[...Array(3)].map((_, i) => (
+                        <div key={i} className="flex gap-3">
+                          <div className="w-20 h-16 rounded-lg bg-gray-200 shrink-0" />
+                          <div className="flex-1">
+                            <div className="h-4 bg-gray-200 rounded mb-2 w-full" />
+                            <div className="h-3 bg-gray-200 rounded w-2/3" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Categories Skeleton */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-5 animate-pulse">
+                    <div className="h-6 bg-gray-200 rounded mb-4 w-1/2" />
+                    <div className="flex flex-wrap gap-2">
+                      {[...Array(5)].map((_, i) => (
+                        <div key={i} className="h-8 bg-gray-200 rounded-full w-20" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <Footer />
       </div>
     );

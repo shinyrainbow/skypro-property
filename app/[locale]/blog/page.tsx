@@ -174,8 +174,63 @@ export default function BlogPage() {
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           {loading ? (
-            <div className="flex justify-center items-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C9A227]"></div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Main Content Skeleton */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Featured Article Skeleton */}
+                <div className="rounded-xl overflow-hidden bg-white border border-gray-200 animate-pulse">
+                  <div className="h-96 bg-gray-200" />
+                  <div className="p-6">
+                    <div className="h-8 bg-gray-200 rounded mb-3 w-3/4" />
+                    <div className="h-4 bg-gray-200 rounded mb-2 w-full" />
+                    <div className="h-4 bg-gray-200 rounded w-2/3" />
+                  </div>
+                </div>
+
+                {/* Grid Articles Skeleton */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="bg-white rounded-xl border border-gray-200 overflow-hidden animate-pulse">
+                      <div className="h-44 bg-gray-200" />
+                      <div className="p-4">
+                        <div className="h-5 bg-gray-200 rounded mb-2 w-3/4" />
+                        <div className="h-4 bg-gray-200 rounded w-1/2" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sidebar Skeleton */}
+              <div className="lg:col-span-1">
+                <div className="sticky top-24 space-y-6">
+                  {/* Popular Articles Skeleton */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-5 animate-pulse">
+                    <div className="h-6 bg-gray-200 rounded mb-4 w-1/2" />
+                    <div className="space-y-4">
+                      {[...Array(5)].map((_, i) => (
+                        <div key={i} className="flex gap-3">
+                          <div className="w-16 h-16 rounded-lg bg-gray-200 shrink-0" />
+                          <div className="flex-1">
+                            <div className="h-4 bg-gray-200 rounded mb-2 w-full" />
+                            <div className="h-3 bg-gray-200 rounded w-2/3" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Categories Skeleton */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-5 animate-pulse">
+                    <div className="h-6 bg-gray-200 rounded mb-4 w-1/2" />
+                    <div className="flex flex-wrap gap-2">
+                      {[...Array(6)].map((_, i) => (
+                        <div key={i} className="h-8 bg-gray-200 rounded-full w-20" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ) : blogs.length === 0 ? (
             <div className="text-center py-20">
