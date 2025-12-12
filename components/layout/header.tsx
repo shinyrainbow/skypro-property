@@ -31,13 +31,12 @@ export default function Header({ transparent = false }: HeaderProps) {
   }, []);
 
   useEffect(() => {
-    if (!transparent) return;
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [transparent]);
+  }, []);
 
-  const isScrolled = transparent ? scrollY > 50 : true;
+  const isScrolled = scrollY > 50;
 
   const leftNavLinks = [
     { href: "/search?listingType=rent", label: t("rent") },
@@ -59,16 +58,32 @@ export default function Header({ transparent = false }: HeaderProps) {
       <nav
         className={`fixed top-0 left-0 right-0 z-100 transition-all duration-300 ${
           isScrolled
-            ? "backdrop-blur-xl bg-[#111928]/80 border-b border-white/10"
-            : "bg-transparent"
+            ? "bg-[#0A0E1A] shadow-lg shadow-black/30"
+            : transparent ? "bg-transparent" : "bg-[#0A0E1A]/80 backdrop-blur-sm"
         } ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
       >
+        {/* Slide-in accent from left - diagonal edge (desktop only) */}
+        <div
+          className="hidden md:block absolute top-0 bottom-0 left-0 overflow-hidden"
+          style={{
+            width: isScrolled ? "300px" : "0px",
+            transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
+          }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "rgba(245, 235, 200, 0.1)",
+              clipPath: "polygon(0 0, 100% 0, 85% 100%, 0 100%)"
+            }}
+          />
+        </div>
         <div className="container mx-auto px-4">
           {/* Desktop: Logo left, nav center, language right */}
           <div className="hidden md:grid md:grid-cols-3 items-center">
             {/* Left - Logo */}
             <Link href="/" className="flex items-center group">
-              <div className={`relative transition-all duration-300 ${isScrolled ? "h-14" : "h-16"} w-auto`}>
+              <div className={`relative transition-all duration-500 ease-out ${isScrolled ? "h-12" : "h-16"} w-auto`}>
                 <Image
                   src="/name-logo.png"
                   alt="Sky Pro Properties"
@@ -102,9 +117,9 @@ export default function Header({ transparent = false }: HeaderProps) {
           </div>
 
           {/* Mobile: Logo left, menu right */}
-          <div className="flex md:hidden items-center justify-between">
+          <div className="flex md:hidden items-center justify-between py-2">
             <Link href="/" className="flex items-center">
-              <div className="relative h-10 w-auto">
+              <div className={`relative transition-all duration-500 ease-out ${isScrolled ? "h-9" : "h-10"} w-auto`}>
                 <Image
                   src="/name-logo.png"
                   alt="Sky Pro Properties"

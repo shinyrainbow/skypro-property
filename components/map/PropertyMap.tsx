@@ -51,6 +51,24 @@ const customIcon = typeof window !== "undefined" ? new L.Icon({
   popupAnchor: [0, -32],
 }) : null;
 
+// Helper function to validate coordinates
+const isValidCoordinate = (lat: number | null | undefined, lng: number | null | undefined): boolean => {
+  return (
+    lat !== null &&
+    lat !== undefined &&
+    lng !== null &&
+    lng !== undefined &&
+    !isNaN(lat) &&
+    !isNaN(lng) &&
+    isFinite(lat) &&
+    isFinite(lng) &&
+    lat >= -90 &&
+    lat <= 90 &&
+    lng >= -180 &&
+    lng <= 180
+  );
+};
+
 // Component to update map view with smooth animation
 function MapUpdater({ center, zoom }: { center: [number, number]; zoom: number }) {
   const map = useMap();
@@ -189,10 +207,10 @@ export default function PropertyMap({
   const groupedProperties = properties
     .filter((p) => {
       // Filter logic: check if property has valid coordinates
-      if (p.propertyType === "Condo" && p.project?.projectLatitude && p.project?.projectLongitude) {
-        return true;
+      if (p.propertyType === "Condo") {
+        return isValidCoordinate(p.project?.projectLatitude, p.project?.projectLongitude);
       }
-      return p.latitude && p.longitude;
+      return isValidCoordinate(p.latitude, p.longitude);
     })
     .reduce((acc, property) => {
       // Determine which coordinates to use based on property type
@@ -201,14 +219,16 @@ export default function PropertyMap({
 
       if (
         property.propertyType === "Condo" &&
-        property.project?.projectLatitude &&
-        property.project?.projectLongitude
+        isValidCoordinate(property.project?.projectLatitude, property.project?.projectLongitude)
       ) {
-        lat = property.project.projectLatitude;
-        lng = property.project.projectLongitude;
-      } else {
+        lat = property.project!.projectLatitude!;
+        lng = property.project!.projectLongitude!;
+      } else if (isValidCoordinate(property.latitude, property.longitude)) {
         lat = property.latitude!;
         lng = property.longitude!;
+      } else {
+        // Skip properties without valid coordinates
+        return acc;
       }
 
       const key = `${lat.toFixed(6)},${lng.toFixed(6)}`;
@@ -235,6 +255,10 @@ export default function PropertyMap({
       <MapUpdater center={validCenter} zoom={zoom} />
 
       {Object.entries(groupedProperties).map(([key, group]) => {
+        // Final safety check before rendering marker
+        if (!isValidCoordinate(group.lat, group.lng)) {
+          return null;
+        }
         const icon = createCustomIcon(group.properties.length);
         return (
           <Marker

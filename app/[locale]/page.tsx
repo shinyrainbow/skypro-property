@@ -116,6 +116,9 @@ export default function PublicPropertiesPage() {
   // Hero background slideshow
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // Hero content animation
+  const [heroVisible, setHeroVisible] = useState(false);
+
   // Filters
   const [searchText, setSearchText] = useState<string>("");
   const [propertyType, setPropertyType] = useState<string>("");
@@ -154,6 +157,12 @@ export default function PublicPropertiesPage() {
     }, 5000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  // Trigger hero content animation on mount
+  useEffect(() => {
+    const timer = setTimeout(() => setHeroVisible(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   // Intersection observer for animations
@@ -382,7 +391,7 @@ export default function PublicPropertiesPage() {
             ))}
 
             {/* Dark overlay to make images darker */}
-            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 bg-black/50" />
 
             {/* Gradient overlay on the angled edge for blending */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0E1A] via-transparent to-transparent" style={{ width: "25%" }} />
@@ -390,12 +399,12 @@ export default function PublicPropertiesPage() {
 
           {/* Left Side - Overlapping Content Card */}
           <div className="relative z-10 h-full flex items-center px-8 md:px-12 lg:pl-[calc((100vw-1024px)/2+2rem)] xl:pl-[calc((100vw-1280px)/2+2rem)] 2xl:pl-[calc((100vw-1536px)/2+2rem)] py-20 lg:pr-0">
-            <div className="w-full max-w-3xl lg:max-w-2xl xl:max-w-3xl bg-black/30 md:bg-black/20 lg:bg-white/5 backdrop-blur-sm p-6 md:p-8 lg:p-12 border-l-4 border-[#C9A227]">
+            <div className={`w-full max-w-3xl lg:max-w-2xl xl:max-w-3xl bg-black/30 md:bg-black/20 lg:bg-white/5 backdrop-blur-sm p-6 md:p-8 lg:p-12 border-l-4 border-[#C9A227] transition-all duration-700 ${heroVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
               {/* Gold accent line */}
-              <div className="w-12 h-0.5 bg-[#C9A227] mb-6" />
+              <div className={`w-12 h-0.5 bg-[#C9A227] mb-6 transition-all duration-500 ${heroVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"}`} style={{ transitionDelay: "200ms", transformOrigin: "left" }} />
 
               {/* Headline */}
-              <h1 className="font-heading text-3xl md:text-4xl lg:text-3xl xl:text-4xl text-white mb-6 leading-tight tracking-wide">
+              <h1 className={`font-heading text-3xl md:text-4xl lg:text-3xl xl:text-4xl text-white mb-6 leading-tight tracking-wide transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`} style={{ transitionDelay: "300ms" }}>
                 <span className="font-medium">{t("homePage.sellOrRent")}</span>
                 <br />
                 <span className="font-medium">{t("homePage.yourHomeAt")}</span>
@@ -404,12 +413,12 @@ export default function PublicPropertiesPage() {
               </h1>
 
               {/* Subtitle */}
-              <p className="text-base md:text-sm text-gray-300 mb-8 leading-relaxed">
+              <p className={`text-base md:text-sm text-gray-300 mb-8 leading-relaxed transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`} style={{ transitionDelay: "450ms" }}>
                 {t("hero.subtitle")}
               </p>
 
               {/* Key Features */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className={`grid grid-cols-2 gap-4 mb-8 transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`} style={{ transitionDelay: "600ms" }}>
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full bg-[#C9A227]/20 flex items-center justify-center flex-shrink-0">
                     <Home className="w-4 h-4 text-[#C9A227]" />
@@ -431,7 +440,7 @@ export default function PublicPropertiesPage() {
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-10">
+              <div className={`flex flex-col sm:flex-row gap-4 mb-10 transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`} style={{ transitionDelay: "750ms" }}>
                 <Button
                   variant="gold"
                   size="default"
@@ -454,26 +463,26 @@ export default function PublicPropertiesPage() {
               </div>
 
               {/* Stats Row */}
-              <div className="flex flex-wrap gap-6 pt-8 border-t border-white/10">
-                <div>
+              <div className={`flex flex-wrap gap-6 pt-8 border-t border-white/10 transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`} style={{ transitionDelay: "900ms" }}>
+                <div className={`transition-all duration-500 ${heroVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`} style={{ transitionDelay: "1000ms" }}>
                   <div className="text-2xl md:text-xl font-semibold text-white">500+</div>
                   <div className="text-sm md:text-xs text-gray-400">
                     {t("hero.stats.properties")}
                   </div>
                 </div>
-                <div>
+                <div className={`transition-all duration-500 ${heroVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`} style={{ transitionDelay: "1100ms" }}>
                   <div className="text-2xl md:text-xl font-semibold text-white">1000+</div>
                   <div className="text-sm md:text-xs text-gray-400">
                     {t("hero.stats.happyClients")}
                   </div>
                 </div>
-                <div>
+                <div className={`transition-all duration-500 ${heroVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`} style={{ transitionDelay: "1200ms" }}>
                   <div className="text-2xl md:text-xl font-semibold text-white">15+</div>
                   <div className="text-sm md:text-xs text-gray-400">
                     {t("hero.stats.years")}
                   </div>
                 </div>
-                <div>
+                <div className={`transition-all duration-500 ${heroVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`} style={{ transitionDelay: "1300ms" }}>
                   <div className="text-2xl md:text-xl font-semibold text-white">95%</div>
                   <div className="text-sm md:text-xs text-gray-400">
                     {t("homePage.clientSatisfaction")}
