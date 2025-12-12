@@ -738,11 +738,8 @@ export default function PublicPropertiesPage() {
                   {/* Dark overlay - darker by default, lighter on hover */}
                   <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors duration-500" />
 
-                  {/* Gold Gradient Overlay on Left */}
-                  <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#FFD700]/30 to-transparent z-10" />
-
                   {/* Bottom Gradient for Text */}
-                  <div className="absolute inset-0 to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10" />
 
                   {/* Content Overlay */}
                   <div className="absolute inset-0 z-20 flex flex-col justify-end">
@@ -973,9 +970,6 @@ export default function PublicPropertiesPage() {
                           <MapPin className="w-10 h-10 text-gray-600" />
                         </div>
                       )}
-
-                      {/* Gold Gradient Overlay on Left */}
-                      <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#FFD700]/30 to-transparent z-10" />
 
                       {/* Bottom Gradient for Text */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
