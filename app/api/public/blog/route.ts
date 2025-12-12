@@ -21,17 +21,33 @@ export async function GET(request: Request) {
 
     const blogs = await prisma.blog.findMany({
       where: whereClause,
-      include: {
-        sections: {
-          orderBy: {
-            order: "asc",
+      select: {
+        id: true,
+        title: true,
+        titleEn: true,
+        titleZh: true,
+        slug: true,
+        excerpt: true,
+        excerptEn: true,
+        excerptZh: true,
+        coverImage: true,
+        isPublished: true,
+        publishedAt: true,
+        category: {
+          select: {
+            id: true,
+            name: true,
+            nameEn: true,
+            nameZh: true,
+            slug: true,
+            color: true,
           },
         },
-        category: true,
       },
       orderBy: {
         publishedAt: "desc",
       },
+      take: 50, // Limit to 50 most recent posts
     });
 
     return NextResponse.json({
