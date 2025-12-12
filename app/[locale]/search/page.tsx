@@ -60,7 +60,10 @@ async function fetchPropertiesFromAPI(params: FetchPropertiesParams = {}): Promi
   if (params.minPrice) searchParams.set("minPrice", params.minPrice.toString());
   if (params.maxPrice) searchParams.set("maxPrice", params.maxPrice.toString());
 
-  const response = await fetch(`/api/nainahub/properties?${searchParams.toString()}`);
+  const url = `/api/nainahub/properties?${searchParams.toString()}`;
+  console.log("🌐 Fetching from:", url);
+
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error(`API error: ${response.status}`);
@@ -125,17 +128,20 @@ function SearchContent() {
   useEffect(() => {
     const loadData = async () => {
       try {
+        console.log("📡 Loading properties... searchTrigger:", searchTrigger);
         setLoading(true);
         const params: FetchPropertiesParams = {
           limit: 100,
-          ...(searchText && { q: searchText }),
+          ...(searchText && { q: searchText }), // API does conditional search when propertyType is specified
           ...(propertyType && propertyType !== "all" && { propertyType: propertyType as any }),
           ...(listingType && listingType !== "all" && { listingType: listingType as any }),
           ...(bedrooms && bedrooms !== "all" && { bedrooms: parseInt(bedrooms) }),
           ...(minPrice && { minPrice: parseInt(minPrice) }),
           ...(maxPrice && { maxPrice: parseInt(maxPrice) }),
         };
+        console.log("🚀 API call params:", params);
         const response = await fetchPropertiesFromAPI(params);
+        console.log("✅ API response received:", response.data.length, "properties");
         setAllProperties(response.data);
 
         // Generate projects from properties
@@ -178,24 +184,16 @@ function SearchContent() {
 
   // Handle search button click
   const handleSearch = () => {
-    setSearchTrigger(prev => prev + 1);
-  };
+    console.log("🔍 Search button clicked! Current filters:", {
+      searchText,
+      propertyType,
+      listingType,
+      bedrooms,
+      minPrice,
+      maxPrice,
+    });
 
-  // Filter properties based on selected project (UI-only filter)
-  // Search and other filters (propertyType, listingType, bedrooms, prices) are handled by the API
-  useEffect(() => {
-    let filtered = [...allProperties];
-
-    // Filter by project (UI-only feature)
-    if (selectedProject) {
-      filtered = filtered.filter((p) => p.projectCode === selectedProject);
-    }
-
-    setProperties(filtered);
-  }, [allProperties, selectedProject]);
-
-  // Update URL when filters change
-  useEffect(() => {
+    // Update URL with current filter values
     const params = new URLSearchParams();
     if (searchText) params.set("q", searchText);
     if (selectedProject) params.set("project", selectedProject);
@@ -209,7 +207,45 @@ function SearchContent() {
     router.push(`/search${queryString ? `?${queryString}` : ""}`, {
       scroll: false,
     });
-  }, [searchText, selectedProject, propertyType, listingType, bedrooms, minPrice, maxPrice, router]);
+
+    setSearchTrigger(prev => prev + 1);
+  };
+
+  // Filter properties based on selected project and search text (UI-only filters)
+  // Other filters (propertyType, listingType, bedrooms, prices) are handled by the API
+  useEffect(() => {
+    let filtered = [...allProperties];
+
+    // Client-side search filter with conditional logic based on property type
+    if (searchText) {
+      const searchLower = searchText.toLowerCase();
+      filtered = filtered.filter((p) => {
+        // If property type is Condo, search in project fields
+        if (p.propertyType === "Condo") {
+          return (
+            p.project?.projectNameEn?.toLowerCase().includes(searchLower) ||
+            p.project?.projectNameTh?.toLowerCase().includes(searchLower) ||
+            p.project?.projectLocationText?.toLowerCase().includes(searchLower)
+          );
+        }
+        // For other property types, search in property fields
+        else {
+          return (
+            p.propertyTitleEn?.toLowerCase().includes(searchLower) ||
+            p.propertyTitleTh?.toLowerCase().includes(searchLower) ||
+            p.propertyLocationText?.toLowerCase().includes(searchLower)
+          );
+        }
+      });
+    }
+
+    // Filter by project (UI-only feature)
+    if (selectedProject) {
+      filtered = filtered.filter((p) => p.projectCode === selectedProject);
+    }
+
+    setProperties(filtered);
+  }, [allProperties, selectedProject, searchText]);
 
   const formatPrice = (price: number | null) => {
     if (!price) return null;

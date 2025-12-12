@@ -104,18 +104,27 @@ export default function MapSearchPage() {
   useEffect(() => {
     let filtered = [...properties];
 
-    // Filter by search text
+    // Filter by search text with conditional logic based on property type
     if (appliedSearchText) {
       const searchLower = appliedSearchText.toLowerCase();
-      filtered = filtered.filter(
-        (p) =>
-          p.propertyTitleTh?.toLowerCase().includes(searchLower) ||
-          p.propertyTitleEn?.toLowerCase().includes(searchLower) ||
-          p.propertyLocationText?.toLowerCase().includes(searchLower) ||
-          p.project?.projectNameTh?.toLowerCase().includes(searchLower) ||
-          p.project?.projectNameEn?.toLowerCase().includes(searchLower) ||
-          p.project?.projectLocationText?.toLowerCase().includes(searchLower)
-      );
+      filtered = filtered.filter((p) => {
+        // If property type is Condo, search in project fields
+        if (p.propertyType === "Condo") {
+          return (
+            p.project?.projectNameEn?.toLowerCase().includes(searchLower) ||
+            p.project?.projectNameTh?.toLowerCase().includes(searchLower) ||
+            p.project?.projectLocationText?.toLowerCase().includes(searchLower)
+          );
+        }
+        // For other property types, search in property fields
+        else {
+          return (
+            p.propertyTitleEn?.toLowerCase().includes(searchLower) ||
+            p.propertyTitleTh?.toLowerCase().includes(searchLower) ||
+            p.propertyLocationText?.toLowerCase().includes(searchLower)
+          );
+        }
+      });
     }
 
     // Filter by subPropertyType if selected

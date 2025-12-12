@@ -531,8 +531,9 @@ export default function PublicPropertiesPage() {
 
             {/* Search filters - Dark card */}
             <div className="rounded-xl p-4 border border-white/40">
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-                <div className="col-span-2 md:col-span-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+                {/* Search Input - Full width on mobile, 1 column on desktop */}
+                <div className="sm:col-span-2 lg:col-span-1">
                   <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
                     {t("search.search")}
                   </label>
@@ -548,6 +549,7 @@ export default function PublicPropertiesPage() {
                   </div>
                 </div>
 
+                {/* Listing Type */}
                 <div>
                   <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
                     {t("search.listingType")}
@@ -564,12 +566,13 @@ export default function PublicPropertiesPage() {
                   </Select>
                 </div>
 
+                {/* Property Type */}
                 <div>
                   <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
                     {t("search.propertyType")}
                   </label>
                   <Select value={propertyType} onValueChange={setPropertyType}>
-                    <SelectTrigger className="h-9 border-white/10 rounded-lg text-white text-sm">
+                    <SelectTrigger className="h-9 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm">
                       <SelectValue placeholder={t("search.all")} />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1F2937] border-white/10">
@@ -588,6 +591,7 @@ export default function PublicPropertiesPage() {
                   </Select>
                 </div>
 
+                {/* Bedrooms */}
                 <div>
                   <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
                     {t("search.bedrooms")}
@@ -608,6 +612,7 @@ export default function PublicPropertiesPage() {
                   </Select>
                 </div>
 
+                {/* Max Price */}
                 <div>
                   <label className="text-[10px] font-medium text-gray-400 mb-1.5 block uppercase tracking-wider">
                     {t("search.maxPrice")}
@@ -621,7 +626,8 @@ export default function PublicPropertiesPage() {
                   />
                 </div>
 
-                <div className="flex items-end">
+                {/* Search Button - Full width on mobile, 1 column on desktop */}
+                <div className="sm:col-span-2 lg:col-span-1 flex items-end">
                   <Button
                     variant="gold"
                     className="h-9 w-full text-sm"
