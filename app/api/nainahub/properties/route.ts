@@ -20,7 +20,12 @@ export async function GET(request: Request) {
     if (q) params.q = q;
     if (limit) params.limit = parseInt(limit);
     if (page) params.page = parseInt(page);
-    if (propertyType && propertyType !== "all") params.propertyType = propertyType as any;
+    // Convert "all" to "All" for NainaHub API
+    if (propertyType && propertyType !== "all") {
+      params.propertyType = propertyType as any;
+    } else if (propertyType === "all") {
+      params.propertyType = "All" as any;
+    }
     if (listingType && listingType !== "all") params.listingType = listingType as any;
     if (bedrooms && bedrooms !== "all") params.bedrooms = parseInt(bedrooms);
     if (minPrice) params.minPrice = parseInt(minPrice);

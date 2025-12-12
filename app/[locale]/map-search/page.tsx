@@ -13,6 +13,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectLabel,
+  SelectSeparator,
 } from "@/components/ui/select";
 import {
   Sheet,
@@ -32,13 +34,6 @@ import {
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import type { NainaHubProperty } from "@/lib/nainahub";
-import {
-  getMainPropertyTypes,
-  getSubPropertyTypes,
-  SUB_PROPERTY_TYPE_LABELS,
-  type MainPropertyType,
-  type SubPropertyType,
-} from "@/lib/propertyTypes";
 
 type Property = NainaHubProperty;
 
@@ -65,10 +60,8 @@ export default function MapSearchPage() {
   // Filter drawer state (for mobile/tablet)
   const [filterOpen, setFilterOpen] = useState(false);
 
-  // Filters
+  // Filters (user input - not applied until search button clicked)
   const [searchText, setSearchText] = useState<string>("");
-  const [appliedSearchText, setAppliedSearchText] = useState<string>(""); // Actually applied search
-  const [mainPropertyType, setMainPropertyType] = useState<string>("");
   const [subPropertyType, setSubPropertyType] = useState<string>("");
   const [listingType, setListingType] = useState<string>("");
   const [bedrooms, setBedrooms] = useState<string>("");
@@ -77,6 +70,17 @@ export default function MapSearchPage() {
   const [maxPrice, setMaxPrice] = useState<string>("");
   const [minSize, setMinSize] = useState<string>("");
   const [maxSize, setMaxSize] = useState<string>("");
+
+  // Applied filters (actually used for filtering)
+  const [appliedSearchText, setAppliedSearchText] = useState<string>("");
+  const [appliedSubPropertyType, setAppliedSubPropertyType] = useState<string>("");
+  const [appliedListingType, setAppliedListingType] = useState<string>("");
+  const [appliedBedrooms, setAppliedBedrooms] = useState<string>("");
+  const [appliedBathrooms, setAppliedBathrooms] = useState<string>("");
+  const [appliedMinPrice, setAppliedMinPrice] = useState<string>("");
+  const [appliedMaxPrice, setAppliedMaxPrice] = useState<string>("");
+  const [appliedMinSize, setAppliedMinSize] = useState<string>("");
+  const [appliedMaxSize, setAppliedMaxSize] = useState<string>("");
 
   // Load properties
   useEffect(() => {
@@ -100,7 +104,7 @@ export default function MapSearchPage() {
     loadProperties();
   }, []);
 
-  // Apply filters
+  // Apply filters - only uses "applied" filter states
   useEffect(() => {
     let filtered = [...properties];
 
@@ -109,7 +113,7 @@ export default function MapSearchPage() {
       const searchLower = appliedSearchText.toLowerCase();
       filtered = filtered.filter((p) => {
         // If no property type filter selected (ทั้งหมด), search ALL fields
-        if (!subPropertyType || subPropertyType === "" || subPropertyType === "all") {
+        if (!appliedSubPropertyType || appliedSubPropertyType === "" || appliedSubPropertyType === "all") {
           return (
             // Search project fields
             p.project?.projectNameEn?.toLowerCase().includes(searchLower) ||
@@ -144,54 +148,54 @@ export default function MapSearchPage() {
     }
 
     // Filter by subPropertyType if selected
-    if (subPropertyType && subPropertyType !== "all") {
-      filtered = filtered.filter((p) => p.propertyType === subPropertyType);
+    if (appliedSubPropertyType && appliedSubPropertyType !== "all") {
+      filtered = filtered.filter((p) => p.propertyType === appliedSubPropertyType);
     }
 
-    if (listingType && listingType !== "all") {
-      if (listingType === "rent") {
+    if (appliedListingType && appliedListingType !== "all") {
+      if (appliedListingType === "rent") {
         filtered = filtered.filter((p) => p.rentalRateNum && p.rentalRateNum > 0);
-      } else if (listingType === "sale") {
+      } else if (appliedListingType === "sale") {
         filtered = filtered.filter((p) => p.sellPriceNum && p.sellPriceNum > 0);
       }
     }
 
-    if (bedrooms && bedrooms !== "all") {
-      const bedroomNum = parseInt(bedrooms);
+    if (appliedBedrooms && appliedBedrooms !== "all") {
+      const bedroomNum = parseInt(appliedBedrooms);
       filtered = filtered.filter((p) => p.bedRoomNum >= bedroomNum);
     }
 
-    if (bathrooms && bathrooms !== "all") {
-      const bathroomNum = parseInt(bathrooms);
+    if (appliedBathrooms && appliedBathrooms !== "all") {
+      const bathroomNum = parseInt(appliedBathrooms);
       filtered = filtered.filter((p) => p.bathRoomNum >= bathroomNum);
     }
 
-    if (minPrice) {
-      const min = parseInt(minPrice);
+    if (appliedMinPrice) {
+      const min = parseInt(appliedMinPrice);
       filtered = filtered.filter((p) => {
         const price = p.rentalRateNum || p.sellPriceNum || 0;
         return price >= min;
       });
     }
 
-    if (maxPrice) {
-      const max = parseInt(maxPrice);
+    if (appliedMaxPrice) {
+      const max = parseInt(appliedMaxPrice);
       filtered = filtered.filter((p) => {
         const price = p.rentalRateNum || p.sellPriceNum || 0;
         return price <= max;
       });
     }
 
-    if (minSize) {
-      const min = parseInt(minSize);
+    if (appliedMinSize) {
+      const min = parseInt(appliedMinSize);
       filtered = filtered.filter((p) => {
         const size = p.usableAreaSqm || p.roomSizeNum || 0;
         return size >= min;
       });
     }
 
-    if (maxSize) {
-      const max = parseInt(maxSize);
+    if (appliedMaxSize) {
+      const max = parseInt(appliedMaxSize);
       filtered = filtered.filter((p) => {
         const size = p.usableAreaSqm || p.roomSizeNum || 0;
         return size <= max;
@@ -199,11 +203,20 @@ export default function MapSearchPage() {
     }
 
     setFilteredProperties(filtered);
-  }, [properties, appliedSearchText, subPropertyType, listingType, bedrooms, bathrooms, minPrice, maxPrice, minSize, maxSize]);
+  }, [properties, appliedSearchText, appliedSubPropertyType, appliedListingType, appliedBedrooms, appliedBathrooms, appliedMinPrice, appliedMaxPrice, appliedMinSize, appliedMaxSize]);
 
-  // Handle search button click
+  // Handle search button click - apply all filters
   const handleApplySearch = () => {
     setAppliedSearchText(searchText);
+    setAppliedSubPropertyType(subPropertyType);
+    setAppliedListingType(listingType);
+    setAppliedBedrooms(bedrooms);
+    setAppliedBathrooms(bathrooms);
+    setAppliedMinPrice(minPrice);
+    setAppliedMaxPrice(maxPrice);
+    setAppliedMinSize(minSize);
+    setAppliedMaxSize(maxSize);
+    setFilterOpen(false); // Close filter drawer after applying
   };
 
   const formatPrice = (price: number | null) => {
@@ -219,9 +232,8 @@ export default function MapSearchPage() {
   };
 
   const handleClearFilters = () => {
+    // Clear user input states
     setSearchText("");
-    setAppliedSearchText("");
-    setMainPropertyType("");
     setSubPropertyType("");
     setListingType("");
     setBedrooms("");
@@ -230,6 +242,17 @@ export default function MapSearchPage() {
     setMaxPrice("");
     setMinSize("");
     setMaxSize("");
+
+    // Clear applied filter states
+    setAppliedSearchText("");
+    setAppliedSubPropertyType("");
+    setAppliedListingType("");
+    setAppliedBedrooms("");
+    setAppliedBathrooms("");
+    setAppliedMinPrice("");
+    setAppliedMaxPrice("");
+    setAppliedMinSize("");
+    setAppliedMaxSize("");
   };
 
   const handlePropertyClick = (property: Property) => {
@@ -278,8 +301,8 @@ export default function MapSearchPage() {
       </div>
 
       {/* Filters - Fixed at Top (Desktop only) */}
-      <div className="hidden md:block fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 p-3 md:p-4 shadow-md">
-        <div className="container mx-auto">
+      <div className="hidden md:block fixed top-16 left-0 right-0 z-60 bg-white border-b border-gray-200 p-3 md:p-4 shadow-md pointer-events-auto" style={{ overflow: 'visible' }}>
+        <div className="max-w-7xl mx-auto" style={{ overflow: 'visible' }}>
             {/* Filter Header */}
             <div className="flex items-center justify-between mb-3 md:mb-4">
               <div className="flex items-center gap-2 md:gap-3">
@@ -302,9 +325,9 @@ export default function MapSearchPage() {
             </div>
 
             {/* Filter Controls - Horizontal Layout */}
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            <div className="flex gap-2 pb-2 items-end flex-wrap">
               {/* Search Input */}
-              <div>
+              <div className="flex-1">
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
                   {t("search.search")}
                 </label>
@@ -320,58 +343,44 @@ export default function MapSearchPage() {
                 </div>
               </div>
 
-              {/* Main Property Type */}
-              <div>
+              {/* Property Type */}
+              <div className="flex-1">
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  {t("propertyTypes.mainPropertyType")}
+                  ประเภททรัพย์
                 </label>
-                <Select
-                  value={mainPropertyType}
-                  onValueChange={(value) => {
-                    setMainPropertyType(value);
-                    setSubPropertyType(""); // Reset sub type when main type changes
-                  }}
-                >
+                <Select value={subPropertyType} onValueChange={setSubPropertyType}>
                   <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
                     <SelectValue placeholder={t("common.all")} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">{t("common.all")}</SelectItem>
-                    {getMainPropertyTypes().map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {t(`propertyTypes.main.${type.toLowerCase()}`)}
-                      </SelectItem>
-                    ))}
+
+                    <SelectSeparator />
+                    <SelectLabel>ที่อยู่อาศัย</SelectLabel>
+                    <SelectItem value="Condo">คอนโด</SelectItem>
+                    <SelectItem value="Townhouse">ทาวน์เฮ้าส์</SelectItem>
+                    <SelectItem value="SingleHouse">บ้านเดี่ยว</SelectItem>
+                    <SelectItem value="Villa">วิลล่า</SelectItem>
+
+                    <SelectSeparator />
+                    <SelectLabel>ที่ดิน</SelectLabel>
+                    <SelectItem value="Land">ที่ดิน</SelectItem>
+
+                    <SelectSeparator />
+                    <SelectLabel>พาณิชย์</SelectLabel>
+                    <SelectItem value="Office">สำนักงาน</SelectItem>
+                    <SelectItem value="Store">ร้านค้า</SelectItem>
+                    <SelectItem value="Factory">โรงงาน</SelectItem>
+                    <SelectItem value="Hotel">โรงแรม</SelectItem>
+                    <SelectItem value="Building">อาคาร</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Sub Property Type */}
-              {mainPropertyType && mainPropertyType !== "all" && (
-                <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                    {t("propertyTypes.subPropertyType")}
-                  </label>
-                  <Select value={subPropertyType} onValueChange={setSubPropertyType}>
-                    <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                      <SelectValue placeholder={t("common.all")} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">{t("common.all")}</SelectItem>
-                      {getSubPropertyTypes(mainPropertyType as MainPropertyType).map((subType) => (
-                        <SelectItem key={subType} value={subType}>
-                          {t(`propertyTypes.sub.${subType.toLowerCase()}`)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
-
               {/* Listing Type */}
-              <div>
+              <div className="flex-1">
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  {t("search.listingType")}
+                  ประเภทการตลาด
                 </label>
                 <Select value={listingType} onValueChange={setListingType}>
                   <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
@@ -385,101 +394,116 @@ export default function MapSearchPage() {
                 </Select>
               </div>
 
-              {/* Bedrooms */}
-              <div>
+              {/* Bedrooms / Bathrooms Combined */}
+              <div className="flex-1">
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  {t("search.bedrooms")}
+                  ห้องนอน / ห้องน้ำ
                 </label>
-                <Select value={bedrooms} onValueChange={setBedrooms}>
+                <div className="flex gap-1">
+                  <Select value={bedrooms} onValueChange={setBedrooms}>
+                    <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
+                      <SelectValue placeholder="นอน" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">ทั้งหมด</SelectItem>
+                      <SelectItem value="1">1+</SelectItem>
+                      <SelectItem value="2">2+</SelectItem>
+                      <SelectItem value="3">3+</SelectItem>
+                      <SelectItem value="4">4+</SelectItem>
+                      <SelectItem value="5">5+</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Select value={bathrooms} onValueChange={setBathrooms}>
+                    <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
+                      <SelectValue placeholder="น้ำ" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">ทั้งหมด</SelectItem>
+                      <SelectItem value="1">1+</SelectItem>
+                      <SelectItem value="2">2+</SelectItem>
+                      <SelectItem value="3">3+</SelectItem>
+                      <SelectItem value="4">4+</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Price Range Dropdown */}
+              <div className="flex-1">
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">
+                  ช่วงราคา
+                </label>
+                <Select
+                  value={minPrice && maxPrice ? `${minPrice}-${maxPrice}` : minPrice ? `${minPrice}-` : maxPrice ? `-${maxPrice}` : "all"}
+                  onValueChange={(value) => {
+                    if (value === "all") {
+                      setMinPrice("");
+                      setMaxPrice("");
+                    } else {
+                      const [min, max] = value.split("-");
+                      setMinPrice(min || "");
+                      setMaxPrice(max || "");
+                    }
+                  }}
+                >
                   <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                    <SelectValue placeholder={t("common.all")} />
+                    <SelectValue placeholder="ทั้งหมด" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t("common.all")}</SelectItem>
-                    <SelectItem value="1">1+</SelectItem>
-                    <SelectItem value="2">2+</SelectItem>
-                    <SelectItem value="3">3+</SelectItem>
-                    <SelectItem value="4">4+</SelectItem>
-                    <SelectItem value="5">5+</SelectItem>
+                    <SelectItem value="all">ทั้งหมด</SelectItem>
+                    <SelectItem value="-5000">&lt; 5,000</SelectItem>
+                    <SelectItem value="5000-10000">5,000 - 10,000</SelectItem>
+                    <SelectItem value="10000-20000">10,000 - 20,000</SelectItem>
+                    <SelectItem value="20000-30000">20,000 - 30,000</SelectItem>
+                    <SelectItem value="30000-50000">30,000 - 50,000</SelectItem>
+                    <SelectItem value="50000-">&gt; 50,000</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Bathrooms */}
-              <div>
+              {/* Size Range Dropdown */}
+              <div className="flex-1">
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  {t("search.bathrooms")}
+                  ขนาด (ตร.ม.)
                 </label>
-                <Select value={bathrooms} onValueChange={setBathrooms}>
+                <Select
+                  value={minSize && maxSize ? `${minSize}-${maxSize}` : minSize ? `${minSize}-` : maxSize ? `-${maxSize}` : "all"}
+                  onValueChange={(value) => {
+                    if (value === "all") {
+                      setMinSize("");
+                      setMaxSize("");
+                    } else {
+                      const [min, max] = value.split("-");
+                      setMinSize(min || "");
+                      setMaxSize(max || "");
+                    }
+                  }}
+                >
                   <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                    <SelectValue placeholder={t("common.all")} />
+                    <SelectValue placeholder="ทั้งหมด" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t("common.all")}</SelectItem>
-                    <SelectItem value="1">1+</SelectItem>
-                    <SelectItem value="2">2+</SelectItem>
-                    <SelectItem value="3">3+</SelectItem>
-                    <SelectItem value="4">4+</SelectItem>
+                    <SelectItem value="all">ทั้งหมด</SelectItem>
+                    <SelectItem value="-30">&lt; 30</SelectItem>
+                    <SelectItem value="30-50">30 - 50</SelectItem>
+                    <SelectItem value="50-80">50 - 80</SelectItem>
+                    <SelectItem value="80-100">80 - 100</SelectItem>
+                    <SelectItem value="100-150">100 - 150</SelectItem>
+                    <SelectItem value="150-">&gt; 150</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Price Range */}
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  {t("search.priceRange")}
-                </label>
-                <div className="flex gap-1">
-                  <Input
-                    type="number"
-                    placeholder={t("search.min")}
-                    value={minPrice}
-                    onChange={(e) => setMinPrice(e.target.value)}
-                    className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-9 text-sm"
-                  />
-                  <Input
-                    type="number"
-                    placeholder={t("search.max")}
-                    value={maxPrice}
-                    onChange={(e) => setMaxPrice(e.target.value)}
-                    className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-9 text-sm"
-                  />
-                </div>
+              {/* Search Button */}
+              <div className="shrink-0">
+                <Button
+                  onClick={handleApplySearch}
+                  className="h-9 bg-[#C9A227] hover:bg-[#A88B1F] text-white px-4"
+                >
+                  <Search className="w-4 h-4 mr-2" />
+                  ค้นหา
+                </Button>
               </div>
-
-              {/* Size Range */}
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  {t("search.sizeRange")} ({t("common.sqm")})
-                </label>
-                <div className="flex gap-1">
-                  <Input
-                    type="number"
-                    placeholder={t("search.min")}
-                    value={minSize}
-                    onChange={(e) => setMinSize(e.target.value)}
-                    className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-9 text-sm"
-                  />
-                  <Input
-                    type="number"
-                    placeholder={t("search.max")}
-                    value={maxSize}
-                    onChange={(e) => setMaxSize(e.target.value)}
-                    className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-9 text-sm"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Search Button */}
-            <div className="mt-4">
-              <Button
-                onClick={handleApplySearch}
-                className="w-full md:w-auto bg-[#C9A227] hover:bg-[#A88B1F] text-white"
-              >
-                <Search className="w-4 h-4 mr-2" />
-                {t("search.searchButton")}
-              </Button>
             </div>
           </div>
         </div>
@@ -513,53 +537,39 @@ export default function MapSearchPage() {
               </Button>
             </div>
 
-            {/* Main Property Type */}
+            {/* Property Type */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t("propertyTypes.mainPropertyType")}
+                ประเภททรัพย์
               </label>
-              <Select
-                value={mainPropertyType}
-                onValueChange={(value) => {
-                  setMainPropertyType(value);
-                  setSubPropertyType("");
-                }}
-              >
+              <Select value={subPropertyType} onValueChange={setSubPropertyType}>
                 <SelectTrigger className="bg-white border-gray-300 text-gray-900">
                   <SelectValue placeholder={t("common.all")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("common.all")}</SelectItem>
-                  {getMainPropertyTypes().map((type) => (
-                    <SelectItem key={type} value={type}>
-                      {t(`propertyTypes.main.${type.toLowerCase()}`)}
-                    </SelectItem>
-                  ))}
+
+                  <SelectSeparator />
+                  <SelectLabel>ที่อยู่อาศัย</SelectLabel>
+                  <SelectItem value="Condo">คอนโด</SelectItem>
+                  <SelectItem value="Townhouse">ทาวน์เฮ้าส์</SelectItem>
+                  <SelectItem value="SingleHouse">บ้านเดี่ยว</SelectItem>
+                  <SelectItem value="Villa">วิลล่า</SelectItem>
+
+                  <SelectSeparator />
+                  <SelectLabel>ที่ดิน</SelectLabel>
+                  <SelectItem value="Land">ที่ดิน</SelectItem>
+
+                  <SelectSeparator />
+                  <SelectLabel>พาณิชย์</SelectLabel>
+                  <SelectItem value="Office">สำนักงาน</SelectItem>
+                  <SelectItem value="Store">ร้านค้า</SelectItem>
+                  <SelectItem value="Factory">โรงงาน</SelectItem>
+                  <SelectItem value="Hotel">โรงแรม</SelectItem>
+                  <SelectItem value="Building">อาคาร</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-
-            {/* Sub Property Type */}
-            {mainPropertyType && mainPropertyType !== "all" && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t("propertyTypes.subPropertyType")}
-                </label>
-                <Select value={subPropertyType} onValueChange={setSubPropertyType}>
-                  <SelectTrigger className="bg-white border-gray-300 text-gray-900">
-                    <SelectValue placeholder={t("common.all")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">{t("common.all")}</SelectItem>
-                    {getSubPropertyTypes(mainPropertyType as MainPropertyType).map((subType) => (
-                      <SelectItem key={subType} value={subType}>
-                        {t(`propertyTypes.sub.${subType.toLowerCase()}`)}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
 
             {/* Listing Type */}
             <div>
@@ -676,7 +686,7 @@ export default function MapSearchPage() {
       </Sheet>
 
       {/* Main Content - Map (Left) and Cards (Right) */}
-      <div className="pt-20 md:pt-[280px] lg:pt-[240px] min-h-screen">
+      <div className="pt-32 md:pt-[280px] lg:pt-[240px] min-h-screen">
         <div className="flex flex-col md:flex-row min-h-[calc(100vh-320px)] md:h-[calc(100vh-280px)] lg:h-[calc(100vh-240px)]">
           {/* Left - Map (Hidden on mobile) */}
           <div className="hidden md:block md:w-1/2 relative md:h-auto">

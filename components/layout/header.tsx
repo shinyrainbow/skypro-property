@@ -83,8 +83,10 @@ export default function Header({ transparent = false }: HeaderProps) {
             </div>
 
             {/* Right - Language Switcher */}
-            <div className="flex justify-end">
-              <LanguageSwitcher variant="light" compact />
+            <div className="flex justify-end pointer-events-none">
+              <div className="pointer-events-auto">
+                <LanguageSwitcher variant="light" compact />
+              </div>
             </div>
           </div>
 

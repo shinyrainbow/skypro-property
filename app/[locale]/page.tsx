@@ -74,6 +74,7 @@ interface Project {
 async function fetchPropertiesFromAPI(params: FetchPropertiesParams = {}): Promise<NainaHubResponse> {
   const searchParams = new URLSearchParams();
 
+  if (params.q) searchParams.set("q", params.q);
   if (params.page) searchParams.set("page", params.page.toString());
   if (params.limit) searchParams.set("limit", params.limit.toString());
   if (params.propertyType) searchParams.set("propertyType", params.propertyType);
@@ -216,7 +217,7 @@ export default function PublicPropertiesPage() {
 
   useEffect(() => {
     loadProperties();
-  }, [page, propertyType, listingType, bedrooms, minPrice, maxPrice]);
+  }, [page]);
 
   // Check slider scroll state
   const checkSliderScroll = useCallback(
@@ -544,7 +545,7 @@ export default function PublicPropertiesPage() {
                       placeholder={t("searchPage.searchPlaceholder")}
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
-                      className="h-9 pl-8 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm placeholder:text-gray-500"
+                      className="h-9 pl-8 bg-white border-gray-200 rounded-lg text-gray-900 text-sm placeholder:text-gray-400"
                     />
                   </div>
                 </div>

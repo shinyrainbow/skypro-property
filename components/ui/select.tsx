@@ -130,11 +130,11 @@ export function SelectContent({ children, className = "" }: SelectContentProps) 
 
   return (
     <div
-      className={`absolute z-50 mt-1 w-full rounded-md border border-gray-200 bg-white text-gray-900 shadow-lg ${
+      className={`absolute z-100 mt-1 w-full rounded-md border border-gray-200 bg-white text-gray-900 shadow-lg ${
         open ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"
       } ${className}`}
     >
-      <div className="p-1">{children}</div>
+      <div className="p-1 max-h-60 overflow-y-auto">{children}</div>
     </div>
   );
 }
@@ -173,6 +173,18 @@ export function SelectItem({ value, children }: SelectItemProps) {
         setOpen(false);
       }}
     >
+      {children}
+    </div>
+  );
+}
+
+export function SelectSeparator() {
+  return <div className="my-1 h-px bg-gray-200" />;
+}
+
+export function SelectLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="px-2 py-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">
       {children}
     </div>
   );
