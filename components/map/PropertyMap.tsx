@@ -183,7 +183,7 @@ export default function PropertyMap({
   const validCenter: [number, number] =
     !isNaN(center[0]) && !isNaN(center[1])
       ? center
-      : [13.6904, 101.0779]; // Default to Chachoengsao center
+      : [18.7883, 98.9853]; // Default to Chiang Mai center
 
   // Group properties by coordinates
   const groupedProperties = properties

@@ -58,7 +58,7 @@ export default function MapSearchPage() {
   const [loading, setLoading] = useState(true);
 
   // Map state
-  const [mapCenter, setMapCenter] = useState<[number, number]>([13.6904, 101.0779]); // Chachoengsao center
+  const [mapCenter, setMapCenter] = useState<[number, number]>([18.7883, 98.9853]); // Chiang Mai center
   const [mapZoom, setMapZoom] = useState(12);
 
   // Filter drawer state (for mobile/tablet)

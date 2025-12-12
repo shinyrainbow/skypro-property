@@ -1,15 +1,5 @@
 @import "tailwindcss";
 
-/* Bank Gothic BT Font - for English text */
-@font-face {
-  font-family: 'Bank Gothic';
-  src: url('/fonts/BankGothicBT-Medium.woff2') format('woff2'),
-       url('/fonts/BankGothicBT-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   /* Sky Pro Properties Brand Colors - Dark Mode */
   --background: #111928;
@@ -58,7 +48,7 @@
   --ring: var(--gold);
 
   /* Fonts */
-  --font-heading: 'Bank Gothic', 'Arial Black', sans-serif;
+  --font-heading: var(--font-orbitron), 'Orbitron', sans-serif;
   --font-body: var(--font-kanit), 'Kanit', sans-serif;
 }
 
@@ -74,7 +64,7 @@
   --color-silver: var(--silver);
   --color-accent: var(--gold);
   --font-sans: var(--font-kanit), "Kanit", sans-serif;
-  --font-heading: 'Bank Gothic', 'Arial Black', sans-serif;
+  --font-heading: var(--font-orbitron), 'Orbitron', sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 
@@ -87,11 +77,11 @@ body {
   font-family: var(--font-kanit), "Kanit", sans-serif;
 }
 
-/* English text uses Bank Gothic */
+/* English text uses Orbitron */
 .font-heading,
 h1:lang(en), h2:lang(en), h3:lang(en),
 .text-english {
-  font-family: 'Bank Gothic', 'Arial Black', sans-serif;
+  font-family: var(--font-orbitron), 'Orbitron', sans-serif;
 }
 
 /* Thai text uses Kanit */

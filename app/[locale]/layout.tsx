@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Kanit } from "next/font/google";
+import { Kanit, Orbitron } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -17,6 +17,13 @@ const kanit = Kanit({
   weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin", "thai"],
   variable: "--font-kanit",
+  display: "swap",
+});
+
+const orbitron = Orbitron({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-orbitron",
   display: "swap",
 });
 
@@ -145,7 +152,7 @@ export default async function LocaleLayout({
         <link rel="apple-touch-icon" href="/header-logo.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className={`${kanit.variable} font-sans antialiased`}>
+      <body className={`${kanit.variable} ${orbitron.variable} font-sans antialiased`}>
         <OrganizationJsonLd />
         <NextIntlClientProvider messages={messages}>
           <AuthSessionProvider>

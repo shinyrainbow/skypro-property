@@ -815,10 +815,10 @@ export default function PropertiesPage() {
             </span>
           </div>
           <p className="mb-2 text-sm">
-            Premium Real Estate Solutions | Chachoengsao, Thailand
+            Premium Real Estate Solutions | Chiang Mai, Thailand
           </p>
           <p className="text-xs">
-            © 2025 Sky Pro Properties. All rights reserved.
+            © 2025 บริษัท สกายโปรพร้อมเพอร์ตี้ จำกัด. All rights reserved.
           </p>
         </div>
       </footer>
