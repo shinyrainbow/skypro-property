@@ -277,16 +277,16 @@ export default function BlogPostPage({
         <div className="container mx-auto px-4 py-20 text-center bg-gray-50">
           <FileText className="w-20 h-20 mx-auto text-gray-600 mb-6" />
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
-            Blog post not found
+            {t("notFound")}
           </h1>
           <p className="text-gray-400 mb-8">
-            The blog post you are looking for does not exist or has been removed.
+            {t("notFoundDesc")}
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/blog">
               <Button variant="outline" className="border-gray-300 text-gray-700 hover:border-[#C9A227] hover:text-[#C9A227]">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Blog
+                {t("backToBlog")}
               </Button>
             </Link>
             <Link href="/">
@@ -312,11 +312,11 @@ export default function BlogPostPage({
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-2 text-sm">
             <Link href="/" className="text-gray-400 hover:text-[#C9A227] transition-colors">
-              Home
+              {t("home")}
             </Link>
             <span className="text-gray-600">/</span>
             <Link href="/blog" className="text-gray-400 hover:text-[#C9A227] transition-colors">
-              Blog
+              {t("blog")}
             </Link>
             <span className="text-gray-600">/</span>
             <span className="text-[#C9A227] truncate max-w-[200px]">{getLocalizedTitle(blog)}</span>
@@ -347,7 +347,7 @@ export default function BlogPostPage({
                       <div className="w-8 h-8 bg-[#C9A227] rounded-full flex items-center justify-center">
                         <User className="w-4 h-4 text-[#111928]" />
                       </div>
-                      <span>Sky Pro Team</span>
+                      <span>{t("author")}</span>
                     </div>
                     {blog.publishedAt && (
                       <div className="flex items-center gap-1">
@@ -359,7 +359,7 @@ export default function BlogPostPage({
 
                   {/* Social Share Buttons */}
                   <div className="flex items-center gap-2 pb-6 border-b border-white/10">
-                    <span className="text-gray-400 text-sm mr-2">Share:</span>
+                    <span className="text-gray-400 text-sm mr-2">{t("share")}:</span>
                     <button
                       onClick={() => handleShare("facebook")}
                       className="w-9 h-9 bg-[#1877F2] rounded-lg flex items-center justify-center hover:opacity-80 transition-opacity"
@@ -451,7 +451,7 @@ export default function BlogPostPage({
                 <div className="mt-12 pt-8 border-t border-white/10">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-400 text-sm">Share this article:</span>
+                      <span className="text-gray-400 text-sm">{t("shareArticle")}</span>
                       <button
                         onClick={() => handleShare("facebook")}
                         className="w-8 h-8 bg-[#1877F2] rounded flex items-center justify-center hover:opacity-80 transition-opacity"
@@ -474,7 +474,7 @@ export default function BlogPostPage({
                     <Link href="/blog">
                       <Button variant="outline" size="sm" className="border-gray-300 text-gray-700 hover:border-[#C9A227] hover:text-[#C9A227]">
                         <ArrowLeft className="w-4 h-4 mr-2" />
-                        Back to Blog
+                        {t("backToBlog")}
                       </Button>
                     </Link>
                   </div>
@@ -489,7 +489,7 @@ export default function BlogPostPage({
                 <div className="bg-white rounded-xl border border-gray-200 p-5">
                   <h3 className="text-gray-900 font-semibold mb-4 flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-[#C9A227]" />
-                    Related Articles
+                    {t("relatedArticles")}
                   </h3>
                   <div className="space-y-4">
                     {relatedBlogs.map((relatedBlog) => (
@@ -526,21 +526,27 @@ export default function BlogPostPage({
                       </Link>
                     ))}
                     {relatedBlogs.length === 0 && (
-                      <p className="text-gray-500 text-sm">No related articles found.</p>
+                      <p className="text-gray-500 text-sm">{t("noRelatedArticles")}</p>
                     )}
                   </div>
                 </div>
 
                 {/* Categories */}
                 <div className="bg-white rounded-xl border border-gray-200 p-5">
-                  <h3 className="text-gray-900 font-semibold mb-4">Categories</h3>
+                  <h3 className="text-gray-900 font-semibold mb-4">{t("categories")}</h3>
                   <div className="flex flex-wrap gap-2">
-                    {["Real Estate", "Market Trends", "Tips", "Investment", "News"].map((tag) => (
+                    {[
+                      { key: "categoryRealEstate", label: t("categoryRealEstate") },
+                      { key: "categoryMarketTrends", label: t("categoryMarketTrends") },
+                      { key: "categoryTips", label: t("categoryTips") },
+                      { key: "categoryInvestment", label: t("categoryInvestment") },
+                      { key: "categoryNews", label: t("categoryNews") },
+                    ].map((tag) => (
                       <span
-                        key={tag}
+                        key={tag.key}
                         className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full border border-gray-200 hover:border-[#C9A227]/50 hover:text-[#C9A227] transition-colors cursor-pointer"
                       >
-                        {tag}
+                        {tag.label}
                       </span>
                     ))}
                   </div>
@@ -548,11 +554,11 @@ export default function BlogPostPage({
 
                 {/* Contact CTA */}
                 <div className="bg-gradient-to-br from-[#C9A227]/20 to-[#C9A227]/5 rounded-xl border border-[#C9A227]/30 p-5">
-                  <h3 className="text-gray-900 font-semibold mb-2">Need Help?</h3>
-                  <p className="text-gray-600 text-xs mb-4">Have questions about real estate? Our team is here to help.</p>
+                  <h3 className="text-gray-900 font-semibold mb-2">{t("needHelp")}</h3>
+                  <p className="text-gray-600 text-xs mb-4">{t("needHelpDesc")}</p>
                   <Link href="/#contact">
                     <Button variant="gold" size="sm" className="w-full text-xs">
-                      Contact Us
+                      {t("contactUs")}
                     </Button>
                   </Link>
                 </div>
@@ -568,7 +574,7 @@ export default function BlogPostPage({
           <div className="container mx-auto px-4">
             <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
               <FileText className="w-5 h-5 text-[#C9A227]" />
-              More Articles You Might Like
+              {t("moreArticles")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {relatedBlogs.slice(0, 4).map((relatedBlog) => (

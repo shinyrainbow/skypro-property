@@ -18,8 +18,19 @@ export default function Header({ transparent = false }: HeaderProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIsVisible(true), 100);
+    // Check if animation was already played (e.g., before language switch)
+    const alreadyVisible = sessionStorage.getItem("header-visible") === "true";
+    if (alreadyVisible) {
+      setIsVisible(true);
+    } else {
+      setTimeout(() => {
+        setIsVisible(true);
+        sessionStorage.setItem("header-visible", "true");
+      }, 100);
+    }
+  }, []);
 
+  useEffect(() => {
     if (!transparent) return;
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
@@ -46,7 +57,7 @@ export default function Header({ transparent = false }: HeaderProps) {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-100 transition-all duration-300 ${
           isScrolled
             ? "backdrop-blur-xl bg-[#111928]/80 border-b border-white/10"
             : "bg-transparent"

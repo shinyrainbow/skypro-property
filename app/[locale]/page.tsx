@@ -350,7 +350,7 @@ export default function PublicPropertiesPage() {
       <Header transparent />
 
       {/* Unified Gradient Background Container */}
-      <div className="bg-gradient-to-br from-[#1a1f2e] via-[#0d1117] to-[#0A0E1A]">
+      <div className="bg-gradient-to-br from-[#21273b] via-[#0d1117] to-[#0A0E1A]">
 
       {/* Hero Section - Overlapping + Angled Divider Layout */}
       <section className="relative h-[85vh] overflow-hidden">
@@ -507,9 +507,9 @@ export default function PublicPropertiesPage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-float z-50 cursor-pointer">
+        {/* <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-float z-50 cursor-pointer">
           <ChevronDown className="w-5 h-5 text-gray-500" />
-        </div>
+        </div> */}
       </section>
 
       {/* Search Section - Dark Mode */}

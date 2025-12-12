@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +33,15 @@ interface BlogSection {
   contentJa: string;
 }
 
+interface BlogCategory {
+  id: string;
+  name: string;
+  nameEn: string | null;
+  nameZh: string | null;
+  slug: string;
+  color: string;
+}
+
 interface Blog {
   id: string;
   title: string;
@@ -48,11 +57,14 @@ interface Blog {
   isPublished: boolean;
   publishedAt: string | null;
   createdAt: string;
+  categoryId: string | null;
+  category: BlogCategory | null;
   sections: BlogSection[];
 }
 
 export default function AdminBlogPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [categories, setCategories] = useState<BlogCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -74,6 +86,7 @@ export default function AdminBlogPage() {
     excerptJa: "",
     coverImage: "",
     isPublished: false,
+    categoryId: "",
     sections: [] as BlogSection[],
   });
 
@@ -146,8 +159,21 @@ export default function AdminBlogPage() {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch("/api/admin/blog-categories");
+      const data = await res.json();
+      if (data.success) {
+        setCategories(data.data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
+
   useEffect(() => {
     fetchBlogs();
+    fetchCategories();
   }, []);
 
   const handleSubmit = async () => {
@@ -255,6 +281,7 @@ export default function AdminBlogPage() {
         excerptJa: blog.excerptJa || "",
         coverImage: blog.coverImage || "",
         isPublished: blog.isPublished,
+        categoryId: blog.categoryId || "",
         sections: blog.sections.map((s) => ({
           imageUrl: s.imageUrl || "",
           content: s.content || "",
@@ -277,6 +304,7 @@ export default function AdminBlogPage() {
         excerptJa: "",
         coverImage: "",
         isPublished: false,
+        categoryId: "",
         sections: [
           {
             imageUrl: "",
@@ -306,6 +334,7 @@ export default function AdminBlogPage() {
       excerptJa: "",
       coverImage: "",
       isPublished: false,
+      categoryId: "",
       sections: [],
     });
   };
@@ -331,15 +360,20 @@ export default function AdminBlogPage() {
     setFormData({ ...formData, sections: newSections });
   };
 
-  const updateSection = (
-    index: number,
-    field: keyof BlogSection,
-    value: string
-  ) => {
-    const newSections = [...formData.sections];
-    newSections[index] = { ...newSections[index], [field]: value };
-    setFormData({ ...formData, sections: newSections });
-  };
+  const updateSection = useCallback(
+    (index: number, field: keyof BlogSection, value: string) => {
+      setFormData((prev) => {
+        // Only update if value actually changed to prevent infinite loops
+        if (prev.sections[index]?.[field] === value) {
+          return prev;
+        }
+        const newSections = [...prev.sections];
+        newSections[index] = { ...newSections[index], [field]: value };
+        return { ...prev, sections: newSections };
+      });
+    },
+    []
+  );
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("th-TH", {
@@ -634,19 +668,40 @@ export default function AdminBlogPage() {
                 </div>
               </div>
 
-              {/* Excerpt */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  ตัวอย่างเนื้อหา (ภาษาไทย)
-                </label>
-                <textarea
-                  value={formData.excerpt}
-                  onChange={(e) =>
-                    setFormData({ ...formData, excerpt: e.target.value })
-                  }
-                  placeholder="คำอธิบายสั้นๆ..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[80px] focus:outline-none focus:ring-2 focus:ring-[#C9A227] focus:border-transparent text-gray-900"
-                />
+              {/* Category & Excerpt */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    หมวดหมู่
+                  </label>
+                  <select
+                    value={formData.categoryId}
+                    onChange={(e) =>
+                      setFormData({ ...formData, categoryId: e.target.value })
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A227] focus:border-transparent text-gray-900 bg-white h-10"
+                  >
+                    <option value="">-- ไม่ระบุหมวดหมู่ --</option>
+                    {categories.map((cat) => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    ตัวอย่างเนื้อหา (ภาษาไทย)
+                  </label>
+                  <textarea
+                    value={formData.excerpt}
+                    onChange={(e) =>
+                      setFormData({ ...formData, excerpt: e.target.value })
+                    }
+                    placeholder="คำอธิบายสั้นๆ..."
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[80px] focus:outline-none focus:ring-2 focus:ring-[#C9A227] focus:border-transparent text-gray-900"
+                  />
+                </div>
               </div>
 
               {/* Cover Image */}

@@ -325,9 +325,9 @@ export default function MapSearchPage() {
             </div>
 
             {/* Filter Controls - Horizontal Layout */}
-            <div className="flex gap-2 pb-2 items-end flex-wrap">
+            <div className="grid grid-cols-2 lg:grid-cols-8 gap-2 pb-2 items-end">
               {/* Search Input */}
-              <div className="flex-1">
+              <div className="col-span-2 lg:col-span-1">
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
                   {t("search.search")}
                 </label>
@@ -349,7 +349,7 @@ export default function MapSearchPage() {
               </div>
 
               {/* Property Type */}
-              <div className="flex-1">
+              <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
                   ประเภททรัพย์
                 </label>
@@ -383,7 +383,7 @@ export default function MapSearchPage() {
               </div>
 
               {/* Listing Type */}
-              <div className="flex-1">
+              <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
                   ประเภทการตลาด
                 </label>
@@ -400,41 +400,45 @@ export default function MapSearchPage() {
               </div>
 
               {/* Bedrooms / Bathrooms Combined */}
-              <div className="flex-1">
+              <div className="lg:col-span-2">
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
                   ห้องนอน / ห้องน้ำ
                 </label>
-                <div className="flex gap-1">
-                  <Select value={bedrooms} onValueChange={setBedrooms}>
-                    <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                      <SelectValue placeholder="นอน" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">ทั้งหมด</SelectItem>
-                      <SelectItem value="1">1+</SelectItem>
-                      <SelectItem value="2">2+</SelectItem>
-                      <SelectItem value="3">3+</SelectItem>
-                      <SelectItem value="4">4+</SelectItem>
-                      <SelectItem value="5">5+</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select value={bathrooms} onValueChange={setBathrooms}>
-                    <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                      <SelectValue placeholder="น้ำ" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">ทั้งหมด</SelectItem>
-                      <SelectItem value="1">1+</SelectItem>
-                      <SelectItem value="2">2+</SelectItem>
-                      <SelectItem value="3">3+</SelectItem>
-                      <SelectItem value="4">4+</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="flex gap-2">
+                  <div className="flex-1">
+                    <Select value={bedrooms} onValueChange={setBedrooms}>
+                      <SelectTrigger className="w-full bg-white border-gray-300 text-gray-900 h-9 text-sm">
+                        <SelectValue placeholder="นอน" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">ทั้งหมด</SelectItem>
+                        <SelectItem value="1">1+</SelectItem>
+                        <SelectItem value="2">2+</SelectItem>
+                        <SelectItem value="3">3+</SelectItem>
+                        <SelectItem value="4">4+</SelectItem>
+                        <SelectItem value="5">5+</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex-1">
+                    <Select value={bathrooms} onValueChange={setBathrooms}>
+                      <SelectTrigger className="w-full bg-white border-gray-300 text-gray-900 h-9 text-sm">
+                        <SelectValue placeholder="น้ำ" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">ทั้งหมด</SelectItem>
+                        <SelectItem value="1">1+</SelectItem>
+                        <SelectItem value="2">2+</SelectItem>
+                        <SelectItem value="3">3+</SelectItem>
+                        <SelectItem value="4">4+</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
 
               {/* Price Range Dropdown */}
-              <div className="flex-1">
+              <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
                   ช่วงราคา
                 </label>
@@ -467,7 +471,7 @@ export default function MapSearchPage() {
               </div>
 
               {/* Size Range Dropdown */}
-              <div className="flex-1">
+              <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
                   ขนาด (ตร.ม.)
                 </label>
@@ -500,10 +504,10 @@ export default function MapSearchPage() {
               </div>
 
               {/* Search Button */}
-              <div className="shrink-0">
+              <div className="col-span-2 lg:col-span-1">
                 <Button
                   onClick={handleApplySearch}
-                  className="h-9 bg-[#C9A227] hover:bg-[#A88B1F] text-white px-4"
+                  className="h-9 w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white px-4"
                 >
                   <Search className="w-4 h-4 mr-2" />
                   ค้นหา
@@ -680,7 +684,7 @@ export default function MapSearchPage() {
 
             {/* Apply Button */}
             <Button
-              onClick={() => setFilterOpen(false)}
+              onClick={handleApplySearch}
               variant="gold"
               className="w-full"
             >

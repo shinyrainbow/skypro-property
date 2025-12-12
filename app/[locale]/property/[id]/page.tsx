@@ -1044,7 +1044,7 @@ export default function PropertyDetailPage() {
                   <h2 className="text-lg font-bold text-gray-900 mb-4">
                     {t("propertyDetail.moreDetails")}
                   </h2>
-                  <p className="text-gray-400 leading-relaxed whitespace-pre-line">
+                  <p className="text-gray-600 leading-relaxed whitespace-pre-line">
                     {property.descriptionTh || property.descriptionEn}
                   </p>
                 </Card>
@@ -1072,7 +1072,7 @@ export default function PropertyDetailPage() {
                   ].map((amenity, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-[#C9A227]" />
-                      <span className="text-gray-400">{amenity}</span>
+                      <span className="text-gray-600">{amenity}</span>
                     </div>
                   ))}
                 </div>
@@ -1104,7 +1104,7 @@ export default function PropertyDetailPage() {
                     />
                   </div>
                   <div className="mt-4 flex items-center justify-between">
-                    <div className="text-sm text-gray-400">
+                    <div className="text-sm text-gray-600">
                       {/* <span className="font-medium">ที่อยู่: </span> */}
                       {[property.address, property.district, property.province]
                         .filter(Boolean)
@@ -1155,16 +1155,16 @@ export default function PropertyDetailPage() {
                       <span className="text-xl font-bold text-gray-900">PW</span>
                     </div>
                     <div>
-                      <div className="font-semibold text-white">
+                      <div className="font-semibold text-gray-900">
                         Sky Pro Properties
                       </div>
-                      <div className="text-sm text-gray-400">
+                      <div className="text-sm text-gray-500">
                         {t("propertyDetail.agent")}
                       </div>
                       {reviewStats.count > 0 && (
                         <div className="flex items-center gap-1 mt-1">
                           <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                          <span className="text-sm font-medium text-gray-300">
+                          <span className="text-sm font-medium text-gray-700">
                             {reviewStats.avgRating}
                           </span>
                           <span className="text-xs text-gray-500">
@@ -1195,7 +1195,7 @@ export default function PropertyDetailPage() {
                     </Button>
                     <Button
                       variant="outline"
-                      className="w-full border-white/20 text-gray-400 hover:bg-white/10 py-6 text-base font-medium rounded-xl transition-all"
+                      className="w-full border-gray-300 text-gray-600 hover:bg-gray-100 py-6 text-base font-medium rounded-xl transition-all"
                       onClick={() =>
                         copyToClipboard(
                           "nainahub.contact@gmail.com",
@@ -1213,14 +1213,14 @@ export default function PropertyDetailPage() {
                     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
                       <div className="bg-[#1B2D44] rounded-2xl p-6 mx-4 max-w-sm w-full shadow-2xl border border-white/10">
                         <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-lg font-bold text-gray-900">
+                          <h3 className="text-lg font-bold text-white">
                             {t("propertyDetail.addLineFriend")}
                           </h3>
                           <button
                             onClick={() => setShowLineQR(false)}
                             className="p-2 hover:bg-white/10 rounded-full transition-colors"
                           >
-                            <X className="w-5 h-5 text-gray-400" />
+                            <X className="w-5 h-5 text-gray-300" />
                           </button>
                         </div>
                         <div className="bg-white rounded-xl p-4 flex justify-center">
@@ -1232,7 +1232,7 @@ export default function PropertyDetailPage() {
                             className="rounded-lg"
                           />
                         </div>
-                        <p className="text-center text-sm text-gray-400 mt-4">
+                        <p className="text-center text-sm text-gray-300 mt-4">
                           {t("propertyDetail.scanQR")}
                         </p>
                       </div>
@@ -1240,8 +1240,8 @@ export default function PropertyDetailPage() {
                   )}
 
                   {/* Quick Contact Form */}
-                  <div className="mt-6 pt-6 border-t border-white/10">
-                    <h4 className="text-sm font-semibold text-white mb-3">
+                  <div className="mt-6 pt-6 border-t border-gray-200">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-3">
                       {t("propertyDetail.requestInfo")}
                     </h4>
 
