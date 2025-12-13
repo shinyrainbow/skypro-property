@@ -150,45 +150,49 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Cards Section */}
-      <section className="py-16 bg-gradient-to-b from-[#0A0E1A] to-gray-900">
+      <section className="py-10 md:py-16 bg-gradient-to-b from-[#0A0E1A] to-gray-900">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
             {contactInfo.map((info, index) => (
               <div
                 key={info.title}
-                className={`group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-500 ${
+                className={`group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-5 md:p-8 hover:bg-white/10 transition-all duration-500 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                {/* Icon */}
-                <div
-                  className={`w-16 h-16 bg-gradient-to-br ${info.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <info.icon className="w-8 h-8 text-white" />
+                <div className="flex items-start gap-4 md:block">
+                  {/* Icon */}
+                  <div
+                    className={`w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br ${info.color} rounded-xl md:rounded-2xl flex items-center justify-center md:mb-6 group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}
+                  >
+                    <info.icon className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                  </div>
+
+                  <div className="flex-1">
+                    <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-3">
+                      {info.title}
+                    </h3>
+
+                    {info.details.map((detail, i) =>
+                      info.links && info.links[i] ? (
+                        <a
+                          key={i}
+                          href={info.links[i]}
+                          className="block text-[#C9A227] md:text-gray-400 hover:text-[#C9A227] transition-colors text-base md:text-lg font-medium md:font-normal"
+                        >
+                          {detail}
+                        </a>
+                      ) : (
+                        <p key={i} className="text-gray-400 text-xs md:text-sm leading-relaxed">
+                          {detail}
+                        </p>
+                      )
+                    )}
+                  </div>
                 </div>
-
-                <h3 className="text-xl font-bold text-white mb-3">
-                  {info.title}
-                </h3>
-
-                {info.details.map((detail, i) =>
-                  info.links && info.links[i] ? (
-                    <a
-                      key={i}
-                      href={info.links[i]}
-                      className="block text-gray-400 hover:text-[#C9A227] transition-colors text-lg"
-                    >
-                      {detail}
-                    </a>
-                  ) : (
-                    <p key={i} className="text-gray-400 text-sm leading-relaxed">
-                      {detail}
-                    </p>
-                  )
-                )}
               </div>
             ))}
           </div>
@@ -196,20 +200,20 @@ export default function ContactPage() {
       </section>
 
       {/* Line & Social Section */}
-      <section className="py-16 bg-gray-900">
+      <section className="py-10 md:py-16 bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
               {/* Line QR Code */}
               <div
-                className={`bg-gradient-to-br from-[#00B900]/20 to-[#00B900]/5 border border-[#00B900]/30 rounded-2xl p-8 text-center transition-all duration-700 ${
+                className={`bg-gradient-to-br from-[#00B900]/20 to-[#00B900]/5 border border-[#00B900]/30 rounded-xl md:rounded-2xl p-6 md:p-8 text-center transition-all duration-700 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
                 }`}
                 style={{ transitionDelay: "300ms" }}
               >
-                <div className="w-16 h-16 bg-[#00B900] rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-[#00B900] rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6">
                   <svg
                     className="w-9 h-9 text-white"
                     viewBox="0 0 24 24"
@@ -219,80 +223,80 @@ export default function ContactPage() {
                   </svg>
                 </div>
 
-                <h3 className="text-2xl font-bold text-white mb-2">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
                   {t("footerNav.lineOfficial")}
                 </h3>
-                <p className="text-gray-400 mb-6">
+                <p className="text-gray-400 text-sm md:text-base mb-4 md:mb-6">
                   สแกน QR Code เพื่อติดต่อเราผ่าน Line
                 </p>
 
-                <div className="bg-white p-4 rounded-xl inline-block mb-4">
+                <div className="bg-white p-3 md:p-4 rounded-xl inline-block mb-3 md:mb-4">
                   <Image
                     src="/skyproqrcode.png"
                     alt="Line QR Code"
-                    width={180}
-                    height={180}
-                    className="rounded-lg"
+                    width={150}
+                    height={150}
+                    className="rounded-lg w-[120px] h-[120px] md:w-[150px] md:h-[150px]"
                   />
                 </div>
 
-                <p className="text-[#00B900] font-medium">@skyproproperty</p>
+                <p className="text-[#00B900] font-medium text-sm md:text-base">@skyproproperty</p>
               </div>
 
               {/* Social & Map */}
-              <div className="space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 {/* Social Media */}
                 <div
-                  className={`bg-white/5 border border-white/10 rounded-2xl p-8 transition-all duration-700 ${
+                  className={`bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-5 md:p-8 transition-all duration-700 ${
                     isVisible
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-10"
                   }`}
                   style={{ transitionDelay: "400ms" }}
                 >
-                  <h3 className="text-xl font-bold text-white mb-6">
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-4 md:mb-6">
                     ติดตามเราได้ที่
                   </h3>
 
-                  <div className="flex flex-wrap gap-3">
+                  <div className="grid grid-cols-3 gap-2 md:flex md:flex-wrap md:gap-3">
                     {socialLinks.map((social) => (
                       <a
                         key={social.name}
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center gap-2 px-5 py-3 ${social.color} text-white rounded-xl transition-all duration-300 hover:scale-105`}
+                        className={`flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 px-3 py-3 md:px-5 md:py-3 ${social.color} text-white rounded-xl transition-all duration-300 hover:scale-105`}
                       >
                         {social.icon}
-                        <span className="font-medium">{social.name}</span>
-                        <ExternalLink className="w-4 h-4 opacity-60" />
+                        <span className="font-medium text-xs md:text-base">{social.name}</span>
+                        <ExternalLink className="hidden md:block w-4 h-4 opacity-60" />
                       </a>
                     ))}
                   </div>
 
-                  <p className="text-gray-500 text-sm mt-6">
+                  <p className="text-gray-500 text-xs md:text-sm mt-4 md:mt-6 text-center md:text-left">
                     ติดตามข่าวสารและโปรโมชันล่าสุดได้ทุกช่องทาง
                   </p>
                 </div>
 
                 {/* Map */}
                 <div
-                  className={`bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-700 ${
+                  className={`bg-white/5 border border-white/10 rounded-xl md:rounded-2xl overflow-hidden transition-all duration-700 ${
                     isVisible
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-10"
                   }`}
                   style={{ transitionDelay: "500ms" }}
                 >
-                  <div className="h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative">
+                  <div className="h-36 md:h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative">
                     <div className="text-center">
-                      <div className="w-12 h-12 bg-[#C9A227]/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <MapPin className="w-6 h-6 text-[#C9A227]" />
+                      <div className="w-10 h-10 md:w-12 md:h-12 bg-[#C9A227]/20 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-3">
+                        <MapPin className="w-5 h-5 md:w-6 md:h-6 text-[#C9A227]" />
                       </div>
-                      <p className="text-white font-medium">
+                      <p className="text-white font-medium text-sm md:text-base">
                         Sky Pro Properties
                       </p>
-                      <p className="text-gray-500 text-sm">
+                      <p className="text-gray-500 text-xs md:text-sm">
                         เชียงใหม่, ประเทศไทย
                       </p>
                     </div>
@@ -372,11 +376,11 @@ export default function ContactPage() {
           <p className="text-white/90 mb-8 max-w-xl mx-auto text-lg">
             ดูทรัพย์สินทั้งหมดของเราและค้นหาบ้านที่ตรงใจคุณ
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
             <Link href="/search">
               <Button
                 size="lg"
-                className="bg-white text-[#C9A227] hover:bg-gray-100 px-10 py-6 text-lg font-semibold rounded-xl"
+                className="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-100 px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg font-semibold rounded-xl"
               >
                 ค้นหาทรัพย์สิน
               </Button>
@@ -385,7 +389,7 @@ export default function ContactPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-[#C9A227] px-10 py-6 text-lg font-semibold rounded-xl"
+                className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg font-semibold rounded-xl"
               >
                 กลับหน้าหลัก
               </Button>
