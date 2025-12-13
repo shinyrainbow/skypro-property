@@ -264,6 +264,8 @@ export default function BlogPage() {
                             src={featuredBlog.coverImage}
                             alt={getLocalizedTitle(featuredBlog)}
                             fill
+                            priority
+                            sizes="(max-width: 1024px) 100vw, 66vw"
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                         ) : (
@@ -330,6 +332,8 @@ export default function BlogPage() {
                               src={blog.coverImage}
                               alt={getLocalizedTitle(blog)}
                               fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                              loading={index < 2 ? "eager" : "lazy"}
                               className="object-cover group-hover:scale-105 transition-transform duration-500"
                             />
                           ) : (
@@ -380,6 +384,8 @@ export default function BlogPage() {
                                 src={blog.coverImage}
                                 alt={getLocalizedTitle(blog)}
                                 fill
+                                sizes="64px"
+                                loading="lazy"
                                 className="object-cover"
                               />
                             ) : (

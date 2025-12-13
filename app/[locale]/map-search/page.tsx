@@ -739,7 +739,39 @@ export default function MapSearchPage() {
           {/* Right - Property Cards */}
           <div className="w-full lg:w-1/2 bg-gray-50 overflow-y-auto">
             <div className="px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
-              {filteredProperties.map((property) => (
+              {/* Skeleton Loading */}
+              {loading && (
+                <>
+                  {[...Array(6)].map((_, index) => (
+                    <div key={index} className="block animate-pulse">
+                      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                        {/* Image Skeleton */}
+                        <div className="h-48 bg-gray-200" />
+                        {/* Content Skeleton */}
+                        <div className="p-4">
+                          {/* Project name */}
+                          <div className="h-3 bg-gray-200 rounded w-1/2 mb-2" />
+                          {/* Title */}
+                          <div className="h-5 bg-gray-200 rounded w-3/4 mb-3" />
+                          {/* Specs */}
+                          <div className="flex gap-3 mb-3 pb-3 border-b border-gray-100">
+                            <div className="h-4 bg-gray-200 rounded w-12" />
+                            <div className="h-4 bg-gray-200 rounded w-12" />
+                            <div className="h-4 bg-gray-200 rounded w-16" />
+                          </div>
+                          {/* Price */}
+                          <div className="h-6 bg-gray-200 rounded w-2/3 mb-2" />
+                          {/* Code */}
+                          <div className="h-3 bg-gray-200 rounded w-1/3" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+
+              {/* Property Cards */}
+              {!loading && filteredProperties.map((property) => (
                 <div
                   key={property.id}
                   onClick={() => handlePropertyClick(property)}
