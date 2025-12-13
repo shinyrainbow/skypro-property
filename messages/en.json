@@ -19,7 +19,8 @@
     "properties": "properties",
     "copied": "Copied",
     "copiedPhone": "Phone number copied",
-    "copiedEmail": "Email copied"
+    "copiedEmail": "Email copied",
+    "contactForPrice": "Contact for price"
   },
   "nav": {
     "home": "Home",

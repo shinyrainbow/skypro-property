@@ -162,12 +162,22 @@ export default function MapSearchPage() {
 
     if (appliedBedrooms && appliedBedrooms !== "all") {
       const bedroomNum = parseInt(appliedBedrooms);
-      filtered = filtered.filter((p) => p.bedRoomNum >= bedroomNum);
+      // For 5+, use >= ; otherwise use exact match
+      if (bedroomNum >= 5) {
+        filtered = filtered.filter((p) => p.bedRoomNum >= bedroomNum);
+      } else {
+        filtered = filtered.filter((p) => p.bedRoomNum === bedroomNum);
+      }
     }
 
     if (appliedBathrooms && appliedBathrooms !== "all") {
       const bathroomNum = parseInt(appliedBathrooms);
-      filtered = filtered.filter((p) => p.bathRoomNum >= bathroomNum);
+      // For 4+, use >= ; otherwise use exact match
+      if (bathroomNum >= 4) {
+        filtered = filtered.filter((p) => p.bathRoomNum >= bathroomNum);
+      } else {
+        filtered = filtered.filter((p) => p.bathRoomNum === bathroomNum);
+      }
     }
 
     if (appliedMinPrice) {
@@ -412,10 +422,10 @@ export default function MapSearchPage() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">ทั้งหมด</SelectItem>
-                        <SelectItem value="1">1+</SelectItem>
-                        <SelectItem value="2">2+</SelectItem>
-                        <SelectItem value="3">3+</SelectItem>
-                        <SelectItem value="4">4+</SelectItem>
+                        <SelectItem value="1">1</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
+                        <SelectItem value="4">4</SelectItem>
                         <SelectItem value="5">5+</SelectItem>
                       </SelectContent>
                     </Select>
@@ -427,9 +437,9 @@ export default function MapSearchPage() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">ทั้งหมด</SelectItem>
-                        <SelectItem value="1">1+</SelectItem>
-                        <SelectItem value="2">2+</SelectItem>
-                        <SelectItem value="3">3+</SelectItem>
+                        <SelectItem value="1">1</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
                         <SelectItem value="4">4+</SelectItem>
                       </SelectContent>
                     </Select>
@@ -608,10 +618,10 @@ export default function MapSearchPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("common.all")}</SelectItem>
-                  <SelectItem value="1">1+</SelectItem>
-                  <SelectItem value="2">2+</SelectItem>
-                  <SelectItem value="3">3+</SelectItem>
-                  <SelectItem value="4">4+</SelectItem>
+                  <SelectItem value="1">1</SelectItem>
+                  <SelectItem value="2">2</SelectItem>
+                  <SelectItem value="3">3</SelectItem>
+                  <SelectItem value="4">4</SelectItem>
                   <SelectItem value="5">5+</SelectItem>
                 </SelectContent>
               </Select>
@@ -628,9 +638,9 @@ export default function MapSearchPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("common.all")}</SelectItem>
-                  <SelectItem value="1">1+</SelectItem>
-                  <SelectItem value="2">2+</SelectItem>
-                  <SelectItem value="3">3+</SelectItem>
+                  <SelectItem value="1">1</SelectItem>
+                  <SelectItem value="2">2</SelectItem>
+                  <SelectItem value="3">3</SelectItem>
                   <SelectItem value="4">4+</SelectItem>
                 </SelectContent>
               </Select>

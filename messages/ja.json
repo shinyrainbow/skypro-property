@@ -19,7 +19,8 @@
     "properties": "物件",
     "copied": "コピーしました",
     "copiedPhone": "電話番号をコピーしました",
-    "copiedEmail": "メールアドレスをコピーしました"
+    "copiedEmail": "メールアドレスをコピーしました",
+    "contactForPrice": "価格はお問い合わせください"
   },
   "nav": {
     "home": "ホーム",

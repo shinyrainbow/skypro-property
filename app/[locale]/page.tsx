@@ -638,7 +638,7 @@ export default function PublicPropertiesPage() {
                     placeholder="฿"
                     value={maxPrice}
                     onChange={(e) => setMaxPrice(e.target.value)}
-                    className="h-9 bg-[#1F2937] border-white/10 rounded-lg text-white text-sm placeholder:text-gray-500"
+                    className="h-9 bg-white border-gray-200 rounded-lg text-gray-900 text-sm placeholder:text-gray-400"
                   />
                 </div>
               </div>
@@ -1278,7 +1278,7 @@ export default function PublicPropertiesPage() {
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div
-            className={`mb-12 transition-all duration-700 ${
+            className={`mb-12 text-center md:text-left transition-all duration-700 ${
               isVisible["how-it-works"]
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
@@ -1287,9 +1287,10 @@ export default function PublicPropertiesPage() {
             <p className="text-[#C9A227] text-xs uppercase tracking-widest mb-3">
               {t("homePage.howItWorks")}
             </p>
-            <h2 className="text-2xl md:text-3xl font-semibold text-white leading-tight">
+            <h2 className="text-lg sm:text-xl md:text-3xl font-semibold text-white leading-snug md:leading-tight">
               {t("homePage.weHelpSell")}
-              <br />
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>
               {t("homePage.withGuaranteed")} <span className="text-[#C9A227]">{t("homePage.guaranteedText")}</span>{" "}
               {t("homePage.services")}
             </h2>

@@ -19,7 +19,8 @@
     "properties": "ทรัพย์สิน",
     "copied": "คัดลอกแล้ว",
     "copiedPhone": "คัดลอกเบอร์โทรศัพท์แล้ว",
-    "copiedEmail": "คัดลอกอีเมลแล้ว"
+    "copiedEmail": "คัดลอกอีเมลแล้ว",
+    "contactForPrice": "ติดต่อสอบถามราคา"
   },
   "nav": {
     "home": "หน้าหลัก",
