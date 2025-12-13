@@ -295,8 +295,8 @@ export default function MapSearchPage() {
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-      {/* Mobile Filter Button - Shows only on mobile */}
-      <div className="fixed top-16 left-0 right-0 z-40 md:hidden bg-white border-b border-gray-200 p-3 shadow-md">
+      {/* Mobile Filter Button - Shows on mobile and tablet */}
+      <div className="fixed top-16 left-0 right-0 z-40 lg:hidden bg-white border-b border-gray-200 p-3 shadow-md">
         <Button
           onClick={() => setFilterOpen(true)}
           variant="outline"
@@ -310,8 +310,8 @@ export default function MapSearchPage() {
         </Button>
       </div>
 
-      {/* Filters - Fixed at Top (Desktop only) */}
-      <div className="hidden md:block fixed top-16 left-0 right-0 z-60 bg-white border-b border-gray-200 p-3 md:p-4 shadow-md pointer-events-auto" style={{ overflow: 'visible' }}>
+      {/* Filters - Fixed at Top (Desktop only - lg and above) */}
+      <div className="hidden lg:block fixed top-16 left-0 right-0 z-60 bg-white border-b border-gray-200 p-4 shadow-md pointer-events-auto" style={{ overflow: 'visible' }}>
         <div className="max-w-7xl mx-auto" style={{ overflow: 'visible' }}>
             {/* Filter Header */}
             <div className="flex items-center justify-between mb-3 md:mb-4">
@@ -335,9 +335,9 @@ export default function MapSearchPage() {
             </div>
 
             {/* Filter Controls - Horizontal Layout */}
-            <div className="grid grid-cols-2 lg:grid-cols-8 gap-2 pb-2 items-end">
+            <div className="grid grid-cols-2 lg:grid-cols-9 gap-2 pb-2 items-end">
               {/* Search Input */}
-              <div className="col-span-2 lg:col-span-1">
+              <div className="col-span-2 lg:col-span-2">
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
                   {t("search.search")}
                 </label>
@@ -705,11 +705,20 @@ export default function MapSearchPage() {
       </Sheet>
 
       {/* Main Content - Map (Left) and Cards (Right) */}
-      <div className="pt-32 md:pt-[280px] lg:pt-[240px] min-h-screen">
-        <div className="flex flex-col md:flex-row min-h-[calc(100vh-320px)] md:h-[calc(100vh-280px)] lg:h-[calc(100vh-240px)]">
-          {/* Left - Map (Hidden on mobile) */}
-          <div className="hidden md:block md:w-1/2 relative md:h-auto">
-            {!loading && !isNaN(mapCenter[0]) && !isNaN(mapCenter[1]) && (
+      <div className="pt-32 lg:pt-[240px] min-h-screen">
+        <div className="flex flex-col lg:flex-row min-h-[calc(100vh-320px)] lg:h-[calc(100vh-240px)]">
+          {/* Left - Map (Hidden on mobile and tablet) */}
+          <div className="hidden lg:block lg:w-1/2 relative lg:h-auto">
+            {!loading &&
+              mapCenter &&
+              Array.isArray(mapCenter) &&
+              mapCenter.length === 2 &&
+              typeof mapCenter[0] === 'number' &&
+              typeof mapCenter[1] === 'number' &&
+              !isNaN(mapCenter[0]) &&
+              !isNaN(mapCenter[1]) &&
+              isFinite(mapCenter[0]) &&
+              isFinite(mapCenter[1]) && (
               <PropertyMap
                 properties={filteredProperties}
                 center={mapCenter}
@@ -728,8 +737,8 @@ export default function MapSearchPage() {
           </div>
 
           {/* Right - Property Cards */}
-          <div className="w-full md:w-1/2 bg-gray-50 overflow-y-auto">
-            <div className="px-4 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="w-full lg:w-1/2 bg-gray-50 overflow-y-auto">
+            <div className="px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
               {filteredProperties.map((property) => (
                 <div
                   key={property.id}

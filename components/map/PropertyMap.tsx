@@ -74,7 +74,21 @@ function MapUpdater({ center, zoom }: { center: [number, number]; zoom: number }
   const map = useMap();
   useEffect(() => {
     // Only update if coordinates are valid
-    if (!isNaN(center[0]) && !isNaN(center[1])) {
+    if (
+      center &&
+      Array.isArray(center) &&
+      center.length === 2 &&
+      typeof center[0] === 'number' &&
+      typeof center[1] === 'number' &&
+      !isNaN(center[0]) &&
+      !isNaN(center[1]) &&
+      isFinite(center[0]) &&
+      isFinite(center[1]) &&
+      center[0] >= -90 &&
+      center[0] <= 90 &&
+      center[1] >= -180 &&
+      center[1] <= 180
+    ) {
       // Use flyTo for smooth animated transition
       map.flyTo(center, zoom, {
         duration: 1.5, // Animation duration in seconds
@@ -198,10 +212,15 @@ export default function PropertyMap({
   if (!customIcon) return null;
 
   // Validate center coordinates to prevent NaN errors
-  const validCenter: [number, number] =
-    !isNaN(center[0]) && !isNaN(center[1])
-      ? center
-      : [18.7883, 98.9853]; // Default to Chiang Mai center
+  const isCenterValid =
+    center &&
+    Array.isArray(center) &&
+    center.length === 2 &&
+    isValidCoordinate(center[0], center[1]);
+
+  const validCenter: [number, number] = isCenterValid
+    ? center
+    : [18.7883, 98.9853]; // Default to Chiang Mai center
 
   // Group properties by coordinates
   const groupedProperties = properties

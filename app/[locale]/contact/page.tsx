@@ -380,7 +380,7 @@ export default function ContactPage() {
             <Link href="/search">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-100 px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg font-semibold rounded-xl"
+                className="w-full sm:w-auto !bg-white !text-gray-900 hover:!bg-gray-100 px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg font-semibold rounded-xl"
               >
                 ค้นหาทรัพย์สิน
               </Button>
