@@ -284,7 +284,7 @@ export default function AdminReviewsPage() {
               size="sm"
               onClick={() => setFilterStatus("all")}
               className={
-                filterStatus === "all" ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""
+                filterStatus === "all" ? "bg-[#C9A227] hover:bg-[#A88B1F]" : "text-gray-900"
               }
             >
               ทั้งหมด
@@ -296,7 +296,7 @@ export default function AdminReviewsPage() {
               className={
                 filterStatus === "pending"
                   ? "bg-[#C9A227] hover:bg-[#A88B1F]"
-                  : ""
+                  : "text-gray-900"
               }
             >
               รอตรวจสอบ ({stats.pending})
@@ -308,7 +308,7 @@ export default function AdminReviewsPage() {
               className={
                 filterStatus === "published"
                   ? "bg-[#C9A227] hover:bg-[#A88B1F]"
-                  : ""
+                  : "text-gray-900"
               }
             >
               เผยแพร่แล้ว
@@ -320,7 +320,7 @@ export default function AdminReviewsPage() {
               className={
                 filterStatus === "rejected"
                   ? "bg-[#C9A227] hover:bg-[#A88B1F]"
-                  : ""
+                  : "text-gray-900"
               }
             >
               ไม่อนุมัติ

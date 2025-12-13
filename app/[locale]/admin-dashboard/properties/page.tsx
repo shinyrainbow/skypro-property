@@ -488,7 +488,7 @@ export default function PropertiesListPage() {
                           {getPropertyTypeLabel(property.propertyType)}
                         </span>
                       </div>
-                      <h3 className="font-semibold text-gray-900 truncate">
+                      <h3 className="font-semibold text-gray-900">
                         {property.propertyTitleTh || property.propertyTitleEn}
                       </h3>
                       <p className="text-sm text-gray-500">
@@ -570,7 +570,7 @@ export default function PropertiesListPage() {
                     size="sm"
                     onClick={() => togglePopular(property.id, !!property.extension?.isFeaturedPopular)}
                     disabled={updating === property.id || property.status === "sold" || property.status === "rented"}
-                    className={property.extension?.isFeaturedPopular ? "bg-orange-500 hover:bg-orange-600" : ""}
+                    className={property.extension?.isFeaturedPopular ? "bg-orange-500 hover:bg-orange-600" : "text-gray-900"}
                   >
                     <Flame className="w-4 h-4 mr-1" />
                     Popular
@@ -582,6 +582,7 @@ export default function PropertiesListPage() {
                     size="sm"
                     onClick={() => setShowPromotionModal(property)}
                     disabled={updating === property.id || property.status === "sold" || property.status === "rented"}
+                    className="text-gray-900"
                   >
                     <Percent className="w-4 h-4 mr-1" />
                     โปรโมชั่น
@@ -614,7 +615,7 @@ export default function PropertiesListPage() {
 
                   {/* View Property */}
                   <Link href={`/property/${property.id}`} target="_blank">
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button variant="outline" size="sm" className="w-full text-gray-900">
                       <Eye className="w-4 h-4 mr-1" />
                       ดู
                     </Button>
@@ -655,6 +656,7 @@ export default function PropertiesListPage() {
             size="sm"
             disabled={page === 1}
             onClick={() => setPage(page - 1)}
+            className="text-gray-900"
           >
             ก่อนหน้า
           </Button>
@@ -667,7 +669,7 @@ export default function PropertiesListPage() {
                   size="sm"
                   variant={page === pageNum ? "default" : "outline"}
                   onClick={() => setPage(pageNum)}
-                  className={page === pageNum ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""}
+                  className={page === pageNum ? "bg-[#C9A227] hover:bg-[#A88B1F]" : "text-gray-900"}
                 >
                   {pageNum}
                 </Button>
@@ -679,6 +681,7 @@ export default function PropertiesListPage() {
             size="sm"
             disabled={page >= totalPages}
             onClick={() => setPage(page + 1)}
+            className="text-gray-900"
           >
             ถัดไป
           </Button>
@@ -833,7 +836,7 @@ export default function PropertiesListPage() {
                 <Button
                   type="button"
                   variant="outline"
-                  className="flex-1"
+                  className="flex-1 text-gray-900"
                   onClick={() => {
                     setShowPromotionModal(null);
                     setPromotionForm({ label: "", type: "hot", startDate: "", endDate: "", isActive: true });

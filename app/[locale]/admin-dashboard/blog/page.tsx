@@ -892,6 +892,7 @@ export default function AdminBlogPage() {
                 variant="outline"
                 onClick={handleCloseModal}
                 disabled={updating === "form"}
+                className="text-gray-900"
               >
                 ยกเลิก
               </Button>

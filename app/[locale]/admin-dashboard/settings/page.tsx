@@ -210,6 +210,7 @@ export default function SettingsPage() {
             variant="outline"
             onClick={handleChangePassword}
             disabled={changingPassword}
+            className="text-gray-900"
           >
             {changingPassword ? (
               <>

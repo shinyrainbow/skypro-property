@@ -154,6 +154,7 @@ export default function InquiriesPage() {
             size="sm"
             onClick={fetchInquiries}
             disabled={loading}
+            className="text-gray-900"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             รีเฟรช
@@ -173,7 +174,7 @@ export default function InquiriesPage() {
               variant={filterStatus === "" ? "default" : "outline"}
               size="sm"
               onClick={() => setFilterStatus("")}
-              className={filterStatus === "" ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""}
+              className={filterStatus === "" ? "bg-[#C9A227] hover:bg-[#A88B1F]" : "text-gray-900"}
             >
               ทั้งหมด ({inquiries.length})
             </Button>
@@ -183,7 +184,7 @@ export default function InquiriesPage() {
                 variant={filterStatus === option.value ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilterStatus(option.value)}
-                className={filterStatus === option.value ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""}
+                className={filterStatus === option.value ? "bg-[#C9A227] hover:bg-[#A88B1F]" : "text-gray-900"}
               >
                 {option.label}
               </Button>

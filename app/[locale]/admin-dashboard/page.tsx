@@ -13,7 +13,6 @@ import {
   MessageSquare,
   CheckCircle,
   ArrowRight,
-  Sparkles,
 } from "lucide-react";
 
 interface DashboardData {
@@ -324,7 +323,7 @@ export default function AdminDashboardPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full justify-start"
+                  className="w-full justify-start text-gray-900"
                 >
                   <Tag className="w-4 h-4 mr-2" />
                   จัดการโปรโมชัน
@@ -334,7 +333,7 @@ export default function AdminDashboardPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full justify-start"
+                  className="w-full justify-start text-gray-900"
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />
                   จัดการรีวิว
@@ -345,136 +344,72 @@ export default function AdminDashboardPage() {
         </Card>
       </div>
 
-      {/* Tables Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Properties */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">
-              ทรัพย์สินล่าสุดจาก API
-            </h3>
+      {/* Recent Properties */}
+      <Card className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900">
+            ทรัพย์สินล่าสุดจาก API
+          </h3>
+          <Link
+            href="/admin-dashboard/properties"
+            className="text-sm text-[#C9A227] hover:text-[#A88B1F] flex items-center gap-1"
+          >
+            ดูทั้งหมด
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+        <div className="space-y-3">
+          {data.recentProperties.map((property) => (
             <Link
-              href="/admin-dashboard/properties"
-              className="text-sm text-[#C9A227] hover:text-[#A88B1F] flex items-center gap-1"
+              key={property.id}
+              href={`/property/${property.id}`}
+              target="_blank"
+              className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
             >
-              ดูทั้งหมด
-              <ArrowRight className="w-4 h-4" />
+              {/* Thumbnail */}
+              <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
+                {property.imageUrl ? (
+                  <Image
+                    src={property.imageUrl}
+                    alt={property.propertyTitleTh}
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <Home className="w-5 h-5 text-gray-400" />
+                  </div>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  {property.propertyTitleTh || property.propertyTitleEn}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {property.agentPropertyCode} •{" "}
+                  {getPropertyTypeLabel(property.propertyType)}
+                  {property.propertyType === "Condo" && property.project?.projectNameEn && (
+                    <> • {property.project.projectNameEn}</>
+                  )}
+                </p>
+              </div>
+              <div className="text-right">
+                {property.rentalRateNum > 0 && (
+                  <p className="text-sm font-semibold text-emerald-600">
+                    ฿{formatPrice(property.rentalRateNum)}/ด.
+                  </p>
+                )}
+                {property.sellPriceNum > 0 && (
+                  <p className="text-sm font-semibold text-amber-600">
+                    ฿{formatPrice(property.sellPriceNum)}
+                  </p>
+                )}
+              </div>
             </Link>
-          </div>
-          <div className="space-y-3">
-            {data.recentProperties.map((property) => (
-              <Link
-                key={property.id}
-                href={`/property/${property.id}`}
-                target="_blank"
-                className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                {/* Thumbnail */}
-                <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
-                  {property.imageUrl ? (
-                    <Image
-                      src={property.imageUrl}
-                      alt={property.propertyTitleTh}
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <Home className="w-5 h-5 text-gray-400" />
-                    </div>
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
-                    {property.propertyTitleTh || property.propertyTitleEn}
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    {property.agentPropertyCode} •{" "}
-                    {getPropertyTypeLabel(property.propertyType)}
-                    {property.propertyType === "Condo" && property.project?.projectNameEn && (
-                      <> • {property.project.projectNameEn}</>
-                    )}
-                  </p>
-                </div>
-                <div className="text-right">
-                  {property.rentalRateNum > 0 && (
-                    <p className="text-sm font-semibold text-emerald-600">
-                      ฿{formatPrice(property.rentalRateNum)}/ด.
-                    </p>
-                  )}
-                  {property.sellPriceNum > 0 && (
-                    <p className="text-sm font-semibold text-amber-600">
-                      ฿{formatPrice(property.sellPriceNum)}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </Card>
-
-        {/* Properties with Promotions */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">
-              ทรัพย์สินที่มีโปรโมชัน
-            </h3>
-            <Sparkles className="w-5 h-5 text-amber-500" />
-          </div>
-          {data.propertiesWithPromotions.length > 0 ? (
-            <div className="space-y-3">
-              {data.propertiesWithPromotions.map((property) => (
-                <Link
-                  key={property.id}
-                  href={`/property/${property.id}`}
-                  target="_blank"
-                  className="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg hover:from-amber-100 hover:to-orange-100 transition-colors border border-amber-200"
-                >
-                  {/* Thumbnail */}
-                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
-                    {property.imageUrl ? (
-                      <Image
-                        src={property.imageUrl}
-                        alt={property.propertyTitleTh}
-                        width={48}
-                        height={48}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <Home className="w-5 h-5 text-gray-400" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
-                      {property.propertyTitleTh}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {getPropertyTypeLabel(property.propertyType)}
-                      {property.propertyType === "Condo" && property.project?.projectNameEn && (
-                        <> • {property.project.projectNameEn}</>
-                      )}
-                    </p>
-                  </div>
-                  <Tag className="w-5 h-5 text-amber-500" />
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <Tag className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500 text-sm">ยังไม่มีทรัพย์สินที่มีโปรโมชัน</p>
-              <Link href="/admin-dashboard/promotions">
-                <Button size="sm" className="mt-3 bg-[#C9A227] hover:bg-[#A88B1F]">
-                  เพิ่มโปรโมชัน
-                </Button>
-              </Link>
-            </div>
-          )}
-        </Card>
-      </div>
+          ))}
+        </div>
+      </Card>
     </div>
   );
 }

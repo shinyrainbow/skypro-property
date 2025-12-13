@@ -209,6 +209,7 @@ export default function PropertyListingsPage() {
             size="sm"
             onClick={fetchListings}
             disabled={loading}
+            className="text-gray-900"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             รีเฟรช
@@ -228,7 +229,7 @@ export default function PropertyListingsPage() {
               variant={filterStatus === "" ? "default" : "outline"}
               size="sm"
               onClick={() => setFilterStatus("")}
-              className={filterStatus === "" ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : ""}
+              className={filterStatus === "" ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : "text-gray-900"}
             >
               ทั้งหมด ({listings.length})
             </Button>
@@ -238,7 +239,7 @@ export default function PropertyListingsPage() {
                 variant={filterStatus === option.value ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilterStatus(option.value)}
-                className={filterStatus === option.value ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : ""}
+                className={filterStatus === option.value ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : "text-gray-900"}
               >
                 {option.label}
               </Button>
@@ -511,7 +512,7 @@ export default function PropertyListingsPage() {
                           key={option.value}
                           size="sm"
                           variant={isActive ? "default" : "outline"}
-                          className={isActive ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : ""}
+                          className={isActive ? "bg-[#c6af6c] hover:bg-[#b39d5b]" : "text-gray-900"}
                           onClick={() => setModalStatus(option.value)}
                         >
                           <option.icon className="w-4 h-4 mr-1" />
