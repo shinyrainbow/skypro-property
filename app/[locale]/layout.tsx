@@ -10,7 +10,6 @@ import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { Toaster } from "@/components/ui/toaster";
 import { ConfirmDialogProvider } from "@/components/ui/confirm-dialog";
 import { locales, type Locale } from "@/i18n/config";
-import MobileNav from "@/components/layout/mobile-nav";
 import FloatingLine from "@/components/layout/floating-line";
 
 const kanit = Kanit({
@@ -158,7 +157,6 @@ export default async function LocaleLayout({
           <AuthSessionProvider>
             <ConfirmDialogProvider>
               {children}
-              <MobileNav />
               <FloatingLine />
             </ConfirmDialogProvider>
           </AuthSessionProvider>
