@@ -398,7 +398,7 @@ export default function PublicPropertiesPage() {
           </div>
 
           {/* Left Side - Overlapping Content Card */}
-          <div className="relative z-10 h-full flex items-center px-8 md:px-12 lg:pl-[calc((100vw-1024px)/2+2rem)] xl:pl-[calc((100vw-1280px)/2+2rem)] 2xl:pl-[calc((100vw-1536px)/2+2rem)] py-20 lg:pr-0">
+          <div className="relative z-10 h-full flex items-start md:items-center px-6 md:px-12 lg:pl-[calc((100vw-1024px)/2+2rem)] xl:pl-[calc((100vw-1280px)/2+2rem)] 2xl:pl-[calc((100vw-1536px)/2+2rem)] pt-20 pb-6 md:py-20 lg:pr-0">
             <div className={`w-full max-w-3xl lg:max-w-2xl xl:max-w-3xl bg-black/30 md:bg-black/20 lg:bg-white/5 backdrop-blur-sm p-6 md:p-8 lg:p-12 border-l-4 border-[#C9A227] transition-all duration-700 ${heroVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
               {/* Gold accent line */}
               <div className={`w-12 h-0.5 bg-[#C9A227] mb-6 transition-all duration-500 ${heroVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"}`} style={{ transitionDelay: "200ms", transformOrigin: "left" }} />
@@ -677,10 +677,7 @@ export default function PublicPropertiesPage() {
             {/* Left - Title (hidden on mobile, shown on desktop) */}
             <div className="hidden lg:block">
               <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
-                Latest
-              </h2>
-              <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
-                Properties
+                {t("sections.latestProperties")}
               </h2>
             </div>
 
@@ -698,10 +695,7 @@ export default function PublicPropertiesPage() {
               {/* Title only on mobile */}
               <div className="lg:hidden text-center">
                 <h2 className="text-base sm:text-xl font-heading text-white tracking-wide">
-                  Latest
-                </h2>
-                <h2 className="text-base sm:text-xl font-heading text-white tracking-wide">
-                  Properties
+                  {t("sections.latestProperties")}
                 </h2>
               </div>
             </div>

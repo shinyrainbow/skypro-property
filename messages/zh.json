@@ -213,6 +213,7 @@
   "sections": {
     "popularProperties": "热门房产",
     "popularSubtitle": "最受关注的房产",
+    "latestProperties": "最新房产",
     "closedDeals": "最新成交",
     "closedDealsSubtitle": "近期已售或已租的房产",
     "popularProjects": "热门项目",
