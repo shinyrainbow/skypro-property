@@ -13,6 +13,7 @@ import {
 import { Link } from "@/i18n/routing";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { useTranslations } from "next-intl";
 
 interface Review {
   id: string;
@@ -118,6 +119,7 @@ function formatDate(dateString: string): string {
 }
 
 export default function ReviewsPage() {
+  const t = useTranslations();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
@@ -156,10 +158,10 @@ export default function ReviewsPage() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <MessageSquare className="w-10 h-10" />
-            <h1 className="text-3xl md:text-4xl font-bold">รีวิวจากลูกค้า</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">{t("reviewsPage.title")}</h1>
           </div>
           <p className="text-lg text-white/90 max-w-2xl mx-auto mb-6">
-            ความคิดเห็นจากลูกค้าที่ไว้วางใจใช้บริการ Sky Pro Properties
+            {t("reviewsPage.subtitle")}
           </p>
 
           {/* Rating Summary */}
@@ -180,7 +182,7 @@ export default function ReviewsPage() {
               <span className="text-2xl font-bold">
                 {averageRating.toFixed(1)}
               </span>
-              <span className="text-white/80">({reviews.length} รีวิว)</span>
+              <span className="text-white/80">({reviews.length} {t("reviewsPage.reviews")})</span>
             </div>
           )}
 
@@ -192,7 +194,7 @@ export default function ReviewsPage() {
                 className="bg-white text-[#C9A227] hover:bg-white/90 font-bold"
               >
                 <Plus className="w-5 h-5 mr-2" />
-                เพิ่มรีวิว
+                {t("reviewsPage.addReview")}
               </Button>
             </Link>
           </div>
@@ -212,10 +214,10 @@ export default function ReviewsPage() {
             <Card className="p-12 text-center border-0 shadow-lg max-w-lg mx-auto">
               <MessageSquare className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                ยังไม่มีรีวิว
+                {t("reviewsPage.noReviews")}
               </h3>
               <p className="text-gray-600 mb-6">
-                เป็นคนแรกที่แบ่งปันประสบการณ์การใช้บริการ Sky Pro Properties
+                {t("reviewsPage.beFirst")}
               </p>
               {/* <Link href="/reviews/new">
                 <Button className="bg-[#C9A227] hover:bg-[#A88B1F] text-white">
@@ -288,7 +290,7 @@ export default function ReviewsPage() {
                           {review.name}
                         </p>
                         <p className="text-xs text-gray-500">
-                          ลูกค้า Sky Pro Properties
+                          {t("reviewsPage.customer")}
                         </p>
                       </div>
                     </div>
@@ -308,10 +310,10 @@ export default function ReviewsPage() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-            พร้อมเป็นลูกค้าคนถัดไป?
+            {t("reviewsPage.ctaTitle")}
           </h2>
           <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-            ให้เราช่วยคุณหาทรัพย์สินในฝัน เหมือนที่ช่วยลูกค้าหลายร้อยคนมาแล้ว
+            {t("reviewsPage.ctaSubtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/#contact">
@@ -319,7 +321,7 @@ export default function ReviewsPage() {
                 size="lg"
                 className="bg-[#C9A227] hover:bg-[#A88B1F] text-white px-8"
               >
-                ติดต่อเรา
+                {t("reviewsPage.contactUs")}
               </Button>
             </Link>
             <Link href="/">
@@ -328,7 +330,7 @@ export default function ReviewsPage() {
                 variant="outline"
                 className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white px-8"
               >
-                กลับหน้าหลัก
+                {t("reviewsPage.backHome")}
               </Button>
             </Link>
           </div>

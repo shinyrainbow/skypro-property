@@ -1,18 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { v2 as cloudinary } from "cloudinary";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-// Configure Cloudinary with optimizations
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true, // Use HTTPS for CDN delivery
-  // upload_prefix: "https://upload-api-ap.cloudinary.com", // Enterprise only: Asia-Pacific Fast API
+// Configure AWS S3 client
+const s3Client = new S3Client({
+  region: process.env.AWS_REGION || "ap-southeast-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
+  },
 });
 
-// POST /api/admin/upload - Upload image to Cloudinary
+const BUCKET_NAME = process.env.AWS_S3_BUCKET_NAME || "";
+
+// POST /api/admin/upload - Upload image to AWS S3
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
@@ -57,45 +59,30 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to Cloudinary (optimized for speed)
-    const result = await new Promise<{ secure_url: string; public_id: string }>((resolve, reject) => {
-      cloudinary.uploader.upload_stream(
-        {
-          folder: "skypro-blog",
-          resource_type: "image",
-          // Performance optimizations:
-          invalidate: false, // Don't invalidate CDN cache (faster)
-          overwrite: false, // Don't check for duplicates (faster)
-          unique_filename: true, // Generate unique names
-          use_filename: false, // Ignore original filename for speed
-          // No inline transformations - apply on-demand via URL for faster upload
-        },
-        (error, result) => {
-          if (error) {
-            reject(error);
-          } else if (result) {
-            resolve({ secure_url: result.secure_url, public_id: result.public_id });
-          } else {
-            reject(new Error("Upload failed"));
-          }
-        }
-      ).end(buffer);
+    // Generate unique filename
+    const timestamp = Date.now();
+    const randomString = Math.random().toString(36).substring(2, 15);
+    const extension = file.type.split("/")[1] === "jpeg" ? "jpg" : file.type.split("/")[1];
+    const key = `skypro-blog/${timestamp}-${randomString}.${extension}`;
+
+    // Upload to S3
+    const command = new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: key,
+      Body: buffer,
+      ContentType: file.type,
     });
 
-    // Generate optimized URL with transformations applied on-demand
-    const optimizedUrl = cloudinary.url(result.public_id, {
-      transformation: [
-        { width: 1200, height: 800, crop: "limit" },
-        { quality: "auto:good" },
-        { fetch_format: "auto" },
-      ],
-    });
+    await s3Client.send(command);
+
+    // Generate S3 URL
+    const url = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION || "ap-southeast-1"}.amazonaws.com/${key}`;
 
     return NextResponse.json({
       success: true,
       data: {
-        url: optimizedUrl, // Return optimized URL with transformations
-        publicId: result.public_id,
+        url: url,
+        publicId: key,
       },
     });
   } catch (error) {

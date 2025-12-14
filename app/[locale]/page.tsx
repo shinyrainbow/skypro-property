@@ -677,7 +677,7 @@ export default function PublicPropertiesPage() {
             {/* Left - Title (hidden on mobile, shown on desktop) */}
             <div className="hidden lg:block">
               <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
-                {t("sections.latestProperties")}
+                {t("sections.popularProperties2")}
               </h2>
             </div>
 
@@ -695,7 +695,7 @@ export default function PublicPropertiesPage() {
               {/* Title only on mobile */}
               <div className="lg:hidden text-center">
                 <h2 className="text-base sm:text-xl font-heading text-white tracking-wide">
-                  {t("sections.latestProperties")}
+                  {t("sections.popularProperties2")}
                 </h2>
               </div>
             </div>

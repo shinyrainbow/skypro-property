@@ -28,48 +28,36 @@ export default function ContactPage() {
   const contactInfo = [
     {
       icon: Phone,
-      title: "โทรศัพท์",
+      title: t("contactPage.phone"),
       details: ["063-956-2446"],
       color: "from-green-500 to-green-600",
       links: ["tel:0639562446"],
     },
     {
       icon: MapPin,
-      title: "ที่อยู่",
+      title: t("contactPage.address"),
       details: [
-        "บริษัท สกายโปรพร้อมเพอร์ตี้ จำกัด",
-        "111 หมู่ที่ 2 ตำบลไชยสถาน",
-        "อำเภอสารภี จังหวัดเชียงใหม่ 50140",
+        t("contactPage.companyName"),
+        t("contactPage.addressLine1"),
+        t("contactPage.addressLine2"),
       ],
       color: "from-red-500 to-red-600",
       links: [],
     },
     {
       icon: Clock,
-      title: "เวลาทำการ",
-      details: ["จันทร์ - อาทิตย์", "09:00 - 18:00"],
+      title: t("contactPage.businessHours"),
+      details: [t("contactPage.daysOpen"), t("contactPage.hoursOpen")],
       color: "from-purple-500 to-purple-600",
       links: [],
     },
   ];
 
   const faqs = [
-    {
-      q: "เวลาทำการของสำนักงานคือเมื่อไหร่?",
-      a: "สำนักงานเปิดให้บริการวันจันทร์ - อาทิตย์ เวลา 09:00 - 18:00 น.",
-    },
-    {
-      q: "ต้องเตรียมเอกสารอะไรบ้างสำหรับการเช่าหรือซื้อ?",
-      a: "สำหรับการเช่า: สำเนาบัตรประชาชน, สลิปเงินเดือน 3 เดือน / สำหรับการซื้อ: สำเนาบัตรประชาชน, ทะเบียนบ้าน, statement บัญชี 6 เดือน",
-    },
-    {
-      q: "สามารถนัดดูห้องได้อย่างไร?",
-      a: "ติดต่อเราผ่านทางโทรศัพท์ หรือ Line Official ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง",
-    },
-    {
-      q: "มีค่าบริการนายหน้าหรือไม่?",
-      a: "สำหรับผู้เช่าไม่มีค่านายหน้า ส่วนผู้ซื้อและผู้ขายมีค่านายหน้าตามมาตรฐานอุตสาหกรรม กรุณาติดต่อสอบถามรายละเอียด",
-    },
+    { q: t("contactPage.faq1Q"), a: t("contactPage.faq1A") },
+    { q: t("contactPage.faq2Q"), a: t("contactPage.faq2A") },
+    { q: t("contactPage.faq3Q"), a: t("contactPage.faq3A") },
+    { q: t("contactPage.faq4Q"), a: t("contactPage.faq4A") },
   ];
 
   const socialLinks = [
@@ -138,12 +126,12 @@ export default function ContactPage() {
             <div className="w-20 h-1 bg-gradient-to-r from-[#C9A227] to-[#E8D48B] mx-auto mb-6" />
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight">
-              ติดต่อเรา
+              {t("contactPage.title")}
             </h1>
             <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-              พร้อมให้บริการและตอบทุกคำถามของคุณ
+              {t("contactPage.subtitle")}
               <br className="hidden md:block" />
-              ติดต่อเราได้หลายช่องทาง
+              {t("contactPage.subtitle2")}
             </p>
           </div>
         </div>
@@ -227,7 +215,7 @@ export default function ContactPage() {
                   {t("footerNav.lineOfficial")}
                 </h3>
                 <p className="text-gray-400 text-sm md:text-base mb-4 md:mb-6">
-                  สแกน QR Code เพื่อติดต่อเราผ่าน Line
+                  {t("contactPage.scanQr")}
                 </p>
 
                 <div className="bg-white p-3 md:p-4 rounded-xl inline-block mb-3 md:mb-4">
@@ -255,7 +243,7 @@ export default function ContactPage() {
                   style={{ transitionDelay: "400ms" }}
                 >
                   <h3 className="text-lg md:text-xl font-bold text-white mb-4 md:mb-6">
-                    ติดตามเราได้ที่
+                    {t("contactPage.followUs")}
                   </h3>
 
                   <div className="grid grid-cols-3 gap-2 md:flex md:flex-wrap md:gap-3">
@@ -275,7 +263,7 @@ export default function ContactPage() {
                   </div>
 
                   <p className="text-gray-500 text-xs md:text-sm mt-4 md:mt-6 text-center md:text-left">
-                    ติดตามข่าวสารและโปรโมชันล่าสุดได้ทุกช่องทาง
+                    {t("contactPage.followUsDesc")}
                   </p>
                 </div>
 
@@ -297,7 +285,7 @@ export default function ContactPage() {
                         Sky Pro Properties
                       </p>
                       <p className="text-gray-500 text-xs md:text-sm">
-                        เชียงใหม่, ประเทศไทย
+                        {t("contactPage.location")}
                       </p>
                     </div>
                   </div>
@@ -314,7 +302,7 @@ export default function ContactPage() {
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
               <div className="w-16 h-1 bg-gradient-to-r from-[#C9A227] to-[#E8D48B] mx-auto mb-6" />
-              <h2 className="text-3xl font-bold text-white">คำถามที่พบบ่อย</h2>
+              <h2 className="text-3xl font-bold text-white">{t("contactPage.faq")}</h2>
             </div>
 
             <div className="space-y-4">
@@ -371,10 +359,10 @@ export default function ContactPage() {
 
         <div className="container mx-auto px-4 relative z-10 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            พร้อมเริ่มต้นหาทรัพย์สินในฝัน?
+            {t("contactPage.ctaTitle")}
           </h2>
           <p className="text-white/90 mb-8 max-w-xl mx-auto text-lg">
-            ดูทรัพย์สินทั้งหมดของเราและค้นหาบ้านที่ตรงใจคุณ
+            {t("contactPage.ctaSubtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
             <Link href="/search">
@@ -382,7 +370,7 @@ export default function ContactPage() {
                 size="lg"
                 className="w-full sm:w-auto !bg-white !text-gray-900 hover:!bg-gray-100 px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg font-semibold rounded-xl"
               >
-                ค้นหาทรัพย์สิน
+                {t("contactPage.searchProperty")}
               </Button>
             </Link>
             <Link href="/">
@@ -391,7 +379,7 @@ export default function ContactPage() {
                 variant="outline"
                 className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg font-semibold rounded-xl"
               >
-                กลับหน้าหลัก
+                {t("contactPage.backHome")}
               </Button>
             </Link>
           </div>

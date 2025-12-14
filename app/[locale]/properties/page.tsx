@@ -29,6 +29,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import Header from "@/components/layout/header";
 import { getProperties, type Property as DataProperty } from "@/lib/data";
+import { useTranslations } from "next-intl";
 
 interface Property {
   id: string;
@@ -55,6 +56,7 @@ interface Property {
 }
 
 export default function PropertiesPage() {
+  const t = useTranslations();
   const [properties, setProperties] = useState<Property[]>([]);
   const [allProperties, setAllProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
@@ -184,10 +186,10 @@ export default function PropertiesPage() {
       <div className="pt-20 bg-gradient-to-b from-[#C9A227]/10 to-transparent">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            ค้นหาอสังหาริมทรัพย์
+            {t("propertiesPage.title")}
           </h1>
           <p className="text-gray-600">
-            พบ {total} รายการที่พร้อมให้บริการ
+            {t("propertiesPage.found")} {total} {t("propertiesPage.listings")}
           </p>
         </div>
       </div>
@@ -199,13 +201,13 @@ export default function PropertiesPage() {
           <div className="hidden lg:block w-80 flex-shrink-0">
             <Card className="p-6 border-0 shadow-lg sticky top-24">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold text-gray-900">ตัวกรอง</h2>
+                <h2 className="text-lg font-bold text-gray-900">{t("propertiesPage.filters")}</h2>
                 {activeFiltersCount > 0 && (
                   <button
                     onClick={handleResetFilters}
                     className="text-sm text-[#C9A227] hover:underline"
                   >
-                    รีเซ็ตทั้งหมด
+                    {t("propertiesPage.resetAll")}
                   </button>
                 )}
               </div>
@@ -213,64 +215,64 @@ export default function PropertiesPage() {
               <div className="space-y-5">
                 <div>
                   <label className="text-sm font-medium text-gray-700 mb-2 block">
-                    ประเภทการตลาด
+                    {t("propertiesPage.listingType")}
                   </label>
                   <Select value={listingType} onValueChange={setListingType}>
                     <SelectTrigger className="border-gray-200">
-                      <SelectValue placeholder="ทั้งหมด" />
+                      <SelectValue placeholder={t("propertiesPage.all")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">ทั้งหมด</SelectItem>
-                      <SelectItem value="rent">เช่า</SelectItem>
-                      <SelectItem value="sale">ขาย</SelectItem>
+                      <SelectItem value="all">{t("propertiesPage.all")}</SelectItem>
+                      <SelectItem value="rent">{t("propertiesPage.rent")}</SelectItem>
+                      <SelectItem value="sale">{t("propertiesPage.sale")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div>
                   <label className="text-sm font-medium text-gray-700 mb-2 block">
-                    ประเภททรัพย์สิน
+                    {t("propertiesPage.propertyType")}
                   </label>
                   <Select value={propertyType} onValueChange={setPropertyType}>
                     <SelectTrigger className="border-gray-200">
-                      <SelectValue placeholder="ทั้งหมด" />
+                      <SelectValue placeholder={t("propertiesPage.all")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">ทั้งหมด</SelectItem>
-                      <SelectItem value="Condo">คอนโด</SelectItem>
-                      <SelectItem value="Townhouse">ทาวน์เฮ้าส์</SelectItem>
-                      <SelectItem value="SingleHouse">บ้านเดี่ยว</SelectItem>
-                      <SelectItem value="Land">ที่ดิน</SelectItem>
+                      <SelectItem value="all">{t("propertiesPage.all")}</SelectItem>
+                      <SelectItem value="Condo">{t("propertiesPage.condo")}</SelectItem>
+                      <SelectItem value="Townhouse">{t("propertiesPage.townhouse")}</SelectItem>
+                      <SelectItem value="SingleHouse">{t("propertiesPage.singleHouse")}</SelectItem>
+                      <SelectItem value="Land">{t("propertiesPage.land")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div>
                   <label className="text-sm font-medium text-gray-700 mb-2 block">
-                    จำนวนห้องนอน
+                    {t("propertiesPage.bedrooms")}
                   </label>
                   <Select value={bedrooms} onValueChange={setBedrooms}>
                     <SelectTrigger className="border-gray-200">
-                      <SelectValue placeholder="ไม่ระบุ" />
+                      <SelectValue placeholder={t("propertiesPage.notSpecified")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">ไม่ระบุ</SelectItem>
-                      <SelectItem value="1">1 ห้อง</SelectItem>
-                      <SelectItem value="2">2 ห้อง</SelectItem>
-                      <SelectItem value="3">3 ห้อง</SelectItem>
-                      <SelectItem value="4">4+ ห้อง</SelectItem>
+                      <SelectItem value="all">{t("propertiesPage.notSpecified")}</SelectItem>
+                      <SelectItem value="1">1 {t("propertiesPage.room")}</SelectItem>
+                      <SelectItem value="2">2 {t("propertiesPage.rooms")}</SelectItem>
+                      <SelectItem value="3">3 {t("propertiesPage.rooms")}</SelectItem>
+                      <SelectItem value="4">4+ {t("propertiesPage.roomsPlus")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div>
                   <label className="text-sm font-medium text-gray-700 mb-2 block">
-                    ช่วงราคา (฿)
+                    {t("propertiesPage.priceRange")} (฿)
                   </label>
                   <div className="flex gap-2">
                     <Input
                       type="number"
-                      placeholder="ต่ำสุด"
+                      placeholder={t("propertiesPage.minPrice")}
                       value={minPrice}
                       onChange={(e) => setMinPrice(e.target.value)}
                       className="border-gray-200"
@@ -278,7 +280,7 @@ export default function PropertiesPage() {
                     <span className="flex items-center text-gray-400">-</span>
                     <Input
                       type="number"
-                      placeholder="สูงสุด"
+                      placeholder={t("propertiesPage.maxPrice")}
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
                       className="border-gray-200"
@@ -291,7 +293,7 @@ export default function PropertiesPage() {
                   className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                 >
                   <Search className="w-4 h-4 mr-2" />
-                  ค้นหา
+                  {t("propertiesPage.search")}
                 </Button>
               </div>
             </Card>
@@ -306,7 +308,7 @@ export default function PropertiesPage() {
                 className="lg:hidden flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm"
               >
                 <SlidersHorizontal className="w-4 h-4" />
-                <span>ตัวกรอง</span>
+                <span>{t("propertiesPage.filters")}</span>
                 {activeFiltersCount > 0 && (
                   <span className="bg-[#C9A227] text-white text-xs px-2 py-0.5 rounded-full">
                     {activeFiltersCount}
@@ -316,7 +318,7 @@ export default function PropertiesPage() {
 
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-500 hidden sm:inline">
-                  มุมมอง:
+                  {t("propertiesPage.view")}:
                 </span>
                 <div className="flex bg-white border border-gray-200 rounded-lg overflow-hidden">
                   <button
@@ -364,17 +366,17 @@ export default function PropertiesPage() {
               <div className="text-center py-20">
                 <Search className="w-20 h-20 text-gray-300 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  ไม่พบรายการทรัพย์สิน
+                  {t("propertiesPage.noProperties")}
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  ลองปรับเปลี่ยนเงื่อนไขการค้นหาของคุณ
+                  {t("propertiesPage.tryAdjusting")}
                 </p>
                 <Button
                   variant="outline"
                   onClick={handleResetFilters}
                   className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
                 >
-                  รีเซ็ตตัวกรอง
+                  {t("propertiesPage.resetFilters")}
                 </Button>
               </div>
             ) : (
@@ -411,7 +413,7 @@ export default function PropertiesPage() {
                               {property.featured && (
                                 <span className="bg-[#C9A227] text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                                   <Star className="w-3 h-3 fill-white" />
-                                  แนะนำ
+                                  {t("propertiesPage.featured")}
                                 </span>
                               )}
                             </div>
@@ -426,10 +428,10 @@ export default function PropertiesPage() {
                                 }`}
                               >
                                 {property.listingType === "rent"
-                                  ? "เช่า"
+                                  ? t("propertiesPage.rent")
                                   : property.listingType === "sale"
-                                  ? "ขาย"
-                                  : "ขาย/เช่า"}
+                                  ? t("propertiesPage.sale")
+                                  : t("propertiesPage.rentSale")}
                               </span>
                             </div>
 
@@ -437,12 +439,12 @@ export default function PropertiesPage() {
                             <div className="absolute bottom-3 left-3">
                               <span className="bg-white/90 backdrop-blur-sm text-gray-800 px-2 py-1 rounded-full text-xs font-medium">
                                 {property.propertyType === "Condo"
-                                  ? "คอนโด"
+                                  ? t("propertiesPage.condo")
                                   : property.propertyType === "Townhouse"
-                                  ? "ทาวน์เฮ้าส์"
+                                  ? t("propertiesPage.townhouse")
                                   : property.propertyType === "Land"
-                                  ? "ที่ดิน"
-                                  : "บ้านเดี่ยว"}
+                                  ? t("propertiesPage.land")
+                                  : t("propertiesPage.singleHouse")}
                               </span>
                             </div>
                           </div>
@@ -473,7 +475,7 @@ export default function PropertiesPage() {
                               </div>
                               <div className="flex items-center gap-1">
                                 <Maximize className="w-4 h-4 text-[#C9A227]" />
-                                <span>{getSize(property)} ตร.ม.</span>
+                                <span>{getSize(property)} {t("propertiesPage.sqm")}</span>
                               </div>
                             </div>
 
@@ -483,7 +485,7 @@ export default function PropertiesPage() {
                                   <div className="text-lg font-bold text-[#C9A227]">
                                     ฿ {formatPrice(property.rentalRateNum)}
                                     <span className="text-xs font-normal text-gray-500">
-                                      /เดือน
+                                      {t("propertiesPage.perMonth")}
                                     </span>
                                   </div>
                                 )}
@@ -497,7 +499,7 @@ export default function PropertiesPage() {
                             </div>
 
                             <div className="text-xs text-gray-400 mt-2">
-                              รหัส: {property.agentPropertyCode}
+                              {t("propertiesPage.code")}: {property.agentPropertyCode}
                             </div>
                           </div>
                         </Card>
@@ -537,7 +539,7 @@ export default function PropertiesPage() {
                                 {property.featured && (
                                   <span className="bg-[#C9A227] text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                                     <Star className="w-3 h-3 fill-white" />
-                                    แนะนำ
+                                    {t("propertiesPage.featured")}
                                   </span>
                                 )}
                                 <span
@@ -550,10 +552,10 @@ export default function PropertiesPage() {
                                   }`}
                                 >
                                   {property.listingType === "rent"
-                                    ? "เช่า"
+                                    ? t("propertiesPage.rent")
                                     : property.listingType === "sale"
-                                    ? "ขาย"
-                                    : "ขาย/เช่า"}
+                                    ? t("propertiesPage.sale")
+                                    : t("propertiesPage.rentSale")}
                                 </span>
                               </div>
                             </div>
@@ -563,15 +565,15 @@ export default function PropertiesPage() {
                               <div className="flex items-center gap-2 mb-2">
                                 <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-medium">
                                   {property.propertyType === "Condo"
-                                    ? "คอนโด"
+                                    ? t("propertiesPage.condo")
                                     : property.propertyType === "Townhouse"
-                                    ? "ทาวน์เฮ้าส์"
+                                    ? t("propertiesPage.townhouse")
                                     : property.propertyType === "Land"
-                                    ? "ที่ดิน"
-                                    : "บ้านเดี่ยว"}
+                                    ? t("propertiesPage.land")
+                                    : t("propertiesPage.singleHouse")}
                                 </span>
                                 <span className="text-xs text-gray-400">
-                                  รหัส: {property.agentPropertyCode}
+                                  {t("propertiesPage.code")}: {property.agentPropertyCode}
                                 </span>
                               </div>
 
@@ -591,15 +593,15 @@ export default function PropertiesPage() {
                               <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
                                 <div className="flex items-center gap-1">
                                   <Bed className="w-4 h-4 text-[#C9A227]" />
-                                  <span>{property.bedRoomNum} ห้องนอน</span>
+                                  <span>{property.bedRoomNum} {t("propertiesPage.bedroom")}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                   <Bath className="w-4 h-4 text-[#C9A227]" />
-                                  <span>{property.bathRoomNum} ห้องน้ำ</span>
+                                  <span>{property.bathRoomNum} {t("propertiesPage.bathroom")}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                   <Maximize className="w-4 h-4 text-[#C9A227]" />
-                                  <span>{getSize(property)} ตร.ม.</span>
+                                  <span>{getSize(property)} {t("propertiesPage.sqm")}</span>
                                 </div>
                               </div>
 
@@ -610,7 +612,7 @@ export default function PropertiesPage() {
                                       <div className="text-xl font-bold text-[#C9A227]">
                                         ฿ {formatPrice(property.rentalRateNum)}
                                         <span className="text-sm font-normal text-gray-500">
-                                          /เดือน
+                                          {t("propertiesPage.perMonth")}
                                         </span>
                                       </div>
                                     )}
@@ -626,7 +628,7 @@ export default function PropertiesPage() {
                                   size="sm"
                                   className="bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                                 >
-                                  ดูรายละเอียด
+                                  {t("propertiesPage.viewDetails")}
                                 </Button>
                               </div>
                             </div>
@@ -647,7 +649,7 @@ export default function PropertiesPage() {
                       onClick={() => setPage(page - 1)}
                       className="border-gray-200"
                     >
-                      ก่อนหน้า
+                      {t("propertiesPage.previous")}
                     </Button>
                     <div className="flex gap-1">
                       {Array.from(
@@ -679,7 +681,7 @@ export default function PropertiesPage() {
                       onClick={() => setPage(page + 1)}
                       className="border-gray-200"
                     >
-                      ถัดไป
+                      {t("propertiesPage.next")}
                     </Button>
                   </div>
                 )}
@@ -698,7 +700,7 @@ export default function PropertiesPage() {
           />
           <div className="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-xl p-6 overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-bold text-gray-900">ตัวกรอง</h2>
+              <h2 className="text-lg font-bold text-gray-900">{t("propertiesPage.filters")}</h2>
               <button
                 onClick={() => setShowFilters(false)}
                 className="p-2 hover:bg-gray-100 rounded-full"
@@ -710,71 +712,71 @@ export default function PropertiesPage() {
             <div className="space-y-5">
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  ประเภทการตลาด
+                  {t("propertiesPage.listingType")}
                 </label>
                 <Select value={listingType} onValueChange={setListingType}>
                   <SelectTrigger className="border-gray-200">
-                    <SelectValue placeholder="ทั้งหมด" />
+                    <SelectValue placeholder={t("propertiesPage.all")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">ทั้งหมด</SelectItem>
-                    <SelectItem value="rent">เช่า</SelectItem>
-                    <SelectItem value="sale">ขาย</SelectItem>
+                    <SelectItem value="all">{t("propertiesPage.all")}</SelectItem>
+                    <SelectItem value="rent">{t("propertiesPage.rent")}</SelectItem>
+                    <SelectItem value="sale">{t("propertiesPage.sale")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  ประเภททรัพย์สิน
+                  {t("propertiesPage.propertyType")}
                 </label>
                 <Select value={propertyType} onValueChange={setPropertyType}>
                   <SelectTrigger className="border-gray-200">
-                    <SelectValue placeholder="ทั้งหมด" />
+                    <SelectValue placeholder={t("propertiesPage.all")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">ทั้งหมด</SelectItem>
-                    <SelectItem value="Condo">คอนโด</SelectItem>
-                    <SelectItem value="Townhouse">ทาวน์เฮ้าส์</SelectItem>
-                    <SelectItem value="SingleHouse">บ้านเดี่ยว</SelectItem>
-                    <SelectItem value="Land">ที่ดิน</SelectItem>
+                    <SelectItem value="all">{t("propertiesPage.all")}</SelectItem>
+                    <SelectItem value="Condo">{t("propertiesPage.condo")}</SelectItem>
+                    <SelectItem value="Townhouse">{t("propertiesPage.townhouse")}</SelectItem>
+                    <SelectItem value="SingleHouse">{t("propertiesPage.singleHouse")}</SelectItem>
+                    <SelectItem value="Land">{t("propertiesPage.land")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  จำนวนห้องนอน
+                  {t("propertiesPage.bedrooms")}
                 </label>
                 <Select value={bedrooms} onValueChange={setBedrooms}>
                   <SelectTrigger className="border-gray-200">
-                    <SelectValue placeholder="ไม่ระบุ" />
+                    <SelectValue placeholder={t("propertiesPage.notSpecified")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">ไม่ระบุ</SelectItem>
-                    <SelectItem value="1">1 ห้อง</SelectItem>
-                    <SelectItem value="2">2 ห้อง</SelectItem>
-                    <SelectItem value="3">3 ห้อง</SelectItem>
-                    <SelectItem value="4">4+ ห้อง</SelectItem>
+                    <SelectItem value="all">{t("propertiesPage.notSpecified")}</SelectItem>
+                    <SelectItem value="1">1 {t("propertiesPage.room")}</SelectItem>
+                    <SelectItem value="2">2 {t("propertiesPage.rooms")}</SelectItem>
+                    <SelectItem value="3">3 {t("propertiesPage.rooms")}</SelectItem>
+                    <SelectItem value="4">4+ {t("propertiesPage.roomsPlus")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  ช่วงราคา (฿)
+                  {t("propertiesPage.priceRange")} (฿)
                 </label>
                 <div className="space-y-2">
                   <Input
                     type="number"
-                    placeholder="ราคาต่ำสุด"
+                    placeholder={t("propertiesPage.minPrice")}
                     value={minPrice}
                     onChange={(e) => setMinPrice(e.target.value)}
                     className="border-gray-200"
                   />
                   <Input
                     type="number"
-                    placeholder="ราคาสูงสุด"
+                    placeholder={t("propertiesPage.maxPrice")}
                     value={maxPrice}
                     onChange={(e) => setMaxPrice(e.target.value)}
                     className="border-gray-200"
@@ -788,7 +790,7 @@ export default function PropertiesPage() {
                   onClick={handleResetFilters}
                   className="flex-1 border-gray-200"
                 >
-                  รีเซ็ต
+                  {t("propertiesPage.reset")}
                 </Button>
                 <Button
                   onClick={() => {
@@ -797,7 +799,7 @@ export default function PropertiesPage() {
                   }}
                   className="flex-1 bg-[#C9A227] hover:bg-[#A88B1F] text-white"
                 >
-                  ค้นหา
+                  {t("propertiesPage.search")}
                 </Button>
               </div>
             </div>

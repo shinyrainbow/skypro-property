@@ -125,6 +125,7 @@ export function ConfirmDialogProvider({ children }: ConfirmDialogProviderProps) 
               <Button
                 variant="outline"
                 onClick={handleCancel}
+                className="text-gray-900"
               >
                 {options?.cancelText || "ยกเลิก"}
               </Button>
