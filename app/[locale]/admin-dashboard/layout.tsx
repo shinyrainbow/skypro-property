@@ -112,7 +112,7 @@ export default function AdminLayout({
           <Link href="/admin-dashboard" className="flex items-center gap-2">
             <Image
               src="/web-logo.png"
-              alt="Sky Pro Properties"
+              alt="Sky Pro Property"
               width={32}
               height={32}
               className="w-8 h-8 object-contain"

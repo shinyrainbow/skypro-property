@@ -78,6 +78,20 @@ function SearchContent() {
   const t = useTranslations();
   const locale = useLocale();
 
+  // Helper functions for language-based field selection
+  const useEnglish = locale === "en" || locale === "zh";
+  const getProjectName = (project: { projectNameTh?: string; projectNameEn?: string } | null | undefined) => {
+    if (!project) return "";
+    return useEnglish
+      ? (project.projectNameEn || project.projectNameTh || "")
+      : (project.projectNameTh || project.projectNameEn || "");
+  };
+  const getPropertyTitle = (property: { propertyTitleTh?: string; propertyTitleEn?: string }) => {
+    return useEnglish
+      ? (property.propertyTitleEn || property.propertyTitleTh || "")
+      : (property.propertyTitleTh || property.propertyTitleEn || "");
+  };
+
   // Read all filter params from URL
   const projectParam = searchParams.get("project") || "";
   const propertyTypeParam = searchParams.get("propertyType") || "";
@@ -251,9 +265,8 @@ function SearchContent() {
   };
 
   // Get selected project name for display
-  const selectedProjectName = projects.find(p => p.projectCode === selectedProject)?.projectNameTh ||
-                              projects.find(p => p.projectCode === selectedProject)?.projectNameEn ||
-                              selectedProject;
+  const selectedProjectObj = projects.find(p => p.projectCode === selectedProject);
+  const selectedProjectName = selectedProjectObj ? getProjectName(selectedProjectObj) : selectedProject;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -312,7 +325,7 @@ function SearchContent() {
                 onClick={() => handleProjectSelect(project.projectCode)}
               >
                 <Building2 className="w-4 h-4 mr-1" />
-                {project.projectNameTh || project.projectNameEn}
+                {getProjectName(project)}
                 <span className="ml-1 text-xs opacity-75">
                   ({project.count})
                 </span>
@@ -587,10 +600,7 @@ function SearchContent() {
                         {property.imageUrls && property.imageUrls.length > 0 ? (
                           <Image
                             src={property.imageUrls[0]}
-                            alt={
-                              property.propertyTitleTh ||
-                              property.propertyTitleEn
-                            }
+                            alt={getPropertyTitle(property)}
                             fill
                             className="object-cover group-hover:scale-110 transition-transform duration-500"
                           />
@@ -657,13 +667,12 @@ function SearchContent() {
                         {property.project && (
                           <div className="flex items-center text-xs text-gray-500 mb-1">
                             <MapPin className="w-3 h-3 mr-1" />
-                            {property.project.projectNameTh ||
-                              property.project.projectNameEn}
+                            {getProjectName(property.project)}
                           </div>
                         )}
 
                         <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#C9A227] transition-colors">
-                          {property.propertyTitleTh || property.propertyTitleEn}
+                          {getPropertyTitle(property)}
                         </h3>
 
                         <div className="flex items-center gap-3 text-xs text-gray-500 mb-3 pb-3 border-b border-gray-100">

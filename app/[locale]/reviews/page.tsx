@@ -52,7 +52,7 @@ const mockReviews: Review[] = [
     id: "rev-003",
     name: "คุณวิชัย ธนกิจ",
     rating: 5,
-    comment: "ซื้อบ้านผ่าน Sky Pro Properties ทุกอย่างราบรื่น เอกสารครบถ้วน แนะนำครับ",
+    comment: "ซื้อบ้านผ่าน Sky Pro Property ทุกอย่างราบรื่น เอกสารครบถ้วน แนะนำครับ",
     transactionType: "ซื้อ",
     location: "บางนา",
     helpful: 15,

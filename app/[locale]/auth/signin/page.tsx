@@ -8,8 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Building2, Mail, Lock, AlertCircle } from "lucide-react";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 function SignInForm() {
+  const t = useTranslations("auth");
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -57,7 +59,7 @@ function SignInForm() {
           <div className="flex items-center gap-2 text-red-800">
             <AlertCircle className="w-5 h-5" />
             <p className="text-sm font-medium">
-              {errorMessage || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ กรุณาลองอีกครั้ง"}
+              {errorMessage || t("loginError")}
             </p>
           </div>
         </Card>
@@ -91,7 +93,7 @@ function SignInForm() {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            ดำเนินการต่อด้วย Google
+            {t("continueWithGoogle")}
           </Button>
 
           <Button
@@ -103,7 +105,7 @@ function SignInForm() {
             <svg className="w-5 h-5 mr-3" fill="#1877F2" viewBox="0 0 24 24">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
             </svg>
-            ดำเนินการต่อด้วย Facebook
+            {t("continueWithFacebook")}
           </Button>
         </div>
 
@@ -113,7 +115,7 @@ function SignInForm() {
             <div className="w-full border-t border-gray-300"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-white text-gray-500">หรือ</span>
+            <span className="px-4 bg-white text-gray-500">{t("or")}</span>
           </div>
         </div>
 
@@ -121,13 +123,13 @@ function SignInForm() {
         <form onSubmit={handleCredentialsSignIn} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              อีเมล
+              {t("email")}
             </label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
                 type="email"
-                placeholder="demo@example.com"
+                placeholder={t("emailPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="pl-10 h-12 border-gray-300"
@@ -138,13 +140,13 @@ function SignInForm() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              รหัสผ่าน
+              {t("password")}
             </label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
                 type="password"
-                placeholder="••••••••"
+                placeholder={t("passwordPlaceholder")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="pl-10 h-12 border-gray-300"
@@ -159,13 +161,13 @@ function SignInForm() {
                 type="checkbox"
                 className="w-4 h-4 text-[#C9A227] border-gray-300 rounded focus:ring-[#C9A227]"
               />
-              <span className="text-gray-700">จดจำฉัน</span>
+              <span className="text-gray-700">{t("rememberMe")}</span>
             </label>
             <Link
               href="/auth/forgot-password"
               className="text-[#C9A227] hover:text-[#A88B1F] font-medium"
             >
-              ลืมรหัสผ่าน?
+              {t("forgotPassword")}
             </Link>
           </div>
 
@@ -174,14 +176,14 @@ function SignInForm() {
             disabled={loading}
             className="w-full h-12 bg-[#C9A227] hover:bg-[#A88B1F] text-white font-semibold text-base transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
+            {loading ? t("signingIn") : t("signIn")}
           </Button>
         </form>
 
         {/* Demo Credentials Info */}
         <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-xs text-blue-800 font-medium mb-1">
-            สำหรับทดสอบ:
+            {t("forTesting")}
           </p>
           <p className="text-xs text-blue-700">
             Email: demo@example.com
@@ -192,12 +194,12 @@ function SignInForm() {
 
         {/* Sign Up Link */}
         <div className="mt-6 text-center text-sm text-gray-600">
-          ยังไม่มีบัญชี?{" "}
+          {t("noAccount")}{" "}
           <Link
             href="/auth/signup"
             className="text-[#C9A227] hover:text-[#A88B1F] font-semibold"
           >
-            สมัครสมาชิก
+            {t("signUp")}
           </Link>
         </div>
       </Card>
@@ -222,6 +224,8 @@ function SignInFormSkeleton() {
 }
 
 export default function SignInPage() {
+  const t = useTranslations("auth");
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex items-center justify-center p-4">
       {/* Background Pattern */}
@@ -233,14 +237,14 @@ export default function SignInPage() {
           <Link href="/" className="inline-flex items-center gap-3 mb-4">
             <Building2 className="w-12 h-12 text-[#C9A227]" />
             <span className="text-3xl font-bold text-gray-900">
-              Sky Pro Properties
+              Sky Pro Property
             </span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            ยินดีต้อนรับกลับมา
+            {t("welcomeBack")}
           </h1>
           <p className="text-gray-600">
-            เข้าสู่ระบบเพื่อเข้าถึงบัญชีของคุณ
+            {t("signInSubtitle")}
           </p>
         </div>
 
@@ -254,7 +258,7 @@ export default function SignInPage() {
             href="/"
             className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors duration-300"
           >
-            ← กลับสู่หน้าหลัก
+            {t("backToHome")}
           </Link>
         </div>
       </div>

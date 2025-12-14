@@ -8,8 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Building2, Mail, Lock, AlertCircle } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 function SignInForm() {
+  const t = useTranslations("auth");
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
@@ -73,7 +75,7 @@ function SignInForm() {
           <div className="flex items-center gap-2 text-red-800">
             <AlertCircle className="w-5 h-5" />
             <p className="text-sm font-medium">
-              {errorMessage || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ กรุณาลองอีกครั้ง"}
+              {errorMessage || t("loginError")}
             </p>
           </div>
         </Card>
@@ -84,13 +86,13 @@ function SignInForm() {
         <form onSubmit={handleCredentialsSignIn} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              อีเมล
+              {t("email")}
             </label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
                 type="email"
-                placeholder="demo@example.com"
+                placeholder={t("emailPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="pl-10 h-12 border-gray-300"
@@ -101,13 +103,13 @@ function SignInForm() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              รหัสผ่าน
+              {t("password")}
             </label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
                 type="password"
-                placeholder="••••••••"
+                placeholder={t("passwordPlaceholder")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="pl-10 h-12 border-gray-300"
@@ -122,7 +124,7 @@ function SignInForm() {
                 type="checkbox"
                 className="w-4 h-4 text-[#C9A227] border-gray-300 rounded focus:ring-[#C9A227]"
               />
-              <span className="text-gray-700">จดจำฉัน</span>
+              <span className="text-gray-700">{t("rememberMe")}</span>
             </label>
           </div>
 
@@ -131,7 +133,7 @@ function SignInForm() {
             disabled={loading}
             className="w-full h-12 bg-[#C9A227] hover:bg-[#A88B1F] text-white font-semibold text-base transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
+            {loading ? t("signingIn") : t("signIn")}
           </Button>
         </form>
 
@@ -164,6 +166,8 @@ function SignInFormSkeleton() {
 }
 
 export default function AdminSignInPage() {
+  const t = useTranslations("auth");
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex items-center justify-center p-4">
       {/* Background Pattern */}
@@ -175,14 +179,14 @@ export default function AdminSignInPage() {
           <Link href="/" className="inline-flex items-center gap-3 mb-4">
             <Building2 className="w-12 h-12 text-[#C9A227]" />
             <span className="text-3xl font-bold text-gray-900">
-              Sky Pro Properties
+              Sky Pro Property
             </span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
             Admin Portal
           </h1>
           <p className="text-gray-600">
-            เข้าสู่ระบบเพื่อจัดการทรัพย์สิน
+            {t("manageProperties")}
           </p>
         </div>
 
@@ -196,7 +200,7 @@ export default function AdminSignInPage() {
             href="/"
             className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors duration-300"
           >
-            ← กลับสู่หน้าหลัก
+            {t("backToHome")}
           </Link>
         </div>
       </div>

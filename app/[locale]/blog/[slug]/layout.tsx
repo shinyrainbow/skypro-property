@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : blog.excerpt;
 
   return {
-    title: `${title} | Sky Pro Properties`,
+    title: `${title} | Sky Pro Property`,
     description: description || undefined,
     openGraph: {
       title,

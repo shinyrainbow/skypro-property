@@ -10,10 +10,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "seo" });
 
   const titles: Record<string, string> = {
-    th: "ค้นหาอสังหาริมทรัพย์บนแผนที่ | Sky Pro Properties",
-    en: "Map Search Properties | Sky Pro Properties",
-    ja: "地図で物件検索 | Sky Pro Properties",
-    zh: "地图搜索房产 | Sky Pro Properties",
+    th: "ค้นหาอสังหาริมทรัพย์บนแผนที่ | Sky Pro Property",
+    en: "Map Search Properties | Sky Pro Property",
+    ja: "地図で物件検索 | Sky Pro Property",
+    zh: "地图搜索房产 | Sky Pro Property",
   };
 
   const descriptions: Record<string, string> = {

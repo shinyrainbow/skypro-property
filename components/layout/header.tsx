@@ -86,7 +86,7 @@ export default function Header({ transparent = false }: HeaderProps) {
               <div className={`relative transition-all duration-500 ease-out ${isScrolled ? "h-12" : "h-16"} w-auto`}>
                 <Image
                   src="/name-logo.png"
-                  alt="Sky Pro Properties"
+                  alt="Sky Pro Property"
                   height={64}
                   width={192}
                   className="object-contain h-full w-auto"
@@ -122,7 +122,7 @@ export default function Header({ transparent = false }: HeaderProps) {
               <div className={`relative transition-all duration-500 ease-out ${isScrolled ? "h-9" : "h-10"} w-auto`}>
                 <Image
                   src="/name-logo.png"
-                  alt="Sky Pro Properties"
+                  alt="Sky Pro Property"
                   height={40}
                   width={120}
                   className="object-contain h-full w-auto"
@@ -177,7 +177,7 @@ export default function Header({ transparent = false }: HeaderProps) {
             <div className="flex items-center gap-3">
               <Image
                 src="/header-logo.png"
-                alt="Sky Pro Properties"
+                alt="Sky Pro Property"
                 width={52}
                 height={52}
                 className="object-contain"
@@ -185,7 +185,7 @@ export default function Header({ transparent = false }: HeaderProps) {
               />
               <Image
                 src="/name-logo.png"
-                alt="Sky Pro Properties"
+                alt="Sky Pro Property"
                 height={44}
                 width={132}
                 className="object-contain"

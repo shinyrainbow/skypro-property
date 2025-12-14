@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Building2, Mail, Lock, User, AlertCircle, CheckCircle } from "lucide-react";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export default function RegisterPage() {
+  const t = useTranslations("auth");
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -65,14 +67,14 @@ export default function RegisterPage() {
           <Link href="/" className="inline-flex items-center gap-3 mb-4">
             <Building2 className="w-12 h-12 text-[#C9A227]" />
             <span className="text-3xl font-bold text-gray-900">
-              Sky Pro Properties
+              Sky Pro Property
             </span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            สร้างบัญชีใหม่
+            {t("createAccount")}
           </h1>
           <p className="text-gray-600">
-            ลงทะเบียนเพื่อเข้าใช้งานระบบ
+            {t("registerSubtitle")}
           </p>
         </div>
 
@@ -82,7 +84,7 @@ export default function RegisterPage() {
             <div className="flex items-center gap-2 text-green-800">
               <CheckCircle className="w-5 h-5" />
               <p className="text-sm font-medium">
-                ลงทะเบียนสำเร็จ! กำลังนำคุณไปหน้าเข้าสู่ระบบ...
+                {t("registerSuccess")}
               </p>
             </div>
           </Card>
@@ -103,13 +105,13 @@ export default function RegisterPage() {
           <form onSubmit={handleRegister} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                ชื่อ
+                {t("name")}
               </label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <Input
                   type="text"
-                  placeholder="ชื่อของคุณ"
+                  placeholder={t("namePlaceholder")}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="pl-10 h-12 border-gray-300"
@@ -119,13 +121,13 @@ export default function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                อีเมล
+                {t("email")}
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <Input
                   type="email"
-                  placeholder="email@example.com"
+                  placeholder={t("emailPlaceholder")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10 h-12 border-gray-300"
@@ -136,13 +138,13 @@ export default function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                รหัสผ่าน
+                {t("password")}
               </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <Input
                   type="password"
-                  placeholder="••••••••"
+                  placeholder={t("passwordPlaceholder")}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10 h-12 border-gray-300"
@@ -150,18 +152,18 @@ export default function RegisterPage() {
                   minLength={6}
                 />
               </div>
-              <p className="text-xs text-gray-500 mt-1">อย่างน้อย 6 ตัวอักษร</p>
+              <p className="text-xs text-gray-500 mt-1">{t("passwordMinLength")}</p>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                ยืนยันรหัสผ่าน
+                {t("confirmPassword")}
               </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <Input
                   type="password"
-                  placeholder="••••••••"
+                  placeholder={t("passwordPlaceholder")}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="pl-10 h-12 border-gray-300"
@@ -175,18 +177,18 @@ export default function RegisterPage() {
               disabled={loading || success}
               className="w-full h-12 bg-[#C9A227] hover:bg-[#A88B1F] text-white font-semibold text-base transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "กำลังลงทะเบียน..." : "ลงทะเบียน"}
+              {loading ? t("registering") : t("register")}
             </Button>
           </form>
 
           {/* Login Link */}
           <div className="mt-6 text-center text-sm text-gray-600">
-            มีบัญชีอยู่แล้ว?{" "}
+            {t("hasAccount")}{" "}
             <Link
               href="/admin"
               className="text-[#C9A227] hover:underline font-medium"
             >
-              เข้าสู่ระบบ
+              {t("signIn")}
             </Link>
           </div>
         </Card>
@@ -197,7 +199,7 @@ export default function RegisterPage() {
             href="/"
             className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors duration-300"
           >
-            ← กลับสู่หน้าหลัก
+            {t("backToHome")}
           </Link>
         </div>
       </div>

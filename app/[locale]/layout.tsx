@@ -36,8 +36,8 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://skyproproperties.com"),
   title: {
-    default: "Sky Pro Properties - Premium Real Estate Bangkok",
-    template: "%s | Sky Pro Properties",
+    default: "Sky Pro Property - Premium Real Estate Bangkok",
+    template: "%s | Sky Pro Property",
   },
   description:
     "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok. Professional real estate consulting services.",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     "Bangkok condo",
     "house for rent",
     "house for sale",
-    "Sky Pro Properties",
+    "Sky Pro Property",
     "real estate Bangkok",
     "Sukhumvit",
     "Thonglor",
@@ -59,9 +59,9 @@ export const metadata: Metadata = {
     "Sathorn",
     "Silom",
   ],
-  authors: [{ name: "Sky Pro Properties" }],
-  creator: "Sky Pro Properties",
-  publisher: "Sky Pro Properties",
+  authors: [{ name: "Sky Pro Property" }],
+  creator: "Sky Pro Property",
+  publisher: "Sky Pro Property",
   formatDetection: {
     email: false,
     address: false,
@@ -71,8 +71,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "th_TH",
     url: "https://skyproproperties.com",
-    siteName: "Sky Pro Properties",
-    title: "Sky Pro Properties - Premium Real Estate Bangkok",
+    siteName: "Sky Pro Property",
+    title: "Sky Pro Property - Premium Real Estate Bangkok",
     description:
       "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok.",
     images: [
@@ -80,13 +80,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Sky Pro Properties - Premium Real Estate Bangkok",
+        alt: "Sky Pro Property - Premium Real Estate Bangkok",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sky Pro Properties - Premium Real Estate Bangkok",
+    title: "Sky Pro Property - Premium Real Estate Bangkok",
     description:
       "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok.",
     images: ["/og-image.jpg"],

@@ -411,6 +411,22 @@ export default function PropertyDetailPage() {
   const router = useRouter();
   const t = useTranslations();
   const locale = useLocale();
+
+  // Helper functions for language-based field selection
+  const useEnglish = locale === "en" || locale === "zh";
+  const getProjectName = (project: { projectNameTh?: string; projectNameEn?: string } | null | undefined) => {
+    if (!project) return "";
+    return useEnglish
+      ? (project.projectNameEn || project.projectNameTh || "")
+      : (project.projectNameTh || project.projectNameEn || "");
+  };
+  const getPropertyTitle = (property: { propertyTitleTh?: string; propertyTitleEn?: string } | null | undefined) => {
+    if (!property) return "";
+    return useEnglish
+      ? (property.propertyTitleEn || property.propertyTitleTh || "")
+      : (property.propertyTitleTh || property.propertyTitleEn || "");
+  };
+
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -695,7 +711,7 @@ export default function PropertyDetailPage() {
                 className={`w-5 h-5 ${isLiked ? "fill-red-500" : ""}`}
               />
             </button>
-            <ShareButton title={property?.propertyTitleTh || property?.propertyTitleEn || "ทรัพย์สิน"} />
+            <ShareButton title={getPropertyTitle(property) || "ทรัพย์สิน"} />
           </div>
         </div>
       </div>
@@ -898,13 +914,12 @@ export default function PropertyDetailPage() {
                   <span>{t("common.code")}: {property.agentPropertyCode}</span>
                 </div>
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-                  {property.propertyTitleTh || property.propertyTitleEn}
+                  {getPropertyTitle(property)}
                 </h1>
                 {property.project && (
                   <div className="flex items-center text-gray-600 mb-2">
                     <Building2 className="w-5 h-5 mr-2 text-[#C9A227]" />
-                    {property.project.projectNameTh ||
-                      property.project.projectNameEn}
+                    {getProjectName(property.project)}
                   </div>
                 )}
                 {/* <div className="flex items-center text-gray-600">
@@ -1156,7 +1171,7 @@ export default function PropertyDetailPage() {
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900">
-                        Sky Pro Properties
+                        Sky Pro Property
                       </div>
                       <div className="text-sm text-gray-500">
                         {t("propertyDetail.agent")}
@@ -1398,15 +1413,14 @@ export default function PropertyDetailPage() {
                       {/* Details */}
                       <div className="p-4">
                         <h3 className="font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-[#C9A227] transition-colors duration-300">
-                          {rec.propertyTitleTh || rec.propertyTitleEn}
+                          {getPropertyTitle(rec)}
                         </h3>
 
                         {rec.project && (
                           <div className="flex items-center text-xs text-gray-500 mb-2">
                             <MapPin className="w-3 h-3 mr-1" />
                             <span className="line-clamp-1">
-                              {rec.project.projectNameTh ||
-                                rec.project.projectNameEn}
+                              {getProjectName(rec.project)}
                             </span>
                           </div>
                         )}

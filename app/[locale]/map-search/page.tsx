@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import dynamic from "next/dynamic";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -49,6 +49,22 @@ const PropertyMap = dynamic(() => import("@/components/map/PropertyMap"), {
 
 export default function MapSearchPage() {
   const t = useTranslations();
+  const locale = useLocale();
+
+  // Helper functions for language-based field selection
+  const useEnglish = locale === "en" || locale === "zh";
+  const getProjectName = (project: { projectNameTh?: string; projectNameEn?: string } | null | undefined) => {
+    if (!project) return "";
+    return useEnglish
+      ? (project.projectNameEn || project.projectNameTh || "")
+      : (project.projectNameTh || project.projectNameEn || "");
+  };
+  const getPropertyTitle = (property: { propertyTitleTh?: string; propertyTitleEn?: string }) => {
+    return useEnglish
+      ? (property.propertyTitleEn || property.propertyTitleTh || "")
+      : (property.propertyTitleTh || property.propertyTitleEn || "");
+  };
+
   const [properties, setProperties] = useState<Property[]>([]);
   const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
@@ -361,33 +377,33 @@ export default function MapSearchPage() {
               {/* Property Type */}
               <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  ประเภททรัพย์
+                  {t("search.propertyType")}
                 </label>
                 <Select value={subPropertyType} onValueChange={setSubPropertyType}>
                   <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                    <SelectValue placeholder={t("common.all")} />
+                    <SelectValue placeholder={t("search.all")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t("common.all")}</SelectItem>
+                    <SelectItem value="all">{t("search.all")}</SelectItem>
 
                     <SelectSeparator />
-                    <SelectLabel>ที่อยู่อาศัย</SelectLabel>
-                    <SelectItem value="Condo">คอนโด</SelectItem>
-                    <SelectItem value="Townhouse">ทาวน์เฮ้าส์</SelectItem>
-                    <SelectItem value="SingleHouse">บ้านเดี่ยว</SelectItem>
-                    <SelectItem value="Villa">วิลล่า</SelectItem>
+                    <SelectLabel>{t("propertyTypes.main.living")}</SelectLabel>
+                    <SelectItem value="Condo">{t("search.condo")}</SelectItem>
+                    <SelectItem value="Townhouse">{t("search.townhouse")}</SelectItem>
+                    <SelectItem value="SingleHouse">{t("search.singleHouse")}</SelectItem>
+                    <SelectItem value="Villa">{t("search.villa")}</SelectItem>
 
                     <SelectSeparator />
-                    <SelectLabel>ที่ดิน</SelectLabel>
-                    <SelectItem value="Land">ที่ดิน</SelectItem>
+                    <SelectLabel>{t("propertyTypes.main.land")}</SelectLabel>
+                    <SelectItem value="Land">{t("search.land")}</SelectItem>
 
                     <SelectSeparator />
-                    <SelectLabel>พาณิชย์</SelectLabel>
-                    <SelectItem value="Office">สำนักงาน</SelectItem>
-                    <SelectItem value="Store">ร้านค้า</SelectItem>
-                    <SelectItem value="Factory">โรงงาน</SelectItem>
-                    <SelectItem value="Hotel">โรงแรม</SelectItem>
-                    <SelectItem value="Building">อาคาร</SelectItem>
+                    <SelectLabel>{t("propertyTypes.main.commercial")}</SelectLabel>
+                    <SelectItem value="Office">{t("search.office")}</SelectItem>
+                    <SelectItem value="Store">{t("search.store")}</SelectItem>
+                    <SelectItem value="Factory">{t("search.factory")}</SelectItem>
+                    <SelectItem value="Hotel">{t("search.hotel")}</SelectItem>
+                    <SelectItem value="Building">{t("search.building")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -395,14 +411,14 @@ export default function MapSearchPage() {
               {/* Listing Type */}
               <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  ประเภทการตลาด
+                  {t("search.listingType")}
                 </label>
                 <Select value={listingType} onValueChange={setListingType}>
                   <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                    <SelectValue placeholder={t("common.all")} />
+                    <SelectValue placeholder={t("search.all")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t("common.all")}</SelectItem>
+                    <SelectItem value="all">{t("search.all")}</SelectItem>
                     <SelectItem value="rent">{t("search.forRent")}</SelectItem>
                     <SelectItem value="sale">{t("search.forSale")}</SelectItem>
                   </SelectContent>
@@ -412,16 +428,16 @@ export default function MapSearchPage() {
               {/* Bedrooms / Bathrooms Combined */}
               <div className="lg:col-span-2">
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  ห้องนอน / ห้องน้ำ
+                  {t("search.bedroomsAndBathrooms")}
                 </label>
                 <div className="flex gap-2">
                   <div className="flex-1">
                     <Select value={bedrooms} onValueChange={setBedrooms}>
                       <SelectTrigger className="w-full bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                        <SelectValue placeholder="นอน" />
+                        <SelectValue placeholder={t("search.beds")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">ทั้งหมด</SelectItem>
+                        <SelectItem value="all">{t("search.all")}</SelectItem>
                         <SelectItem value="1">1</SelectItem>
                         <SelectItem value="2">2</SelectItem>
                         <SelectItem value="3">3</SelectItem>
@@ -433,10 +449,10 @@ export default function MapSearchPage() {
                   <div className="flex-1">
                     <Select value={bathrooms} onValueChange={setBathrooms}>
                       <SelectTrigger className="w-full bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                        <SelectValue placeholder="น้ำ" />
+                        <SelectValue placeholder={t("search.baths")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">ทั้งหมด</SelectItem>
+                        <SelectItem value="all">{t("search.all")}</SelectItem>
                         <SelectItem value="1">1</SelectItem>
                         <SelectItem value="2">2</SelectItem>
                         <SelectItem value="3">3</SelectItem>
@@ -450,7 +466,7 @@ export default function MapSearchPage() {
               {/* Price Range Dropdown */}
               <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  ช่วงราคา
+                  {t("search.priceRange")}
                 </label>
                 <Select
                   value={minPrice && maxPrice ? `${minPrice}-${maxPrice}` : minPrice ? `${minPrice}-` : maxPrice ? `-${maxPrice}` : "all"}
@@ -466,10 +482,10 @@ export default function MapSearchPage() {
                   }}
                 >
                   <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                    <SelectValue placeholder="ทั้งหมด" />
+                    <SelectValue placeholder={t("search.all")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">ทั้งหมด</SelectItem>
+                    <SelectItem value="all">{t("search.all")}</SelectItem>
                     <SelectItem value="-5000">&lt; 5,000</SelectItem>
                     <SelectItem value="5000-10000">5,000 - 10,000</SelectItem>
                     <SelectItem value="10000-20000">10,000 - 20,000</SelectItem>
@@ -483,7 +499,7 @@ export default function MapSearchPage() {
               {/* Size Range Dropdown */}
               <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                  ขนาด (ตร.ม.)
+                  {t("search.sizeSqm")}
                 </label>
                 <Select
                   value={minSize && maxSize ? `${minSize}-${maxSize}` : minSize ? `${minSize}-` : maxSize ? `-${maxSize}` : "all"}
@@ -499,10 +515,10 @@ export default function MapSearchPage() {
                   }}
                 >
                   <SelectTrigger className="bg-white border-gray-300 text-gray-900 h-9 text-sm">
-                    <SelectValue placeholder="ทั้งหมด" />
+                    <SelectValue placeholder={t("search.all")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">ทั้งหมด</SelectItem>
+                    <SelectItem value="all">{t("search.all")}</SelectItem>
                     <SelectItem value="-30">&lt; 30</SelectItem>
                     <SelectItem value="30-50">30 - 50</SelectItem>
                     <SelectItem value="50-80">50 - 80</SelectItem>
@@ -559,33 +575,33 @@ export default function MapSearchPage() {
             {/* Property Type */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                ประเภททรัพย์
+                {t("search.propertyType")}
               </label>
               <Select value={subPropertyType} onValueChange={setSubPropertyType}>
                 <SelectTrigger className="bg-white border-gray-300 text-gray-900">
-                  <SelectValue placeholder={t("common.all")} />
+                  <SelectValue placeholder={t("search.all")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t("common.all")}</SelectItem>
+                  <SelectItem value="all">{t("search.all")}</SelectItem>
 
                   <SelectSeparator />
-                  <SelectLabel>ที่อยู่อาศัย</SelectLabel>
-                  <SelectItem value="Condo">คอนโด</SelectItem>
-                  <SelectItem value="Townhouse">ทาวน์เฮ้าส์</SelectItem>
-                  <SelectItem value="SingleHouse">บ้านเดี่ยว</SelectItem>
-                  <SelectItem value="Villa">วิลล่า</SelectItem>
+                  <SelectLabel>{t("propertyTypes.main.living")}</SelectLabel>
+                  <SelectItem value="Condo">{t("search.condo")}</SelectItem>
+                  <SelectItem value="Townhouse">{t("search.townhouse")}</SelectItem>
+                  <SelectItem value="SingleHouse">{t("search.singleHouse")}</SelectItem>
+                  <SelectItem value="Villa">{t("search.villa")}</SelectItem>
 
                   <SelectSeparator />
-                  <SelectLabel>ที่ดิน</SelectLabel>
-                  <SelectItem value="Land">ที่ดิน</SelectItem>
+                  <SelectLabel>{t("propertyTypes.main.land")}</SelectLabel>
+                  <SelectItem value="Land">{t("search.land")}</SelectItem>
 
                   <SelectSeparator />
-                  <SelectLabel>พาณิชย์</SelectLabel>
-                  <SelectItem value="Office">สำนักงาน</SelectItem>
-                  <SelectItem value="Store">ร้านค้า</SelectItem>
-                  <SelectItem value="Factory">โรงงาน</SelectItem>
-                  <SelectItem value="Hotel">โรงแรม</SelectItem>
-                  <SelectItem value="Building">อาคาร</SelectItem>
+                  <SelectLabel>{t("propertyTypes.main.commercial")}</SelectLabel>
+                  <SelectItem value="Office">{t("search.office")}</SelectItem>
+                  <SelectItem value="Store">{t("search.store")}</SelectItem>
+                  <SelectItem value="Factory">{t("search.factory")}</SelectItem>
+                  <SelectItem value="Hotel">{t("search.hotel")}</SelectItem>
+                  <SelectItem value="Building">{t("search.building")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -783,7 +799,7 @@ export default function MapSearchPage() {
                       {property.imageUrls && property.imageUrls.length > 0 ? (
                         <Image
                           src={property.imageUrls[0]}
-                          alt={property.propertyTitleTh || property.propertyTitleEn}
+                          alt={getPropertyTitle(property)}
                           fill
                           className="object-cover group-hover:scale-110 transition-transform duration-500"
                         />
@@ -840,12 +856,12 @@ export default function MapSearchPage() {
                       {property.project && (
                         <div className="flex items-center text-xs text-gray-500 mb-1">
                           <MapPin className="w-3 h-3 mr-1" />
-                          {property.project.projectNameTh || property.project.projectNameEn}
+                          {getProjectName(property.project)}
                         </div>
                       )}
 
                       <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#C9A227] transition-colors">
-                        {property.propertyTitleTh || property.propertyTitleEn}
+                        {getPropertyTitle(property)}
                       </h3>
 
                       <div className="flex items-center gap-3 text-xs text-gray-500 mb-3 pb-3 border-b border-gray-100">

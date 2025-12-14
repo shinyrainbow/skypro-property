@@ -29,7 +29,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import Header from "@/components/layout/header";
 import { getProperties, type Property as DataProperty } from "@/lib/data";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 interface Property {
   id: string;
@@ -57,6 +57,22 @@ interface Property {
 
 export default function PropertiesPage() {
   const t = useTranslations();
+  const locale = useLocale();
+
+  // Helper functions for language-based field selection
+  const useEnglish = locale === "en" || locale === "zh";
+  const getProjectName = (project: { projectNameTh?: string; projectNameEn?: string } | null | undefined) => {
+    if (!project) return "";
+    return useEnglish
+      ? (project.projectNameEn || project.projectNameTh || "")
+      : (project.projectNameTh || project.projectNameEn || "");
+  };
+  const getPropertyTitle = (property: { propertyTitleTh?: string; propertyTitleEn?: string }) => {
+    return useEnglish
+      ? (property.propertyTitleEn || property.propertyTitleTh || "")
+      : (property.propertyTitleTh || property.propertyTitleEn || "");
+  };
+
   const [properties, setProperties] = useState<Property[]>([]);
   const [allProperties, setAllProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
@@ -474,14 +490,12 @@ export default function PropertiesPage() {
                             {property.project && (
                               <div className="flex items-center text-xs text-gray-500 mb-1">
                                 <MapPin className="w-3 h-3 mr-1" />
-                                {property.project.projectNameTh ||
-                                  property.project.projectNameEn}
+                                {getProjectName(property.project)}
                               </div>
                             )}
 
                             <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#C9A227] transition-colors">
-                              {property.propertyTitleTh ||
-                                property.propertyTitleEn}
+                              {getPropertyTitle(property)}
                             </h3>
 
                             <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
@@ -612,15 +626,13 @@ export default function PropertiesPage() {
                               </div>
 
                               <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#C9A227] transition-colors">
-                                {property.propertyTitleTh ||
-                                  property.propertyTitleEn}
+                                {getPropertyTitle(property)}
                               </h3>
 
                               {property.project && (
                                 <div className="flex items-center text-sm text-gray-500 mb-3">
                                   <MapPin className="w-4 h-4 mr-1" />
-                                  {property.project.projectNameTh ||
-                                    property.project.projectNameEn}
+                                  {getProjectName(property.project)}
                                 </div>
                               )}
 
@@ -853,7 +865,7 @@ export default function PropertiesPage() {
           <div className="flex items-center justify-center gap-2 mb-3">
             <Building2 className="w-8 h-8 text-[#C9A227]" />
             <span className="text-xl font-bold text-white">
-              Sky Pro Properties
+              Sky Pro Property
             </span>
           </div>
           <p className="mb-2 text-sm">

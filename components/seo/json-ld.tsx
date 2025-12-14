@@ -85,7 +85,7 @@ interface OrganizationJsonLdProps {
 }
 
 export function OrganizationJsonLd({
-  name = "Sky Pro Properties",
+  name = "Sky Pro Property",
 }: OrganizationJsonLdProps) {
   const jsonLd = {
     "@context": "https://schema.org",

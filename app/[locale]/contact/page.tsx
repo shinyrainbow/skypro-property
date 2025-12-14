@@ -282,7 +282,7 @@ export default function ContactPage() {
                         <MapPin className="w-5 h-5 md:w-6 md:h-6 text-[#C9A227]" />
                       </div>
                       <p className="text-white font-medium text-sm md:text-base">
-                        Sky Pro Properties
+                        Sky Pro Property
                       </p>
                       <p className="text-gray-500 text-xs md:text-sm">
                         {t("contactPage.location")}
@@ -392,7 +392,7 @@ export default function ContactPage() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <Building2 className="w-10 h-10 text-[#C9A227]" />
             <span className="text-2xl font-bold text-white">
-              Sky Pro Properties
+              Sky Pro Property
             </span>
           </div>
           <p className="text-gray-500 mb-2">

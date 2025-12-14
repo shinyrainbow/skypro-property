@@ -29,7 +29,7 @@ export default function Footer() {
             <div className="flex flex-col items-center mb-4">
               <Image
                 src="/skypro-logo-gold.jpg"
-                alt="Sky Pro Properties"
+                alt="Sky Pro Property"
                 width={192}
                 height={64}
                 className="object-contain"

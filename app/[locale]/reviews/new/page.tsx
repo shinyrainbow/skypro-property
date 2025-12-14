@@ -95,7 +95,7 @@ const locations = [
             </h1>
             <p className="text-gray-600 mb-8">
               รีวิวของคุณจะแสดงบนเว็บไซต์หลังจากได้รับการตรวจสอบและอนุมัติ
-              ขอบคุณที่ใช้บริการ Sky Pro Properties
+              ขอบคุณที่ใช้บริการ Sky Pro Property
             </p>
             <div className="flex gap-4 justify-center">
               <Link href="/reviews">
@@ -128,7 +128,7 @@ const locations = [
         <div className="container mx-auto px-4 text-center text-white">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">เขียนรีวิว</h1>
           <p className="text-lg text-white/90">
-            แบ่งปันประสบการณ์การใช้บริการ Sky Pro Properties
+            แบ่งปันประสบการณ์การใช้บริการ Sky Pro Property
           </p>
         </div>
       </section>
@@ -274,7 +274,7 @@ const locations = [
                   onChange={(e) =>
                     setFormData({ ...formData, comment: e.target.value })
                   }
-                  placeholder="เล่าประสบการณ์การใช้บริการ Sky Pro Properties..."
+                  placeholder="เล่าประสบการณ์การใช้บริการ Sky Pro Property..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[150px] focus:outline-none focus:ring-2 focus:ring-[#C9A227] focus:border-transparent text-gray-900"
                   required
                 />

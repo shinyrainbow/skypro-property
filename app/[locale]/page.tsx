@@ -96,6 +96,21 @@ export default function PublicPropertiesPage() {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations();
+
+  // Helper functions for language-based field selection
+  const useEnglish = locale === "en" || locale === "zh";
+  const getProjectName = (project: { projectNameTh?: string; projectNameEn?: string } | null | undefined) => {
+    if (!project) return "";
+    return useEnglish
+      ? (project.projectNameEn || project.projectNameTh || "")
+      : (project.projectNameTh || project.projectNameEn || "");
+  };
+  const getPropertyTitle = (property: { propertyTitleTh?: string; propertyTitleEn?: string }) => {
+    return useEnglish
+      ? (property.propertyTitleEn || property.propertyTitleTh || "")
+      : (property.propertyTitleTh || property.propertyTitleEn || "");
+  };
+
   const [properties, setProperties] = useState<Property[]>([]);
   const [popularProperties, setPopularProperties] = useState<Property[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -686,7 +701,7 @@ export default function PublicPropertiesPage() {
               <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24">
                 <Image
                   src="/header-logo.png"
-                  alt="Sky Pro Properties"
+                  alt="Sky Pro Property"
                   fill
                   className="object-contain"
                   unoptimized
@@ -728,7 +743,7 @@ export default function PublicPropertiesPage() {
                   {property.imageUrls && property.imageUrls.length > 0 ? (
                     <Image
                       src={property.imageUrls[0]}
-                      alt={property.propertyTitleTh || property.propertyTitleEn}
+                      alt={getPropertyTitle(property)}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -762,10 +777,7 @@ export default function PublicPropertiesPage() {
 
                       {/* Location/Title */}
                       <p className="text-gray-300 text-xs mb-3 line-clamp-1">
-                        {property.project?.projectNameTh ||
-                          property.project?.projectNameEn ||
-                          property.propertyTitleTh ||
-                          property.propertyTitleEn}
+                        {getProjectName(property.project) || getPropertyTitle(property)}
                       </p>
 
                       {/* Stats Row */}
@@ -855,7 +867,7 @@ export default function PublicPropertiesPage() {
                 <div className="relative overflow-hidden rounded-xl h-32 cursor-pointer border border-white/10 hover:border-[#C9A227]/50 transition-all duration-200">
                   <Image
                     src={project.image}
-                    alt={project.projectNameTh || project.projectNameEn}
+                    alt={getProjectName(project)}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
@@ -864,7 +876,7 @@ export default function PublicPropertiesPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
                     <h3 className="font-medium text-sm line-clamp-1 mb-0.5">
-                      {project.projectNameTh || project.projectNameEn}
+                      {getProjectName(project)}
                     </h3>
                     <p className="text-[10px] text-[#C9A227]">
                       {project.count} {t("common.properties")}
@@ -964,7 +976,7 @@ export default function PublicPropertiesPage() {
                       {property.imageUrls && property.imageUrls.length > 0 ? (
                         <Image
                           src={property.imageUrls[0]}
-                          alt={property.propertyTitleTh || property.propertyTitleEn || "Property"}
+                          alt={getPropertyTitle(property) || "Property"}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
@@ -1008,10 +1020,7 @@ export default function PublicPropertiesPage() {
 
                           {/* Location/Title */}
                           <p className="text-gray-300 text-xs mb-3 line-clamp-1">
-                            {property.project?.projectNameTh ||
-                              property.project?.projectNameEn ||
-                              property.propertyTitleTh ||
-                              property.propertyTitleEn}
+                            {getProjectName(property.project) || getPropertyTitle(property)}
                           </p>
 
                           {/* Stats Row */}
@@ -1195,7 +1204,7 @@ export default function PublicPropertiesPage() {
                     {property.imageUrls && property.imageUrls.length > 0 ? (
                       <Image
                         src={property.imageUrls[0]}
-                        alt={property.propertyTitleTh || property.propertyTitleEn}
+                        alt={getPropertyTitle(property)}
                         fill
                         className="object-cover grayscale-[30%]"
                       />
@@ -1219,12 +1228,12 @@ export default function PublicPropertiesPage() {
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold text-gray-900 line-clamp-1 mb-1">
-                      {property.propertyTitleTh || property.propertyTitleEn}
+                      {getPropertyTitle(property)}
                     </h3>
                     {property.project && (
                       <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">
                         <MapPin className="w-3 h-3" />
-                        {property.project.projectNameTh || property.project.projectNameEn}
+                        {getProjectName(property.project)}
                       </p>
                     )}
                     {property.propertyType === "Land" ? (
