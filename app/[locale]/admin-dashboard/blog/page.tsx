@@ -30,7 +30,6 @@ interface BlogSection {
   content: string;
   contentEn: string;
   contentZh: string;
-  contentJa: string;
 }
 
 interface BlogCategory {
@@ -47,12 +46,10 @@ interface Blog {
   title: string;
   titleEn: string | null;
   titleZh: string | null;
-  titleJa: string | null;
   slug: string;
   excerpt: string | null;
   excerptEn: string | null;
   excerptZh: string | null;
-  excerptJa: string | null;
   coverImage: string | null;
   isPublished: boolean;
   publishedAt: string | null;
@@ -78,12 +75,10 @@ export default function AdminBlogPage() {
     title: "",
     titleEn: "",
     titleZh: "",
-    titleJa: "",
     slug: "",
     excerpt: "",
     excerptEn: "",
     excerptZh: "",
-    excerptJa: "",
     coverImage: "",
     isPublished: false,
     categoryId: "",
@@ -273,12 +268,10 @@ export default function AdminBlogPage() {
         title: blog.title,
         titleEn: blog.titleEn || "",
         titleZh: blog.titleZh || "",
-        titleJa: blog.titleJa || "",
         slug: blog.slug,
         excerpt: blog.excerpt || "",
         excerptEn: blog.excerptEn || "",
         excerptZh: blog.excerptZh || "",
-        excerptJa: blog.excerptJa || "",
         coverImage: blog.coverImage || "",
         isPublished: blog.isPublished,
         categoryId: blog.categoryId || "",
@@ -287,7 +280,6 @@ export default function AdminBlogPage() {
           content: s.content || "",
           contentEn: s.contentEn || "",
           contentZh: s.contentZh || "",
-          contentJa: s.contentJa || "",
         })),
       });
     } else {
@@ -296,12 +288,10 @@ export default function AdminBlogPage() {
         title: "",
         titleEn: "",
         titleZh: "",
-        titleJa: "",
         slug: "",
         excerpt: "",
         excerptEn: "",
         excerptZh: "",
-        excerptJa: "",
         coverImage: "",
         isPublished: false,
         categoryId: "",
@@ -311,7 +301,6 @@ export default function AdminBlogPage() {
             content: "",
             contentEn: "",
             contentZh: "",
-            contentJa: "",
           },
         ],
       });
@@ -326,12 +315,10 @@ export default function AdminBlogPage() {
       title: "",
       titleEn: "",
       titleZh: "",
-      titleJa: "",
       slug: "",
       excerpt: "",
       excerptEn: "",
       excerptZh: "",
-      excerptJa: "",
       coverImage: "",
       isPublished: false,
       categoryId: "",
@@ -349,7 +336,6 @@ export default function AdminBlogPage() {
           content: "",
           contentEn: "",
           contentZh: "",
-          contentJa: "",
         },
       ],
     });

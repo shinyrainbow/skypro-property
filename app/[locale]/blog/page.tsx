@@ -16,7 +16,6 @@ interface BlogSection {
   content: string | null;
   contentEn: string | null;
   contentZh: string | null;
-  contentJa: string | null;
 }
 
 interface BlogCategory {

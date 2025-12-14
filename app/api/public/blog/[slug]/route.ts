@@ -86,20 +86,13 @@ export async function GET(
         })
       : [];
 
-    return NextResponse.json(
-      {
-        success: true,
-        data: {
-          ...blog,
-          relatedBlogs,
-        },
+    return NextResponse.json({
+      success: true,
+      data: {
+        ...blog,
+        relatedBlogs,
       },
-      {
-        headers: {
-          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
-        },
-      }
-    );
+    });
   } catch (error) {
     console.error("Error fetching blog:", error);
     return NextResponse.json(

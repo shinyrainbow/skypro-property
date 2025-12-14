@@ -321,7 +321,13 @@ export default function PropertiesListPage() {
       Condo: "คอนโด",
       Townhouse: "ทาวน์เฮ้าส์",
       SingleHouse: "บ้านเดี่ยว",
+      Villa: "วิลล่า",
       Land: "ที่ดิน",
+      Office: "สำนักงาน",
+      Store: "ร้านค้า",
+      Factory: "โรงงาน",
+      Hotel: "โรงแรม",
+      Building: "อาคาร",
     };
     return labels[type] || type;
   };
@@ -335,13 +341,13 @@ export default function PropertiesListPage() {
         <div>
           <h1 className="text-2xl font-bold text-gray-900">รายการทรัพย์สิน</h1>
           <p className="text-gray-600 mt-1">
-            จัดการทรัพย์สินจาก NainaHub - กำหนด Popular, Promotions
+            จัดการทรัพย์สินจาก NainaHub - กำหนด Popular
           </p>
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <span className="flex items-center gap-1">
             <div className="w-2 h-2 rounded-full bg-green-500" />
-            จาก NainaHub API
+            ทรัพย์ทั้งหมด
           </span>
         </div>
       </div>
@@ -370,7 +376,13 @@ export default function PropertiesListPage() {
                 <SelectItem value="Condo">คอนโด</SelectItem>
                 <SelectItem value="Townhouse">ทาวน์เฮ้าส์</SelectItem>
                 <SelectItem value="SingleHouse">บ้านเดี่ยว</SelectItem>
+                <SelectItem value="Villa">วิลล่า</SelectItem>
                 <SelectItem value="Land">ที่ดิน</SelectItem>
+                <SelectItem value="Office">สำนักงาน</SelectItem>
+                <SelectItem value="Store">ร้านค้า</SelectItem>
+                <SelectItem value="Factory">โรงงาน</SelectItem>
+                <SelectItem value="Hotel">โรงแรม</SelectItem>
+                <SelectItem value="Building">อาคาร</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -385,12 +397,6 @@ export default function PropertiesListPage() {
                   <span className="flex items-center gap-2">
                     <Flame className="w-4 h-4 text-orange-500" />
                     Popular
-                  </span>
-                </SelectItem>
-                <SelectItem value="has_promotions">
-                  <span className="flex items-center gap-2">
-                    <Percent className="w-4 h-4 text-red-500" />
-                    มี Promotions
                   </span>
                 </SelectItem>
                 <SelectItem value="closed_deal">
@@ -531,7 +537,7 @@ export default function PropertiesListPage() {
                   </div>
 
                   {/* Promotions list */}
-                  {property.extension?.promotions && property.extension.promotions.length > 0 && (
+                  {/* {property.extension?.promotions && property.extension.promotions.length > 0 && (
                     <div className="mt-2 flex flex-wrap gap-1">
                       {property.extension.promotions.map((promo) => {
                         const typeInfo = PROMOTION_TYPES.find((t) => t.value === promo.type);
@@ -559,7 +565,7 @@ export default function PropertiesListPage() {
                         );
                       })}
                     </div>
-                  )}
+                  )} */}
                 </div>
 
                 {/* Actions */}
@@ -576,42 +582,6 @@ export default function PropertiesListPage() {
                     Popular
                   </Button>
 
-                  {/* Add Promotion */}
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setShowPromotionModal(property)}
-                    disabled={updating === property.id || property.status === "sold" || property.status === "rented"}
-                    className="text-gray-900"
-                  >
-                    <Percent className="w-4 h-4 mr-1" />
-                    โปรโมชั่น
-                  </Button>
-
-                  {/* Mark as Closed Deal */}
-                  {/* {property.extension?.closedDealDate ? (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleRemoveClosedDeal(property.id)}
-                      disabled={updating === property.id}
-                      className="text-green-600 border-green-300 hover:bg-green-50"
-                    >
-                      <XCircle className="w-4 h-4 mr-1" />
-                      ยกเลิก Closed
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setShowClosedDealModal(property)}
-                      disabled={updating === property.id}
-                      className="text-green-600 hover:bg-green-50"
-                    >
-                      <CheckCircle className="w-4 h-4 mr-1" />
-                      Closed Deal
-                    </Button>
-                  )} */}
 
                   {/* View Property */}
                   <Link href={`/property/${property.id}`} target="_blank">

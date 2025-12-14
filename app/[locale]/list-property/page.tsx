@@ -259,7 +259,13 @@ export default function ListPropertyPage() {
                         <SelectItem value="Condo">{t("condo")}</SelectItem>
                         <SelectItem value="Townhouse">{t("townhouse")}</SelectItem>
                         <SelectItem value="SingleHouse">{t("singleHouse")}</SelectItem>
+                        <SelectItem value="Villa">{t("villa")}</SelectItem>
                         <SelectItem value="Land">{t("land")}</SelectItem>
+                        <SelectItem value="Office">{t("office")}</SelectItem>
+                        <SelectItem value="Store">{t("store")}</SelectItem>
+                        <SelectItem value="Factory">{t("factory")}</SelectItem>
+                        <SelectItem value="Hotel">{t("hotel")}</SelectItem>
+                        <SelectItem value="Building">{t("building")}</SelectItem>
                         <SelectItem value="Other">{t("other")}</SelectItem>
                       </SelectContent>
                     </Select>

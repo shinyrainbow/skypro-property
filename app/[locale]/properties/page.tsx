@@ -242,7 +242,13 @@ export default function PropertiesPage() {
                       <SelectItem value="Condo">{t("propertiesPage.condo")}</SelectItem>
                       <SelectItem value="Townhouse">{t("propertiesPage.townhouse")}</SelectItem>
                       <SelectItem value="SingleHouse">{t("propertiesPage.singleHouse")}</SelectItem>
+                      <SelectItem value="Villa">{t("propertiesPage.villa")}</SelectItem>
                       <SelectItem value="Land">{t("propertiesPage.land")}</SelectItem>
+                      <SelectItem value="Office">{t("propertiesPage.office")}</SelectItem>
+                      <SelectItem value="Store">{t("propertiesPage.store")}</SelectItem>
+                      <SelectItem value="Factory">{t("propertiesPage.factory")}</SelectItem>
+                      <SelectItem value="Hotel">{t("propertiesPage.hotel")}</SelectItem>
+                      <SelectItem value="Building">{t("propertiesPage.building")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -442,9 +448,23 @@ export default function PropertiesPage() {
                                   ? t("propertiesPage.condo")
                                   : property.propertyType === "Townhouse"
                                   ? t("propertiesPage.townhouse")
+                                  : property.propertyType === "SingleHouse"
+                                  ? t("propertiesPage.singleHouse")
+                                  : property.propertyType === "Villa"
+                                  ? t("propertiesPage.villa")
                                   : property.propertyType === "Land"
                                   ? t("propertiesPage.land")
-                                  : t("propertiesPage.singleHouse")}
+                                  : property.propertyType === "Office"
+                                  ? t("propertiesPage.office")
+                                  : property.propertyType === "Store"
+                                  ? t("propertiesPage.store")
+                                  : property.propertyType === "Factory"
+                                  ? t("propertiesPage.factory")
+                                  : property.propertyType === "Hotel"
+                                  ? t("propertiesPage.hotel")
+                                  : property.propertyType === "Building"
+                                  ? t("propertiesPage.building")
+                                  : property.propertyType}
                               </span>
                             </div>
                           </div>
@@ -568,9 +588,23 @@ export default function PropertiesPage() {
                                     ? t("propertiesPage.condo")
                                     : property.propertyType === "Townhouse"
                                     ? t("propertiesPage.townhouse")
+                                    : property.propertyType === "SingleHouse"
+                                    ? t("propertiesPage.singleHouse")
+                                    : property.propertyType === "Villa"
+                                    ? t("propertiesPage.villa")
                                     : property.propertyType === "Land"
                                     ? t("propertiesPage.land")
-                                    : t("propertiesPage.singleHouse")}
+                                    : property.propertyType === "Office"
+                                    ? t("propertiesPage.office")
+                                    : property.propertyType === "Store"
+                                    ? t("propertiesPage.store")
+                                    : property.propertyType === "Factory"
+                                    ? t("propertiesPage.factory")
+                                    : property.propertyType === "Hotel"
+                                    ? t("propertiesPage.hotel")
+                                    : property.propertyType === "Building"
+                                    ? t("propertiesPage.building")
+                                    : property.propertyType}
                                 </span>
                                 <span className="text-xs text-gray-400">
                                   {t("propertiesPage.code")}: {property.agentPropertyCode}
@@ -739,7 +773,13 @@ export default function PropertiesPage() {
                     <SelectItem value="Condo">{t("propertiesPage.condo")}</SelectItem>
                     <SelectItem value="Townhouse">{t("propertiesPage.townhouse")}</SelectItem>
                     <SelectItem value="SingleHouse">{t("propertiesPage.singleHouse")}</SelectItem>
+                    <SelectItem value="Villa">{t("propertiesPage.villa")}</SelectItem>
                     <SelectItem value="Land">{t("propertiesPage.land")}</SelectItem>
+                    <SelectItem value="Office">{t("propertiesPage.office")}</SelectItem>
+                    <SelectItem value="Store">{t("propertiesPage.store")}</SelectItem>
+                    <SelectItem value="Factory">{t("propertiesPage.factory")}</SelectItem>
+                    <SelectItem value="Hotel">{t("propertiesPage.hotel")}</SelectItem>
+                    <SelectItem value="Building">{t("propertiesPage.building")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

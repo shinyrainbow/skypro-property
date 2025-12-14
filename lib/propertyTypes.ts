@@ -23,7 +23,6 @@ export interface PropertyTypeConfig {
   th: string;
   en: string;
   zh: string;
-  ja: string;
   subtypes: SubPropertyType[];
 }
 
@@ -32,21 +31,18 @@ export const PROPERTY_TYPE_HIERARCHY: Record<MainPropertyType, PropertyTypeConfi
     th: "ที่อยู่อาศัย",
     en: "Living",
     zh: "住宅",
-    ja: "住宅",
     subtypes: ["Condo", "Townhouse", "SingleHouse", "Villa"]
   },
   Land: {
     th: "ที่ดิน",
     en: "Land",
     zh: "土地",
-    ja: "土地",
     subtypes: ["Land"]
   },
   Commercial: {
     th: "พาณิชย์",
     en: "Commercial",
     zh: "商业",
-    ja: "商業",
     subtypes: ["Office", "Store", "Factory", "Hotel", "Building"]
   }
 };
@@ -55,7 +51,6 @@ export interface SubPropertyTypeConfig {
   th: string;
   en: string;
   zh: string;
-  ja: string;
 }
 
 export const SUB_PROPERTY_TYPE_LABELS: Record<SubPropertyType, SubPropertyTypeConfig> = {
@@ -64,63 +59,53 @@ export const SUB_PROPERTY_TYPE_LABELS: Record<SubPropertyType, SubPropertyTypeCo
     th: "คอนโด",
     en: "Condo",
     zh: "公寓",
-    ja: "コンドミニアム"
   },
   Townhouse: {
     th: "ทาวน์เฮ้าส์",
     en: "Townhouse",
     zh: "联排别墅",
-    ja: "タウンハウス"
   },
   SingleHouse: {
     th: "บ้านเดี่ยว",
     en: "Single House",
     zh: "独栋别墅",
-    ja: "一戸建て"
   },
   Villa: {
     th: "วิลล่า",
     en: "Villa",
     zh: "别墅",
-    ja: "ヴィラ"
   },
   // Land
   Land: {
     th: "ที่ดิน",
     en: "Land",
     zh: "土地",
-    ja: "土地"
   },
   // Commercial
   Office: {
     th: "สำนักงาน",
     en: "Office",
     zh: "办公室",
-    ja: "オフィス"
   },
   Store: {
     th: "ร้านค้า",
     en: "Store",
     zh: "商铺",
-    ja: "店舗"
   },
   Factory: {
     th: "โรงงาน",
     en: "Factory",
     zh: "工厂",
-    ja: "工場"
   },
   Hotel: {
     th: "โรงแรม",
     en: "Hotel",
     zh: "酒店",
-    ja: "ホテル"
   },
   Building: {
     th: "อาคาร",
     en: "Building",
     zh: "大楼",
-    ja: "ビル"
   }
 };
 
@@ -159,7 +144,6 @@ export function getMainTypeLabel(type: MainPropertyType, locale: string): string
     case "th": return config.th;
     case "en": return config.en;
     case "zh": return config.zh;
-    case "ja": return config.ja;
     default: return config.en;
   }
 }
@@ -175,7 +159,6 @@ export function getSubTypeLabel(type: SubPropertyType, locale: string): string {
     case "th": return config.th;
     case "en": return config.en;
     case "zh": return config.zh;
-    case "ja": return config.ja;
     default: return config.en;
   }
 }

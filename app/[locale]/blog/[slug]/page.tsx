@@ -17,7 +17,6 @@ interface BlogSection {
   content: string | null;
   contentEn: string | null;
   contentZh: string | null;
-  contentJa: string | null;
 }
 
 interface Blog {
@@ -25,12 +24,10 @@ interface Blog {
   title: string;
   titleEn: string | null;
   titleZh: string | null;
-  titleJa: string | null;
   slug: string;
   excerpt: string | null;
   excerptEn: string | null;
   excerptZh: string | null;
-  excerptJa: string | null;
   coverImage: string | null;
   isPublished: boolean;
   publishedAt: string | null;
@@ -87,8 +84,6 @@ export default function BlogPostPage({
         return blog.titleEn || blog.title;
       case "zh":
         return blog.titleZh || blog.title;
-      case "ja":
-        return blog.titleJa || blog.title;
       default:
         return blog.title;
     }
@@ -100,8 +95,6 @@ export default function BlogPostPage({
         return section.contentEn || section.content;
       case "zh":
         return section.contentZh || section.content;
-      case "ja":
-        return section.contentJa || section.content;
       default:
         return section.content;
     }
@@ -115,8 +108,6 @@ export default function BlogPostPage({
         ? "th-TH"
         : locale === "zh"
         ? "zh-CN"
-        : locale === "ja"
-        ? "ja-JP"
         : "en-US",
       {
         year: "numeric",

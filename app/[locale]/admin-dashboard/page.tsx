@@ -313,34 +313,6 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
-          {/* Quick Actions */}
-          <div className="mt-6 pt-4 border-t">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">
-              การดำเนินการด่วน
-            </h4>
-            <div className="grid grid-cols-2 gap-2">
-              <Link href="/admin-dashboard/promotions">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start text-gray-900"
-                >
-                  <Tag className="w-4 h-4 mr-2" />
-                  จัดการโปรโมชัน
-                </Button>
-              </Link>
-              <Link href="/admin-dashboard/reviews">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start text-gray-900"
-                >
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  จัดการรีวิว
-                </Button>
-              </Link>
-            </div>
-          </div>
         </Card>
       </div>
 
