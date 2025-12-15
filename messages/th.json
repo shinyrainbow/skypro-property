@@ -205,6 +205,7 @@
     "factory": "โรงงาน",
     "hotel": "โรงแรม",
     "building": "อาคาร",
+    "apartment": "อพาร์ทเมนต์",
     "searchButton": "ค้นหา",
     "resetFilters": "รีเซ็ตตัวกรอง",
     "resultsFound": "พบ {count} รายการที่ตรงกับความต้องการของคุณ",
@@ -228,7 +229,8 @@
       "store": "ร้านค้า",
       "factory": "โรงงาน",
       "hotel": "โรงแรม",
-      "building": "อาคาร"
+      "building": "อาคาร",
+      "apartment": "อพาร์ทเมนต์"
     },
     "mainPropertyType": "ประเภทหลัก",
     "subPropertyType": "ประเภทย่อย",
@@ -338,6 +340,7 @@
     "factory": "โรงงาน",
     "hotel": "โรงแรม",
     "building": "อาคาร",
+    "apartment": "อพาร์ทเมนต์",
     "other": "อื่นๆ",
     "location": "ที่ตั้ง / ทำเล",
     "locationPlaceholder": "เช่น พระราม 9, สุขุมวิท, เชียงใหม่",
@@ -565,6 +568,7 @@
     "condo": "คอนโด",
     "townhouse": "ทาวน์เฮ้าส์",
     "singleHouse": "บ้านเดี่ยว",
+    "apartment": "อพาร์ทเมนต์",
     "land": "ที่ดิน",
     "bedrooms": "จำนวนห้องนอน",
     "notSpecified": "ไม่ระบุ",
