@@ -249,7 +249,8 @@
     "size": "ขนาด",
     "floor": "ชั้น",
     "building": "อาคาร",
-    "noName": "ไม่ระบุชื่อ"
+    "noName": "ไม่ระบุชื่อ",
+    "viewDetails": "ดูรายละเอียด"
   },
   "sections": {
     "popularProperties": "ทรัพย์สินยอดนิยม",

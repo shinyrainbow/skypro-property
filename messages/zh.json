@@ -247,7 +247,8 @@
     "size": "面积",
     "floor": "楼层",
     "building": "建筑",
-    "noName": "未命名"
+    "noName": "未命名",
+    "viewDetails": "查看详情"
   },
   "sections": {
     "popularProperties": "热门房产",

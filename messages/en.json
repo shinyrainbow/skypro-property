@@ -249,7 +249,8 @@
     "size": "Size",
     "floor": "Floor",
     "building": "Building",
-    "noName": "Unnamed"
+    "noName": "Unnamed",
+    "viewDetails": "View Details"
   },
   "sections": {
     "popularProperties": "Popular Properties",
