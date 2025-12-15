@@ -1006,7 +1006,7 @@ export default function PropertyDetailPage() {
                       <div className="text-sm text-gray-500">{t("common.sqm")}</div>
                     </div>
                   </div>
-                  {property.landSizeSqw && (
+                  {property.landSizeSqw != null && property.landSizeSqw > 0 && (
                     <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                       <div className="p-2 bg-[#C9A227]/20 rounded-lg">
                         <Home className="w-6 h-6 text-[#C9A227]" />
