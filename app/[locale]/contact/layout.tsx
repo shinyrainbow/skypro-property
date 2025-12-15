@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ติดต่อเรา - Sky Pro Property",
     description:
-      "ติดต่อ Sky Pro Property สำหรับบริการที่ปรึกษาอสังหาริมทรัพย์ในกรุงเทพฯ",
-    url: "https://primeestate.co.th/contact",
+      "ติดต่อ Sky Pro Property สำหรับบริการที่ปรึกษาอสังหาริมทรัพย์ในเชียงใหม่",
+    url: "https://skyproproperty.com/contact",
     type: "website",
   },
 };
