@@ -383,6 +383,7 @@ export default function PropertiesListPage() {
                 <SelectItem value="Factory">โรงงาน</SelectItem>
                 <SelectItem value="Hotel">โรงแรม</SelectItem>
                 <SelectItem value="Building">อาคาร</SelectItem>
+                <SelectItem value="Apartment">อพาร์ทเมนต์</SelectItem>
               </SelectContent>
             </Select>
           </div>

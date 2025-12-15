@@ -265,6 +265,7 @@ export default function PropertiesPage() {
                       <SelectItem value="Factory">{t("propertiesPage.factory")}</SelectItem>
                       <SelectItem value="Hotel">{t("propertiesPage.hotel")}</SelectItem>
                       <SelectItem value="Building">{t("propertiesPage.building")}</SelectItem>
+                      <SelectItem value="Apartment">{t("propertiesPage.apartment")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -480,6 +481,8 @@ export default function PropertiesPage() {
                                   ? t("propertiesPage.hotel")
                                   : property.propertyType === "Building"
                                   ? t("propertiesPage.building")
+                                  : property.propertyType === "Apartment"
+                                  ? t("propertiesPage.apartment")
                                   : property.propertyType}
                               </span>
                             </div>
@@ -792,6 +795,7 @@ export default function PropertiesPage() {
                     <SelectItem value="Factory">{t("propertiesPage.factory")}</SelectItem>
                     <SelectItem value="Hotel">{t("propertiesPage.hotel")}</SelectItem>
                     <SelectItem value="Building">{t("propertiesPage.building")}</SelectItem>
+                    <SelectItem value="Apartment">{t("propertiesPage.apartment")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

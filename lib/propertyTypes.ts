@@ -94,12 +94,12 @@ export const SUB_PROPERTY_TYPE_LABELS: Record<SubPropertyType, SubPropertyTypeCo
     zh: "商铺",
   },
   Factory: {
-    th: "โรงงาน",
+    th: "โกดัง - โรงงาน",
     en: "Factory",
     zh: "工厂",
   },
   Hotel: {
-    th: "โรงแรม",
+    th: "โรงแรม - รีสอร์ท",
     en: "Hotel",
     zh: "酒店",
   },
@@ -109,7 +109,7 @@ export const SUB_PROPERTY_TYPE_LABELS: Record<SubPropertyType, SubPropertyTypeCo
     zh: "大楼",
   },
   Apartment: {
-    th: "อพาร์ทเมนท์",
+    th: "อพาร์ทเมนต์ - หอหัก",
     en: "Apartment",
     zh: "公寓楼",
   }

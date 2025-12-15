@@ -266,6 +266,7 @@ export default function ListPropertyPage() {
                         <SelectItem value="Factory">{t("factory")}</SelectItem>
                         <SelectItem value="Hotel">{t("hotel")}</SelectItem>
                         <SelectItem value="Building">{t("building")}</SelectItem>
+                        <SelectItem value="Apartment">{t("apartment")}</SelectItem>
                         <SelectItem value="Other">{t("other")}</SelectItem>
                       </SelectContent>
                     </Select>

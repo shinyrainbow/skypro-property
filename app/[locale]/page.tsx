@@ -632,6 +632,7 @@ export default function PublicPropertiesPage() {
                       <SelectItem value="Factory">{t("search.factory")}</SelectItem>
                       <SelectItem value="Hotel">{t("search.hotel")}</SelectItem>
                       <SelectItem value="Building">{t("search.building")}</SelectItem>
+                      <SelectItem value="Apartment">{t("search.apartment")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
