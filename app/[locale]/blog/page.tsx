@@ -285,7 +285,7 @@ export default function BlogPage() {
 
                       {/* Content */}
                       <div className="absolute bottom-0 left-0 right-0 p-6">
-                        <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-[#C9A227] transition-colors line-clamp-2">
+                        <h2 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-[#C9A227] transition-colors line-clamp-2">
                           {getLocalizedTitle(featuredBlog)}
                         </h2>
 
