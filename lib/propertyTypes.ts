@@ -109,7 +109,7 @@ export const SUB_PROPERTY_TYPE_LABELS: Record<SubPropertyType, SubPropertyTypeCo
     zh: "大楼",
   },
   Apartment: {
-    th: "อพาร์ทเมนต์ - หอหัก",
+    th: "อพาร์ทเมนต์ - หอพัก",
     en: "Apartment",
     zh: "公寓楼",
   }
