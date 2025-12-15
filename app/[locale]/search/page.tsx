@@ -243,6 +243,20 @@ function SearchContent() {
     return new Intl.NumberFormat("th-TH").format(price);
   };
 
+  // Helper functions for comma-formatted price input
+  const formatPriceInput = (value: string) => {
+    // Remove non-digit characters
+    const numericValue = value.replace(/[^\d]/g, "");
+    if (!numericValue) return "";
+    // Format with commas
+    return new Intl.NumberFormat("th-TH").format(parseInt(numericValue));
+  };
+
+  const parsePriceInput = (formattedValue: string) => {
+    // Remove commas to get raw number string
+    return formattedValue.replace(/,/g, "");
+  };
+
   const getSize = (property: Property) => {
     if (property.propertyType === "Condo") {
       return property.roomSizeNum ? `${property.roomSizeNum}` : "-";
@@ -459,17 +473,17 @@ function SearchContent() {
                   </label>
                   <div className="flex gap-2">
                     <Input
-                      type="number"
+                      type="text"
                       placeholder={t("search.minPrice")}
-                      value={minPrice}
-                      onChange={(e) => setMinPrice(e.target.value)}
+                      value={formatPriceInput(minPrice)}
+                      onChange={(e) => setMinPrice(parsePriceInput(e.target.value))}
                       className="border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400"
                     />
                     <Input
-                      type="number"
+                      type="text"
                       placeholder={t("search.maxPrice")}
-                      value={maxPrice}
-                      onChange={(e) => setMaxPrice(e.target.value)}
+                      value={formatPriceInput(maxPrice)}
+                      onChange={(e) => setMaxPrice(parsePriceInput(e.target.value))}
                       className="border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400"
                     />
                   </div>

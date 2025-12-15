@@ -352,6 +352,20 @@ export default function PublicPropertiesPage() {
     return new Intl.NumberFormat("th-TH").format(price);
   };
 
+  // Helper functions for comma-formatted price input
+  const formatPriceInput = (value: string) => {
+    // Remove non-digit characters
+    const numericValue = value.replace(/[^\d]/g, "");
+    if (!numericValue) return "";
+    // Format with commas
+    return new Intl.NumberFormat("th-TH").format(parseInt(numericValue));
+  };
+
+  const parsePriceInput = (formattedValue: string) => {
+    // Remove commas to get raw number string
+    return formattedValue.replace(/,/g, "");
+  };
+
   const getSize = (property: Property) => {
     if (property.propertyType === "Condo") {
       return property.roomSizeNum ? `${property.roomSizeNum}` : "-";
@@ -470,9 +484,9 @@ export default function PublicPropertiesPage() {
                   onClick={() => router.push("/search")}
                   className="group font-heading tracking-wider text-sm"
                 >
-                  <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center mr-2 group-hover:border-[#C9A227] group-hover:bg-[#C9A227]/10 transition-all">
+                  {/* <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center mr-2 group-hover:border-[#C9A227] group-hover:bg-[#C9A227]/10 transition-all">
                     <Play className="w-3 h-3 fill-white" />
-                  </div>
+                  </div> */}
                   {t("homePage.howItWorks")}
                 </Button>
               </div>
@@ -649,10 +663,10 @@ export default function PublicPropertiesPage() {
                     {t("search.maxPrice")}
                   </label>
                   <Input
-                    type="number"
+                    type="text"
                     placeholder="฿"
-                    value={maxPrice}
-                    onChange={(e) => setMaxPrice(e.target.value)}
+                    value={formatPriceInput(maxPrice)}
+                    onChange={(e) => setMaxPrice(parsePriceInput(e.target.value))}
                     className="h-9 bg-white border-gray-200 rounded-lg text-gray-900 text-sm placeholder:text-gray-400"
                   />
                 </div>
