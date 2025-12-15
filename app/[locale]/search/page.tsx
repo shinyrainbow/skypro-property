@@ -462,7 +462,8 @@ function SearchContent() {
                       <SelectItem value="1">1 {t("common.room")}</SelectItem>
                       <SelectItem value="2">2 {t("common.rooms")}</SelectItem>
                       <SelectItem value="3">3 {t("common.rooms")}</SelectItem>
-                      <SelectItem value="4">4+ {t("common.rooms")}</SelectItem>
+                      <SelectItem value="4">4 {t("common.rooms")}</SelectItem>
+                      <SelectItem value="5">5+ {t("common.rooms")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

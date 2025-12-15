@@ -17,7 +17,6 @@ import {
   Mail,
   ArrowLeft,
   Share2,
-  Heart,
   ChevronLeft,
   ChevronRight,
   Home,
@@ -34,6 +33,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { PropertyJsonLd } from "@/components/seo/json-ld";
 import ShareButton from "@/components/property/share-button";
+import { getAmenityLabel } from "@/lib/amenities";
 
 interface Property {
   id: string;
@@ -431,8 +431,6 @@ export default function PropertyDetailPage() {
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [recommendedProperties, setRecommendedProperties] = useState<
@@ -491,12 +489,6 @@ export default function PropertyDetailPage() {
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Handle keyboard navigation in lightbox
@@ -700,18 +692,6 @@ export default function PropertyDetailPage() {
           </button>
 
           <div className="flex items-center gap-3 pt-6 pb-4">
-            <button
-              onClick={() => setIsLiked(!isLiked)}
-              className={`p-2 rounded-full transition-colors ${
-                isLiked
-                  ? "bg-red-500/20 text-red-500"
-                  : "hover:bg-gray-100 text-gray-500"
-              }`}
-            >
-              <Heart
-                className={`w-5 h-5 ${isLiked ? "fill-red-500" : ""}`}
-              />
-            </button>
             <ShareButton title={getPropertyTitle(property) || "ทรัพย์สิน"} />
           </div>
         </div>
@@ -1082,7 +1062,9 @@ export default function PropertyDetailPage() {
                     {property.amenities.map((amenity, index) => (
                       <div key={index} className="flex items-center gap-2">
                         <CheckCircle2 className="w-5 h-5 text-[#C9A227]" />
-                        <span className="text-gray-600">{amenity}</span>
+                        <span className="text-gray-600">
+                          {locale === "th" ? getAmenityLabel(amenity) : amenity}
+                        </span>
                       </div>
                     ))}
                   </div>
