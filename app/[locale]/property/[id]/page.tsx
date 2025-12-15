@@ -1236,7 +1236,7 @@ export default function PropertyDetailPage() {
                         </div>
                         <div className="bg-white rounded-xl p-4 flex justify-center">
                           <Image
-                            src="/qrcode.png"
+                            src="/skyproqrcode.png"
                             alt="Line QR Code"
                             width={200}
                             height={200}
