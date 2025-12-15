@@ -68,6 +68,7 @@ interface Property {
     projectNameEn: string;
     projectNameTh: string;
   } | null;
+  amenities?: string[];
 }
 
 // Mock property data for new projects
@@ -1065,33 +1066,28 @@ export default function PropertyDetailPage() {
                 </Card>
               )}
 
-              {/* Amenities */}
-              <Card
-                className={`p-6 shadow-lg bg-white border border-gray-200 transition-all duration-700 delay-[400ms] ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`}
-              >
-                <h2 className="text-lg font-bold text-gray-900 mb-4">
-                  {t("propertyDetail.amenities")}
-                </h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {[
-                    t("propertyDetail.swimmingPool"),
-                    t("propertyDetail.fitness"),
-                    t("propertyDetail.security"),
-                    t("propertyDetail.parking"),
-                    t("propertyDetail.cctv"),
-                    t("propertyDetail.garden"),
-                  ].map((amenity, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-[#C9A227]" />
-                      <span className="text-gray-600">{amenity}</span>
-                    </div>
-                  ))}
-                </div>
-              </Card>
+              {/* Amenities - Only show if property has amenities */}
+              {property.amenities && property.amenities.length > 0 && (
+                <Card
+                  className={`p-6 shadow-lg bg-white border border-gray-200 transition-all duration-700 delay-[400ms] ${
+                    isVisible
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-8"
+                  }`}
+                >
+                  <h2 className="text-lg font-bold text-gray-900 mb-4">
+                    {t("propertyDetail.amenities")}
+                  </h2>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {property.amenities.map((amenity, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-[#C9A227]" />
+                        <span className="text-gray-600">{amenity}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              )}
 
               {/* Location Map */}
               {property.latitude && property.longitude && (
@@ -1213,7 +1209,7 @@ export default function PropertyDetailPage() {
                       className="w-full border-gray-300 text-gray-600 hover:bg-gray-100 py-6 text-base font-medium rounded-xl transition-all"
                       onClick={() =>
                         copyToClipboard(
-                          "nainahub.contact@gmail.com",
+                          "skyproofficial88@gmail.com",
                           "email"
                         )
                       }

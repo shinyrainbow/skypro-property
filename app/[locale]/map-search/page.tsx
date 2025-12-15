@@ -917,6 +917,16 @@ export default function MapSearchPage() {
                       <div className="text-xs text-gray-400 mt-2">
                         {t("common.code")}: {property.agentPropertyCode}
                       </div>
+
+                      <Link href={`/property/${property.id}`} target="_blank" onClick={(e) => e.stopPropagation()}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full mt-3 border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
+                        >
+                          {t("property.viewDetails")}
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </div>
