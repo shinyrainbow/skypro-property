@@ -33,7 +33,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { PropertyJsonLd } from "@/components/seo/json-ld";
 import ShareButton from "@/components/property/share-button";
-import { getAmenityLabel } from "@/lib/amenities";
+import { getAmenityLabelByLocale } from "@/lib/amenities";
 
 interface Property {
   id: string;
@@ -1063,7 +1063,7 @@ export default function PropertyDetailPage() {
                       <div key={index} className="flex items-center gap-2">
                         <CheckCircle2 className="w-5 h-5 text-[#C9A227]" />
                         <span className="text-gray-600">
-                          {locale === "th" ? getAmenityLabel(amenity) : amenity}
+                          {getAmenityLabelByLocale(amenity, locale)}
                         </span>
                       </div>
                     ))}

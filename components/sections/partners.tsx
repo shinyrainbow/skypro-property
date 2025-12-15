@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { Building2, Award, Shield, Handshake } from "lucide-react";
 
 const partners = [
@@ -12,32 +13,33 @@ const partners = [
   { name: "Pruksa", type: "Developer" },
 ];
 
-const features = [
-  {
-    icon: Building2,
-    title: "50+ โครงการ",
-    description: "พันธมิตรโครงการคุณภาพ",
-  },
-  {
-    icon: Award,
-    title: "ได้รับการรับรอง",
-    description: "มาตรฐานระดับสากล",
-  },
-  {
-    icon: Shield,
-    title: "ปลอดภัย 100%",
-    description: "การทำธุรกรรมที่มั่นใจ",
-  },
-  {
-    icon: Handshake,
-    title: "บริการครบวงจร",
-    description: "ดูแลตั้งแต่ต้นจนจบ",
-  },
-];
-
 export default function PartnersSection() {
+  const t = useTranslations();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const features = [
+    {
+      icon: Building2,
+      title: t("sections.partnerFeature1Title"),
+      description: t("sections.partnerFeature1Desc"),
+    },
+    {
+      icon: Award,
+      title: t("sections.partnerFeature2Title"),
+      description: t("sections.partnerFeature2Desc"),
+    },
+    {
+      icon: Shield,
+      title: t("sections.partnerFeature3Title"),
+      description: t("sections.partnerFeature3Desc"),
+    },
+    {
+      icon: Handshake,
+      title: t("sections.partnerFeature4Title"),
+      description: t("sections.partnerFeature4Desc"),
+    },
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -66,11 +68,11 @@ export default function PartnersSection() {
           }`}
         >
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-            พันธมิตรของเรา
+            {t("sections.partners")}
           </h2>
           <div className="w-16 h-1 bg-[#C9A227] mx-auto mb-3"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            ร่วมมือกับผู้พัฒนาอสังหาริมทรัพย์ชั้นนำของประเทศไทย
+            {t("sections.partnersSubtitle")}
           </p>
         </div>
 
@@ -106,7 +108,7 @@ export default function PartnersSection() {
             const Icon = feature.icon;
             return (
               <div
-                key={feature.title}
+                key={index}
                 className={`text-center p-4 md:p-6 rounded-2xl bg-gray-50 hover:bg-[#C9A227]/5 border border-transparent hover:border-[#C9A227]/20 transition-all duration-500 ${
                   isVisible
                     ? "opacity-100 translate-y-0"

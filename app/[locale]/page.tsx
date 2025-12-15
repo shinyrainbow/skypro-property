@@ -1155,10 +1155,10 @@ export default function PublicPropertiesPage() {
               <div className="flex items-center gap-2 mb-2">
                 <Award className="w-6 h-6 text-[#c6af6c]" />
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  ปิดการขายล่าสุด
+                  {t("sections.closedDeals")}
                 </h2>
               </div>
-              <p className="text-gray-600">ทรัพย์สินที่เพิ่งปิดการขายหรือเช่าสำเร็จ</p>
+              <p className="text-gray-600">{t("sections.closedDealsSubtitle")}</p>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -1212,7 +1212,7 @@ export default function PublicPropertiesPage() {
                           property.status === "sold" ? "bg-red-500" : "bg-blue-500"
                         }`}
                       >
-                        {property.status === "sold" ? "ขายแล้ว" : "เช่าแล้ว"}
+                        {property.status === "sold" ? t("property.sold") : t("property.rented")}
                       </div>
                     </div>
                   </div>
@@ -1235,10 +1235,10 @@ export default function PublicPropertiesPage() {
                         {property.status === "sold" && property.sellPriceNum && property.sellPriceNum > 0
                           ? `฿${formatPrice(property.sellPriceNum)}`
                           : property.rentalRateNum && property.rentalRateNum > 0
-                          ? `฿${formatPrice(property.rentalRateNum)}/เดือน`
+                          ? `฿${formatPrice(property.rentalRateNum)}${t("property.perMonth")}`
                           : property.sellPriceNum && property.sellPriceNum > 0
                           ? `฿${formatPrice(property.sellPriceNum)}`
-                          : "ติดต่อสอบถาม"}
+                          : t("common.contactForPrice")}
                       </p>
                     </div>
                   </div>

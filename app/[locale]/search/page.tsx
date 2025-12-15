@@ -604,13 +604,13 @@ function SearchContent() {
                   >
                     <Card
                       className={`group overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer bg-white border border-gray-200 hover:border-[#C9A227]/50 ${
-                        viewMode === "list" ? "flex flex-row h-40" : ""
+                        viewMode === "list" ? "flex flex-row" : ""
                       }`}
                     >
                       {/* Property Image */}
                       <div
                         className={`relative overflow-hidden bg-gray-100 flex-shrink-0 ${
-                          viewMode === "list" ? "w-48 h-40" : "h-48"
+                          viewMode === "list" ? "w-48 h-48" : "h-48"
                         }`}
                       >
                         {property.imageUrls && property.imageUrls.length > 0 ? (
@@ -681,36 +681,38 @@ function SearchContent() {
                       </div>
 
                       {/* Property Details */}
-                      <div className="p-4 flex-1">
-                        {property.project && (
-                          <div className="flex items-center text-xs text-gray-500 mb-1">
-                            <MapPin className="w-3 h-3 mr-1" />
-                            {getProjectName(property.project)}
-                          </div>
-                        )}
+                      <div className={`p-4 flex-1 flex flex-col ${viewMode === "list" ? "justify-between" : ""}`}>
+                        <div>
+                          {property.project && (
+                            <div className="flex items-center text-xs text-gray-500 mb-1">
+                              <MapPin className="w-3 h-3 mr-1" />
+                              {getProjectName(property.project)}
+                            </div>
+                          )}
 
-                        <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#C9A227] transition-colors">
-                          {getPropertyTitle(property)}
-                        </h3>
+                          <h3 className={`font-bold text-gray-900 mb-2 group-hover:text-[#C9A227] transition-colors ${viewMode === "list" ? "line-clamp-1" : "line-clamp-2"}`}>
+                            {getPropertyTitle(property)}
+                          </h3>
 
-                        <div className="flex items-center gap-3 text-xs text-gray-500 mb-3 pb-3 border-b border-gray-100">
-                          <div className="flex items-center gap-1">
-                            <Bed className="w-3 h-3 text-[#C9A227]" />
-                            <span className="font-semibold">
-                              {property.bedRoomNum}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Bath className="w-3 h-3 text-[#C9A227]" />
-                            <span className="font-semibold">
-                              {property.bathRoomNum}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Maximize className="w-3 h-3 text-[#C9A227]" />
-                            <span className="font-semibold">
-                              {getSize(property)} {t("common.sqm")}
-                            </span>
+                          <div className="flex items-center gap-3 text-xs text-gray-500 mb-3 pb-3 border-b border-gray-100">
+                            <div className="flex items-center gap-1">
+                              <Bed className="w-3 h-3 text-[#C9A227]" />
+                              <span className="font-semibold">
+                                {property.bedRoomNum}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Bath className="w-3 h-3 text-[#C9A227]" />
+                              <span className="font-semibold">
+                                {property.bathRoomNum}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Maximize className="w-3 h-3 text-[#C9A227]" />
+                              <span className="font-semibold">
+                                {getSize(property)} {t("common.sqm")}
+                              </span>
+                            </div>
                           </div>
                         </div>
 
@@ -718,7 +720,7 @@ function SearchContent() {
                         <div>
                           {property.rentalRateNum != null &&
                             property.rentalRateNum > 0 && (
-                              <div className="text-lg font-bold text-[#C9A227]">
+                              <div className={`font-bold text-[#C9A227] ${viewMode === "list" ? "text-base" : "text-lg"}`}>
                                 <span className="text-xs font-normal text-gray-500 mr-1">{t("property.forRent")}:</span>
                                 ฿{formatPrice(property.rentalRateNum)}
                                 <span className="text-xs font-normal text-gray-400">
@@ -728,16 +730,15 @@ function SearchContent() {
                             )}
                           {property.sellPriceNum != null &&
                             property.sellPriceNum > 0 && (
-                              <div className={`font-bold text-[#C9A227] ${property.rentalRateNum != null && property.rentalRateNum > 0 ? "text-sm mt-1" : "text-lg"}`}>
+                              <div className={`font-bold text-[#C9A227] ${property.rentalRateNum != null && property.rentalRateNum > 0 ? "text-sm mt-1" : viewMode === "list" ? "text-base" : "text-lg"}`}>
                                 <span className="text-xs font-normal text-gray-500 mr-1">{t("property.forSale")}:</span>
                                 ฿{formatPrice(property.sellPriceNum)}
                               </div>
                             )}
-                        </div>
 
-
-                        <div className="text-xs text-gray-400 mt-2">
-                          {t("common.code")}: {property.agentPropertyCode}
+                          <div className="text-xs text-gray-400 mt-2">
+                            {t("common.code")}: {property.agentPropertyCode}
+                          </div>
                         </div>
                       </div>
                     </Card>
