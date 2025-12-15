@@ -551,7 +551,7 @@ export default function BlogPostPage({
                 <div className="bg-gradient-to-br from-[#C9A227]/20 to-[#C9A227]/5 rounded-xl border border-[#C9A227]/30 p-5">
                   <h3 className="text-gray-900 font-semibold mb-2">{t("needHelp")}</h3>
                   <p className="text-gray-600 text-xs mb-4">{t("needHelpDesc")}</p>
-                  <Link href="/#contact">
+                  <Link href="/contact">
                     <Button variant="gold" size="sm" className="w-full text-xs">
                       {t("contactUs")}
                     </Button>
