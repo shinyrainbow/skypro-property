@@ -94,7 +94,7 @@ export function OrganizationJsonLd({
     url: "https://skyproproperties.com",
     logo: "https://skyproproperties.com/header-logo.png",
     description:
-      "บริการที่ปรึกษาอสังหาริมทรัพย์ คอนโด บ้าน ทาวน์เฮ้าส์ ให้เช่าและขาย ในกรุงเทพฯ",
+      "บริการที่ปรึกษาอสังหาริมทรัพย์ คอนโด บ้าน ทาวน์เฮ้าส์ ให้เช่าและขาย ในเชียงใหม่",
     areaServed: {
       "@type": "City",
       name: "Bangkok",
@@ -102,7 +102,7 @@ export function OrganizationJsonLd({
     },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Bangkok",
+      addressLocality: "Chiangmai",
       addressCountry: "TH",
     },
     sameAs: [

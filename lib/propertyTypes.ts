@@ -17,7 +17,8 @@ export type SubPropertyType =
   | "Store"
   | "Factory"
   | "Hotel"
-  | "Building";
+  | "Building"
+  | "Apartment";
 
 export interface PropertyTypeConfig {
   th: string;
@@ -43,7 +44,7 @@ export const PROPERTY_TYPE_HIERARCHY: Record<MainPropertyType, PropertyTypeConfi
     th: "พาณิชย์",
     en: "Commercial",
     zh: "商业",
-    subtypes: ["Office", "Store", "Factory", "Hotel", "Building"]
+    subtypes: ["Office", "Store", "Factory", "Hotel", "Building", "Apartment"]
   }
 };
 
@@ -106,6 +107,11 @@ export const SUB_PROPERTY_TYPE_LABELS: Record<SubPropertyType, SubPropertyTypeCo
     th: "อาคาร",
     en: "Building",
     zh: "大楼",
+  },
+  Apartment: {
+    th: "อพาร์ทเมนท์",
+    en: "Apartment",
+    zh: "公寓楼",
   }
 };
 
@@ -116,7 +122,8 @@ export const AUTO_MAPPING: Record<string, { main: MainPropertyType; sub: SubProp
   "Condo": { main: "Living", sub: "Condo" },
   "Townhouse": { main: "Living", sub: "Townhouse" },
   "SingleHouse": { main: "Living", sub: "SingleHouse" },
-  "Land": { main: "Land", sub: "Land" }
+  "Land": { main: "Land", sub: "Land" },
+  "Apartment": { main: "Commercial", sub: "Apartment" }
 };
 
 /**

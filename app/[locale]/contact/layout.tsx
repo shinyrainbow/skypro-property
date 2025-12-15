@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "ติดต่อ Sky Pro Property",
     "ที่ปรึกษาอสังหาริมทรัพย์",
     "นายหน้าอสังหา",
-    "contact real estate Bangkok",
+    "contact real estate Chiangmai",
   ],
   openGraph: {
     title: "ติดต่อเรา - Sky Pro Property",

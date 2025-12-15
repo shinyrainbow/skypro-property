@@ -159,7 +159,7 @@
   "hero": {
     "title": "Find Your Dream",
     "titleHighlight": "Property",
-    "subtitle": "Discover premium quality properties in the best locations of Bangkok",
+    "subtitle": "Discover premium quality properties in the best locations of Chiangmai",
     "stats": {
       "properties": "Properties",
       "happyClients": "Happy Clients",
@@ -205,6 +205,7 @@
     "factory": "Factory",
     "hotel": "Hotel",
     "building": "Building",
+    "apartment": "Apartment",
     "searchButton": "Search",
     "resetFilters": "Reset Filters",
     "resultsFound": "Found {count} properties matching your criteria",
@@ -228,7 +229,8 @@
       "store": "Store",
       "factory": "Factory",
       "hotel": "Hotel",
-      "building": "Building"
+      "building": "Building",
+      "apartment": "Apartment"
     },
     "mainPropertyType": "Main Type",
     "subPropertyType": "Sub Type",
@@ -338,6 +340,7 @@
     "factory": "Factory",
     "hotel": "Hotel",
     "building": "Building",
+    "apartment": "Apartment",
     "other": "Other",
     "location": "Location",
     "locationPlaceholder": "e.g. Rama 9, Sukhumvit, Chiang Mai",
@@ -360,7 +363,7 @@
     "benefit1Title": "Professional Team",
     "benefit1Desc": "We have an experienced team ready to help you",
     "benefit2Title": "Full Coverage",
-    "benefit2Desc": "Service covers both Bangkok and provinces",
+    "benefit2Desc": "Service covers both Chiangmai and provinces",
     "benefit3Title": "Easy Contact",
     "benefit3Desc": "Track progress anytime"
   },
@@ -565,6 +568,7 @@
     "condo": "Condo",
     "townhouse": "Townhouse",
     "singleHouse": "Single House",
+    "apartment": "Apartment",
     "land": "Land",
     "bedrooms": "Bedrooms",
     "notSpecified": "Any",

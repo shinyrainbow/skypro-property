@@ -36,7 +36,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://skyproproperties.com"),
   title: {
-    default: "Sky Pro Property - Premium Real Estate Bangkok",
+    default: "Sky Pro Property - Premium Real Estate Chiangmai",
     template: "%s | Sky Pro Property",
   },
   description:
@@ -48,11 +48,11 @@ export const metadata: Metadata = {
     "townhouse",
     "condo for rent",
     "buy condo",
-    "Bangkok condo",
+    "Chiangmai condo",
     "house for rent",
     "house for sale",
     "Sky Pro Property",
-    "real estate Bangkok",
+    "real estate Chiangmai",
     "Sukhumvit",
     "Thonglor",
     "Ekkamai",
@@ -72,23 +72,23 @@ export const metadata: Metadata = {
     locale: "th_TH",
     url: "https://skyproproperties.com",
     siteName: "Sky Pro Property",
-    title: "Sky Pro Property - Premium Real Estate Bangkok",
+    title: "Sky Pro Property - Premium Real Estate Chiangmai",
     description:
-      "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok.",
+      "Find condos, single houses, townhouses for rent and sale in the best locations of Chiangmai.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Sky Pro Property - Premium Real Estate Bangkok",
+        alt: "Sky Pro Property - Premium Real Estate Chiangmai",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sky Pro Property - Premium Real Estate Bangkok",
+    title: "Sky Pro Property - Premium Real Estate Chiangmai",
     description:
-      "Find condos, single houses, townhouses for rent and sale in the best locations of Bangkok.",
+      "Find condos, single houses, townhouses for rent and sale in the best locations of Chiangmai.",
     images: ["/og-image.jpg"],
   },
   robots: {
