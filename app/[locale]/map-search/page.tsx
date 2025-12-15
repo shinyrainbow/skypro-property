@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import dynamic from "next/dynamic";
 import Header from "@/components/layout/header";
@@ -72,6 +72,19 @@ export default function MapSearchPage() {
   // Map state
   const [mapCenter, setMapCenter] = useState<[number, number]>([18.7883, 98.9853]); // Chiang Mai center
   const [mapZoom, setMapZoom] = useState(12);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Check if we're on desktop (lg breakpoint = 1024px)
+  // This prevents the map from rendering on mobile which causes LatLng errors
+  const checkIsDesktop = useCallback(() => {
+    setIsDesktop(window.innerWidth >= 1024);
+  }, []);
+
+  useEffect(() => {
+    checkIsDesktop();
+    window.addEventListener("resize", checkIsDesktop);
+    return () => window.removeEventListener("resize", checkIsDesktop);
+  }, [checkIsDesktop]);
 
   // Filter drawer state (for mobile/tablet)
   const [filterOpen, setFilterOpen] = useState(false);
@@ -725,34 +738,36 @@ export default function MapSearchPage() {
       {/* Main Content - Map (Left) and Cards (Right) */}
       <div className="pt-32 lg:pt-[240px] min-h-screen">
         <div className="flex flex-col lg:flex-row min-h-[calc(100vh-320px)] lg:h-[calc(100vh-240px)]">
-          {/* Left - Map (Hidden on mobile and tablet) */}
-          <div className="hidden lg:block lg:w-1/2 relative lg:h-auto">
-            {!loading &&
-              mapCenter &&
-              Array.isArray(mapCenter) &&
-              mapCenter.length === 2 &&
-              typeof mapCenter[0] === 'number' &&
-              typeof mapCenter[1] === 'number' &&
-              !isNaN(mapCenter[0]) &&
-              !isNaN(mapCenter[1]) &&
-              isFinite(mapCenter[0]) &&
-              isFinite(mapCenter[1]) && (
-              <PropertyMap
-                properties={filteredProperties}
-                center={mapCenter}
-                zoom={mapZoom}
-                formatPrice={formatPrice}
-                getSize={getSize}
-                t={t}
-              />
-            )}
+          {/* Left - Map (Only render on desktop to prevent Leaflet LatLng errors on mobile) */}
+          {isDesktop && (
+            <div className="lg:w-1/2 relative lg:h-auto">
+              {!loading &&
+                mapCenter &&
+                Array.isArray(mapCenter) &&
+                mapCenter.length === 2 &&
+                typeof mapCenter[0] === 'number' &&
+                typeof mapCenter[1] === 'number' &&
+                !isNaN(mapCenter[0]) &&
+                !isNaN(mapCenter[1]) &&
+                isFinite(mapCenter[0]) &&
+                isFinite(mapCenter[1]) && (
+                <PropertyMap
+                  properties={filteredProperties}
+                  center={mapCenter}
+                  zoom={mapZoom}
+                  formatPrice={formatPrice}
+                  getSize={getSize}
+                  t={t}
+                />
+              )}
 
-            {loading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
-                <p className="text-gray-600">{t("common.loading")}</p>
-              </div>
-            )}
-          </div>
+              {loading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+                  <p className="text-gray-600">{t("common.loading")}</p>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Right - Property Cards */}
           <div className="w-full lg:w-1/2 bg-gray-50 overflow-y-auto">

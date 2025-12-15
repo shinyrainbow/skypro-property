@@ -111,14 +111,21 @@ export default function AdminLayout({
         <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
           <Link href="/admin-dashboard" className="flex items-center gap-2">
             <Image
-              src="/web-logo.png"
+              src="/header-logo.png"
               alt="Sky Pro Property"
-              width={32}
-              height={32}
-              className="w-8 h-8 object-contain"
+              width={40}
+              height={40}
+              className="w-10 h-10 object-contain"
               unoptimized
             />
-            <span className="text-lg font-bold text-gray-900">Admin Panel</span>
+            <Image
+              src="/name-logo.png"
+              alt="Sky Pro Property"
+              height={36}
+              width={108}
+              className="object-contain h-9 w-auto"
+              unoptimized
+            />
           </Link>
           <button
             className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
