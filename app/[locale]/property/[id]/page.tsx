@@ -69,6 +69,10 @@ interface Property {
     projectNameTh: string;
   } | null;
   amenities?: string[];
+  note?: string | null;
+  noteEn?: string | null;
+  noteZh?: string | null;
+  noteJa?: string | null;
 }
 
 // Mock property data for new projects
@@ -426,6 +430,21 @@ export default function PropertyDetailPage() {
     return useEnglish
       ? (property.propertyTitleEn || property.propertyTitleTh || "")
       : (property.propertyTitleTh || property.propertyTitleEn || "");
+  };
+  const getNote = (property: { note?: string | null; noteEn?: string | null; noteZh?: string | null; noteJa?: string | null } | null | undefined) => {
+    if (!property) return "";
+
+    switch (locale) {
+      case "en":
+        return property.noteEn || property.note || "";
+      case "zh":
+        return property.noteZh || property.noteEn || property.note || "";
+      case "ja":
+        return property.noteJa || property.noteEn || property.note || "";
+      case "th":
+      default:
+        return property.note || property.noteEn || "";
+    }
   };
 
   const [property, setProperty] = useState<Property | null>(null);
@@ -1042,6 +1061,24 @@ export default function PropertyDetailPage() {
                   </h2>
                   <p className="text-gray-600 leading-relaxed whitespace-pre-line">
                     {property.descriptionTh || property.descriptionEn}
+                  </p>
+                </Card>
+              )}
+
+              {/* Notes - Only show if property has notes */}
+              {getNote(property) && (
+                <Card
+                  className={`p-6 shadow-lg bg-white border border-gray-200 transition-all duration-700 delay-[350ms] ${
+                    isVisible
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-8"
+                  }`}
+                >
+                  <h2 className="text-lg font-bold text-gray-900 mb-4">
+                    {t("propertyDetail.notes")}
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                    {getNote(property)}
                   </p>
                 </Card>
               )}

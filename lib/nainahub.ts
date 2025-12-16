@@ -57,6 +57,9 @@ export interface NainaHubProperty {
   status: PropertyStatus;
   updatedAt: string;
   note: string | null;
+  noteEn: string | null;
+  noteZh: string | null;
+  noteJa: string | null;
   amenities?: string[];
 }
 
