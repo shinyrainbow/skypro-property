@@ -226,8 +226,12 @@ export default function PropertyMap({
   const groupedProperties = properties
     .filter((p) => {
       // Filter logic: check if property has valid coordinates
+      // For condos, check project coordinates first, then fallback to property coordinates
       if (p.propertyType === "Condo") {
-        return isValidCoordinate(p.project?.projectLatitude, p.project?.projectLongitude);
+        return (
+          isValidCoordinate(p.project?.projectLatitude, p.project?.projectLongitude) ||
+          isValidCoordinate(p.latitude, p.longitude)
+        );
       }
       return isValidCoordinate(p.latitude, p.longitude);
     })
