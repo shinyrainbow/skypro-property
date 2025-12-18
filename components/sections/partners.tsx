@@ -56,8 +56,8 @@ const partners = [
   },
   {
     name: "Origin",
-    logo: "https://www.origin.co.th/assets/images/logo-origin.png",
-    width: 100,
+    logo: "https://cdn.brandfetch.io/idyhwbggA4/w/199/h/53/theme/dark/logo.png",
+    width: 120,
     height: 40
   },
   {
