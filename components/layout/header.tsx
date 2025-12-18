@@ -188,7 +188,7 @@ export default function Header({ transparent = false }: HeaderProps) {
                         : 'opacity-0 invisible -translate-y-2'
                     }`}
                   >
-                    <div className="bg-[#0A0E1A] border border-white/10 rounded-lg shadow-xl shadow-black/30 min-w-[280px] overflow-hidden">
+                    <div className="bg-[#0A0E1A] border border-white/10 rounded-lg shadow-xl shadow-black/30 overflow-hidden">
                       {/* View All Link */}
                       <Link
                         href={`/search?listingType=${menu.listingType}`}
@@ -198,31 +198,33 @@ export default function Header({ transparent = false }: HeaderProps) {
                         {menu.listingType === "rent" ? t("viewAllRentals") : t("viewAllForSale")}
                       </Link>
 
-                      {/* Property Categories */}
-                      {Object.entries(propertyCategories).map(([categoryKey, category]) => (
-                        <div key={categoryKey} className="border-b border-white/5 last:border-b-0">
-                          {/* Category Header */}
-                          <div className="flex items-center gap-2 px-4 py-2 bg-white/5">
-                            <category.icon className="w-4 h-4 text-[#C9A227]" />
-                            <span className="text-xs font-semibold text-white/50 uppercase tracking-wider">
-                              {category.label}
-                            </span>
+                      {/* Property Categories - 3 Column Grid */}
+                      <div className="grid grid-cols-3 gap-0 divide-x divide-white/10">
+                        {Object.entries(propertyCategories).map(([categoryKey, category]) => (
+                          <div key={categoryKey} className="min-w-[160px]">
+                            {/* Category Header */}
+                            <div className="flex items-center gap-2 px-4 py-2 bg-white/5">
+                              <category.icon className="w-4 h-4 text-[#C9A227]" />
+                              <span className="text-xs font-semibold text-white/50 uppercase tracking-wider whitespace-nowrap">
+                                {category.label}
+                              </span>
+                            </div>
+                            {/* Category Items */}
+                            <div className="py-1">
+                              {category.items.map((item) => (
+                                <Link
+                                  key={item.value}
+                                  href={`/search?listingType=${menu.listingType}&propertyType=${item.value}`}
+                                  className="block px-4 py-2 text-sm text-white/70 hover:text-[#C9A227] hover:bg-white/5 transition-colors whitespace-nowrap"
+                                  onClick={() => setOpenDropdown(null)}
+                                >
+                                  {item.label}
+                                </Link>
+                              ))}
+                            </div>
                           </div>
-                          {/* Category Items */}
-                          <div className="py-1">
-                            {category.items.map((item) => (
-                              <Link
-                                key={item.value}
-                                href={`/search?listingType=${menu.listingType}&propertyType=${item.value}`}
-                                className="block px-4 py-2 text-sm text-white/70 hover:text-[#C9A227] hover:bg-white/5 transition-colors"
-                                onClick={() => setOpenDropdown(null)}
-                              >
-                                {item.label}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>

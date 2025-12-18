@@ -121,6 +121,8 @@ export default function PublicPropertiesPage() {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
   const observerRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const popularSliderRef = useRef<HTMLDivElement>(null);
+  const [popularCanScrollLeft, setPopularCanScrollLeft] = useState(false);
+  const [popularCanScrollRight, setPopularCanScrollRight] = useState(true);
 
   // Closed Deals slider
   const [closedDeals, setClosedDeals] = useState<Property[]>([]);
@@ -254,6 +256,9 @@ export default function PublicPropertiesPage() {
       if (sliderType === "closed") {
         setClosedCanScrollLeft(canScrollLeft);
         setClosedCanScrollRight(canScrollRight);
+      } else if (sliderType === "popular") {
+        setPopularCanScrollLeft(canScrollLeft);
+        setPopularCanScrollRight(canScrollRight);
       }
     },
     []
@@ -342,10 +347,13 @@ export default function PublicPropertiesPage() {
 
         setProjects(projectsArray);
 
-        // Check initial scroll state for closed deals slider after data loads
+        // Check initial scroll state for sliders after data loads
         setTimeout(() => {
           if (closedDealsSliderRef.current) {
             checkSliderScroll(closedDealsSliderRef, "closed");
+          }
+          if (popularSliderRef.current) {
+            checkSliderScroll(popularSliderRef, "popular");
           }
         }, 100);
       } catch (error) {
@@ -751,13 +759,44 @@ export default function PublicPropertiesPage() {
             </p>
           </div>
 
-          {/* Property Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {popularProperties.slice(0, 6).map((property, index) => (
+          {/* Navigation Arrows */}
+          <div className="flex justify-end gap-3 mb-4">
+            <button
+              className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                popularCanScrollLeft
+                  ? "border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
+                  : "border-gray-600 text-gray-600 cursor-not-allowed"
+              }`}
+              onClick={() => scrollSlider(popularSliderRef, "left", "popular")}
+              disabled={!popularCanScrollLeft}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                popularCanScrollRight
+                  ? "border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
+                  : "border-gray-600 text-gray-600 cursor-not-allowed"
+              }`}
+              onClick={() => scrollSlider(popularSliderRef, "right", "popular")}
+              disabled={!popularCanScrollRight}
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Property Cards Slider */}
+          <div
+            ref={popularSliderRef}
+            className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth snap-x snap-mandatory"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            onScroll={() => checkSliderScroll(popularSliderRef, "popular")}
+          >
+            {popularProperties.slice(0, 10).map((property, index) => (
               <Link
                 key={property.id}
                 href={`/property/${property.id}`}
-                className={`block transition-all duration-500 ${
+                className={`flex-shrink-0 w-[280px] sm:w-[320px] md:w-[350px] snap-start transition-all duration-500 ${
                   isVisible["popular"]
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
@@ -774,7 +813,7 @@ export default function PublicPropertiesPage() {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
                       <MapPin className="w-10 h-10 text-gray-600" />
                     </div>
                   )}

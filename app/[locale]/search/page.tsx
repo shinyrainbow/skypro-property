@@ -119,7 +119,7 @@ function SearchContent() {
   const [maxPrice, setMaxPrice] = useState<string>(maxPriceParam);
   const [searchTrigger, setSearchTrigger] = useState(0); // Trigger for manual search
 
-  // Sync state with URL params when they change (e.g., navigating from homepage)
+  // Sync state with URL params when they change (e.g., navigating from homepage or header menu)
   useEffect(() => {
     setSearchText(searchParams.get("q") || "");
     setSelectedProject(searchParams.get("project") || "");
@@ -128,6 +128,8 @@ function SearchContent() {
     setBedrooms(searchParams.get("bedrooms") || "");
     setMinPrice(searchParams.get("minPrice") || "");
     setMaxPrice(searchParams.get("maxPrice") || "");
+    // Trigger a new search when URL params change
+    setSearchTrigger(prev => prev + 1);
   }, [searchParams]);
 
   // Animation trigger and initial search
