@@ -116,7 +116,7 @@ export default function MapSearchPage() {
     const loadProperties = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/nainahub/properties?limit=100");
+        const response = await fetch("/api/nainahub/properties");
         if (!response.ok) {
           throw new Error("Failed to fetch properties");
         }

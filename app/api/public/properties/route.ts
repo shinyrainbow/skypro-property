@@ -5,7 +5,7 @@ import { getProperties } from "@/lib/data";
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get("page") || "1");
-  const limit = parseInt(searchParams.get("limit") || "12");
+  const limit = parseInt(searchParams.get("limit") || "10000");
   const propertyType = searchParams.get("propertyType");
   const listingType = searchParams.get("listingType");
   const bedrooms = searchParams.get("bedrooms");

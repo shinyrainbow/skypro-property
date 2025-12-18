@@ -145,7 +145,6 @@ function SearchContent() {
         console.log("📡 Loading properties... searchTrigger:", searchTrigger);
         setLoading(true);
         const params: FetchPropertiesParams = {
-          limit: 100,
           ...(searchText && { q: searchText }), // API does conditional search when propertyType is specified
           ...(propertyType && propertyType !== "all" && { propertyType: propertyType as any }),
           ...(listingType && listingType !== "all" && { listingType: listingType as any }),

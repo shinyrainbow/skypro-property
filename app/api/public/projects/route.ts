@@ -4,7 +4,7 @@ import { fetchNainaHubProperties } from "@/lib/nainahub";
 export async function GET() {
   try {
     // Fetch all properties from NainaHub
-    const response = await fetchNainaHubProperties({ limit: 100 });
+    const response = await fetchNainaHubProperties({});
 
     // Group properties by project
     const projectMap = new Map<

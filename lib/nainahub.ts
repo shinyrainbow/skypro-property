@@ -136,7 +136,7 @@ export async function fetchNainaHubProperties(
 export async function fetchNainaHubPropertyById(
   id: string
 ): Promise<NainaHubProperty | null> {
-  // Fetch with high limit to find the property
-  const response = await fetchNainaHubProperties({ limit: 100 });
+  // Fetch all properties to find the one by ID
+  const response = await fetchNainaHubProperties({});
   return response.data.find((p) => p.id === id) || null;
 }

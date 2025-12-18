@@ -269,8 +269,8 @@ export async function getPopularProperties(
     return [];
   }
 
-  // 2. Fetch all properties from API (with high limit to find our popular ones)
-  const apiResponse = await fetchNainaHubProperties({ limit: 100 });
+  // 2. Fetch all properties from API
+  const apiResponse = await fetchNainaHubProperties({});
 
   if (!apiResponse.success) {
     return [];
@@ -318,7 +318,7 @@ export async function getClosedDeals(
   limit: number = 8
 ): Promise<EnhancedProperty[]> {
   // 1. Fetch all properties from API
-  const apiResponse = await fetchNainaHubProperties({ limit: 100 });
+  const apiResponse = await fetchNainaHubProperties({});
 
   if (!apiResponse.success) {
     return [];

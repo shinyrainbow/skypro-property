@@ -206,7 +206,6 @@ export default function PublicPropertiesPage() {
       setLoading(true);
       const params: FetchPropertiesParams = {
         page,
-        limit: 12,
       };
 
       // Apply filters
@@ -289,8 +288,8 @@ export default function PublicPropertiesPage() {
   useEffect(() => {
     const loadInitialData = async () => {
       try {
-        // Load more properties to get popular ones and generate projects
-        const response = await fetchPropertiesFromAPI({ limit: 100 });
+        // Load all properties to get popular ones and generate projects
+        const response = await fetchPropertiesFromAPI({});
 
         // Get latest 10 properties as "popular"
         const popular = response.data.slice(0, 10);

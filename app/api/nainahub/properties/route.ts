@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { fetchNainaHubProperties, type FetchPropertiesParams } from "@/lib/nainahub";
+import { getAllExtensions } from "@/lib/property-extensions";
 
 export async function GET(request: Request) {
   try {
@@ -31,9 +32,27 @@ export async function GET(request: Request) {
     if (minPrice) params.minPrice = parseInt(minPrice);
     if (maxPrice) params.maxPrice = parseInt(maxPrice);
 
-    const response = await fetchNainaHubProperties(params);
+    // Fetch properties from NainaHub and extensions from local DB in parallel
+    const [response, extensions] = await Promise.all([
+      fetchNainaHubProperties(params),
+      getAllExtensions(),
+    ]);
 
-    return NextResponse.json(response);
+    // Create a map of extensions by property ID for quick lookup
+    const extensionMap = new Map(
+      extensions.map((ext) => [ext.externalPropertyId, ext])
+    );
+
+    // Merge extension data with properties
+    const propertiesWithExtensions = response.data.map((property) => ({
+      ...property,
+      extension: extensionMap.get(property.id) || null,
+    }));
+
+    return NextResponse.json({
+      ...response,
+      data: propertiesWithExtensions,
+    });
   } catch (error) {
     console.error("Error fetching properties:", error);
     return NextResponse.json(

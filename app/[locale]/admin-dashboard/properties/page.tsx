@@ -50,6 +50,9 @@ interface PropertyExtension {
   internalNotes: string | null;
   isHidden: boolean;
   isFeaturedPopular: boolean;
+  closedDealDate: string | null;
+  closedDealType: string | null;
+  closedDealPrice: number | null;
   promotions: Promotion[];
   tags: PropertyTag[];
 }
@@ -122,7 +125,6 @@ export default function PropertiesListPage() {
     try {
       const params = new URLSearchParams({
         page: page.toString(),
-        limit: "10",
         ...(typeFilter && typeFilter !== "all" && { propertyType: typeFilter }),
       });
 
@@ -154,7 +156,7 @@ export default function PropertiesListPage() {
               case "has_promotions":
                 return p.extension?.promotions && p.extension.promotions.length > 0;
               case "closed_deal":
-                return p.status === "sold" || p.status === "rented";
+                return p.status === "sold" || p.status === "rented" || !!p.extension?.closedDealType;
               case "hidden":
                 return p.extension?.isHidden;
               default:
