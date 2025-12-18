@@ -34,6 +34,7 @@
   "common": {
     "search": "ค้นหา",
     "viewAll": "ดูทั้งหมด",
+    "seeAll": "ดูทั้งหมด",
     "viewDetails": "ดูรายละเอียด",
     "loading": "กำลังโหลด...",
     "noResults": "ไม่พบผลลัพธ์",
@@ -255,6 +256,8 @@
     "viewDetails": "ดูรายละเอียด"
   },
   "sections": {
+    "popular": "อสังหาฯ",
+    "properties": "ยอดนิยม",
     "popularProperties": "ทรัพย์สินยอดนิยม",
     "popularSubtitle": "Real Estate Guru In Chiangmai \n(กูรูด้านอสังหาริมทรัยพ์ในเชียงใหม่)",
     "popularProperties2": "ยอดนิยม",
@@ -277,7 +280,7 @@
     "promotionsSubtitle": "ข้อเสนอสุดพิเศษสำหรับคุณ",
     "noPromotions": "ยังไม่มีโปรโมชันในขณะนี้",
     "viewAllPromotions": "ดูโปรโมชันทั้งหมด",
-    "allProperties": "รายการทรัพย์สินทั้งหมด",
+    "allProperties": "รายการอสังหาฯ ทั้งหมด",
     "reviews": "รีวิวจากลูกค้า",
     "reviewsSubtitle": "ความคิดเห็นจากลูกค้าที่ไว้วางใจเรา",
     "noReviews": "ยังไม่มีรีวิวในขณะนี้",

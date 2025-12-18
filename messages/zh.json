@@ -34,6 +34,7 @@
   "common": {
     "search": "搜索",
     "viewAll": "查看全部",
+    "seeAll": "查看全部",
     "viewDetails": "查看详情",
     "loading": "加载中...",
     "noResults": "未找到结果",
@@ -253,6 +254,8 @@
     "viewDetails": "查看详情"
   },
   "sections": {
+    "popular": "热门",
+    "properties": "房产",
     "popularProperties": "热门房产",
     "popularSubtitle": "最受关注的房产",
     "popularProperties2": "热门房产",

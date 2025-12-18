@@ -437,8 +437,8 @@ export default function PublicPropertiesPage() {
               </div>
             ))}
 
-            {/* Dark overlay to make images darker */}
-            <div className="absolute inset-0 bg-black/50" />
+            {/* Dark overlay to make images darker (30% image opacity) */}
+            <div className="absolute inset-0 bg-black/70" />
 
             {/* Gradient overlay on the angled edge for blending */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0E1A] via-transparent to-transparent" style={{ width: "25%" }} />
@@ -715,7 +715,7 @@ export default function PublicPropertiesPage() {
         className="py-12"
       >
         <div className="container mx-auto px-4">
-          {/* Section Header - Split Layout */}
+          {/* Section Header - 3 Column Layout: Logo+Title | Description | Arrows */}
           <div
             className={`flex flex-col lg:grid lg:grid-cols-3 items-center gap-6 mb-8 transition-all duration-700 ${
               isVisible["popular"]
@@ -723,16 +723,9 @@ export default function PublicPropertiesPage() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            {/* Left - Title (hidden on mobile, shown on desktop) */}
-            <div className="hidden lg:block">
-              <h2 className="text-xl md:text-2xl font-heading text-white tracking-wide">
-                {t("sections.popularProperties2")}
-              </h2>
-            </div>
-
-            {/* Center - Logo + Title on mobile */}
-            <div className="flex flex-col items-center justify-center gap-2">
-              <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24">
+            {/* Left - Logo + Title (2 lines) */}
+            <div className="flex items-center gap-4">
+              <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 shrink-0">
                 <Image
                   src="/header-logo.png"
                   alt="Sky Pro Property"
@@ -741,48 +734,45 @@ export default function PublicPropertiesPage() {
                   unoptimized
                 />
               </div>
-              {/* Title only on mobile */}
-              <div className="lg:hidden text-center">
-                <h2 className="text-base sm:text-xl font-heading text-white tracking-wide">
-                  {t("sections.popularProperties2")}
-                </h2>
-              </div>
+              <h2 className="text-base sm:text-xl md:text-2xl font-heading text-white tracking-wide leading-tight">
+                {t("sections.popular")}<br />{t("sections.properties")}
+              </h2>
             </div>
 
-            {/* Right - Description */}
-            <p className="text-gray-400 text-xs sm:text-sm max-w-md text-center lg:text-right mx-auto lg:mx-0">
+            {/* Center - Description */}
+            <p className="text-gray-400 text-xs sm:text-sm max-w-md text-center mx-auto">
               {t("homePage.realEstateGuru")}
               <br/>
               {t("homePage.buyAnd")}
-                 <br/>
+              <br/>
               {t("homePage.contactUs")}
             </p>
-          </div>
 
-          {/* Navigation Arrows */}
-          <div className="flex justify-end gap-3 mb-4">
-            <button
-              className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
-                popularCanScrollLeft
-                  ? "border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
-                  : "border-gray-600 text-gray-600 cursor-not-allowed"
-              }`}
-              onClick={() => scrollSlider(popularSliderRef, "left", "popular")}
-              disabled={!popularCanScrollLeft}
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-              className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
-                popularCanScrollRight
-                  ? "border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
-                  : "border-gray-600 text-gray-600 cursor-not-allowed"
-              }`}
-              onClick={() => scrollSlider(popularSliderRef, "right", "popular")}
-              disabled={!popularCanScrollRight}
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+            {/* Right - Navigation Arrows */}
+            <div className="flex justify-center lg:justify-end gap-3">
+              <button
+                className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                  popularCanScrollLeft
+                    ? "border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
+                    : "border-gray-600 text-gray-600 cursor-not-allowed"
+                }`}
+                onClick={() => scrollSlider(popularSliderRef, "left", "popular")}
+                disabled={!popularCanScrollLeft}
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                className={`w-11 h-11 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                  popularCanScrollRight
+                    ? "border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white"
+                    : "border-gray-600 text-gray-600 cursor-not-allowed"
+                }`}
+                onClick={() => scrollSlider(popularSliderRef, "right", "popular")}
+                disabled={!popularCanScrollRight}
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
           </div>
 
           {/* Property Cards Slider */}
@@ -1024,8 +1014,8 @@ export default function PublicPropertiesPage() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {properties.map((property, index) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {properties.slice(0, 12).map((property, index) => (
                   <Link
                     key={property.id}
                     href={`/property/${property.id}`}
@@ -1127,55 +1117,16 @@ export default function PublicPropertiesPage() {
                 ))}
               </div>
 
-              {/* Pagination */}
+              {/* See All Button */}
               {total > 12 && (
-                <div className="flex justify-center items-center gap-2 mt-8">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    disabled={page === 1}
-                    onClick={() => setPage(page - 1)}
-                    className="text-xs border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-50"
+                <div className="flex justify-center mt-8">
+                  <Link
+                    href="/search"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-[#C9A227] hover:bg-[#A88B1F] text-white font-medium rounded-lg transition-all duration-300"
                   >
-                    {t("common.previous")}
-                  </Button>
-                  <div className="flex gap-2">
-                    {Array.from(
-                      { length: Math.min(5, Math.ceil(total / 12)) },
-                      (_, i) => {
-                        const pageNum = i + 1;
-                        return (
-                          <Button
-                            key={pageNum}
-                            size="sm"
-                            variant={page === pageNum ? "default" : "outline"}
-                            onClick={() => setPage(pageNum)}
-                            className={
-                              page === pageNum
-                                ? "bg-[#C9A227] hover:bg-[#A88B1F] text-white text-xs"
-                                : "border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-900 text-xs"
-                            }
-                          >
-                            {pageNum}
-                          </Button>
-                        );
-                      }
-                    )}
-                    {Math.ceil(total / 12) > 5 && (
-                      <span className="flex items-center px-2 text-gray-500">
-                        ...
-                      </span>
-                    )}
-                  </div>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    disabled={page >= Math.ceil(total / 12)}
-                    onClick={() => setPage(page + 1)}
-                    className="text-xs border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-50"
-                  >
-                    {t("common.next")}
-                  </Button>
+                    {t("common.seeAll")}
+                    <span>→</span>
+                  </Link>
                 </div>
               )}
             </>

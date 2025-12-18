@@ -414,7 +414,7 @@ export default function InquiriesPage() {
                           key={option.value}
                           size="sm"
                           variant={isActive ? "default" : "outline"}
-                          className={isActive ? "bg-[#C9A227] hover:bg-[#A88B1F]" : ""}
+                          className={isActive ? "bg-[#C9A227] hover:bg-[#A88B1F]" : "text-gray-900"}
                           onClick={() => setModalStatus(option.value)}
                         >
                           <option.icon className="w-4 h-4 mr-1" />

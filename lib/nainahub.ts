@@ -131,10 +131,10 @@ export async function fetchNainaHubProperties(
   const data = await response.json();
 
   // Debug: Log property types from API
-  console.log("=== NainaHub API Response ===");
-  console.log("Total properties:", data.pagination?.total);
-  console.log("Property types:", data.data?.map((p: NainaHubProperty) => p.propertyType));
-  console.log("Unique property types:", [...new Set(data.data?.map((p: NainaHubProperty) => p.propertyType))]);
+  // console.log("=== NainaHub API Response ===");
+  // console.log("Total properties:", data.pagination?.total);
+  // console.log("Property types:", data.data?.map((p: NainaHubProperty) => p.propertyType));
+  // console.log("Unique property types:", [...new Set(data.data?.map((p: NainaHubProperty) => p.propertyType))]);
 
   return data;
 }

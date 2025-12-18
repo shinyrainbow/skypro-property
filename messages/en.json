@@ -34,6 +34,7 @@
   "common": {
     "search": "Search",
     "viewAll": "View All",
+    "seeAll": "See All",
     "viewDetails": "View Details",
     "loading": "Loading...",
     "noResults": "No results found",
@@ -255,6 +256,8 @@
     "viewDetails": "View Details"
   },
   "sections": {
+    "popular": "Popular",
+    "properties": "Properties",
     "popularProperties": "Popular Properties",
     "popularSubtitle": "Most viewed properties",
     "popularProperties2": "Popular Properties",

@@ -154,9 +154,9 @@ function SearchContent() {
           ...(minPrice && { minPrice: parseInt(minPrice) }),
           ...(maxPrice && { maxPrice: parseInt(maxPrice) }),
         };
-        console.log("🚀 API call params:", params);
+        // console.log("🚀 API call params:", params);
         const response = await fetchPropertiesFromAPI(params);
-        console.log("✅ API response received:", response.data.length, "properties");
+        // console.log("✅ API response received:", response.data.length, "properties");
         setAllProperties(response.data);
 
         // Generate projects from properties
