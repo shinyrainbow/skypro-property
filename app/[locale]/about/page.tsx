@@ -69,20 +69,20 @@ export default function AboutPage() {
     {
       name: t("team.ceo.name"),
       role: t("team.ceo.role"),
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400",
+      image: "/person1.png",
       description: t("team.ceo.description"),
     },
     {
-      name: t("team.director.name"),
-      role: t("team.director.role"),
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400",
-      description: t("team.director.description"),
+      name: t("team.sales.name"),
+      role: t("team.sales.role"),
+      image: "/person2.jpg",
+      description: t("team.sales.description"),
     },
     {
-      name: t("team.manager.name"),
-      role: t("team.manager.role"),
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400",
-      description: t("team.manager.description"),
+      name: t("team.marketing.name"),
+      role: t("team.marketing.role"),
+      image: "/person3.jpg",
+      description: t("team.marketing.description"),
     },
   ];
 

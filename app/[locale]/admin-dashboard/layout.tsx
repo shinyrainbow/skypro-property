@@ -48,7 +48,7 @@ const menuItems = [
   },
  
   {
-    label: "จัดการบล็อก",
+    label: "จัดการบทความ",
     href: "/admin-dashboard/blog",
     icon: FileText,
   },

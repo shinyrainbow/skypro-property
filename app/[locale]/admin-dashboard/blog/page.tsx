@@ -387,8 +387,8 @@ export default function AdminBlogPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">จัดการบล็อก</h1>
-          <p className="text-gray-600 mt-1">สร้างและจัดการบทความบล็อก</p>
+          <h1 className="text-2xl font-bold text-gray-900">จัดการบทความ</h1>
+          <p className="text-gray-600 mt-1">สร้างและจัดการบทความ</p>
         </div>
         <Button
           onClick={() => handleOpenModal()}

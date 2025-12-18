@@ -135,19 +135,19 @@
     },
     "team": {
       "ceo": {
-        "name": "Somchai Tanawat",
+        "name": "Ratchata Yongrattrakul",
         "role": "CEO & Founder",
-        "description": "With over 20 years of experience in real estate, Somchai leads our team with vision and dedication to excellence."
+        "description": "An executive and founder with over 10 years of experience in real estate business, covering roles as investor, project developer, and real estate investment consultant. Specializing in residential and investment project development in Chiang Mai and Northern Thailand."
       },
-      "director": {
-        "name": "Napat Siriwan",
-        "role": "Sales Director",
-        "description": "Napat brings 15 years of expertise in luxury property sales, helping clients find their perfect investment."
+      "sales": {
+        "name": "Panisara Manori",
+        "role": "Director of Sales",
+        "description": "A sales executive with experience in managing sales teams and developing real estate sales strategies. Expert in analyzing customer needs, designing sales processes, and closing deals aligned with project goals."
       },
-      "manager": {
-        "name": "Krit Pattana",
-        "role": "Property Manager",
-        "description": "Krit ensures all our listings meet the highest standards and provides expert market insights to our clients."
+      "marketing": {
+        "name": "Looksorn Rittaprom",
+        "role": "Director of Marketing",
+        "description": "A marketing executive specializing in comprehensive real estate marketing strategies, including branding, online and offline marketing communications, campaign planning, and sales channel management."
       }
     },
     "cta": {
