@@ -134,7 +134,7 @@ export default function TermsOfServicePage() {
 
               {/* Last Updated */}
               <p className="text-sm text-gray-500 mt-8">
-                {t("terms.lastUpdated")}: 1 มกราคม 2568
+                {t("terms.lastUpdated")}: 19 ธันวาคม 2568
               </p>
             </div>
           </div>

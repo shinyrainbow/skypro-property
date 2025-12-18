@@ -146,7 +146,30 @@ export async function fetchNainaHubProperties(
 export async function fetchNainaHubPropertyById(
   id: string
 ): Promise<NainaHubProperty | null> {
-  // Fetch all properties to find the one by ID
-  const response = await fetchNainaHubProperties({});
-  return response.data.find((p) => p.id === id) || null;
+  const apiKey = process.env["X_API_KEY"];
+
+  if (!apiKey) {
+    throw new Error("X_API_KEY environment variable is not set");
+  }
+
+  // Fetch with no cache to ensure we always get the latest data
+  const searchParams = new URLSearchParams();
+  searchParams.set("userId", NAINAHUB_USER_ID);
+  searchParams.set("limit", "10000"); // Fetch all properties
+
+  const url = `${NAINAHUB_API_URL}?${searchParams.toString()}`;
+
+  const response = await fetch(url, {
+    headers: {
+      "x-api-key": apiKey,
+    },
+    cache: "no-store", // Don't cache single property lookups
+  });
+
+  if (!response.ok) {
+    throw new Error(`NainaHub API error: ${response.status} ${response.statusText}`);
+  }
+
+  const data: NainaHubResponse = await response.json();
+  return data.data.find((p) => p.id === id) || null;
 }

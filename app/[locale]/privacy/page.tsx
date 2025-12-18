@@ -115,7 +115,7 @@ export default function PrivacyPolicyPage() {
 
               {/* Last Updated */}
               <p className="text-sm text-gray-500 mt-8">
-                {t("privacy.lastUpdated")}: 1 มกราคม 2568
+                {t("privacy.lastUpdated")}: 19 ธันวาคม 2568
               </p>
             </div>
           </div>
