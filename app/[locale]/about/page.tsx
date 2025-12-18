@@ -268,7 +268,7 @@ export default function AboutPage() {
                   <p className="text-[#C9A227] font-medium mb-4">
                     {member.role}
                   </p>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed whitespace-pre-line">
                     {member.description}
                   </p>
                 </div>
