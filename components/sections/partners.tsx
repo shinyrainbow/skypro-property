@@ -5,42 +5,66 @@ import { useTranslations } from "next-intl";
 import { Building2, Award, Shield, Handshake } from "lucide-react";
 import Image from "next/image";
 
+function PartnerLogo({ partner }: { partner: { name: string; logo: string; width: number; height: number } }) {
+  const [imageError, setImageError] = useState(false);
+
+  if (imageError) {
+    return (
+      <div className="flex items-center justify-center h-[60px]">
+        <span className="text-gray-700 font-semibold text-sm text-center">{partner.name}</span>
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={partner.logo}
+      alt={partner.name}
+      width={partner.width}
+      height={partner.height}
+      className="object-contain max-h-[60px] grayscale hover:grayscale-0 transition-all duration-300"
+      unoptimized
+      onError={() => setImageError(true)}
+    />
+  );
+}
+
 const partners = [
   {
     name: "Sansiri",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Logo_of_Sansiri_%28en%29.svg/512px-Logo_of_Sansiri_%28en%29.svg.png",
+    logo: "https://www.sansiri.com/assets/images/logo-sansiri.svg",
     width: 120,
     height: 40
   },
   {
     name: "AP Thailand",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/AP_Thai_Logo.svg/200px-AP_Thai_Logo.svg.png",
-    width: 60,
-    height: 60
+    logo: "https://www.apthai.com/images/logo.png",
+    width: 80,
+    height: 50
   },
   {
     name: "Land & Houses",
-    logo: "https://companieslogo.com/img/orig/LH.BK-c2c12e1a.png",
+    logo: "https://www.lh.co.th/images/logo.png",
     width: 100,
     height: 50
   },
   {
     name: "SC Asset",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/SC_Asset_Logo.svg/320px-SC_Asset_Logo.svg.png",
+    logo: "https://www.scasset.com/assets/images/logo.png",
     width: 120,
     height: 40
   },
   {
     name: "Origin",
-    logo: "https://en.origin.co.th/images/logo-origin.png",
+    logo: "https://www.origin.co.th/assets/images/logo-origin.png",
     width: 100,
     height: 40
   },
   {
     name: "Pruksa",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Pruksa_Holding_Logo.svg/200px-Pruksa_Holding_Logo.svg.png",
-    width: 60,
-    height: 60
+    logo: "https://www.pruksa.com/assets/images/logo.png",
+    width: 100,
+    height: 40
   },
 ];
 
@@ -121,14 +145,7 @@ export default function PartnersSection() {
                   className="shrink-0 mx-8 flex items-center justify-center"
                 >
                   <div className="bg-gray-50 hover:bg-[#C9A227]/5 border border-gray-100 hover:border-[#C9A227]/30 rounded-xl px-8 py-6 transition-all duration-300 min-w-[180px] h-[100px] flex items-center justify-center">
-                    <Image
-                      src={partner.logo}
-                      alt={partner.name}
-                      width={partner.width}
-                      height={partner.height}
-                      className="object-contain max-h-[60px] grayscale hover:grayscale-0 transition-all duration-300"
-                      unoptimized
-                    />
+                    <PartnerLogo partner={partner} />
                   </div>
                 </div>
               ))}

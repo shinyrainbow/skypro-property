@@ -26,6 +26,38 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.s3.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
+      {
+        protocol: "https",
+        hostname: "companieslogo.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.sansiri.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.apthai.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.lh.co.th",
+      },
+      {
+        protocol: "https",
+        hostname: "*.scasset.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.origin.co.th",
+      },
+      {
+        protocol: "https",
+        hostname: "*.pruksa.com",
+      },
     ],
   },
 };
