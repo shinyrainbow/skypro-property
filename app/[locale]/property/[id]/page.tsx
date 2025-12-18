@@ -1233,11 +1233,11 @@ export default function PropertyDetailPage() {
                   <div className="space-y-3">
                     {/* Phone Button */}
                     <Button
-                      onClick={() => copyToClipboard("097-942-6395", "phone")}
+                      onClick={() => copyToClipboard("095-692-9788", "phone")}
                       className="w-full bg-[#C9A227] hover:bg-[#A88B1F] text-white py-6 text-base font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
                     >
                       <Phone className="w-5 h-5 mr-2" />
-                      {copiedText === "phone" ? "คัดลอกแล้ว!" : "097-942-6395"}
+                      {copiedText === "phone" ? "คัดลอกแล้ว!" : "095-692-9788"}
                     </Button>
                     <Button
                       variant="outline"

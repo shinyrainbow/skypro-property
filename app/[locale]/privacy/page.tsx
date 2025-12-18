@@ -107,9 +107,9 @@ export default function PrivacyPolicyPage() {
                   {t("privacy.contact.content")}
                 </p>
                 <div className="space-y-2 text-gray-600">
-                  <p><strong>{t("privacy.contact.company")}:</strong> Sky Pro Property Co., Ltd.</p>
-                  <p><strong>{t("privacy.contact.email")}:</strong> contact@skyproperty.co.th</p>
-                  <p><strong>{t("privacy.contact.phone")}:</strong> 091-8599695</p>
+                  <p><strong>{t("privacy.contact.company")}:</strong>SKY PRO PROPERTIES COMPANY LIMITED</p>
+                  <p><strong>{t("privacy.contact.email")}:</strong>skyproofficial88@gmail.com</p>
+                  <p><strong>{t("privacy.contact.phone")}:</strong>095-692-9788</p>
                 </div>
               </section>
 
