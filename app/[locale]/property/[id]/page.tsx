@@ -494,14 +494,38 @@ export default function PropertyDetailPage() {
     setFormSubmitting(true);
     setFormError("");
 
-    // Simulate API call with delay
-    setTimeout(() => {
-      setFormSuccess(true);
-      setContactForm({ name: "", phone: "", message: "" });
+    try {
+      const response = await fetch("/api/public/inquiries", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          propertyId: property?.id,
+          propertyCode: property?.agentPropertyCode,
+          propertyTitle: getPropertyTitle(property),
+          name: contactForm.name.trim(),
+          phone: contactForm.phone.trim(),
+          message: contactForm.message.trim() || null,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormSuccess(true);
+        setContactForm({ name: "", phone: "", message: "" });
+        // Reset success message after 5 seconds
+        setTimeout(() => setFormSuccess(false), 5000);
+      } else {
+        setFormError(data.error || "Failed to submit inquiry");
+      }
+    } catch (error) {
+      console.error("Error submitting inquiry:", error);
+      setFormError("Failed to submit inquiry. Please try again.");
+    } finally {
       setFormSubmitting(false);
-      // Reset success message after 5 seconds
-      setTimeout(() => setFormSuccess(false), 5000);
-    }, 500);
+    }
   };
 
   // Trigger entrance animation
