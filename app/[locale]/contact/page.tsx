@@ -29,9 +29,9 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: t("contactPage.phone"),
-      details: ["063-956-2446"],
+      details: ["095-692-9788"],
       color: "from-green-500 to-green-600",
-      links: ["tel:0639562446"],
+      links: ["tel:0956929788"],
     },
     {
       icon: MapPin,

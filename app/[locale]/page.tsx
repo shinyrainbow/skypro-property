@@ -1439,7 +1439,7 @@ export default function PublicPropertiesPage() {
                     }}
                   >
                     <Phone className="w-3.5 h-3.5 mr-1.5" />
-                    063-956-2446
+                    095-692-9788
                   </Button>
                   <Button
                     variant="glass"

@@ -63,7 +63,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li className="flex items-start gap-2">
                 <Phone className="w-3 h-3 text-[#C9A227] mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400 text-xs">063-956-2446</span>
+                <span className="text-gray-400 text-xs">095-692-9788</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-3 h-3 text-[#C9A227] mt-0.5 flex-shrink-0" />
