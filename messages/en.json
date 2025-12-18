@@ -66,7 +66,9 @@
     "blog": "Blog",
     "about": "About Us",
     "contact": "Contact",
-    "premiumRealEstate": "Premium Real Estate"
+    "premiumRealEstate": "Premium Real Estate",
+    "viewAllRentals": "View All Rentals",
+    "viewAllForSale": "View All For Sale"
   },
   "about": {
     "hero": {

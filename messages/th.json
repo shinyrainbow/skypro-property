@@ -66,7 +66,9 @@
     "blog": "บทความ",
     "about": "เกี่ยวกับเรา",
     "contact": "ติดต่อ",
-    "premiumRealEstate": "Premium Real Estate"
+    "premiumRealEstate": "Premium Real Estate",
+    "viewAllRentals": "ดูทั้งหมดสำหรับเช่า",
+    "viewAllForSale": "ดูทั้งหมดสำหรับขาย"
   },
   "about": {
     "hero": {

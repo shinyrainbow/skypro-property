@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
-import { X } from "lucide-react";
+import { X, ChevronDown, Home, LandPlot, Store } from "lucide-react";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./language-switcher";
 
@@ -11,11 +11,54 @@ interface HeaderProps {
   transparent?: boolean;
 }
 
+interface PropertyCategory {
+  label: string;
+  icon: typeof Home;
+  items: { value: string; label: string }[];
+}
+
 export default function Header({ transparent = false }: HeaderProps) {
   const t = useTranslations("nav");
+  const tPropertyTypes = useTranslations("propertyTypes");
   const [scrollY, setScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileExpandedMenu, setMobileExpandedMenu] = useState<string | null>(null);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Property type categories for dropdown
+  const propertyCategories: Record<string, PropertyCategory> = {
+    living: {
+      label: tPropertyTypes("main.living"),
+      icon: Home,
+      items: [
+        { value: "Condo", label: tPropertyTypes("sub.condo") },
+        { value: "Townhouse", label: tPropertyTypes("sub.townhouse") },
+        { value: "SingleHouse", label: tPropertyTypes("sub.singleHouse") },
+        { value: "Villa", label: tPropertyTypes("sub.villa") },
+      ],
+    },
+    land: {
+      label: tPropertyTypes("main.land"),
+      icon: LandPlot,
+      items: [
+        { value: "Land", label: tPropertyTypes("sub.land") },
+      ],
+    },
+    commercial: {
+      label: tPropertyTypes("main.commercial"),
+      icon: Store,
+      items: [
+        { value: "Office", label: tPropertyTypes("sub.office") },
+        { value: "Store", label: tPropertyTypes("sub.store") },
+        { value: "Factory", label: tPropertyTypes("sub.factory") },
+        { value: "Hotel", label: tPropertyTypes("sub.hotel") },
+        { value: "Building", label: tPropertyTypes("sub.building") },
+        { value: "Apartment", label: tPropertyTypes("sub.apartment") },
+      ],
+    },
+  };
 
   useEffect(() => {
     // Check if animation was already played (e.g., before language switch)
@@ -36,22 +79,46 @@ export default function Header({ transparent = false }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.nav-dropdown')) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   const isScrolled = scrollY > 50;
 
-  const leftNavLinks = [
-    { href: "/search?listingType=rent", label: t("rent") },
-    { href: "/search?listingType=sale", label: t("sale") },
-    { href: "/map-search", label: t("mapSearch") },
-  ];
+  const handleMouseEnter = (dropdownKey: string) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setOpenDropdown(dropdownKey);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 150);
+  };
 
   const rightNavLinks = [
+    { href: "/map-search", label: t("mapSearch") },
     { href: "/list-property", label: t("listProperty") },
     { href: "/about", label: t("about") },
     { href: "/blog", label: t("blog") },
     { href: "/contact", label: t("contact") },
   ];
 
-  const allNavLinks = [...leftNavLinks, ...rightNavLinks];
+  // Dropdown menu items for Rent and Buy
+  const dropdownMenus = [
+    { key: "rent", label: t("rent"), listingType: "rent" },
+    { key: "sale", label: t("sale"), listingType: "sale" },
+  ];
 
   return (
     <>
@@ -97,7 +164,72 @@ export default function Header({ transparent = false }: HeaderProps) {
 
             {/* Center - Navigation */}
             <div className="flex items-center justify-center gap-6">
-              {allNavLinks.map((link) => (
+              {/* Rent and Buy dropdowns */}
+              {dropdownMenus.map((menu) => (
+                <div
+                  key={menu.key}
+                  className="relative nav-dropdown"
+                  onMouseEnter={() => handleMouseEnter(menu.key)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <Link
+                    href={`/search?listingType=${menu.listingType}`}
+                    className="flex items-center gap-1 text-xs font-medium tracking-wider uppercase text-white/70 hover:text-[#C9A227] transition-colors duration-200 whitespace-nowrap py-4"
+                  >
+                    {menu.label}
+                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openDropdown === menu.key ? 'rotate-180' : ''}`} />
+                  </Link>
+
+                  {/* Dropdown Menu */}
+                  <div
+                    className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200 ${
+                      openDropdown === menu.key
+                        ? 'opacity-100 visible translate-y-0'
+                        : 'opacity-0 invisible -translate-y-2'
+                    }`}
+                  >
+                    <div className="bg-[#0A0E1A] border border-white/10 rounded-lg shadow-xl shadow-black/30 min-w-[280px] overflow-hidden">
+                      {/* View All Link */}
+                      <Link
+                        href={`/search?listingType=${menu.listingType}`}
+                        className="block px-4 py-3 text-sm text-[#C9A227] hover:bg-white/5 border-b border-white/10 font-medium"
+                        onClick={() => setOpenDropdown(null)}
+                      >
+                        {menu.listingType === "rent" ? t("viewAllRentals") : t("viewAllForSale")}
+                      </Link>
+
+                      {/* Property Categories */}
+                      {Object.entries(propertyCategories).map(([categoryKey, category]) => (
+                        <div key={categoryKey} className="border-b border-white/5 last:border-b-0">
+                          {/* Category Header */}
+                          <div className="flex items-center gap-2 px-4 py-2 bg-white/5">
+                            <category.icon className="w-4 h-4 text-[#C9A227]" />
+                            <span className="text-xs font-semibold text-white/50 uppercase tracking-wider">
+                              {category.label}
+                            </span>
+                          </div>
+                          {/* Category Items */}
+                          <div className="py-1">
+                            {category.items.map((item) => (
+                              <Link
+                                key={item.value}
+                                href={`/search?listingType=${menu.listingType}&propertyType=${item.value}`}
+                                className="block px-4 py-2 text-sm text-white/70 hover:text-[#C9A227] hover:bg-white/5 transition-colors"
+                                onClick={() => setOpenDropdown(null)}
+                              >
+                                {item.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* Other nav links */}
+              {rightNavLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -161,12 +293,12 @@ export default function Header({ transparent = false }: HeaderProps) {
         />
 
         {/* Menu Panel - Dark Mode */}
-        <div className={`absolute top-0 right-0 h-full w-72 max-w-[80vw] bg-[#111928] border-l border-white/10 transition-transform duration-300 ${
+        <div className={`absolute top-0 right-0 h-full w-72 max-w-[80vw] bg-[#111928] border-l border-white/10 transition-transform duration-300 overflow-y-auto ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}>
           {/* Close button */}
           <button
-            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-white/10 transition-colors"
+            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-white/10 transition-colors z-10"
             onClick={() => setMobileMenuOpen(false)}
           >
             <X className="w-5 h-5 text-white" />
@@ -196,14 +328,69 @@ export default function Header({ transparent = false }: HeaderProps) {
 
           {/* Nav Links */}
           <div className="px-4 py-6 space-y-1">
-            {allNavLinks.map((link, index) => (
+            {/* Rent and Buy with expandable submenus */}
+            {dropdownMenus.map((menu, index) => (
+              <div key={menu.key}>
+                <div className="flex items-center">
+                  <Link
+                    href={`/search?listingType=${menu.listingType}`}
+                    className={`flex-1 py-3 px-4 text-white/80 hover:text-[#C9A227] font-medium text-sm ${
+                      mobileMenuOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                    }`}
+                    style={{ transitionDelay: mobileMenuOpen ? `${index * 40 + 80}ms` : "0ms" }}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {menu.label}
+                  </Link>
+                  <button
+                    className="p-3 text-white/60 hover:text-[#C9A227] transition-colors"
+                    onClick={() => setMobileExpandedMenu(mobileExpandedMenu === menu.key ? null : menu.key)}
+                  >
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpandedMenu === menu.key ? 'rotate-180' : ''}`} />
+                  </button>
+                </div>
+
+                {/* Expandable submenu */}
+                <div className={`overflow-hidden transition-all duration-300 ${
+                  mobileExpandedMenu === menu.key ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+                }`}>
+                  <div className="pl-4 pb-2 space-y-1">
+                    {Object.entries(propertyCategories).map(([categoryKey, category]) => (
+                      <div key={categoryKey}>
+                        {/* Category Header */}
+                        <div className="flex items-center gap-2 px-4 py-2 text-white/40">
+                          <category.icon className="w-3 h-3" />
+                          <span className="text-xs font-semibold uppercase tracking-wider">
+                            {category.label}
+                          </span>
+                        </div>
+                        {/* Category Items */}
+                        {category.items.map((item) => (
+                          <Link
+                            key={item.value}
+                            href={`/search?listingType=${menu.listingType}&propertyType=${item.value}`}
+                            className="block py-2 px-8 text-sm text-white/60 hover:text-[#C9A227] transition-colors"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Other nav links */}
+            {rightNavLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`block py-3 px-4 text-white/80 hover:bg-white/5 hover:text-[#C9A227] rounded-lg transition-all duration-200 font-medium text-sm ${
                   mobileMenuOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
                 }`}
-                style={{ transitionDelay: mobileMenuOpen ? `${index * 40 + 80}ms` : "0ms" }}
+                style={{ transitionDelay: mobileMenuOpen ? `${(index + dropdownMenus.length) * 40 + 80}ms` : "0ms" }}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
