@@ -12,14 +12,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const titles: Record<string, string> = {
     th: "ค้นหาอสังหาริมทรัพย์บนแผนที่ | Sky Pro Property",
     en: "Map Search Properties | Sky Pro Property",
-    ja: "地図で物件検索 | Sky Pro Property",
     zh: "地图搜索房产 | Sky Pro Property",
   };
 
   const descriptions: Record<string, string> = {
     th: "ค้นหาคอนโด บ้านเดี่ยว ทาวน์เฮ้าส์ ที่ดิน และอสังหาริมทรัพย์อื่นๆ บนแผนที่แบบ Interactive ค้นหาตามทำเลที่ต้องการได้ง่ายๆ",
     en: "Search for condos, single houses, townhouses, land and other properties on an interactive map. Easily find properties in your desired location.",
-    ja: "インタラクティブマップでコンドミニアム、一戸建て、タウンハウス、土地などを検索。希望のエリアで物件を簡単に探せます。",
     zh: "在互动地图上搜索公寓、独栋别墅、联排别墅、土地等房产。轻松找到您理想位置的房产。",
   };
 
@@ -68,7 +66,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         "th-TH": "https://skyproproperties.com/th/map-search",
         "en-US": "https://skyproproperties.com/en/map-search",
-        "ja-JP": "https://skyproproperties.com/ja/map-search",
         "zh-CN": "https://skyproproperties.com/zh/map-search",
       },
     },

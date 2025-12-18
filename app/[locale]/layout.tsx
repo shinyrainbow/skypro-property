@@ -111,7 +111,6 @@ export const metadata: Metadata = {
       "th-TH": "https://skyproproperties.com",
       "en-US": "https://skyproproperties.com/en",
       "zh-CN": "https://skyproproperties.com/zh",
-      "ja-JP": "https://skyproproperties.com/ja",
     },
   },
   category: "real estate",

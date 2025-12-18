@@ -72,7 +72,6 @@ interface Property {
   note?: string | null;
   noteEn?: string | null;
   noteZh?: string | null;
-  noteJa?: string | null;
 }
 
 // Mock property data for new projects
@@ -431,7 +430,7 @@ export default function PropertyDetailPage() {
       ? (property.propertyTitleEn || property.propertyTitleTh || "")
       : (property.propertyTitleTh || property.propertyTitleEn || "");
   };
-  const getNote = (property: { note?: string | null; noteEn?: string | null; noteZh?: string | null; noteJa?: string | null } | null | undefined) => {
+  const getNote = (property: { note?: string | null; noteEn?: string | null; noteZh?: string | null } | null | undefined) => {
     if (!property) return "";
 
     switch (locale) {
@@ -439,8 +438,6 @@ export default function PropertyDetailPage() {
         return property.noteEn || property.note || "";
       case "zh":
         return property.noteZh || property.noteEn || property.note || "";
-      case "ja":
-        return property.noteJa || property.noteEn || property.note || "";
       case "th":
       default:
         return property.note || property.noteEn || "";
