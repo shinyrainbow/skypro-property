@@ -288,12 +288,23 @@ export default function PublicPropertiesPage() {
   useEffect(() => {
     const loadInitialData = async () => {
       try {
-        // Load all properties to get popular ones and generate projects
+        // Load all properties to generate projects and closed deals
         const response = await fetchPropertiesFromAPI({});
 
-        // Get latest 10 properties as "popular"
-        const popular = response.data.slice(0, 10);
-        setPopularProperties(popular);
+        // Fetch popular properties from API (marked as isFeaturedPopular in database)
+        try {
+          const popularResponse = await fetch("/api/public/popular");
+          const popularData = await popularResponse.json();
+          if (popularData.success && popularData.data.length > 0) {
+            setPopularProperties(popularData.data);
+          } else {
+            // Fallback: if no properties marked as popular, show latest 10
+            setPopularProperties(response.data.slice(0, 10));
+          }
+        } catch {
+          // Fallback on error
+          setPopularProperties(response.data.slice(0, 10));
+        }
 
         // Get closed deals (sold/rented properties) - limit to 10
         const closed = response.data
