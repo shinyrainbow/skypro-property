@@ -1303,7 +1303,7 @@ export default function PublicPropertiesPage() {
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div
-            className={`mb-12 text-center md:text-left transition-all duration-700 ${
+            className={`mb-12 text-center transition-all duration-700 ${
               isVisible["how-it-works"]
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"

@@ -107,7 +107,7 @@ export default function Header({ transparent = false }: HeaderProps) {
   };
 
   const rightNavLinks = [
-    { href: "/map-search", label: t("mapSearch") },
+    { href: "/map-search", label: t("mapSearch"), hideOnMobile: true },
     { href: "/list-property", label: t("listProperty") },
     { href: "/about", label: t("about") },
     { href: "/blog", label: t("blog") },
@@ -388,7 +388,7 @@ export default function Header({ transparent = false }: HeaderProps) {
             ))}
 
             {/* Other nav links */}
-            {rightNavLinks.map((link, index) => (
+            {rightNavLinks.filter(link => !link.hideOnMobile).map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
