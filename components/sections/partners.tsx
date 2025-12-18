@@ -3,14 +3,45 @@
 import { useEffect, useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Building2, Award, Shield, Handshake } from "lucide-react";
+import Image from "next/image";
 
 const partners = [
-  { name: "Sansiri", type: "Developer" },
-  { name: "AP Thailand", type: "Developer" },
-  { name: "Land & Houses", type: "Developer" },
-  { name: "SC Asset", type: "Developer" },
-  { name: "Origin", type: "Developer" },
-  { name: "Pruksa", type: "Developer" },
+  {
+    name: "Sansiri",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Logo_of_Sansiri_%28en%29.svg/512px-Logo_of_Sansiri_%28en%29.svg.png",
+    width: 120,
+    height: 40
+  },
+  {
+    name: "AP Thailand",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/AP_Thai_Logo.svg/200px-AP_Thai_Logo.svg.png",
+    width: 60,
+    height: 60
+  },
+  {
+    name: "Land & Houses",
+    logo: "https://companieslogo.com/img/orig/LH.BK-c2c12e1a.png",
+    width: 100,
+    height: 50
+  },
+  {
+    name: "SC Asset",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/SC_Asset_Logo.svg/320px-SC_Asset_Logo.svg.png",
+    width: 120,
+    height: 40
+  },
+  {
+    name: "Origin",
+    logo: "https://en.origin.co.th/images/logo-origin.png",
+    width: 100,
+    height: 40
+  },
+  {
+    name: "Pruksa",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Pruksa_Holding_Logo.svg/200px-Pruksa_Holding_Logo.svg.png",
+    width: 60,
+    height: 60
+  },
 ];
 
 export default function PartnersSection() {
@@ -87,11 +118,17 @@ export default function PartnersSection() {
               {[...partners, ...partners].map((partner, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 mx-8 flex items-center justify-center"
+                  className="shrink-0 mx-8 flex items-center justify-center"
                 >
-                  <div className="bg-gray-50 hover:bg-[#C9A227]/5 border border-gray-100 hover:border-[#C9A227]/30 rounded-xl px-8 py-4 transition-all duration-300 min-w-[160px]">
-                    <div className="text-lg font-bold text-gray-700">{partner.name}</div>
-                    <div className="text-xs text-gray-400">{partner.type}</div>
+                  <div className="bg-gray-50 hover:bg-[#C9A227]/5 border border-gray-100 hover:border-[#C9A227]/30 rounded-xl px-8 py-6 transition-all duration-300 min-w-[180px] h-[100px] flex items-center justify-center">
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      width={partner.width}
+                      height={partner.height}
+                      className="object-contain max-h-[60px] grayscale hover:grayscale-0 transition-all duration-300"
+                      unoptimized
+                    />
                   </div>
                 </div>
               ))}
