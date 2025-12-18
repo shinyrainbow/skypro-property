@@ -104,6 +104,9 @@ export async function fetchNainaHubProperties(
   // Always include userId
   searchParams.set("userId", NAINAHUB_USER_ID);
 
+  // Set high default limit to get all properties (NainaHub defaults to only 12)
+  searchParams.set("limit", (params.limit || 10000).toString());
+
   if (params.q) searchParams.set("q", params.q);
   if (params.propertyType) searchParams.set("propertyType", params.propertyType);
   if (params.listingType) searchParams.set("listingType", params.listingType);
@@ -111,7 +114,6 @@ export async function fetchNainaHubProperties(
   if (params.maxPrice) searchParams.set("maxPrice", params.maxPrice.toString());
   if (params.bedrooms) searchParams.set("bedrooms", params.bedrooms.toString());
   if (params.page) searchParams.set("page", params.page.toString());
-  if (params.limit) searchParams.set("limit", params.limit.toString());
 
   const url = `${NAINAHUB_API_URL}?${searchParams.toString()}`;
 
@@ -126,7 +128,15 @@ export async function fetchNainaHubProperties(
     throw new Error(`NainaHub API error: ${response.status} ${response.statusText}`);
   }
 
-  return response.json();
+  const data = await response.json();
+
+  // Debug: Log property types from API
+  console.log("=== NainaHub API Response ===");
+  console.log("Total properties:", data.pagination?.total);
+  console.log("Property types:", data.data?.map((p: NainaHubProperty) => p.propertyType));
+  console.log("Unique property types:", [...new Set(data.data?.map((p: NainaHubProperty) => p.propertyType))]);
+
+  return data;
 }
 
 /**

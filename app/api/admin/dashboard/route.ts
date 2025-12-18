@@ -82,26 +82,46 @@ export async function GET() {
       totalInquiries: inquiryStats.reduce((sum, i) => sum + i._count, 0),
     };
 
-    // Property type distribution from real data
-    const propertyTypeDistribution: Record<string, number> = {
-      Condo: 0,
-      Townhouse: 0,
-      SingleHouse: 0,
-      Villa: 0,
-      Land: 0,
-      Apartment: 0,
-      Office: 0,
-      Store: 0,
-      Factory: 0,
-      Hotel: 0,
-      Building: 0,
+    // Property type labels in Thai
+    const propertyTypeLabels: Record<string, string> = {
+      Condo: "คอนโด",
+      Townhouse: "ทาวน์เฮ้าส์",
+      SingleHouse: "บ้านเดี่ยว",
+      Villa: "วิลล่า",
+      Land: "ที่ดิน",
+      Apartment: "อพาร์ทเม้นท์",
+      Office: "สำนักงาน",
+      Store: "ร้านค้า",
+      Factory: "โรงงาน",
+      Hotel: "โรงแรม",
+      Building: "อาคาร",
     };
 
+    // Property type distribution from real data - count dynamically
+    const propertyTypeDistribution: Record<string, { count: number; label: string }> = {};
+
+    // Initialize with all known types
+    Object.entries(propertyTypeLabels).forEach(([key, label]) => {
+      propertyTypeDistribution[key] = { count: 0, label };
+    });
+
+    // Count properties by type
     properties.forEach((p) => {
-      if (p.propertyType && propertyTypeDistribution[p.propertyType] !== undefined) {
-        propertyTypeDistribution[p.propertyType]++;
+      if (p.propertyType) {
+        if (propertyTypeDistribution[p.propertyType]) {
+          propertyTypeDistribution[p.propertyType].count++;
+        } else {
+          // Handle unknown property types
+          propertyTypeDistribution[p.propertyType] = {
+            count: 1,
+            label: propertyTypeLabels[p.propertyType] || p.propertyType
+          };
+        }
       }
     });
+
+    // Log property types for debugging
+    console.log("Property types from API:", properties.map(p => p.propertyType));
 
     // Listing type distribution
     const listingDistribution = {

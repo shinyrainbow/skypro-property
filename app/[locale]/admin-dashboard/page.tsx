@@ -43,7 +43,7 @@ interface DashboardData {
       projectNameEn: string;
     } | null;
   }>;
-  propertyTypeDistribution: Record<string, number>;
+  propertyTypeDistribution: Record<string, { count: number; label: string }>;
   listingDistribution: {
     rent: number;
     sale: number;
@@ -98,7 +98,14 @@ export default function AdminDashboardPage() {
       Condo: "คอนโด",
       Townhouse: "ทาวน์เฮ้าส์",
       SingleHouse: "บ้านเดี่ยว",
+      Villa: "วิลล่า",
       Land: "ที่ดิน",
+      Apartment: "อพาร์ทเม้นท์",
+      Office: "สำนักงาน",
+      Store: "ร้านค้า",
+      Factory: "โรงงาน",
+      Hotel: "โรงแรม",
+      Building: "อาคาร",
     };
     return labels[type] || type;
   };
@@ -249,26 +256,29 @@ export default function AdminDashboardPage() {
           </h3>
           <div className="space-y-4">
             {Object.entries(data.propertyTypeDistribution).map(
-              ([type, count]) => {
+              ([type, typeData]) => {
+                const count = typeof typeData === 'object' ? typeData.count : typeData;
+                const label = typeof typeData === 'object' ? typeData.label : getPropertyTypeLabel(type);
                 const total = data.stats.totalProperties;
                 const percentage = total > 0 ? (count / total) * 100 : 0;
-                const labels: Record<string, string> = {
-                  Condo: "คอนโด",
-                  Townhouse: "ทาวน์เฮ้าส์",
-                  SingleHouse: "บ้านเดี่ยว",
-                  Land: "ที่ดิน",
-                };
                 const colors: Record<string, string> = {
                   Condo: "bg-blue-500",
                   Townhouse: "bg-green-500",
                   SingleHouse: "bg-purple-500",
+                  Villa: "bg-pink-500",
                   Land: "bg-amber-500",
+                  Apartment: "bg-cyan-500",
+                  Office: "bg-indigo-500",
+                  Store: "bg-orange-500",
+                  Factory: "bg-slate-500",
+                  Hotel: "bg-rose-500",
+                  Building: "bg-teal-500",
                 };
                 return (
                   <div key={type}>
                     <div className="flex justify-between text-sm mb-1">
                       <span className="text-gray-700">
-                        {labels[type] || type}
+                        {label}
                       </span>
                       <span className="text-gray-500">
                         {count} ({percentage.toFixed(0)}%)
