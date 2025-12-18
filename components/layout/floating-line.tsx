@@ -49,7 +49,7 @@ export default function FloatingLine() {
             </div>
             <div className="bg-[#06C755]/5 rounded-xl p-6 flex justify-center">
               <Image
-                src="/qrcode.png"
+                src="/skyproqrcode.png"
                 alt="Line QR Code"
                 width={200}
                 height={200}
