@@ -3,7 +3,7 @@ import { getClosedDeals } from "@/lib/data";
 
 export async function GET() {
   try {
-    const closedDeals = getClosedDeals(8);
+    const closedDeals = getClosedDeals();
     return NextResponse.json({
       success: true,
       data: closedDeals,

@@ -248,9 +248,7 @@ export async function getAllExtensions(): Promise<PropertyExtensionWithRelations
  * Get popular properties (marked as featured popular)
  * Returns enhanced properties with API data merged
  */
-export async function getPopularProperties(
-  limit: number = 8
-): Promise<EnhancedProperty[]> {
+export async function getPopularProperties(): Promise<EnhancedProperty[]> {
   // 1. Get extensions marked as popular
   const popularExtensions = await prisma.propertyExtension.findMany({
     where: {
@@ -262,7 +260,6 @@ export async function getPopularProperties(
       tags: true,
     },
     orderBy: { priority: "desc" },
-    take: limit,
   });
 
   if (popularExtensions.length === 0) {
@@ -314,9 +311,7 @@ export async function markAsPopular(
  * Get closed deals (sold or rented properties)
  * Uses the status field from NainaHub API to determine closed deals
  */
-export async function getClosedDeals(
-  limit: number = 8
-): Promise<EnhancedProperty[]> {
+export async function getClosedDeals(): Promise<EnhancedProperty[]> {
   // 1. Fetch all properties from API
   const apiResponse = await fetchNainaHubProperties({});
 
@@ -350,13 +345,11 @@ export async function getClosedDeals(
     extensions.map((e) => [e.externalPropertyId, e])
   );
 
-  // 5. Merge and return (limited)
-  const closedDeals: EnhancedProperty[] = closedProperties
-    .slice(0, limit)
-    .map((property) => ({
-      ...property,
-      extension: extensionMap.get(property.id) || null,
-    }));
+  // 5. Merge and return
+  const closedDeals: EnhancedProperty[] = closedProperties.map((property) => ({
+    ...property,
+    extension: extensionMap.get(property.id) || null,
+  }));
 
   return closedDeals;
 }

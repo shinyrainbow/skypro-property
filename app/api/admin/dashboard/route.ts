@@ -87,11 +87,18 @@ export async function GET() {
       Condo: 0,
       Townhouse: 0,
       SingleHouse: 0,
+      Villa: 0,
       Land: 0,
+      Apartment: 0,
+      Office: 0,
+      Store: 0,
+      Factory: 0,
+      Hotel: 0,
+      Building: 0,
     };
 
     properties.forEach((p) => {
-      if (propertyTypeDistribution[p.propertyType] !== undefined) {
+      if (p.propertyType && propertyTypeDistribution[p.propertyType] !== undefined) {
         propertyTypeDistribution[p.propertyType]++;
       }
     });
@@ -111,8 +118,8 @@ export async function GET() {
       ).length,
     };
 
-    // Recent properties (first 5 from API)
-    const recentProperties = properties.slice(0, 5).map((p) => ({
+    // Recent properties from API
+    const recentProperties = properties.map((p) => ({
       id: p.id,
       propertyTitleTh: p.propertyTitleTh,
       propertyTitleEn: p.propertyTitleEn,
@@ -130,7 +137,6 @@ export async function GET() {
     );
     const propertiesWithPromotions = properties
       .filter((p) => promoPropertyIds.has(p.id))
-      .slice(0, 5)
       .map((p) => ({
         id: p.id,
         propertyTitleTh: p.propertyTitleTh,

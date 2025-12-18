@@ -42,8 +42,7 @@ export async function GET() {
     // Convert to array and sort by count (most properties first)
     const projects = Array.from(projectMap.values())
       .filter((p) => p.image) // Only include projects with images
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 8); // Limit to top 8 projects
+      .sort((a, b) => b.count - a.count);
 
     return NextResponse.json({
       success: true,

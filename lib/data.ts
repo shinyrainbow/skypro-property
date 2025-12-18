@@ -894,19 +894,17 @@ export function getDashboardStats() {
 }
 
 // Get popular properties sorted by views
-export function getPopularProperties(limit: number = 10) {
+export function getPopularProperties() {
   return [...properties]
     .filter((p) => p.status === "active")
-    .sort((a, b) => b.views - a.views)
-    .slice(0, limit);
+    .sort((a, b) => b.views - a.views);
 }
 
 // Get closed deals (sold or rented properties)
-export function getClosedDeals(limit: number = 8) {
+export function getClosedDeals() {
   return [...properties]
     .filter((p) => p.status === "sold" || p.status === "rented")
-    .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-    .slice(0, limit);
+    .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
 }
 
 // Get all unique locations (districts)

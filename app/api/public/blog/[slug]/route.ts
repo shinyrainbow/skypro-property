@@ -82,7 +82,6 @@ export async function GET(
           orderBy: {
             publishedAt: "desc",
           },
-          take: 5,
         })
       : [];
 

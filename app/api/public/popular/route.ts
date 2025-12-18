@@ -3,7 +3,7 @@ import { getPopularProperties } from "@/lib/property-extensions";
 
 export async function GET() {
   try {
-    const popularProperties = await getPopularProperties(10);
+    const popularProperties = await getPopularProperties();
     return NextResponse.json({
       success: true,
       data: popularProperties,
