@@ -1325,14 +1325,14 @@ export default function PublicPropertiesPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
             <div
-              className={`transition-all duration-700 ${
+              className={`text-center transition-all duration-700 ${
                 isVisible["how-it-works"]
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
               }`}
               style={{ transitionDelay: "100ms" }}
             >
-              <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <PhoneCall className="w-7 h-7 text-white" />
               </div>
               <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">
@@ -1347,14 +1347,14 @@ export default function PublicPropertiesPage() {
 
             {/* Step 2 */}
             <div
-              className={`transition-all duration-700 ${
+              className={`text-center transition-all duration-700 ${
                 isVisible["how-it-works"]
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
               }`}
               style={{ transitionDelay: "200ms" }}
             >
-              <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <Home className="w-7 h-7 text-white" />
               </div>
               <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">
@@ -1369,14 +1369,14 @@ export default function PublicPropertiesPage() {
 
             {/* Step 3 */}
             <div
-              className={`transition-all duration-700 ${
+              className={`text-center transition-all duration-700 ${
                 isVisible["how-it-works"]
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
               }`}
               style={{ transitionDelay: "300ms" }}
             >
-              <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-16 h-16 border border-white/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <FileCheck className="w-7 h-7 text-white" />
               </div>
               <p className="text-[#C9A227] text-xs uppercase tracking-wider mb-2">
