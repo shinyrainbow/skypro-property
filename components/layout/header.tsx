@@ -188,34 +188,25 @@ export default function Header({ transparent = false }: HeaderProps) {
                         : 'opacity-0 invisible -translate-y-2'
                     }`}
                   >
-                    <div className="bg-[#0A0E1A] border border-white/10 rounded-lg shadow-xl shadow-black/30 overflow-hidden">
-                      {/* View All Link */}
-                      <Link
-                        href={`/search?listingType=${menu.listingType}`}
-                        className="block px-4 py-3 text-sm text-[#C9A227] hover:bg-white/5 border-b border-white/10 font-medium"
-                        onClick={() => setOpenDropdown(null)}
-                      >
-                        {menu.listingType === "rent" ? t("viewAllRentals") : t("viewAllForSale")}
-                      </Link>
-
+                    <div className="bg-white border border-gray-200 rounded-xl shadow-2xl shadow-black/10 overflow-hidden min-w-[600px]">
                       {/* Property Categories - 3 Column Grid */}
-                      <div className="grid grid-cols-3 gap-0 divide-x divide-white/10">
+                      <div className="grid grid-cols-3 divide-x divide-gray-100 p-4">
                         {Object.entries(propertyCategories).map(([categoryKey, category]) => (
-                          <div key={categoryKey} className="min-w-[160px]">
+                          <div key={categoryKey} className="px-4">
                             {/* Category Header */}
-                            <div className="flex items-center gap-2 px-4 py-2 bg-white/5">
-                              <category.icon className="w-4 h-4 text-[#C9A227]" />
-                              <span className="text-xs font-semibold text-white/50 uppercase tracking-wider whitespace-nowrap">
+                            <div className="flex items-center gap-2 pb-3 mb-2 border-b border-gray-100">
+                              <category.icon className="w-5 h-5 text-[#C9A227]" />
+                              <span className="text-sm font-semibold text-gray-800">
                                 {category.label}
                               </span>
                             </div>
                             {/* Category Items */}
-                            <div className="py-1">
+                            <div className="space-y-1">
                               {category.items.map((item) => (
                                 <Link
                                   key={item.value}
                                   href={`/search?listingType=${menu.listingType}&propertyType=${item.value}`}
-                                  className="block px-4 py-2 text-sm text-white/70 hover:text-[#C9A227] hover:bg-white/5 transition-colors whitespace-nowrap"
+                                  className="block py-2 text-sm text-gray-600 hover:text-[#C9A227] transition-colors whitespace-nowrap"
                                   onClick={() => setOpenDropdown(null)}
                                 >
                                   {item.label}
@@ -224,6 +215,18 @@ export default function Header({ transparent = false }: HeaderProps) {
                             </div>
                           </div>
                         ))}
+                      </div>
+
+                      {/* View All Link at bottom */}
+                      <div className="border-t border-gray-100 px-6 py-3">
+                        <Link
+                          href={`/search?listingType=${menu.listingType}`}
+                          className="inline-flex items-center gap-1 text-sm font-medium text-[#C9A227] hover:text-[#B8931F] transition-colors"
+                          onClick={() => setOpenDropdown(null)}
+                        >
+                          {menu.listingType === "rent" ? t("viewAllRentals") : t("viewAllForSale")}
+                          <span className="ml-1">→</span>
+                        </Link>
                       </div>
                     </div>
                   </div>
