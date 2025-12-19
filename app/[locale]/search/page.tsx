@@ -157,7 +157,11 @@ function SearchContent() {
         // console.log("🚀 API call params:", params);
         const response = await fetchPropertiesFromAPI(params);
         // console.log("✅ API response received:", response.data.length, "properties");
-        setAllProperties(response.data);
+        // Filter out sold/rented properties - they only appear in Closed Deals section on landing page
+        const activeProperties = response.data.filter(
+          (p: NainaHubProperty) => p.status !== "sold" && p.status !== "rented"
+        );
+        setAllProperties(activeProperties);
 
         // Generate projects from properties
         const projectsMap = new Map<string, { count: number; image: string; project: any }>();

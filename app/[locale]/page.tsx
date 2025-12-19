@@ -228,8 +228,12 @@ export default function PublicPropertiesPage() {
       }
 
       const response = await fetchPropertiesFromAPI(params);
-      setProperties(response.data);
-      setTotal(response.pagination.total);
+      // Filter out sold/rented properties - they only appear in Closed Deals section
+      const activeProperties = response.data.filter(
+        (p: Property) => p.status !== "sold" && p.status !== "rented"
+      );
+      setProperties(activeProperties);
+      setTotal(activeProperties.length);
     } catch (error) {
       console.error("Error loading properties:", error);
       toast.error("Failed to load properties");
@@ -297,18 +301,28 @@ export default function PublicPropertiesPage() {
         const response = await fetchPropertiesFromAPI({});
 
         // Fetch popular properties from API (marked as isFeaturedPopular in database)
+        // Filter out sold/rented - they only appear in Closed Deals section
         try {
           const popularResponse = await fetch("/api/public/popular");
           const popularData = await popularResponse.json();
           if (popularData.success && popularData.data.length > 0) {
-            setPopularProperties(popularData.data);
+            const activePopular = popularData.data.filter(
+              (p: NainaHubProperty) => p.status !== "sold" && p.status !== "rented"
+            );
+            setPopularProperties(activePopular);
           } else {
-            // Fallback: if no properties marked as popular, show latest 10
-            setPopularProperties(response.data.slice(0, 10));
+            // Fallback: if no properties marked as popular, show latest 10 (excluding sold/rented)
+            const activeProperties = response.data.filter(
+              (p: NainaHubProperty) => p.status !== "sold" && p.status !== "rented"
+            );
+            setPopularProperties(activeProperties.slice(0, 10));
           }
         } catch {
-          // Fallback on error
-          setPopularProperties(response.data.slice(0, 10));
+          // Fallback on error (excluding sold/rented)
+          const activeProperties = response.data.filter(
+            (p: NainaHubProperty) => p.status !== "sold" && p.status !== "rented"
+          );
+          setPopularProperties(activeProperties.slice(0, 10));
         }
 
         // Get closed deals (sold/rented properties) - limit to 10
