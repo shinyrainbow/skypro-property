@@ -31,40 +31,40 @@ function PartnerLogo({ partner }: { partner: { name: string; logo: string; width
 
 const partners = [
   {
-    name: "Sansiri",
-    logo: "https://www.sansiri.com/assets/images/logo-sansiri.svg",
+    name: "Partner 1",
+    logo: "/partners/598171437_1176571214583077_5321248906695541238_n.png",
     width: 120,
-    height: 40
+    height: 60
   },
   {
-    name: "AP Thailand",
-    logo: "https://www.apthai.com/images/logo.png",
-    width: 80,
-    height: 50
-  },
-  {
-    name: "Land & Houses",
-    logo: "https://www.lh.co.th/images/logo.png",
-    width: 100,
-    height: 50
-  },
-  {
-    name: "SC Asset",
-    logo: "https://www.scasset.com/assets/images/logo.png",
+    name: "Partner 2",
+    logo: "/partners/598259224_1593078181865218_3370460755140398818_n.jpg",
     width: 120,
-    height: 40
+    height: 60
   },
   {
-    name: "Origin",
-    logo: "https://cdn.brandfetch.io/idyhwbggA4/w/199/h/53/theme/dark/logo.png",
+    name: "Partner 3",
+    logo: "/partners/598439890_1202751184523719_3799152996255401486_n.jpg",
     width: 120,
-    height: 40
+    height: 60
   },
   {
-    name: "Pruksa",
-    logo: "https://www.pruksa.com/assets/images/logo.png",
-    width: 100,
-    height: 40
+    name: "Partner 4",
+    logo: "/partners/598729591_2632539903798795_1293775410670672503_n.jpg",
+    width: 120,
+    height: 60
+  },
+  {
+    name: "Partner 5",
+    logo: "/partners/599219620_826717423699741_4765128214962327717_n.jpg",
+    width: 120,
+    height: 60
+  },
+  {
+    name: "Partner 6",
+    logo: "/partners/599606573_881346791056484_7328986234582212699_n.jpg",
+    width: 120,
+    height: 60
   },
 ];
 
