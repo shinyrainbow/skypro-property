@@ -32,7 +32,7 @@ function PartnerLogo({ partner }: { partner: { name: string; logo: string; width
 const partners = [
   {
     name: "Partner 1",
-    logo: "/partners/598171437_1176571214583077_5321248906695541238_n.png",
+    logo: "/partners/598008090_1400789300877156_9159114071346676290_n.jpg",
     width: 120,
     height: 60
   },
