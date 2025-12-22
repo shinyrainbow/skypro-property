@@ -22,7 +22,7 @@ function PartnerLogo({ partner }: { partner: { name: string; logo: string; width
       alt={partner.name}
       width={partner.width}
       height={partner.height}
-      className="object-contain max-h-[60px] grayscale hover:grayscale-0 transition-all duration-300"
+      className="object-contain max-h-[60px] transition-all duration-300"
       unoptimized
       onError={() => setImageError(true)}
     />
