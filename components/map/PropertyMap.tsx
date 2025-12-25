@@ -23,32 +23,68 @@ if (typeof window !== "undefined") {
   });
 }
 
-// Create custom marker with count badge
-const createCustomIcon = (count: number) => {
+// Property category colors
+const categoryColors = {
+  living: { fill: "#C9A227", stroke: "#ffffff" },    // Gold - Living (Condo, Townhouse, SingleHouse, Villa)
+  land: { fill: "#22C55E", stroke: "#ffffff" },      // Green - Land
+  commercial: { fill: "#3B82F6", stroke: "#ffffff" }, // Blue - Commercial (Office, Store, Factory, Hotel, Building, Apartment)
+};
+
+// Get category from property type
+const getPropertyCategory = (propertyType: string): "living" | "land" | "commercial" => {
+  if (propertyType === "Land") return "land";
+  if (["Office", "Store", "Factory", "Hotel", "Building", "Apartment"].includes(propertyType)) return "commercial";
+  return "living"; // Condo, Townhouse, SingleHouse, Villa
+};
+
+// Create MapPin SVG with custom color
+const createMapPinSvg = (fillColor: string, strokeColor: string) => {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3" fill="${strokeColor}" stroke="${fillColor}"/></svg>`;
+};
+
+// Create data URL from SVG
+const createMapPinDataUrl = (category: "living" | "land" | "commercial") => {
+  const colors = categoryColors[category];
+  const svg = createMapPinSvg(colors.fill, colors.stroke);
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+};
+
+// Pre-create data URLs for each category
+const mapPinDataUrls = {
+  living: createMapPinDataUrl("living"),
+  land: createMapPinDataUrl("land"),
+  commercial: createMapPinDataUrl("commercial"),
+};
+
+// Create custom marker with count badge based on property category
+const createCustomIcon = (count: number, category: "living" | "land" | "commercial" = "living") => {
   if (typeof window === "undefined") return null;
+
+  const dataUrl = mapPinDataUrls[category];
+  const badgeColor = categoryColors[category].fill;
 
   const html = count > 1
     ? `<div style="position: relative;">
-        <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" style="width: 32px; height: 32px;" />
-        <div style="position: absolute; top: -8px; right: -8px; background: #C9A227; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; border: 2px solid white;">${count}</div>
+        <img src="${dataUrl}" style="width: 36px; height: 36px;" />
+        <div style="position: absolute; top: -6px; right: -6px; background: ${badgeColor}; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">${count}</div>
       </div>`
-    : `<img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" style="width: 32px; height: 32px;" />`;
+    : `<img src="${dataUrl}" style="width: 36px; height: 36px;" />`;
 
   return new L.DivIcon({
     html,
     className: 'custom-marker-icon',
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
+    iconSize: [36, 36],
+    iconAnchor: [18, 36],
+    popupAnchor: [0, -36],
   });
 };
 
-// Custom marker icon (fallback)
+// Custom marker icon (fallback - gold/living)
 const customIcon = typeof window !== "undefined" ? new L.Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/854/854878.png",
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
+  iconUrl: mapPinDataUrls.living,
+  iconSize: [36, 36],
+  iconAnchor: [18, 36],
+  popupAnchor: [0, -36],
 }) : null;
 
 // Helper function to validate coordinates
@@ -282,7 +318,9 @@ export default function PropertyMap({
         if (!isValidCoordinate(group.lat, group.lng)) {
           return null;
         }
-        const icon = createCustomIcon(group.properties.length);
+        // Determine category based on first property's type
+        const category = getPropertyCategory(group.properties[0].propertyType);
+        const icon = createCustomIcon(group.properties.length, category);
         return (
           <Marker
             key={key}
