@@ -327,32 +327,33 @@ function SearchContent() {
       </section>
 
       {/* Projects Quick Select */}
-      <section className="bg-white py-6 border-b border-gray-200">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {projects.map((project) => (
-              <Button
-                key={project.projectCode}
-                variant={
-                  selectedProject === project.projectCode ? "default" : "outline"
-                }
-                className={`transition-all duration-300 ${
-                  selectedProject === project.projectCode
-                    ? "bg-[#C9A227] hover:bg-[#A88B1F] text-white border-[#C9A227]"
-                    : "bg-white border-2 border-gray-200 text-gray-700 hover:border-[#C9A227] hover:bg-[#C9A227]/10 hover:text-[#C9A227]"
-                }`}
-                onClick={() => handleProjectSelect(project.projectCode)}
-              >
-                <Building2 className="w-4 h-4 mr-1" />
-                {getProjectName(project)}
-                <span className="ml-1 text-xs opacity-75">
-                  ({project.count})
-                </span>
-              </Button>
-            ))}
+      {projects.length > 0 && (
+        <section className="bg-white py-4 border-b border-gray-200">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap gap-2 justify-center">
+              {projects.slice(0, 8).map((project) => (
+                <Button
+                  key={project.projectCode}
+                  variant={
+                    selectedProject === project.projectCode ? "default" : "outline"
+                  }
+                  size="sm"
+                  className={`transition-all duration-300 ${
+                    selectedProject === project.projectCode
+                      ? "bg-[#C9A227] hover:bg-[#A88B1F] text-white border-[#C9A227]"
+                      : "bg-white border border-gray-200 text-gray-700 hover:border-[#C9A227] hover:text-[#C9A227]"
+                  }`}
+                  onClick={() => handleProjectSelect(project.projectCode)}
+                >
+                  <Building2 className="w-3 h-3 mr-1" />
+                  <span className="max-w-[120px] truncate">{getProjectName(project)}</span>
+                  <span className="ml-1 text-[10px] opacity-75">({project.count})</span>
+                </Button>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <div className="container mx-auto px-4 py-8">
         {/* Mobile Filter Toggle */}
@@ -633,7 +634,7 @@ function SearchContent() {
 
                         {/* Badges */}
                         <div className="absolute top-2 left-2 flex flex-col gap-1">
-                          <div className="bg-[#C9A227] text-white px-2 py-1 rounded-full text-xs font-semibold shadow-lg">
+                          <div className="bg-[#C9A227] text-white px-2 py-1 rounded-full text-[10px] font-semibold shadow-lg max-w-[90px] truncate">
                             {property.propertyType === "Condo"
                               ? t("search.condo")
                               : property.propertyType === "Townhouse"
@@ -661,21 +662,21 @@ function SearchContent() {
                         </div>
 
                         {/* Listing Type & Closed Deal Badge */}
-                        <div className="absolute top-2 right-2 flex flex-col gap-1">
+                        <div className="absolute top-2 right-2 flex flex-col gap-1 items-end">
                           {property.status === "sold" || property.status === "rented" ? (
-                            <div className="bg-gray-700 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
+                            <div className="bg-gray-700 text-white px-2 py-1 rounded-full text-[10px] font-bold shadow-lg flex items-center gap-1">
                               <CheckCircle className="w-3 h-3" />
                               {property.status === "sold" ? t("property.sold") : t("property.rented")}
                             </div>
                           ) : (
                             <>
                               {property.rentalRateNum != null && property.rentalRateNum > 0 && (
-                                <div className="bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
+                                <div className="bg-emerald-500 text-white px-2 py-1 rounded-full text-[10px] font-bold shadow-lg">
                                   {t("property.forRent")}
                                 </div>
                               )}
                               {property.sellPriceNum != null && property.sellPriceNum > 0 && (
-                                <div className="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
+                                <div className="bg-amber-500 text-white px-2 py-1 rounded-full text-[10px] font-bold shadow-lg">
                                   {t("property.forSale")}
                                 </div>
                               )}
